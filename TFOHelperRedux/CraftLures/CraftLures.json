@@ -1,0 +1,37 @@
+[
+  {
+    "ID": 1,
+    "Name": "frgfgfg",
+    "LureIDs": [
+      38
+    ],
+    "DipIDs": [],
+    "FishIDs": [],
+    "Rank": 0,
+    "DateEdited": "2025-11-17T20:10:48.7004032+02:00"
+  },
+  {
+    "ID": 2,
+    "Name": "hhhhh",
+    "LureIDs": [
+      39
+    ],
+    "DipIDs": [],
+    "FishIDs": [
+      0
+    ],
+    "Rank": 0,
+    "DateEdited": "2025-11-17T20:10:59.6215115+02:00"
+  },
+  {
+    "ID": 3,
+    "Name": "jjjjjj",
+    "LureIDs": [
+      42
+    ],
+    "DipIDs": [],
+    "FishIDs": [],
+    "Rank": 0,
+    "DateEdited": "2025-11-17T20:11:14.1989312+02:00"
+  }
+]

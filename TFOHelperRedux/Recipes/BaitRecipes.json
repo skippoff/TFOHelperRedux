@@ -1,0 +1,79 @@
+[
+  {
+    "ID": 0,
+    "Name": "папапа",
+    "FeedIDs": [
+      0
+    ],
+    "LureIDs": [],
+    "DipIDs": [],
+    "ComponentIDs": [],
+    "FishIDs": [],
+    "Rank": 0,
+    "DateEdited": "2025-11-14T23:18:38.5460518+02:00"
+  },
+  {
+    "ID": 1,
+    "Name": "рррррр",
+    "FeedIDs": [
+      1
+    ],
+    "LureIDs": [],
+    "DipIDs": [],
+    "ComponentIDs": [],
+    "FishIDs": [],
+    "Rank": 0,
+    "DateEdited": "2025-11-14T23:19:11.3278228+02:00"
+  },
+  {
+    "ID": 2,
+    "Name": "оооо",
+    "FeedIDs": [
+      0
+    ],
+    "LureIDs": [],
+    "DipIDs": [
+      0
+    ],
+    "ComponentIDs": [
+      0
+    ],
+    "FishIDs": [],
+    "Rank": 1,
+    "DateEdited": "2025-11-14T23:58:43.6252159+02:00"
+  },
+  {
+    "ID": 3,
+    "Name": "лллллл",
+    "FeedIDs": [
+      0
+    ],
+    "LureIDs": [],
+    "DipIDs": [
+      5
+    ],
+    "ComponentIDs": [],
+    "FishIDs": [],
+    "Rank": 3,
+    "DateEdited": "2025-11-15T00:02:18.9927011+02:00"
+  },
+  {
+    "ID": 4,
+    "Name": "Осетровые",
+    "FeedIDs": [
+      8
+    ],
+    "LureIDs": [
+      17
+    ],
+    "DipIDs": [
+      11
+    ],
+    "ComponentIDs": [
+      6
+    ],
+    "FishIDs": [],
+    "Rank": 3,
+    "DateEdited": "2025-11-16T01:20:52.0139388+02:00"
+  }
+]

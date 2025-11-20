@@ -1,0 +1,154 @@
+[
+  {
+    "ID": 0,
+    "Name": "Рыбная мука",
+    "Comment": "",
+    "ImagePath": "FeedComponents\\0.png",
+    "DateEdited": "2021-04-26T21:00:00.7036875+03:00",
+    "IsSelected": false
+  },
+  {
+    "ID": 1,
+    "Name": "Измельченные мидии",
+    "Comment": "",
+    "ImagePath": "FeedComponents\\1.png",
+    "DateEdited": "2021-04-26T21:00:00.7036875+03:00",
+    "IsSelected": false
+  },
+  {
+    "ID": 2,
+    "Name": "Сухая кровь",
+    "Comment": "",
+    "ImagePath": "FeedComponents\\2.png",
+    "DateEdited": "2021-04-26T21:00:00.7036875+03:00",
+    "IsSelected": false
+  },
+  {
+    "ID": 3,
+    "Name": "Картофельная мука",
+    "Comment": "",
+    "ImagePath": "FeedComponents\\3.png",
+    "DateEdited": "2021-04-26T21:00:00.7036875+03:00",
+    "IsSelected": false
+  },
+  {
+    "ID": 4,
+    "Name": "Молотая кукуруза",
+    "Comment": "",
+    "ImagePath": "FeedComponents\\4.png",
+    "DateEdited": "2021-04-26T21:00:00.7036875+03:00",
+    "IsSelected": false
+  },
+  {
+    "ID": 5,
+    "Name": "Молотые креветки",
+    "Comment": "",
+    "ImagePath": "FeedComponents\\5.png",
+    "DateEdited": "2021-04-26T21:00:00.7036875+03:00",
+    "IsSelected": false
+  },
+  {
+    "ID": 6,
+    "Name": "Измельченная рыба",
+    "Comment": "",
+    "ImagePath": "FeedComponents\\6.png",
+    "DateEdited": "2021-04-26T21:00:00.7036875+03:00",
+    "IsSelected": false
+  },
+  {
+    "ID": 7,
+    "Name": "Рубленый нереис",
+    "Comment": "",
+    "ImagePath": "FeedComponents\\7.png",
+    "DateEdited": "2021-04-26T21:00:00.7036875+03:00",
+    "IsSelected": false
+  },
+  {
+    "ID": 8,
+    "Name": "Сухари",
+    "Comment": "",
+    "ImagePath": "FeedComponents\\8.png",
+    "DateEdited": "2021-04-26T21:00:00.7036875+03:00",
+    "IsSelected": false
+  },
+  {
+    "ID": 9,
+    "Name": "Овсяные хлопья",
+    "Comment": "",
+    "ImagePath": "FeedComponents\\9.png",
+    "DateEdited": "2021-04-26T21:00:00.7036875+03:00",
+    "IsSelected": false
+  },
+  {
+    "ID": 10,
+    "Name": "Меласса",
+    "Comment": "",
+    "ImagePath": "FeedComponents\\10.png",
+    "DateEdited": "2021-04-26T21:00:00.7036875+03:00",
+    "IsSelected": false
+  },
+  {
+    "ID": 11,
+    "Name": "Бойлы жёлтые",
+    "Comment": "",
+    "ImagePath": "FeedComponents\\11.png",
+    "DateEdited": "2021-04-26T21:00:00.7036875+03:00",
+    "IsSelected": false
+  },
+  {
+    "ID": 12,
+    "Name": "Бойлы красные",
+    "Comment": "",
+    "ImagePath": "FeedComponents\\12.png",
+    "DateEdited": "2021-04-26T21:00:00.7036875+03:00",
+    "IsSelected": false
+  },
+  {
+    "ID": 13,
+    "Name": "Бойлы коричневые",
+    "Comment": "",
+    "ImagePath": "FeedComponents\\13.png",
+    "DateEdited": "2021-04-26T21:00:00.7036875+03:00",
+    "IsSelected": false
+  },
+  {
+    "ID": 14,
+    "Name": "Бойлы зелёные",
+    "Comment": "",
+    "ImagePath": "FeedComponents\\14.png",
+    "DateEdited": "2021-04-26T21:00:00.7036875+03:00",
+    "IsSelected": false
+  },
+  {
+    "ID": 15,
+    "Name": "Комбикорм",
+    "Comment": "",
+    "ImagePath": "FeedComponents\\15.png",
+    "DateEdited": "2021-04-26T21:00:00.7036875+03:00",
+    "IsSelected": false
+  },
+  {
+    "ID": 16,
+    "Name": "Молотый горох",
+    "Comment": "",
+    "ImagePath": "FeedComponents\\16.png",
+    "DateEdited": "2021-04-26T21:00:00.7036875+03:00",
+    "IsSelected": false
+  },
+  {
+    "ID": 17,
+    "Name": "Рубленый кальмар",
+    "Comment": "",
+    "ImagePath": "FeedComponents\\17.png",
+    "DateEdited": "2021-04-26T21:00:00.7036875+03:00",
+    "IsSelected": false
+  },
+  {
+    "ID": 18,
+    "Name": "Жмых",
+    "Comment": "",
+    "ImagePath": "FeedComponents\\18.png",
+    "DateEdited": "2021-04-26T21:00:00.7036875+03:00",
+    "IsSelected": false
+  }
+]

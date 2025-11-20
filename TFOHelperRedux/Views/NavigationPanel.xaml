@@ -1,0 +1,54 @@
+﻿<UserControl x:Class="TFOHelperRedux.Views.NavigationPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:TFOHelperRedux.ViewModels"
+             xmlns:app="clr-namespace:TFOHelperRedux">
+
+    <StackPanel Orientation="Horizontal"
+                Margin="0,6,0,0"
+                HorizontalAlignment="Left">
+        <Button Content="📍 Локации"
+                Command="{Binding ShowMaps}"
+                Style="{StaticResource IconButton}"
+                Margin="0,0,6,0"
+                Background="Aquamarine"
+                Foreground="White"
+                BorderBrush="Black"/>
+        <Button Content="🐟 Рыбы"
+                Command="{Binding ShowFishes}"
+                Style="{StaticResource IconButton}"
+                Margin="0,0,6,0"
+                Background="Orchid"
+                Foreground="White"
+                BorderBrush="Black"
+                Visibility="{Binding Source={x:Static app:DebugFlags.IsDebug},
+                             Converter={StaticResource BoolToVisibilityConverter}}"/>
+        <!-- ➕ Добавить / Редактировать -->
+        <Button Content="➕/✏"
+                Command="{Binding OpenAddEditFishWindowCommand}"
+                Style="{StaticResource IconButton}"
+                Background="Orchid"
+                Foreground="White"
+                BorderBrush="Black"
+                Margin="0,0,6,0"
+                ToolTip="Добавить/Редактировать"
+                Visibility="{Binding Source={x:Static app:DebugFlags.IsDebug},
+                             Converter={StaticResource BoolToVisibilityConverter}}"/>
+        <Button Content="Прикорм и дипы"
+                Command="{Binding ShowBaits}"
+                Style="{StaticResource IconButton}"
+                Background="DarkOrange"
+                Foreground="White"
+                BorderBrush="Black"/>
+        <Button Content="✏️"
+                Command="{Binding EditCurrentItemCommand}"
+                Style="{StaticResource IconButton}"
+                Background="DarkOrange"
+                Foreground="White"
+                BorderBrush="Black"
+                Margin="0,0,6,0"
+                ToolTip="Редактировать выбранный элемент"
+                Visibility="{Binding Source={x:Static app:DebugFlags.IsDebug},
+             Converter={StaticResource BoolToVisibilityConverter}}"/>
+    </StackPanel>
+</UserControl>

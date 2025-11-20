@@ -1,0 +1,3213 @@
+[
+  {
+    "MapID": 18,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 65,
+      "Y": 111
+    },
+    "FishIDs": [
+      92
+    ],
+    "LureIDs": [
+      173,
+      176
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": [
+      1,
+      2,
+      3
+    ],
+    "Rods": [
+      0
+    ],
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": {
+      "Coords": {
+        "IsEmpty": false,
+        "X": 66,
+        "Y": 113
+      },
+      "Azimuth": 26,
+      "Distance": 13
+    },
+    "Comment": "Глубина 70 клипса 20\r\nДля закрытия на серебро возможно троф Азимут 28",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-08-12T14:01:06.6674351+03:00"
+  },
+  {
+    "MapID": 18,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 75,
+      "Y": 108
+    },
+    "FishIDs": [
+      76
+    ],
+    "LureIDs": [
+      20
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": [
+      3,
+      4
+    ],
+    "Rods": [
+      2
+    ],
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": {
+      "Coords": {
+        "IsEmpty": false,
+        "X": 74,
+        "Y": 111
+      },
+      "Azimuth": 359,
+      "Distance": 21
+    },
+    "Comment": "Заброс в 5м стол\r\nДля закрытия на серебро возможно троф Азимут 359",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-08-08T16:54:05.0391749+03:00"
+  },
+  {
+    "MapID": 18,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 111,
+      "Y": 140
+    },
+    "FishIDs": [
+      41,
+      92
+    ],
+    "LureIDs": [
+      16
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": {
+      "Coords": {
+        "IsEmpty": false,
+        "X": 108,
+        "Y": 140
+      },
+      "Azimuth": 280,
+      "Distance": 14
+    },
+    "Comment": "Линь по азимуту 280 14м\r\nДля закрытия на серебро возможно троф",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-08-12T14:01:25.0443225+03:00"
+  },
+  {
+    "MapID": 18,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 133,
+      "Y": 76
+    },
+    "FishIDs": [
+      13
+    ],
+    "LureIDs": [
+      10
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": true,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-08-06T20:49:35.8650199+03:00"
+  },
+  {
+    "MapID": 18,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 135,
+      "Y": 67
+    },
+    "FishIDs": [
+      9
+    ],
+    "LureIDs": [
+      11,
+      166
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": true,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "1-13 кр",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-08-06T20:52:07.3148996+03:00"
+  },
+  {
+    "MapID": 18,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 56,
+      "Y": 40
+    },
+    "FishIDs": [
+      41
+    ],
+    "LureIDs": [
+      16
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "6.48 поводок, 1-8 крюк Точка пушка! Клюёт и на второе тесто, и на третье и на раковую",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-08-06T20:53:36.2272493+03:00"
+  },
+  {
+    "MapID": 18,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 31,
+      "Y": 31
+    },
+    "FishIDs": [
+      33,
+      61
+    ],
+    "LureIDs": [
+      7,
+      31
+    ],
+    "FeedIDs": null,
+    "DipsIDs": [
+      0
+    ],
+    "Times": [
+      1,
+      2,
+      3
+    ],
+    "Rods": [
+      0
+    ],
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "глубина 60-70\r\nНа еженедельку, трофа не было\r\nКлюёт нормально",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-08-26T17:07:33.6584276+03:00"
+  },
+  {
+    "MapID": 18,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 74,
+      "Y": 85
+    },
+    "FishIDs": [
+      33
+    ],
+    "LureIDs": [
+      7
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": [
+      1,
+      2
+    ],
+    "Rods": [
+      0
+    ],
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": {
+      "Coords": {
+        "IsEmpty": false,
+        "X": 74,
+        "Y": 85
+      },
+      "Azimuth": 320,
+      "Distance": 0
+    },
+    "Comment": "Глубина 70\r\nЗаброс за ряску\r\nГлубина 110 заброс в ряску Азимут 320",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-08-08T16:52:47.2849311+03:00"
+  },
+  {
+    "MapID": 25,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 231,
+      "Y": 252
+    },
+    "FishIDs": [
+      401,
+      402,
+      400,
+      173
+    ],
+    "LureIDs": [
+      58
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": [
+      0
+    ],
+    "Rods": [
+      0
+    ],
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": true,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "Глубина 60 поводок 40 высокополимер клипса 8 примерно, Не дальше цветка кувшинок слева и наклоненого камыша справы",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-08-06T21:04:13.2706479+03:00"
+  },
+  {
+    "MapID": 18,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 52,
+      "Y": 40
+    },
+    "FishIDs": [
+      83
+    ],
+    "LureIDs": [
+      182
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": [
+      1,
+      2
+    ],
+    "Rods": [
+      0
+    ],
+    "Cautious": false,
+    "Trophy": true,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": {
+      "Coords": {
+        "IsEmpty": false,
+        "X": 50,
+        "Y": 42
+      },
+      "Azimuth": 335,
+      "Distance": 15
+    },
+    "Comment": "Толстолобик белый, клипса 15 м., гл 1м. тремпель 2-5 Азимут  335",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-08-08T16:53:41.027168+03:00"
+  },
+  {
+    "MapID": 18,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 51,
+      "Y": 82
+    },
+    "FishIDs": [
+      46
+    ],
+    "LureIDs": [
+      9,
+      218
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": [
+      1,
+      2,
+      3
+    ],
+    "Rods": [
+      0
+    ],
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "Заброс на край ряски глубина 10",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-08-08T21:37:06.9213891+03:00"
+  },
+  {
+    "MapID": 20,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 272,
+      "Y": 261
+    },
+    "FishIDs": [
+      33
+    ],
+    "LureIDs": [
+      7
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": [
+      1,
+      2
+    ],
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "Краспопёрка глубина 70",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-08-10T16:23:56.8710505+03:00"
+  },
+  {
+    "MapID": 20,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 305,
+      "Y": 418
+    },
+    "FishIDs": [
+      75
+    ],
+    "LureIDs": [
+      25
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": [
+      4
+    ],
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "Заброс на фулку на морском удилище в яму 6.5м \r\nНа серебро возможно",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-08-10T16:25:56.4196584+03:00"
+  },
+  {
+    "MapID": 20,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 300,
+      "Y": 304
+    },
+    "FishIDs": [
+      100
+    ],
+    "LureIDs": [
+      114
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": [
+      1,
+      2,
+      3
+    ],
+    "Rods": [
+      1
+    ],
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "Скорость 35 с подбросом",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-08-10T16:28:48.3139837+03:00"
+  },
+  {
+    "MapID": 20,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 161,
+      "Y": 240
+    },
+    "FishIDs": [
+      5,
+      22
+    ],
+    "LureIDs": [
+      109,
+      166
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": [
+      1,
+      2,
+      3
+    ],
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "Жерех заброс в клик на трукастер глубина 65\r\nБерш скорость 28 ",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-08-10T16:31:19.5962436+03:00"
+  },
+  {
+    "MapID": 5,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 178,
+      "Y": 153
+    },
+    "FishIDs": [
+      110,
+      75
+    ],
+    "LureIDs": [
+      241,
+      25
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": [
+      3,
+      4
+    ],
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "Заброс не дальше кувшинок европейский сом\r\nНа льбиноса на матч удар об дно",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-08-11T22:34:41.6694984+03:00"
+  },
+  {
+    "MapID": 5,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 142,
+      "Y": 105
+    },
+    "FishIDs": [
+      49
+    ],
+    "LureIDs": [
+      22
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "Место для раколовки Заброс на СВ молюск х3 раколовка",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-08-12T01:47:44.3990352+03:00"
+  },
+  {
+    "MapID": 20,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 227,
+      "Y": 258
+    },
+    "FishIDs": [
+      65
+    ],
+    "LureIDs": [
+      22
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "Место для раколовки х2 рак, заброс влево по азимуту 170",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-08-12T01:47:09.1812666+03:00"
+  },
+  {
+    "MapID": 18,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 109,
+      "Y": 135
+    },
+    "FishIDs": [
+      33
+    ],
+    "LureIDs": [
+      7
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": [
+      0
+    ],
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "Поводок 40 Глубина 110-130",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-08-12T20:47:00.3032544+03:00"
+  },
+  {
+    "MapID": 25,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 181,
+      "Y": 290
+    },
+    "FishIDs": [
+      449
+    ],
+    "LureIDs": [
+      34
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-08-19T00:33:36.5992481+03:00"
+  },
+  {
+    "MapID": 18,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 144,
+      "Y": 138
+    },
+    "FishIDs": [
+      13
+    ],
+    "LureIDs": [
+      165,
+      10
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "Густера Азимут 218 за кувшинки ",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-08-19T17:35:16.3807343+03:00"
+  },
+  {
+    "MapID": 1,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 309,
+      "Y": 210
+    },
+    "FishIDs": [
+      13,
+      93
+    ],
+    "LureIDs": [
+      165,
+      10
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "Густера в 4м стол\r\nРадужка приловом(проверить)",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-08-19T18:26:48.2175372+03:00"
+  },
+  {
+    "MapID": 25,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 284,
+      "Y": 231
+    },
+    "FishIDs": [
+      499,
+      452
+    ],
+    "LureIDs": [
+      7,
+      4
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-08-19T18:52:25.8403902+03:00"
+  },
+  {
+    "MapID": 25,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 352,
+      "Y": 213
+    },
+    "FishIDs": [
+      590
+    ],
+    "LureIDs": [
+      17
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-08-20T12:31:07.3324296+03:00"
+  },
+  {
+    "MapID": 6,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 49,
+      "Y": 102
+    },
+    "FishIDs": [
+      68
+    ],
+    "LureIDs": [
+      36
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "Заброс в яму",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-08-21T02:34:07.973322+03:00"
+  },
+  {
+    "MapID": 6,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 195,
+      "Y": 181
+    },
+    "FishIDs": [
+      42
+    ],
+    "LureIDs": [
+      217
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "Лобан на матч 6.5м глубина фарш",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-08-21T15:48:46.0712978+03:00"
+  },
+  {
+    "MapID": 160,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 173,
+      "Y": 449
+    },
+    "FishIDs": [
+      61
+    ],
+    "LureIDs": [
+      31
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-08-22T17:22:36.7501527+03:00"
+  },
+  {
+    "MapID": 2,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 82,
+      "Y": 231
+    },
+    "FishIDs": [
+      100
+    ],
+    "LureIDs": [
+      115
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "Щука скорость 22-25 джиг",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-08-23T12:59:13.2447934+03:00"
+  },
+  {
+    "MapID": 6,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 148,
+      "Y": 123
+    },
+    "FishIDs": [
+      38,
+      45,
+      48
+    ],
+    "LureIDs": [
+      2444
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "Матч Азимут 330 6.5м глубина",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-08-23T20:13:57.9477603+03:00"
+  },
+  {
+    "MapID": 5,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 63,
+      "Y": 152
+    },
+    "FishIDs": [
+      86
+    ],
+    "LureIDs": [
+      16
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "глубина 2.7м на матч Азимут 110",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-08-25T17:45:46.1077618+03:00"
+  },
+  {
+    "MapID": 5,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 80,
+      "Y": 185
+    },
+    "FishIDs": [
+      0,
+      28,
+      109,
+      84
+    ],
+    "LureIDs": [
+      61
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "глубина 2.5м заброс на край кувшинок\r\nамур глубина 80-110см Азимут 115",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-08-26T23:51:12.5433387+03:00"
+  },
+  {
+    "MapID": 5,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 113,
+      "Y": 161
+    },
+    "FishIDs": [
+      109
+    ],
+    "LureIDs": [
+      49
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-08-25T21:29:22.4157872+03:00"
+  },
+  {
+    "MapID": 5,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 146,
+      "Y": 149
+    },
+    "FishIDs": [
+      0,
+      27,
+      28,
+      29,
+      84
+    ],
+    "LureIDs": [
+      49
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "глубина 110см",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-08-25T23:18:13.7282868+03:00"
+  },
+  {
+    "MapID": 1,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 304,
+      "Y": 204
+    },
+    "FishIDs": [
+      196
+    ],
+    "LureIDs": [
+      4
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "заброс в клик Азимут 180",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-08-26T17:32:42.4178921+03:00"
+  },
+  {
+    "MapID": 160,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 236,
+      "Y": 380
+    },
+    "FishIDs": [
+      64
+    ],
+    "LureIDs": [
+      21
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": [
+      2
+    ],
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "Рак азимут 240 в 3м стол",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-08-26T22:08:22.6519431+03:00"
+  },
+  {
+    "MapID": 25,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 124,
+      "Y": 311
+    },
+    "FishIDs": [
+      41
+    ],
+    "LureIDs": [
+      16
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": [
+      1,
+      2,
+      3
+    ],
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "Удар об дно на мах",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-08-30T14:37:49.9834139+03:00"
+  },
+  {
+    "MapID": 160,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 344,
+      "Y": 146
+    },
+    "FishIDs": [
+      102
+    ],
+    "LureIDs": [
+      34
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "10-12 клипса Азимут 270",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-08-31T15:58:07.4090777+03:00"
+  },
+  {
+    "MapID": 13,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 334,
+      "Y": 391
+    },
+    "FishIDs": [
+      144
+    ],
+    "LureIDs": [
+      23
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-09-01T19:10:41.3534384+03:00"
+  },
+  {
+    "MapID": 2,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 118,
+      "Y": 150
+    },
+    "FishIDs": [
+      25,
+      26,
+      41
+    ],
+    "LureIDs": [
+      16,
+      191
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "Удар об дно",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-09-02T00:20:25.2318544+03:00"
+  },
+  {
+    "MapID": 8,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 230,
+      "Y": 161
+    },
+    "FishIDs": [
+      69
+    ],
+    "LureIDs": [
+      27
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "Связка копчёной рыбы",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-09-02T19:52:58.0904468+03:00"
+  },
+  {
+    "MapID": 1,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 178,
+      "Y": 208
+    },
+    "FishIDs": [
+      87
+    ],
+    "LureIDs": [
+      9
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "заброс на шкалу одну",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-09-02T21:47:18.7975392+03:00"
+  },
+  {
+    "MapID": 24,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 307,
+      "Y": 159
+    },
+    "FishIDs": [
+      483
+    ],
+    "LureIDs": [
+      7
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "Азимут правее N",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-09-03T16:18:24.8782692+03:00"
+  },
+  {
+    "MapID": 0,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 79,
+      "Y": 127
+    },
+    "FishIDs": [
+      41
+    ],
+    "LureIDs": [
+      16
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-08-16T00:08:11.0009004+03:00"
+  },
+  {
+    "MapID": 0,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 98,
+      "Y": 119
+    },
+    "FishIDs": [
+      13
+    ],
+    "LureIDs": [
+      10
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": {
+      "Coords": {
+        "IsEmpty": false,
+        "X": 98,
+        "Y": 119
+      },
+      "Azimuth": -1,
+      "Distance": 0
+    },
+    "Comment": "На серебро густера Азимут 240",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-08-16T00:34:31.5394793+03:00"
+  },
+  {
+    "MapID": 0,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 104,
+      "Y": 136
+    },
+    "FishIDs": [
+      26
+    ],
+    "LureIDs": [
+      4
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "Заброс в 2м стол",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-08-16T23:04:58.4146781+03:00"
+  },
+  {
+    "MapID": 0,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 86,
+      "Y": 129
+    },
+    "FishIDs": [
+      8,
+      19
+    ],
+    "LureIDs": [
+      15
+    ],
+    "FeedIDs": [],
+    "DipsIDs": [],
+    "Times": [
+      1,
+      3,
+      4
+    ],
+    "Rods": [],
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "Глубина 2м ",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-08-17T00:37:18.0329068+03:00"
+  },
+  {
+    "MapID": 0,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 89,
+      "Y": 130
+    },
+    "FishIDs": [
+      19
+    ],
+    "LureIDs": [
+      15
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-08-17T22:08:36.2902582+03:00"
+  },
+  {
+    "MapID": 24,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 372,
+      "Y": 242
+    },
+    "FishIDs": [
+      0,
+      37,
+      68
+    ],
+    "LureIDs": [
+      33,
+      36
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "Амур 115 глубина",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-09-03T20:53:27.3884681+03:00"
+  },
+  {
+    "MapID": 24,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 196,
+      "Y": 43
+    },
+    "FishIDs": [
+      483
+    ],
+    "LureIDs": [
+      10
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-09-03T18:46:14.2561959+03:00"
+  },
+  {
+    "MapID": 24,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 326,
+      "Y": 127
+    },
+    "FishIDs": [
+      483
+    ],
+    "LureIDs": [
+      10
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-09-03T19:32:35.8240242+03:00"
+  },
+  {
+    "MapID": 24,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 332,
+      "Y": 199
+    },
+    "FishIDs": [
+      480,
+      464,
+      483,
+      13
+    ],
+    "LureIDs": [
+      10
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": [
+      1,
+      2,
+      3
+    ],
+    "Rods": [
+      2
+    ],
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "В перспективе! в 3м стол Мир маринки",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-09-05T01:15:59.69046+03:00"
+  },
+  {
+    "MapID": 24,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 149,
+      "Y": 53
+    },
+    "FishIDs": [
+      100
+    ],
+    "LureIDs": [
+      132
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "щука скорость 25",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-09-05T15:26:56.9634025+03:00"
+  },
+  {
+    "MapID": 8,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 234,
+      "Y": 447
+    },
+    "FishIDs": [
+      18,
+      166
+    ],
+    "LureIDs": [
+      10
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": [
+      0
+    ],
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "Сельдь глубина 2.65",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-09-05T17:21:03.048577+03:00"
+  },
+  {
+    "MapID": 8,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 501,
+      "Y": 431
+    },
+    "FishIDs": [
+      20
+    ],
+    "LureIDs": [
+      7
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": [
+      3,
+      4
+    ],
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-09-05T17:51:53.5108115+03:00"
+  },
+  {
+    "MapID": 13,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 344,
+      "Y": 303
+    },
+    "FishIDs": [
+      143,
+      144,
+      145
+    ],
+    "LureIDs": [
+      15,
+      23
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": [
+      2
+    ],
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-09-05T18:17:21.3258385+03:00"
+  },
+  {
+    "MapID": 12,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 151,
+      "Y": 282
+    },
+    "FishIDs": [
+      138
+    ],
+    "LureIDs": [
+      6
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": [
+      1,
+      2,
+      3
+    ],
+    "Rods": [
+      2
+    ],
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "заброс в 5м стол Азимут 10",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-09-06T19:23:19.4576112+03:00"
+  },
+  {
+    "MapID": 12,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 182,
+      "Y": 231
+    },
+    "FishIDs": [
+      80
+    ],
+    "LureIDs": [
+      220
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "Нужно опробовать!",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-09-06T19:25:30.5411324+03:00"
+  },
+  {
+    "MapID": 11,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 466,
+      "Y": 525
+    },
+    "FishIDs": [
+      3960,
+      113,
+      118
+    ],
+    "LureIDs": [
+      2425,
+      2434
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-09-07T18:34:09.2888186+03:00"
+  },
+  {
+    "MapID": 3,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 285,
+      "Y": 114
+    },
+    "FishIDs": [
+      176
+    ],
+    "LureIDs": [
+      82
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-09-07T20:18:09.1926831+03:00"
+  },
+  {
+    "MapID": 11,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 505,
+      "Y": 313
+    },
+    "FishIDs": [
+      592,
+      3960,
+      3920,
+      114,
+      125,
+      118
+    ],
+    "LureIDs": [
+      2425
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": true,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "Азимут 60\r\nПалтус со дна 75м гуми м0\r\nПолосатая со дна 75м на связку моллюска\r\nКатран со дна 75м\r\nСайда со дна 75м\r\nМорской окунь со дна 75м гуми м0",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-09-11T03:28:16.0171476+03:00"
+  },
+  {
+    "MapID": 11,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 252,
+      "Y": 262
+    },
+    "FishIDs": [
+      592,
+      5909
+    ],
+    "LureIDs": [
+      2425
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "люр на матч 6.5 глубина",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-09-08T19:31:10.6376329+03:00"
+  },
+  {
+    "MapID": 11,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 375,
+      "Y": 205
+    },
+    "FishIDs": [
+      5909,
+      124
+    ],
+    "LureIDs": [
+      2425
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "пикша матч 6.5м Азимут 45",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-09-08T22:26:55.6606392+03:00"
+  },
+  {
+    "MapID": 11,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 349,
+      "Y": 345
+    },
+    "FishIDs": [
+      125
+    ],
+    "LureIDs": [
+      156
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-09-09T14:10:16.6847039+03:00"
+  },
+  {
+    "MapID": 21,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 97,
+      "Y": 162
+    },
+    "FishIDs": [
+      35
+    ],
+    "LureIDs": [
+      166
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "Глубина 40 Аимут 200",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-09-09T19:51:22.1127208+03:00"
+  },
+  {
+    "MapID": 11,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 220,
+      "Y": 240
+    },
+    "FishIDs": [
+      592,
+      594,
+      3920,
+      114,
+      125
+    ],
+    "LureIDs": [
+      2437,
+      2438
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "Пилкинг 75м Азимут 60\r\nТроф катран с 75м",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-09-10T02:16:35.1568222+03:00"
+  },
+  {
+    "MapID": 11,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 313,
+      "Y": 183
+    },
+    "FishIDs": [
+      3960,
+      1830,
+      3920
+    ],
+    "LureIDs": [
+      2425,
+      180
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "матч 6.5м скумбрия\r\nзубатка со дна",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-09-10T04:08:05.0318968+03:00"
+  },
+  {
+    "MapID": 11,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 409,
+      "Y": 406
+    },
+    "FishIDs": [
+      1260,
+      4000
+    ],
+    "LureIDs": [
+      7
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "селёдка и вполводы на донки\r\nнавага со дна",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-09-10T18:26:39.9748386+03:00"
+  },
+  {
+    "MapID": 11,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 280,
+      "Y": 293
+    },
+    "FishIDs": [
+      594,
+      3920
+    ],
+    "LureIDs": [
+      27
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "зубатка на связку молюска, заброс на Ne",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-09-14T17:54:52.2330443+03:00"
+  },
+  {
+    "MapID": 11,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 467,
+      "Y": 177
+    },
+    "FishIDs": [
+      3960,
+      5909,
+      594,
+      3920
+    ],
+    "LureIDs": [
+      2453
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": null,
+    "Cautious": false,
+    "Trophy": true,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "Пилкер троф зубатка полосатая, сверху зелёный октопус",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-09-14T20:58:24.8021815+03:00"
+  },
+  {
+    "MapID": 18,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 48,
+      "Y": 72
+    },
+    "FishIDs": [
+      33,
+      61
+    ],
+    "LureIDs": [
+      31
+    ],
+    "FeedIDs": null,
+    "DipsIDs": [
+      0
+    ],
+    "Times": null,
+    "Rods": [
+      0
+    ],
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "Плотва глубина 70 Азимут 50",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2024-09-30T20:32:50.7779314+03:00"
+  },
+  {
+    "MapID": 10,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 46,
+      "Y": 148
+    },
+    "FishIDs": [
+      40
+    ],
+    "LureIDs": [
+      189
+    ],
+    "FeedIDs": null,
+    "DipsIDs": [
+      3
+    ],
+    "Times": null,
+    "Rods": [
+      2
+    ],
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2025-05-19T01:32:32.1891769+03:00"
+  },
+  {
+    "MapID": 7,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 109,
+      "Y": 265
+    },
+    "FishIDs": [
+      12
+    ],
+    "LureIDs": [
+      39
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": [
+      2
+    ],
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "Заброс на S",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2025-05-22T21:38:12.6381595+03:00"
+  },
+  {
+    "MapID": 7,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 239,
+      "Y": 168
+    },
+    "FishIDs": [
+      78
+    ],
+    "LureIDs": [
+      116
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": [
+      1
+    ],
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "Заброс на 350",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2025-05-22T22:20:25.5855592+03:00"
+  },
+  {
+    "MapID": 13,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 208,
+      "Y": 228
+    },
+    "FishIDs": [
+      12
+    ],
+    "LureIDs": [
+      4
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": [
+      2
+    ],
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2025-10-07T19:43:36.1115021+03:00"
+  },
+  {
+    "MapID": 188,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 320,
+      "Y": 423
+    },
+    "FishIDs": [
+      630,
+      65
+    ],
+    "LureIDs": [
+      0
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": [
+      2
+    ],
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "Раки на потроха.\r\nБарбус испанский приловом на ручейника",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2025-10-09T14:02:16.7762607+03:00"
+  },
+  {
+    "MapID": 188,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 173,
+      "Y": 408
+    },
+    "FishIDs": [
+      40
+    ],
+    "LureIDs": [
+      0
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": [
+      4
+    ],
+    "Rods": [
+      2
+    ],
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "Лещ",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2025-10-09T14:11:38.7702449+03:00"
+  },
+  {
+    "MapID": 12,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 205,
+      "Y": 102
+    },
+    "FishIDs": [
+      80
+    ],
+    "LureIDs": [
+      220
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": [
+      1
+    ],
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "На уточку таймень",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2025-10-10T11:42:28.8554039+03:00"
+  },
+  {
+    "MapID": 188,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 122,
+      "Y": 274
+    },
+    "FishIDs": [
+      615
+    ],
+    "LureIDs": [
+      2393
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": [
+      1
+    ],
+    "Rods": [
+      2
+    ],
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "Пескарь испанский утро",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2025-10-12T20:49:49.6274256+03:00"
+  },
+  {
+    "MapID": 188,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 29,
+      "Y": 414
+    },
+    "FishIDs": [
+      622
+    ],
+    "LureIDs": [
+      9
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": [
+      2
+    ],
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "Мерида, клипса 21м, склон 9м",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2025-10-10T14:30:51.8434485+03:00"
+  },
+  {
+    "MapID": 188,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 541,
+      "Y": 552
+    },
+    "FishIDs": [
+      29
+    ],
+    "LureIDs": [
+      33
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": [
+      2
+    ],
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "Карп обычный и зеркальный",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2025-10-10T16:34:39.9408002+03:00"
+  },
+  {
+    "MapID": 188,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 108,
+      "Y": 274
+    },
+    "FishIDs": [
+      100
+    ],
+    "LureIDs": [
+      114
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": [
+      1
+    ],
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2025-10-10T16:56:53.1295095+03:00"
+  },
+  {
+    "MapID": 188,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 694,
+      "Y": 340
+    },
+    "FishIDs": [
+      624
+    ],
+    "LureIDs": [
+      18
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": [
+      0
+    ],
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "Щука испанская",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2025-10-10T17:53:14.3295439+03:00"
+  },
+  {
+    "MapID": 188,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 546,
+      "Y": 559
+    },
+    "FishIDs": [
+      74
+    ],
+    "LureIDs": [
+      76
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": [
+      1
+    ],
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "Окунь солнечный",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2025-10-11T16:54:08.4205376+03:00"
+  },
+  {
+    "MapID": 1,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 82,
+      "Y": 314
+    },
+    "FishIDs": [
+      41
+    ],
+    "LureIDs": [
+      16
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": [
+      1,
+      3
+    ],
+    "Rods": [
+      0
+    ],
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "Линь глубина 143",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2025-10-11T17:33:11.9798547+03:00"
+  },
+  {
+    "MapID": 2,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 167,
+      "Y": 107
+    },
+    "FishIDs": [
+      13
+    ],
+    "LureIDs": [
+      35
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": [
+      2
+    ],
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "Густера",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2025-10-11T19:21:24.9945008+03:00"
+  },
+  {
+    "MapID": 2,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 119,
+      "Y": 241
+    },
+    "FishIDs": [
+      13
+    ],
+    "LureIDs": [
+      10
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": [
+      2
+    ],
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "Густера на подёнку, сыр",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2025-10-11T19:54:12.8002694+03:00"
+  },
+  {
+    "MapID": 2,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 102,
+      "Y": 187
+    },
+    "FishIDs": [
+      61
+    ],
+    "LureIDs": [
+      31
+    ],
+    "FeedIDs": null,
+    "DipsIDs": [
+      2
+    ],
+    "Times": null,
+    "Rods": [
+      0
+    ],
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "Плотва на мах 120глуб",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2025-10-11T20:08:36.2529399+03:00"
+  },
+  {
+    "MapID": 18,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 127,
+      "Y": 152
+    },
+    "FishIDs": [
+      51
+    ],
+    "LureIDs": [
+      2315
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": [
+      1,
+      2
+    ],
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "Окунь на выползка и бассер удар об дно",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2025-10-11T21:41:18.1226902+03:00"
+  },
+  {
+    "MapID": 18,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 22,
+      "Y": 36
+    },
+    "FishIDs": [
+      8
+    ],
+    "LureIDs": [
+      15
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": [
+      1,
+      3,
+      4
+    ],
+    "Rods": [
+      2
+    ],
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "Вьюн на красную икру, 3м стол",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2025-10-11T22:16:59.7419423+03:00"
+  },
+  {
+    "MapID": 1,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 91,
+      "Y": 313
+    },
+    "FishIDs": [
+      86
+    ],
+    "LureIDs": [
+      15
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": [
+      3,
+      4
+    ],
+    "Rods": [
+      0
+    ],
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "Угорь на поплавок 2.8м глубина",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2025-10-12T18:06:31.7760783+03:00"
+  },
+  {
+    "MapID": 188,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 378,
+      "Y": 362
+    },
+    "FishIDs": [
+      624
+    ],
+    "LureIDs": [
+      88
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": [
+      1,
+      3
+    ],
+    "Rods": [
+      1
+    ],
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "Щука испанская, клюёт не часто, 28 скорость на мясорубке",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2025-10-12T20:36:15.4115694+03:00"
+  },
+  {
+    "MapID": 1,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 106,
+      "Y": 316
+    },
+    "FishIDs": [
+      51
+    ],
+    "LureIDs": [
+      2
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": [
+      1,
+      2,
+      3
+    ],
+    "Rods": [
+      0,
+      1
+    ],
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "Окунь речной на мах 155см и на бассер скорость 28 об дно",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2025-10-13T22:06:14.7403179+03:00"
+  },
+  {
+    "MapID": 188,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 732,
+      "Y": 395
+    },
+    "FishIDs": [
+      51
+    ],
+    "LureIDs": [
+      2
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": [
+      1,
+      2,
+      3
+    ],
+    "Rods": [
+      0
+    ],
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "Окунь речной 194см глубина, прилов разный",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2025-10-17T16:44:29.4753678+03:00"
+  },
+  {
+    "MapID": 11,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 404,
+      "Y": 444
+    },
+    "FishIDs": [
+      611
+    ],
+    "LureIDs": [
+      15
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": [
+      1,
+      2,
+      3
+    ],
+    "Rods": [
+      2
+    ],
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "Бельдюга 7м склон",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2025-10-17T17:50:35.6831193+03:00"
+  },
+  {
+    "MapID": 14,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 326,
+      "Y": 148
+    },
+    "FishIDs": [
+      148
+    ],
+    "LureIDs": [
+      2393
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": [
+      3,
+      4
+    ],
+    "Rods": [
+      2
+    ],
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2025-10-18T11:55:44.9880078+03:00"
+  },
+  {
+    "MapID": 14,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 82,
+      "Y": 245
+    },
+    "FishIDs": [
+      162
+    ],
+    "LureIDs": [
+      8
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": [
+      3,
+      4
+    ],
+    "Rods": [
+      0
+    ],
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2025-10-18T17:59:35.7797462+03:00"
+  },
+  {
+    "MapID": 14,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 255,
+      "Y": 247
+    },
+    "FishIDs": [
+      71,
+      150,
+      149
+    ],
+    "LureIDs": [
+      88
+    ],
+    "FeedIDs": null,
+    "DipsIDs": null,
+    "Times": null,
+    "Rods": [
+      1
+    ],
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "Разная рыба на блесну райву",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2025-10-18T18:38:30.625998+03:00"
+  },
+  {
+    "MapID": 4,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 66,
+      "Y": 88
+    },
+    "FishIDs": [
+      91
+    ],
+    "LureIDs": [
+      63
+    ],
+    "FeedIDs": [],
+    "DipsIDs": [],
+    "Times": [],
+    "Rods": [
+      4
+    ],
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2025-11-16T01:31:21.0613604+02:00"
+  },
+  {
+    "MapID": 0,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 352,
+      "Y": 342
+    },
+    "FishIDs": [
+      98
+    ],
+    "LureIDs": [
+      7
+    ],
+    "FeedIDs": [],
+    "DipsIDs": [],
+    "Times": [],
+    "Rods": [],
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2025-11-16T01:56:07.4730495+02:00"
+  },
+  {
+    "MapID": 9,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 352,
+      "Y": 342
+    },
+    "FishIDs": [
+      98
+    ],
+    "LureIDs": [
+      7
+    ],
+    "FeedIDs": [],
+    "DipsIDs": [],
+    "Times": [],
+    "Rods": [],
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2025-11-16T01:59:08.3614767+02:00"
+  },
+  {
+    "MapID": 19,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 528,
+      "Y": 306
+    },
+    "FishIDs": [
+      180
+    ],
+    "LureIDs": [],
+    "FeedIDs": [],
+    "DipsIDs": [],
+    "Times": [],
+    "Rods": [],
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2025-11-16T02:18:53.079833+02:00"
+  },
+  {
+    "MapID": 15,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 44,
+      "Y": 57
+    },
+    "FishIDs": [
+      87
+    ],
+    "LureIDs": [],
+    "FeedIDs": [],
+    "DipsIDs": [],
+    "Times": [],
+    "Rods": [],
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2025-11-16T02:29:10.4989842+02:00"
+  },
+  {
+    "MapID": 162,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 90,
+      "Y": 72
+    },
+    "FishIDs": [
+      61
+    ],
+    "LureIDs": [],
+    "FeedIDs": [],
+    "DipsIDs": [],
+    "Times": [],
+    "Rods": [],
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2025-11-16T02:49:22.0729267+02:00"
+  },
+  {
+    "MapID": 162,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 51,
+      "Y": 56
+    },
+    "FishIDs": [
+      61
+    ],
+    "LureIDs": [],
+    "FeedIDs": [],
+    "DipsIDs": [],
+    "Times": [],
+    "Rods": [],
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2025-11-16T02:53:10.6546298+02:00"
+  },
+  {
+    "MapID": 162,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 53,
+      "Y": 37
+    },
+    "FishIDs": [
+      61
+    ],
+    "LureIDs": [],
+    "FeedIDs": [],
+    "DipsIDs": [],
+    "Times": [],
+    "Rods": [],
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2025-11-16T02:54:23.3329915+02:00"
+  },
+  {
+    "MapID": 186,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 494,
+      "Y": 228
+    },
+    "FishIDs": [
+      594
+    ],
+    "LureIDs": [
+      27
+    ],
+    "FeedIDs": [],
+    "DipsIDs": [],
+    "Times": [],
+    "Rods": [],
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2025-11-16T21:07:58.3898797+02:00"
+  },
+  {
+    "MapID": 42,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 122,
+      "Y": 244
+    },
+    "FishIDs": [
+      33
+    ],
+    "LureIDs": [
+      6
+    ],
+    "FeedIDs": [],
+    "DipsIDs": [],
+    "Times": [],
+    "Rods": [],
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2025-11-16T21:12:56.0391441+02:00"
+  },
+  {
+    "MapID": 28,
+    "Coords": {
+      "IsEmpty": false,
+      "X": 150,
+      "Y": 150
+    },
+    "FishIDs": [
+      94
+    ],
+    "LureIDs": [
+      0
+    ],
+    "FeedIDs": [],
+    "DipsIDs": [],
+    "Times": [],
+    "Rods": [],
+    "Cautious": false,
+    "Trophy": false,
+    "Tournament": false,
+    "DepthValue": 0,
+    "Temperature": 0,
+    "ThrowMarker": null,
+    "Comment": "",
+    "MadeBy": "Skipoff",
+    "DateEdited": "2025-11-16T21:15:58.1834575+02:00"
+  }
+]

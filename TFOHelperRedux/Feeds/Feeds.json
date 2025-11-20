@@ -1,0 +1,232 @@
+[
+  {
+    "IsCraftable": false,
+    "Tags": [
+      0,
+      3,
+      18
+    ],
+    "FishIDs": null,
+    "Group": "",
+    "ID": 0,
+    "Name": "Счастливый улов",
+    "Comment": "",
+    "DateEdited": "2021-04-07T12:58:51.5268472+03:00"
+  },
+  {
+    "IsCraftable": true,
+    "Tags": [
+      0,
+      3,
+      18
+    ],
+    "FishIDs": [
+      27,
+      28,
+      29,
+      109
+    ],
+    "Group": "",
+    "ID": 1,
+    "Name": "Карповый",
+    "Comment": "",
+    "DateEdited": "2021-04-13T12:41:36.1438939+03:00"
+  },
+  {
+    "IsCraftable": true,
+    "Tags": [
+      7,
+      8,
+      17
+    ],
+    "FishIDs": null,
+    "Group": "",
+    "ID": 2,
+    "Name": "Криль",
+    "Comment": "",
+    "DateEdited": "2021-04-07T12:58:51.5268472+03:00"
+  },
+  {
+    "IsCraftable": true,
+    "Tags": [
+      3
+    ],
+    "FishIDs": [
+      27,
+      28,
+      29
+    ],
+    "Group": "Sport Feed",
+    "ID": 3,
+    "Name": "SF Карп-медовый",
+    "Comment": "",
+    "DateEdited": "2021-04-13T12:41:51.7508336+03:00"
+  },
+  {
+    "IsCraftable": true,
+    "Tags": null,
+    "FishIDs": [
+      25,
+      26,
+      41
+    ],
+    "Group": "Sport Feed",
+    "ID": 4,
+    "Name": "SF Линь-Карась",
+    "Comment": "",
+    "DateEdited": "2021-04-07T12:58:51.5268472+03:00"
+  },
+  {
+    "IsCraftable": true,
+    "Tags": null,
+    "FishIDs": [
+      13,
+      40
+    ],
+    "Group": "Sport Feed",
+    "ID": 5,
+    "Name": "SF Лещ-Густера",
+    "Comment": "",
+    "DateEdited": "2021-04-07T12:58:51.5268472+03:00"
+  },
+  {
+    "IsCraftable": true,
+    "Tags": [
+      0,
+      3,
+      18
+    ],
+    "FishIDs": null,
+    "Group": "Sport Feed",
+    "ID": 6,
+    "Name": "SF Универсал",
+    "Comment": "",
+    "DateEdited": "2021-04-13T12:40:34.7535691+03:00"
+  },
+  {
+    "IsCraftable": true,
+    "Tags": [
+      0,
+      3,
+      13
+    ],
+    "FishIDs": [
+      52,
+      87,
+      96,
+      98
+    ],
+    "Group": "Sport Feed",
+    "ID": 7,
+    "Name": "SF Уклея",
+    "Comment": "",
+    "DateEdited": "2021-04-07T12:58:51.5268472+03:00"
+  },
+  {
+    "IsCraftable": true,
+    "Tags": [
+      21
+    ],
+    "FishIDs": null,
+    "Group": "Sport Feed",
+    "ID": 8,
+    "Name": "SF Осётр",
+    "Comment": "",
+    "DateEdited": "2021-04-07T12:58:51.5268472+03:00"
+  },
+  {
+    "IsCraftable": false,
+    "Tags": null,
+    "FishIDs": [
+      27,
+      28,
+      29,
+      109
+    ],
+    "Group": "SF Готовый",
+    "ID": 9,
+    "Name": "SF Готовый - Карповый",
+    "Comment": "",
+    "DateEdited": "2021-04-12T22:53:50.5432874+03:00"
+  },
+  {
+    "IsCraftable": false,
+    "Tags": null,
+    "FishIDs": [
+      0,
+      1,
+      83,
+      84
+    ],
+    "Group": "SF Готовый",
+    "ID": 10,
+    "Name": "SF Готовый - Амур-толстолобик",
+    "Comment": "",
+    "DateEdited": "2021-04-12T22:53:41.7184091+03:00"
+  },
+  {
+    "IsCraftable": false,
+    "Tags": null,
+    "FishIDs": [
+      107,
+      108,
+      31,
+      42
+    ],
+    "Group": "SF Готовый",
+    "ID": 11,
+    "Name": "SF Готовый - Морской-кефаль",
+    "Comment": "",
+    "DateEdited": "2021-04-12T22:53:30.3014257+03:00"
+  },
+  {
+    "IsCraftable": true,
+    "Tags": [
+      1,
+      17
+    ],
+    "FishIDs": [
+      114,
+      111,
+      118
+    ],
+    "Group": "",
+    "ID": 12,
+    "Name": "Морской хищник",
+    "Comment": "",
+    "DateEdited": "2021-04-13T11:42:40.1942569+03:00"
+  },
+  {
+    "IsCraftable": true,
+    "Tags": null,
+    "FishIDs": null,
+    "Group": "Sport Feed",
+    "ID": 13,
+    "Name": "Молотая глина",
+    "Comment": "",
+    "DateEdited": "2021-04-17T11:42:40.1942569+03:00"
+  },
+  {
+    "IsCraftable": true,
+    "Tags": [
+      0,
+      3
+    ],
+    "FishIDs": null,
+    "Group": "",
+    "ID": 14,
+    "Name": "Конфетти",
+    "Comment": "",
+    "DateEdited": "2021-01-15T11:58:51.5268472+03:00"
+  },
+  {
+    "IsCraftable": false,
+    "Tags": null,
+    "FishIDs": null,
+    "Group": "",
+    "ID": 15,
+    "Name": "Вареный рис",
+    "Comment": "",
+    "DateEdited": "2021-01-15T11:58:51.5268472+03:00"
+  }
+]

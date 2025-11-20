@@ -1,0 +1,376 @@
+﻿<UserControl x:Class="TFOHelperRedux.Views.FishDetailsPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:conv="clr-namespace:TFOHelperRedux.Converters"
+             xmlns:views="clr-namespace:TFOHelperRedux.Views"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignHeight="400"
+             d:DesignWidth="350">
+    <UserControl.Resources>
+        <conv:StringToImageSourceConverter x:Key="ImgConverter"/>
+        <conv:BiteToHeightConverter x:Key="BiteToHeightConverter"/>
+        <conv:RecipeCompositionConverter x:Key="RecipeCompositionConverter"/>
+    </UserControl.Resources>
+
+
+    <!-- RIGHT: Детальная информация -->
+    <Border
+ Margin="2"
+ Background="AliceBlue"
+ CornerRadius="6" 
+ BorderBrush="#DDDDDD"
+ Padding="16">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <!-- Контент для выбранной рыбы -->
+                <StackPanel>
+                    <StackPanel.Style>
+                        <Style TargetType="StackPanel">
+                            <Setter Property="Visibility" Value="Visible"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SelectedFish}" Value="{x:Null}">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </StackPanel.Style>
+                    <!-- Header -->
+                    <Grid Margin="0,0,0,16">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border Width="140" Height="90" 
+                     Background="#F8F9FA" 
+                     CornerRadius="6" 
+                     BorderBrush="#DEE2E6" 
+                     BorderThickness="1"
+                     Padding="8">
+                            <Image Source="{Binding SelectedFish.ImagePath, Converter={StaticResource ImgConverter}}" 
+                        Stretch="Uniform"/>
+                        </Border>
+
+                        <StackPanel Grid.Column="1" Margin="16,0,0,0" VerticalAlignment="Top">
+                            <TextBlock Text="{Binding SelectedFish.Name}" 
+                            FontSize="18" 
+                            FontWeight="Bold" 
+                            Foreground="#212529"
+                            TextWrapping="Wrap"/>
+                            <TextBlock Text="{Binding SelectedFish.Comment}" 
+                            FontSize="16" 
+                            FontStyle="Italic"
+                            Foreground="DarkSlateGray" 
+                            Margin="0,4,0,0"
+                            TextWrapping="Wrap"/>
+                        </StackPanel>
+                    </Grid>
+                    <!-- Краткая информация -->
+                    <StackPanel Margin="0,0,0,16">
+                        <TextBlock Text="Краткая информация" 
+                        FontWeight="SemiBold" 
+                        FontSize="14"
+                        Foreground="#495057" 
+                        Margin="0,0,0,8"/>
+                        <TextBlock Text="{Binding SelectedFish.Name, FallbackValue='Нет информации'}" 
+                        Foreground="#555"
+                        TextWrapping="Wrap"/>
+                        <!-- Трофей от ... (г), просто информация -->
+                        <TextBlock Text="{Binding SelectedFish.WeightTrophy,
+                              StringFormat='Трофей от {0} г',
+                              FallbackValue='Трофей: нет данных'}"
+                                   Foreground="#555"
+                                   FontSize="15"
+                                   FontWeight="Bold"
+                                   Margin="0,4,0,0"
+                                   TextWrapping="Wrap"/>
+                    </StackPanel>
+                    <!-- Separator -->
+                    <Separator Margin="0,0,0,16"/>
+                    <!-- наживки -->
+                    <!-- ⭐ Лучшие наживки (магазинные + крафтовые) -->
+                    <StackPanel Margin="0,0,0,16">
+                        <TextBlock Text="Лучшие наживки"
+               Style="{StaticResource SubHeaderTextStyle}"
+               Foreground="#495057"
+               Margin="0,0,0,8"/>
+                        <!-- 1) Лучшие магазинные наживки -->
+                        <ItemsControl ItemsSource="{Binding TopLuresForSelectedFish}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Width="70" Margin="0,0,8,0">
+                                        <Border Width="56" Height="56" 
+                            Background="#F8F9FA" 
+                            CornerRadius="6" 
+                            BorderBrush="#DEE2E6" 
+                            BorderThickness="1"
+                            Padding="4">
+                                            <Image Source="{Binding ImagePath, Converter={StaticResource ImgConverter}}" 
+                               Stretch="Uniform"/>
+                                        </Border>
+                                        <TextBlock Text="{Binding Name}" 
+                               FontSize="13" 
+                               TextAlignment="Center" 
+                               TextTrimming="CharacterEllipsis"
+                               Margin="0,4,0,0"
+                               Foreground="#495057"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <!-- 2) Лучшие крафтовые (по рецептам) -->
+                        <ItemsControl ItemsSource="{Binding TopRecipesForSelectedFish}"
+                  Margin="0,8,0,0">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Margin="0,0,4,4"
+                        Padding="4"
+                        Style="{Binding Rank, Converter={StaticResource RecipeRankToStyleConverter}}">
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding Name}"
+                                   FontWeight="Bold"
+                                   FontSize="13"/>
+                                            <ItemsControl Margin="0,2,0,0"
+                                      ItemsSource="{Binding Converter={StaticResource RecipeCompositionConverter}}">
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock FontSize="11"
+                                               Foreground="#555">
+                                        <Run Text="• "/>
+                                        <Run Text="{Binding}"/>
+                                                        </TextBlock>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                    <StackPanel Margin="0,0,0,16">
+                        <TextBlock Text="Рекомендуемые наживки"
+                                   Style="{StaticResource SubHeaderTextStyle}"
+                        Foreground="#495057" 
+                        Margin="0,0,0,8"/>
+                        <ScrollViewer HorizontalScrollBarVisibility="Auto" 
+                           VerticalScrollBarVisibility="Disabled" 
+                           Height="100">
+                            <ItemsControl ItemsSource="{Binding RecommendedLures}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Horizontal"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Width="70" Margin="0,0,8,0">
+                                            <Border Width="56" Height="56" 
+                                         Background="#F8F9FA" 
+                                         CornerRadius="6" 
+                                         BorderBrush="#DEE2E6" 
+                                         BorderThickness="1"
+                                         Padding="4">
+                                                <Image Source="{Binding ImagePath, Converter={StaticResource ImgConverter}}" 
+                                            Stretch="Uniform"/>
+                                            </Border>
+                                            <TextBlock Text="{Binding Name}" 
+                                            FontSize="13" 
+                                            TextAlignment="Center" 
+                                            TextTrimming="CharacterEllipsis"
+                                            Margin="0,4,0,0"
+                                            Foreground="#495057"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </StackPanel>
+                    <!-- Рецепты прикормки, привязанные к выбранной рыбе -->
+                    <StackPanel Margin="0,4,0,8">
+                        <TextBlock Text="Рецепты прикормки"
+                                   FontWeight="SemiBold"
+                                   FontSize="16"
+                                   Foreground="#495057"
+                                   Margin="0,0,0,4"/>
+                        <ItemsControl ItemsSource="{Binding RecipesForSelectedFish}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <UniformGrid Columns="2"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <!-- Цветная рамка по Rank -->
+                                    <Border Margin="0,0,0,6"
+                                            Padding="4"
+                                            CornerRadius="4"
+                                            BorderThickness="8"
+                                            Width="280"
+                                            HorizontalAlignment="Left"
+                                            Style="{Binding Rank, Converter={StaticResource RecipeRankToStyleConverter}}">
+                                        <StackPanel>
+                                            <!-- Название и дата -->
+                                            <TextBlock Text="{Binding Name}"
+                                                       FontSize="17"
+                                                       FontWeight="Bold"/>
+                                            <TextBlock Text="{Binding DateEdited, StringFormat='dd.MM.yyyy HH:mm'}"
+                                                       FontSize="10"
+                                                       Foreground="#777"/>
+
+                                            <!-- Состав рецепта (список строк через RecipeCompositionConverter) -->
+                                            <ItemsControl Margin="0,4,0,0"
+                                                          ItemsSource="{Binding Path=., Mode=OneWay, Converter={StaticResource RecipeCompositionConverter}}">
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock FontSize="16"
+                                                                   Foreground="#555">
+                                                            <Run Text="• "/>
+                                                            <Run Text="{Binding Path=., Mode=OneWay}"/>
+                                                        </TextBlock>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                    <!-- Заметки -->
+                    <StackPanel>
+                        <TextBlock Text="Заметки" 
+                        FontWeight="SemiBold" 
+                        FontSize="14"
+                        Foreground="#495057" 
+                        Margin="0,0,0,8"/>
+                        <Border Background="#F8F9FA" 
+                     BorderBrush="#DEE2E6" 
+                     BorderThickness="1" 
+                     CornerRadius="6">
+                            <TextBox Text="{Binding SelectedFish.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                          AcceptsReturn="True" 
+                          MinHeight="100"
+                          TextWrapping="Wrap"
+                          BorderThickness="0"
+                          Background="Transparent"
+                          Padding="8"
+                          FontSize="16"
+                          VerticalScrollBarVisibility="Auto"/>
+                        </Border>
+                    </StackPanel>
+                    <!-- 🎯 Точки лова -->
+                    <StackPanel Margin="0,16,0,0">
+                        <Border Background="#F8F9FA"
+                                BorderBrush="#DEE2E6"
+                                BorderThickness="1"
+                                CornerRadius="6"
+                                Padding="6"
+                                MaxHeight="260">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto"
+                                          HorizontalScrollBarVisibility="Disabled">
+                                <views:CatchPointsView DataContext="{Binding CatchPointsVM}" Margin="6">
+                                    <views:CatchPointsView.Style>
+                                        <Style TargetType="views:CatchPointsView">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                            <Style.Triggers>
+                                                <!-- 🐟 Скрывать, если родительский VM в режиме "Fish" -->
+                                                <DataTrigger Binding="{Binding DataContext.CurrentMode, RelativeSource={RelativeSource AncestorType=UserControl}}" 
+                                                             Value="Fish">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </views:CatchPointsView.Style>
+                                </views:CatchPointsView>
+                            </ScrollViewer>
+                        </Border>
+                    </StackPanel>
+                    <!-- График -->
+                    <StackPanel Margin="0,16,0,0">
+                        <TextBlock Text="График интенсивности клева"
+                        FontWeight="SemiBold"
+                        FontSize="18"
+                        Foreground="#495057"
+                        Margin="0,0,0,8"/>
+                        <Border Background="#F8F9FA"
+                     BorderBrush="#DEE2E6"
+                     BorderThickness="1"
+                     CornerRadius="6"
+                     Padding="6"
+                     Height="240">
+                            <Grid>
+                                <!-- Горизонтальные линии шкалы -->
+                                <Canvas>
+                                    <Line X1="0" Y1="20" X2="780" Y2="20" Stroke="#E0E0E0" StrokeThickness="1"/>
+                                    <Line X1="0" Y1="60" X2="780" Y2="60" Stroke="#E0E0E0" StrokeThickness="1"/>
+                                    <Line X1="0" Y1="100" X2="780" Y2="100" Stroke="#E0E0E0" StrokeThickness="1"/>
+                                </Canvas>
+                                <!-- Столбцы -->
+                                <ItemsControl ItemsSource="{Binding SelectedFish.BiteIntensity}" AlternationCount="24" Panel.ZIndex="1">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel Orientation="Horizontal"
+                                             VerticalAlignment="Bottom"
+                                             Height="100"/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Vertical" VerticalAlignment="Bottom" Margin="1,0">
+                                                <Border Width="18" Margin="2,0"
+                                                        Height="{Binding Converter={StaticResource BiteToHeightConverter}}"
+                                                        Background="#4CAF50"
+                                                        MouseDown="BiteBar_Click"
+                                                        Tag="{Binding RelativeSource={RelativeSource AncestorType=ContentPresenter},
+                                             Path=(ItemsControl.AlternationIndex)}"/>
+                                                <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=ContentPresenter},
+                                                Path=(ItemsControl.AlternationIndex)}"
+                                                FontSize="13"
+                                                Foreground="#777"
+                                                HorizontalAlignment="Center"
+                                                Margin="0,2,0,0"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </Grid>
+                        </Border>
+                        <TextBlock Text="{Binding BiteDescription}"
+                        Margin="4,6,0,0"/>
+                    </StackPanel>
+                </StackPanel>
+                <!-- Placeholder когда ничего не выбрано -->
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,100,0,0">
+                    <StackPanel.Style>
+                        <Style TargetType="StackPanel">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SelectedFish}" Value="{x:Null}">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </StackPanel.Style>
+                    <TextBlock Text="🐟" FontSize="64" HorizontalAlignment="Center" Opacity="0.2"/>
+                    <TextBlock Text="Выберите рыбу" 
+                    FontSize="18" 
+                    Foreground="#ADB5BD" 
+                    HorizontalAlignment="Center"
+                    Margin="0,12,0,4"/>
+                    <TextBlock Text="для просмотра подробной информации" 
+                    FontSize="12" 
+                    Foreground="#CED4DA" 
+                    HorizontalAlignment="Center"/>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </Border>
+</UserControl>

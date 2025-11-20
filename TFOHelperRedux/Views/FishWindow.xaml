@@ -1,0 +1,14 @@
+﻿<Window x:Class="TFOHelperRedux.Views.FishWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:TFOHelperRedux.Views"
+        Title="TFO Helper Redux"
+        MinHeight="950"
+        MinWidth="1480"
+        WindowStartupLocation="CenterScreen">
+        <!--WindowState="Maximized"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanResize"
+        WindowStyle="SingleBorderWindow"-->
+    <local:FishView />
+</Window>

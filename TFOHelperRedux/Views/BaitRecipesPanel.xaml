@@ -1,0 +1,204 @@
+﻿<UserControl x:Class="TFOHelperRedux.Views.BaitRecipesPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:TFOHelperRedux.ViewModels"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006">
+    <UserControl.DataContext>
+        <vm:BaitRecipesViewModel/>
+    </UserControl.DataContext>
+
+    <Border Background="AliceBlue"
+            Margin="2"
+            CornerRadius="6">
+        <Grid Margin="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Заголовок и кнопки -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,10">
+                <TextBlock Text="Название:" VerticalAlignment="Center" Margin="0,0,6,0" Style="{StaticResource HeaderTextStyle}"/>
+                <Border Background="AliceBlue"
+                 BorderBrush="#CCCCCC"
+                 BorderThickness="1"
+                 CornerRadius="4"
+                 Margin="0,0,6,0">
+                    <Grid>
+                        <TextBox Text="{Binding RecipeName, UpdateSourceTrigger=PropertyChanged}"
+                          Padding="8,0,30,0"
+                          VerticalAlignment="Center"
+                          FontSize="16"
+                          FontFamily="Comic Sans MS"
+                          BorderThickness="0"
+                          Background="Transparent"
+                          Width="200"
+                          Margin="0,0,6,0"/>
+                    </Grid>
+                </Border>
+                <Button Content="💾" Command="{Binding SaveRecipeCmd}"
+                 Background="#2196F3"
+                 Foreground="White"
+                 BorderBrush="Black"
+                 Margin="0,0,6,0"
+                 ToolTip="Сохранить"
+                 Style="{StaticResource IconButton}"/>
+                <Button Content="🆕" Command="{Binding NewRecipeCmd}"
+                 Background="#4CAF50"
+                 Foreground="White"
+                 BorderBrush="Black"
+                 Margin="0,0,6,0"
+                 ToolTip="Новый"
+                 Style="{StaticResource IconButton}"/>
+                <Button Content="🧹" Command="{Binding ClearRecipeCmd}"
+                 Margin="0,0,6,0"
+                 ToolTip="Очистить состав"
+                 Style="{StaticResource IconButton}"/>
+                <Button Content="❌" Command="{Binding DeleteRecipeCmd}"
+                 ToolTip="Удалить рецепт"
+                 Background="RosyBrown"
+                 Foreground="White"
+                 BorderBrush="Black"
+                 Style="{StaticResource IconButton}"/>
+            </StackPanel>
+            <!-- Содержимое -->
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="1.5*"/>
+                </Grid.ColumnDefinitions>
+                <!-- Левая часть -->
+                <StackPanel Margin="0,0,8,0">
+                    <TextBlock Text="Состав рецепта" FontWeight="Bold" Margin="0,0,0,4"/>
+                    <Border BorderThickness="1" CornerRadius="6" Padding="1">
+                        <ListBox ItemsSource="{Binding PreviewItems}"
+                          FontSize="13"
+                          ScrollViewer.VerticalScrollBarVisibility="Auto"
+                          BorderThickness="0"
+                          Height="250"/>
+                    </Border>
+                    <ComboBox Width="180"
+                              SelectedValue="{Binding CurrentRecipe.Rank, Mode=TwoWay}"
+                              SelectedValuePath="Tag">
+
+                        <ComboBoxItem Content="Обычный" Tag="Normal"/>
+                        <ComboBoxItem Content="Топ" Tag="Top"/>
+                        <ComboBoxItem Content="Устаревший" Tag="Deprecated"/>
+                        <ComboBoxItem Content="Экспериментальный" Tag="Experimental"/>
+
+                    </ComboBox>
+
+
+                </StackPanel>
+                <!-- Правая часть -->
+                <StackPanel Grid.Column="1" Margin="0, 0, 1, 0">
+                    <TextBlock Text="Сохранённые рецепты" FontWeight="Bold" Margin="0,0,0,4"/>
+                    <Border BorderThickness="1" CornerRadius="6" Padding="1">
+                        <ListBox ItemsSource="{Binding Recipes}"
+                 SelectedItem="{Binding CurrentRecipe}"
+                 ScrollViewer.VerticalScrollBarVisibility="Auto"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                 ScrollViewer.CanContentScroll="False"
+                 VirtualizingStackPanel.IsVirtualizing="False"
+                 BorderThickness="0"
+                 Background="Transparent"
+                 HorizontalContentAlignment="Stretch">
+
+                            <!-- 🔹 2 карточки в ряд -->
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <UniformGrid Columns="2"/>
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
+
+                            <!-- 🔹 Убираем синий фон ListBoxItem -->
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="ListBoxItem">
+                                    <Setter Property="Padding" Value="0"/>
+                                    <Setter Property="Margin" Value="4"/>
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                    <Setter Property="VerticalContentAlignment" Value="Top"/>
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="ListBoxItem">
+                                                <Border Background="{TemplateBinding Background}">
+                                                    <ContentPresenter/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+
+                                    <!-- Даже при выборе — без синего квадрата -->
+                                    <Style.Triggers>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter Property="Background" Value="Transparent"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ListBox.ItemContainerStyle>
+
+                            <!-- 🔹 Карточка рецепта -->
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Border
+                                        Margin="0"
+                                        Padding="2"
+                                        CornerRadius="4"
+                                        HorizontalAlignment="Stretch">
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Setter Property="BorderBrush" Value="Transparent"/>
+                                                <Setter Property="BorderThickness" Value="2"/>
+
+                                                <!-- Когда элемент выбран — делаем цветную рамку -->
+                                                <Style.Triggers>
+                                                    <DataTrigger Value="True"
+                                                                 Binding="{Binding IsSelected,
+                                                       RelativeSource={RelativeSource AncestorType=ListBoxItem}}">
+                                                        <Setter Property="BorderBrush" Value="DeepSkyBlue"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+                                        <Border BorderThickness="8"
+                                                CornerRadius="6"
+                                                Margin="0"
+                                                Padding="4"
+                                                HorizontalAlignment="Stretch"
+                                                Style="{Binding Rank, Converter={StaticResource RecipeRankToStyleConverter}}">
+                                            <StackPanel>
+                                                <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
+                                                <TextBlock Text="{Binding DateEdited, StringFormat='dd.MM.yyyy HH:mm'}"
+                                                           FontSize="10"
+                                                           Foreground="#777"/>
+
+                                                <Button Content="➕ к рыбе"
+                                                        Margin="0,4,0,4"
+                                                        Command="{Binding DataContext.AttachRecipeToFishCmd,
+                          RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                        CommandParameter="{Binding}" />
+
+                                                <Button Content="➖ от рыбы"
+                                                        Margin="0,0,0,4"
+                                                        Command="{Binding DataContext.DetachRecipeFromFishCmd,
+                          RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                        CommandParameter="{Binding}" />
+
+                                            </StackPanel>
+                                        </Border>
+                                    </Border>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </Border>
+                </StackPanel>
+
+            </Grid>
+        </Grid>
+    </Border>
+</UserControl>

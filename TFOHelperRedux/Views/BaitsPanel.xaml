@@ -1,0 +1,233 @@
+<UserControl x:Class="TFOHelperRedux.Views.BaitsPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:TFOHelperRedux.Views"
+             xmlns:views="clr-namespace:TFOHelperRedux.Views"
+             xmlns:conv="clr-namespace:TFOHelperRedux.Converters"
+             xmlns:viewModels="clr-namespace:TFOHelperRedux.ViewModels">
+
+    <UserControl.Resources>
+        <conv:StringToImageSourceConverter x:Key="ImgConverter"/>
+        <conv:EqualityToVisibilityConverter x:Key="EqualityToVisibilityConverter"/>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="380"/>
+            <!-- левая панель -->
+            <ColumnDefinition Width="500"/>
+            <!-- рецепты -->
+            <ColumnDefinition Width="*"/>
+            <!-- рыбы -->
+        </Grid.ColumnDefinitions>
+        <!-- ====================== LEFT PANEL ====================== -->
+        <Border Grid.Column="0"
+                Background="{StaticResource PanelBackground}"
+                BorderBrush="{StaticResource BorderBrushLight}"
+                BorderThickness="1"
+                CornerRadius="6"
+                Padding="12"
+                Margin="2">
+            <Grid>
+                <!-- Прикормки -->
+                <Border Visibility="{Binding BaitsSubMode, Converter={StaticResource EqualityToVisibilityConverter}, ConverterParameter=Feeds}">
+                    <ListBox ItemsSource="{Binding Feeds}"
+                             SelectedItem="{Binding SelectedFeed, Mode=TwoWay}"
+                             Background="Transparent"
+                             BorderThickness="0"
+                             ItemContainerStyle="{StaticResource RoundedCardStyle}"
+                             ScrollViewer.VerticalScrollBarVisibility="Auto"
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                             MouseDoubleClick="Ingredient_MouseDoubleClick">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border Width="100" Height="100" Margin="4"
+                                        BorderBrush="#DDD" BorderThickness="1"
+                                        CornerRadius="6" Padding="4">
+                                    <StackPanel>
+                                        <Image Source="{Binding ImagePath, Converter={StaticResource ImgConverter}}" Height="50" Stretch="Uniform"/>
+                                        <TextBlock Text="{Binding Name}" FontSize="13" TextAlignment="Center" Margin="0,4,0,0" TextTrimming="CharacterEllipsis"/>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Border>
+                <!-- Дипы -->
+                <Border Visibility="{Binding BaitsSubMode, Converter={StaticResource EqualityToVisibilityConverter}, ConverterParameter=Dips}">
+                    <ListBox ItemsSource="{Binding Dips}"
+                             SelectedItem="{Binding SelectedDip, Mode=TwoWay}"
+                             Background="Transparent"
+                             BorderThickness="0"
+                             ItemContainerStyle="{StaticResource RoundedCardStyle}"
+                             ScrollViewer.VerticalScrollBarVisibility="Auto"
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                             MouseDoubleClick="Ingredient_MouseDoubleClick">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border Width="100" Height="100" Margin="4"
+                                        BorderBrush="#DDD" BorderThickness="1"
+                                        CornerRadius="6" Padding="4">
+                                    <StackPanel>
+                                        <Image Source="{Binding ImagePath, Converter={StaticResource ImgConverter}}" Height="50" Stretch="Uniform"/>
+                                        <TextBlock Text="{Binding Name}" FontSize="13" TextAlignment="Center" Margin="0,4,0,0" TextTrimming="CharacterEllipsis"/>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Border>
+                <!-- Наживки -->
+                <Border Visibility="{Binding BaitsSubMode, Converter={StaticResource EqualityToVisibilityConverter}, ConverterParameter=Lures}">
+                    <ListBox ItemsSource="{Binding Lures}"
+                             SelectedItem="{Binding SelectedLure, Mode=TwoWay}"
+                             Background="Transparent"
+                             BorderThickness="0"
+                             ItemContainerStyle="{StaticResource RoundedCardStyle}"
+                             ScrollViewer.VerticalScrollBarVisibility="Auto"
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                             MouseDoubleClick="Ingredient_MouseDoubleClick">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border Width="100" Height="100" Margin="4"
+                                        BorderBrush="#DDD" BorderThickness="1"
+                                        CornerRadius="6" Padding="4">
+                                    <StackPanel>
+                                        <Image Source="{Binding ImagePath, Converter={StaticResource ImgConverter}}" Height="50" Stretch="Uniform"/>
+                                        <TextBlock Text="{Binding Name}" FontSize="13" TextAlignment="Center" Margin="0,4,0,0" TextTrimming="CharacterEllipsis"/>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Border>
+                <!-- Компоненты -->
+                <Border Visibility="{Binding BaitsSubMode, Converter={StaticResource EqualityToVisibilityConverter}, ConverterParameter=FeedComponents}">
+                    <ListBox ItemsSource="{Binding Components}"
+                             SelectedItem="{Binding SelectedComponent, Mode=TwoWay}"
+                             Background="Transparent"
+                             BorderThickness="0"
+                             ItemContainerStyle="{StaticResource RoundedCardStyle}"
+                             ScrollViewer.VerticalScrollBarVisibility="Auto"
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                             MouseDoubleClick="Ingredient_MouseDoubleClick">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border Width="100" Height="100" Margin="4"
+                                        BorderBrush="#DDD" BorderThickness="1"
+                                        CornerRadius="6" Padding="4">
+                                    <StackPanel>
+                                        <Image Source="{Binding ImagePath, Converter={StaticResource ImgConverter}}" Height="50" Stretch="Uniform"/>
+                                        <TextBlock Text="{Binding Name}" FontSize="13" TextAlignment="Center" Margin="0,4,0,0" TextTrimming="CharacterEllipsis"/>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Border>
+                <!-- Топовые/крафтовые: наживки + дипы -->
+                <Border Visibility="{Binding BaitsSubMode,
+                                     Converter={StaticResource EqualityToVisibilityConverter},
+                                     ConverterParameter=CraftLures}">
+
+                    <Grid>
+                        <!-- Наживки -->
+                        <GroupBox Header="Наживки" Grid.Row="0" Margin="0,0,0,4">
+                            <ListBox ItemsSource="{Binding Lures}"
+                             SelectedItem="{Binding SelectedLure, Mode=TwoWay}"
+                             Background="Transparent"
+                             BorderThickness="0"
+                             ItemContainerStyle="{StaticResource RoundedCardStyle}"
+                             ScrollViewer.VerticalScrollBarVisibility="Auto"
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                             MouseDoubleClick="Ingredient_MouseDoubleClick">
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Horizontal"/>
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Width="100" Height="140" Margin="4"
+                                                BorderBrush="#DDD" BorderThickness="1"
+                                                CornerRadius="6" Padding="4">
+                                            <StackPanel>
+                                                <Image Source="{Binding ImagePath,
+                                Converter={StaticResource ImgConverter}}"
+                                                       Height="50"
+                                                       Stretch="Uniform"/>
+
+                                                <TextBlock Text="{Binding Name}"
+                                                           TextAlignment="Center"
+                                                           Margin="0,4,0,4"
+                                                           TextTrimming="CharacterEllipsis"/>
+
+                                                <!-- Кнопки работы с Лучшими наживками для выбранной рыбы -->
+                                                <Button Content="➕ к рыбе"
+                                                        Margin="0,0,0,2"
+                                                        Command="{Binding DataContext.AttachLureToFishCmd,
+                                          RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                        CommandParameter="{Binding}" />
+
+                                                <Button Content="➖ от рыбы"
+                                                        Margin="0,0,0,0"
+                                                        Command="{Binding DataContext.DetachLureFromFishCmd,
+                                          RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                        CommandParameter="{Binding}" />
+                                            </StackPanel>
+                                        </Border>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </GroupBox>
+                    </Grid>
+                </Border>
+
+            </Grid>
+        </Border>
+        <!-- ====================== RECIPE / CRAFT PANEL ====================== -->
+        <Border Grid.Column="1"
+                Background="{StaticResource PanelBackground}"
+                BorderBrush="{StaticResource BorderBrushLight}"
+                BorderThickness="1"
+                CornerRadius="6"
+                Padding="2"
+                Margin="2">
+            <Grid>
+                <!-- Обычные рецепты прикорма -->
+                <local:BaitRecipesPanel Grid.Row="0"
+                                        DataContext="{Binding BaitRecipesVM}" />
+            </Grid>
+        </Border>
+        <!-- ====================== FISH PANEL (ALWAYS VISIBLE HERE) ====================== -->
+        <Border Grid.Column="2"
+                Background="{StaticResource PanelBackground}"
+                BorderBrush="{StaticResource BorderBrushLight}"
+                BorderThickness="1"
+                CornerRadius="6"
+                Padding="6"
+                Margin="2">
+            <local:FishSelectorPanel/>
+        </Border>
+    </Grid>
+</UserControl>
