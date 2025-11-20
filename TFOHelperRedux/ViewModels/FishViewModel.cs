@@ -23,6 +23,7 @@ namespace TFOHelperRedux.ViewModels
         public ICommand DeleteFishCommand { get; }
         public ICommand AttachLureToFishCmd { get; }
         public ICommand DetachLureFromFishCmd { get; }
+        public ICommand DeleteRecipeForeverCmd { get; }
         private void Requery() => System.Windows.Input.CommandManager.InvalidateRequerySuggested();
         private int _selectedCategoryId = 0; // 0 = все рыбы
         public int RecipeCountForSelectedFish =>
@@ -289,7 +290,44 @@ namespace TFOHelperRedux.ViewModels
                 MessageBoxButton.OK,
                 MessageBoxImage.Information);
         }
+        private void DeleteRecipeForever(object? parameter)
+        {
+            if (parameter is not BaitRecipeModel recipe)
+                return;
 
+            var result = MessageBox.Show(
+                $"Полностью удалить рецепт \"{recipe.Name}\"?\n" +
+                "Он будет удалён из всех рыб и из списка рецептов.",
+                "Удаление рецепта",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Warning);
+
+            if (result != MessageBoxResult.Yes)
+                return;
+
+            // 1) Убираем этот рецепт у всех рыб
+            foreach (var fish in DataStore.Fishes)
+            {
+                if (fish.RecipeIDs == null || fish.RecipeIDs.Length == 0)
+                    continue;
+
+                fish.RecipeIDs = fish.RecipeIDs
+                    .Where(id => id != recipe.ID)
+                    .ToArray();
+            }
+
+            // 2) Убираем сам рецепт из общего списка
+            if (DataStore.BaitRecipes != null && DataStore.BaitRecipes.Contains(recipe))
+                DataStore.BaitRecipes.Remove(recipe);
+
+            // 3) Сохраняем все данные (рыбы + рецепты)
+            DataStore.SaveAll();
+
+            // 4) Обновляем отображение рецептов для текущей рыбы
+            OnPropertyChanged(nameof(SelectedFish));
+            // если у тебя есть отдельное свойство типа SelectedFishRecipes, добавь и его:
+            // OnPropertyChanged(nameof(SelectedFishRecipes));
+        }
         private string _searchText = "";
         public string SearchText
         {
@@ -361,6 +399,7 @@ namespace TFOHelperRedux.ViewModels
             ShowLures = new RelayCommand(() => BaitsSubMode = "Lures");
             AttachLureToFishCmd = new RelayCommand(AttachLureToFish);
             DetachLureFromFishCmd = new RelayCommand(DetachLureFromFish);
+            DeleteRecipeForeverCmd = new RelayCommand(DeleteRecipeForever);
 
             Maps = DataStore.Maps; // Загружаем все карты из JSON
             // подготавливаем коллекции для панели локаций
