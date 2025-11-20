@@ -41,8 +41,8 @@ namespace TFOHelperRedux.ViewModels
         public ICommand DetachRecipeFromFishCmd { get; }
         public BaitRecipesViewModel()
         {
-            Recipes = DataStore.BaitRecipes;
             NormalizeRecipeIds();
+            RebuildRecipesList();
             SaveRecipeCmd = new RelayCommand(SaveRecipe);
             NewRecipeCmd = new RelayCommand(NewRecipe);
             DeleteRecipeCmd = new RelayCommand(DeleteRecipe);
@@ -119,18 +119,20 @@ namespace TFOHelperRedux.ViewModels
             // обновляем поля текущего рецепта
             CurrentRecipe.Name = RecipeName;
             CurrentRecipe.DateEdited = DateTime.Now;
+            var all = DataStore.BaitRecipes;
 
             // если рецепт ещё не в коллекции – это НОВЫЙ рецепт
-            if (!Recipes.Contains(CurrentRecipe))
+            if (!all.Contains(CurrentRecipe))
             {
                 // выдаём ему уникальный ID
-                int newId = Recipes.Any() ? Recipes.Max(r => r.ID) + 1 : 0;
+                int newId = all.Any() ? all.Max(r => r.ID) + 1 : 0;
                 CurrentRecipe.ID = newId;
-                Recipes.Add(CurrentRecipe);
+                all.Add(CurrentRecipe);
             }
-            // если он уже в Recipes – он там по ссылке, и мы уже изменили его поля выше
+            // если он уже в all – он там по ссылке, и мы уже изменили его поля выше
 
-            DataService.SaveBaitRecipes(Recipes);
+            DataService.SaveBaitRecipes(all);
+            RebuildRecipesList();
             MessageBox.Show("Рецепт сохранён.", "Успех",
                 MessageBoxButton.OK, MessageBoxImage.Information);
         }
@@ -155,17 +157,29 @@ namespace TFOHelperRedux.ViewModels
                 UpdatePreviewList();
             }
         }
-
         private void DeleteRecipe()
         {
             if (CurrentRecipe == null) return;
-            if (MessageBox.Show($"Удалить рецепт '{CurrentRecipe.Name}'?", "Удаление",
-                MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-            {
-                Recipes.Remove(CurrentRecipe);
-                DataService.SaveBaitRecipes(Recipes);
-                NewRecipe();
-            }
+
+            var result = MessageBox.Show(
+                $"Удалить рецепт '{CurrentRecipe.Name}' только из крафтового списка?\n" +
+                "Привязки к рыбе сохранятся.",
+                "Удаление",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
+
+            if (result != MessageBoxResult.Yes)
+                return;
+
+            // ❌ Больше НЕ удаляем из DataStore.BaitRecipes
+            // ❌ И не трогаем fish.RecipeIDs
+
+            // ✅ Помечаем как скрытый
+            CurrentRecipe.IsHidden = true;
+
+            DataService.SaveBaitRecipes(DataStore.BaitRecipes);
+            RebuildRecipesList();
+            NewRecipe();
         }
         private void AttachRecipeToFish(object? parameter)
         {
@@ -227,22 +241,33 @@ namespace TFOHelperRedux.ViewModels
         }
         private void NormalizeRecipeIds()
         {
-            if (Recipes == null || Recipes.Count == 0)
+            var all = DataStore.BaitRecipes;
+            if (all == null || all.Count == 0)
                 return;
 
-            // если ID не уникальны (или все 0) – переиндексируем
-            var distinctCount = Recipes.Select(r => r.ID).Distinct().Count();
-            if (distinctCount != Recipes.Count)
+            var distinctCount = all.Select(r => r.ID).Distinct().Count();
+            if (distinctCount != all.Count)
             {
                 int id = 0;
-                foreach (var r in Recipes)
+                foreach (var r in all)
                 {
                     r.ID = id++;
                 }
 
-                // сразу сохраняем исправленные ID в json
-                DataService.SaveBaitRecipes(Recipes);
+                // сохраняем полный список, включая скрытые
+                DataService.SaveBaitRecipes(all);
             }
+        }
+        // 🔹 Перестраиваем список для отображения: только не скрытые рецепты
+        private void RebuildRecipesList()
+        {
+            Recipes.Clear();
+
+            if (DataStore.BaitRecipes == null)
+                return;
+
+            foreach (var r in DataStore.BaitRecipes.Where(r => !r.IsHidden))
+                Recipes.Add(r);
         }
     }
 }

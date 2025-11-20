@@ -13,6 +13,7 @@ namespace TFOHelperRedux.Models
         public int[] FishIDs { get; set; } = Array.Empty<int>();
         public RecipeRank Rank { get; set; } = RecipeRank.Normal;
         public DateTime DateEdited { get; set; } = DateTime.Now;
+        public bool IsHidden { get; set; } = false;
     }
     public enum RecipeRank
     {
