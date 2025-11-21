@@ -1,1843 +1,5236 @@
 [
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 2,
+    "Weight": 0.8,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
     "ID": 0,
     "Name": "Червь",
-    "ImagePath": "Lures\\0.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:35:08.5592548+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 2,
+    "Weight": 0.8,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
     "ID": 1,
     "Name": "Червь навозный",
-    "ImagePath": "Lures\\1.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:35:08.1221136+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 2,
+    "HookMax": 4,
+    "Weight": 8,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 2,
     "Name": "Выползок",
-    "ImagePath": "Lures\\2.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-10-09T22:30:21.6118962+03:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 2,
+    "HookMax": 4,
+    "Weight": 8,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 3,
     "Name": "Пучок червей",
-    "ImagePath": "Lures\\3.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:18.597475+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 1,
+    "Weight": 0.3,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
     "ID": 4,
     "Name": "Мотыль",
-    "ImagePath": "Lures\\4.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:35:35.299244+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 2,
+    "Weight": 0.3,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
     "ID": 5,
     "Name": "Опарыш белый",
-    "ImagePath": "Lures\\5.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:38:44.9094491+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 2,
+    "Weight": 1,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
     "ID": 6,
     "Name": "Ручейник",
-    "ImagePath": "Lures\\6.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:35:19.7822336+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 2,
+    "Weight": 0.2,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
     "ID": 7,
     "Name": "Личинка короеда",
-    "ImagePath": "Lures\\7.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:24.0304048+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 2,
+    "Weight": 0.8,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
     "ID": 8,
     "Name": "Пиявка",
-    "ImagePath": "Lures\\8.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:44.8932382+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 1,
+    "Weight": 1.2,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 9,
     "Name": "Муха",
-    "ImagePath": "Lures\\9.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:35:34.7212396+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 2,
+    "Weight": 1,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 10,
     "Name": "Подёнка",
-    "ImagePath": "Lures\\10.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:20.8192585+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 1,
+    "HookMax": 3,
+    "Weight": 0.5,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 11,
     "Name": "Кузнечик",
-    "ImagePath": "Lures\\11.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:45.3326157+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 2,
+    "Weight": 2.8,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
     "ID": 12,
     "Name": "Нереис",
-    "ImagePath": "Lures\\12.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:38:04.9438746+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 2,
+    "Weight": 1.8,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
     "ID": 13,
     "Name": "Пескожил",
-    "ImagePath": "Lures\\13.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-10-22T23:47:41.1981629+03:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 2,
+    "HookMax": 4,
+    "Weight": 5,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
     "ID": 14,
-    "Name": "Кальмар",
-    "ImagePath": "Lures\\14.png",
-    "Comment": ""
+    "Name": "Кальмар мороженый",
+    "Comment": "",
+    "DateEdited": "2025-10-17T12:05:51.240165+03:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 1,
+    "Weight": 0.8,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
     "ID": 15,
     "Name": "Красная икра",
-    "ImagePath": "Lures\\15.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:26.5419139+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 2,
+    "Weight": 0.8,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
     "ID": 16,
     "Name": "Раковое мясо",
-    "ImagePath": "Lures\\16.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:35:21.4022605+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 1,
+    "HookMax": 3,
+    "Weight": 12,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
     "ID": 17,
-    "Name": "Мясо беззубки",
-    "ImagePath": "Lures\\17.png",
-    "Comment": ""
+    "Name": "Мясо моллюска",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:38:44.4160231+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 1,
+    "HookMax": 3,
+    "Weight": 15,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 18,
     "Name": "Живец",
-    "ImagePath": "Lures\\18.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:04:00.4871579+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 2,
+    "HookMax": 4,
+    "Weight": 0.8,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
     "ID": 19,
-    "Name": "Креветка мороженая",
-    "ImagePath": "Lures\\19.png",
-    "Comment": ""
+    "Name": "Мороженная креветка",
+    "Comment": "",
+    "DateEdited": "2024-01-24T19:01:56.7557746+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 2,
+    "HookMax": 4,
+    "Weight": 20,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 20,
     "Name": "Лягушка",
-    "ImagePath": "Lures\\20.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:22.6481045+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 2,
+    "Weight": 4,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
     "ID": 21,
     "Name": "Рыбьи потроха",
-    "ImagePath": "Lures\\21.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:38:26.8009015+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 2,
+    "HookMax": 4,
+    "Weight": 4,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
     "ID": 22,
     "Name": "Кусочки рыбы",
-    "ImagePath": "Lures\\22.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:38:49.6754704+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2,
+      4
+    ],
+    "HookMin": 1,
+    "HookMax": 3,
+    "Weight": 8,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 23,
     "Name": "Мешочек с икрой",
-    "ImagePath": "Lures\\23.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:41.7090013+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2,
+      4
+    ],
+    "HookMin": 3,
+    "HookMax": 5,
+    "Weight": 70,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 24,
     "Name": "Связка рыбьего мяса",
-    "ImagePath": "Lures\\24.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:18.3607717+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2,
+      4
+    ],
+    "HookMin": 3,
+    "HookMax": 5,
+    "Weight": 70,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 25,
     "Name": "Связка потрохов",
-    "ImagePath": "Lures\\25.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:17.6107242+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2,
+      4
+    ],
+    "HookMin": 3,
+    "HookMax": 5,
+    "Weight": 70,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 26,
     "Name": "Связка ракового мяса",
-    "ImagePath": "Lures\\26.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:18.8499696+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2,
+      4
+    ],
+    "HookMin": 3,
+    "HookMax": 5,
+    "Weight": 70,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 27,
     "Name": "Связка моллюсков",
-    "ImagePath": "Lures\\27.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-10-09T22:30:22.4278366+03:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2,
+      4
+    ],
+    "HookMin": 3,
+    "HookMax": 5,
+    "Weight": 80,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 28,
     "Name": "Морская связка",
-    "ImagePath": "Lures\\28.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:17.8539052+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 2,
+    "Weight": 0.7,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
     "ID": 29,
-    "Name": "Перловка",
-    "ImagePath": "Lures\\29.png",
-    "Comment": ""
+    "Name": "Перловая крупа",
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:26.7827797+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 2,
+    "Weight": 0.7,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 30,
     "Name": "Хлебный мякиш",
-    "ImagePath": "Lures\\30.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:35:10.2126998+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 2,
+    "Weight": 0.7,
+    "GroupID": -1,
+    "IsDipable": true,
+    "IsFeedMixable": false,
     "ID": 31,
-    "Name": "Тесто сладкое",
-    "ImagePath": "Lures\\31.png",
-    "Comment": ""
+    "Name": "Сладкое тесто",
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:31.3609678+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 2,
+    "Weight": 0.7,
+    "GroupID": -1,
+    "IsDipable": true,
+    "IsFeedMixable": false,
     "ID": 32,
-    "Name": "Тесто манное",
-    "ImagePath": "Lures\\32.png",
-    "Comment": ""
+    "Name": "Манное тесто",
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:31.8090899+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 2,
+    "Weight": 1.2,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
     "ID": 33,
     "Name": "Кукуруза",
-    "ImagePath": "Lures\\33.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:24.5519058+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 2,
+    "Weight": 1,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
     "ID": 34,
-    "Name": "Горошек",
-    "ImagePath": "Lures\\34.png",
-    "Comment": ""
+    "Name": "Зелёный горошек",
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:39.244951+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 2,
+    "Weight": 1,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
     "ID": 35,
     "Name": "Сырный кубик",
-    "ImagePath": "Lures\\35.png",
-    "Comment": "Аналог желтого пенопласта"
+    "Comment": "Аналог желтого пенопласта",
+    "DateEdited": "2025-11-21T19:38:29.9998786+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 2,
+    "HookMax": 4,
+    "Weight": 12,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 36,
     "Name": "Макуха",
-    "ImagePath": "Lures\\36.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:26.2819049+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 2,
+    "Weight": 2,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
     "ID": 37,
     "Name": "Картофельный кубик",
-    "ImagePath": "Lures\\37.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:39.4275272+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 1,
+    "HookMax": 3,
+    "Weight": 1.2,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
     "ID": 38,
     "Name": "Водоросли",
-    "ImagePath": "Lures\\38.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:12.270677+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 2,
+    "Weight": 1,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
     "ID": 39,
     "Name": "Зёрна",
-    "ImagePath": "Lures\\39.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:39:04.9874227+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 2,
+    "Weight": 5,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
     "ID": 40,
     "Name": "Кровь",
-    "ImagePath": "Lures\\40.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:44.4225147+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 5,
+    "Weight": 1.5,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 41,
     "Name": "Червь-имитация красный",
-    "ImagePath": "Lures\\41.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:35:05.9894336+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 5,
+    "Weight": 1.5,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 42,
     "Name": "Червь-имитация коричневый",
-    "ImagePath": "Lures\\42.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:35:06.5569179+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 5,
+    "Weight": 1.5,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 43,
     "Name": "Червь-имитация зеленый",
-    "ImagePath": "Lures\\43.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:35:07.1817589+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 5,
+    "Weight": 0,
+    "GroupID": 147,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 44,
     "Name": "Пенопласт белый",
-    "ImagePath": "Lures\\44.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:35:23.1892105+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 5,
+    "Weight": 0,
+    "GroupID": 147,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 45,
-    "Name": "Пенопласт желтый",
-    "ImagePath": "Lures\\45.png",
-    "Comment": ""
+    "Name": "Пенопласт жёлтый",
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:13.5064914+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 5,
+    "Weight": 0,
+    "GroupID": 147,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 46,
-    "Name": "Пенопласт зеленый",
-    "ImagePath": "Lures\\46.png",
-    "Comment": ""
+    "Name": "Пенопласт зелёный",
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:13.7556653+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 5,
+    "Weight": 0,
+    "GroupID": 147,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 47,
     "Name": "Пенопласт голубой",
-    "ImagePath": "Lures\\47.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:35:22.5792424+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 5,
+    "Weight": 6,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 48,
-    "Name": "Бойл Мандарин",
-    "ImagePath": "Lures\\48.png",
-    "Comment": ""
+    "Name": "Бойл мандарин",
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:24.7649761+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 5,
+    "Weight": 6,
+    "GroupID": 143,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 49,
     "Name": "Бойл Кукуруза",
-    "ImagePath": "Lures\\49.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2024-01-24T19:00:51.8361974+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 5,
+    "Weight": 6,
+    "GroupID": 143,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 50,
     "Name": "Бойл Цитрус",
-    "ImagePath": "Lures\\50.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:35:38.9458427+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 5,
+    "Weight": 6,
+    "GroupID": 143,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 51,
     "Name": "Бойл Сливки",
-    "ImagePath": "Lures\\51.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:35:41.2737603+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 5,
+    "Weight": 6,
+    "GroupID": 143,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 52,
-    "Name": "Бойл Сыр",
-    "ImagePath": "Lures\\52.png",
-    "Comment": ""
+    "Name": "Бойл сыр",
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:16.4848179+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 5,
+    "Weight": 6,
+    "GroupID": 145,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 53,
-    "Name": "Бойл Карамель",
-    "ImagePath": "Lures\\53.png",
-    "Comment": ""
+    "Name": "Бойл карамель",
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:14.7677696+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 5,
+    "Weight": 6,
+    "GroupID": 145,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 54,
-    "Name": "Бойл Куркума",
-    "ImagePath": "Lures\\54.png",
-    "Comment": ""
+    "Name": "Бойл куркума",
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:15.9547816+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 5,
+    "Weight": 6,
+    "GroupID": 145,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 55,
     "Name": "Бойл Тигровый орех",
-    "ImagePath": "Lures\\55.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:35:39.6319597+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 5,
+    "Weight": 6,
+    "GroupID": 145,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 56,
     "Name": "Бойл Устрицы",
-    "ImagePath": "Lures\\56.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:39:09.9109282+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 5,
+    "Weight": 6,
+    "GroupID": 146,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 57,
     "Name": "Бойл Капуста",
-    "ImagePath": "Lures\\57.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:35:49.4472611+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 5,
+    "Weight": 6,
+    "GroupID": 146,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 58,
-    "Name": "Бойл Мята",
-    "ImagePath": "Lures\\58.png",
-    "Comment": ""
+    "Name": "Бойл мята",
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:16.9020436+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 5,
+    "Weight": 6,
+    "GroupID": 146,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 59,
-    "Name": "Бойл Травы",
-    "ImagePath": "Lures\\59.png",
-    "Comment": ""
+    "Name": "Бойл трава",
+    "Comment": "",
+    "DateEdited": "2024-01-24T19:00:54.8526561+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 5,
+    "Weight": 6,
+    "GroupID": 144,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 60,
-    "Name": "Бойл Краб",
-    "ImagePath": "Lures\\60.png",
-    "Comment": ""
+    "Name": "Бойл краб",
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:15.5126959+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 5,
+    "Weight": 6,
+    "GroupID": 144,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 61,
     "Name": "Бойл Клубника",
-    "ImagePath": "Lures\\61.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:38:00.2820867+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 5,
+    "Weight": 6,
+    "GroupID": 144,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 62,
     "Name": "Бойл Фрукты",
-    "ImagePath": "Lures\\62.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:35:39.2942199+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      3
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 2,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 63,
     "Name": "RF Муха",
-    "ImagePath": "Lures\\63.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:40:53.6675519+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      3
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 4,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 64,
     "Name": "RF Жук",
-    "ImagePath": "Lures\\64.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:40:54.626481+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      3
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 4,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 65,
     "Name": "RF Кузнечик",
-    "ImagePath": "Lures\\65.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:40:53.8944819+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      3
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 3,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 66,
     "Name": "RF Подёнка",
-    "ImagePath": "Lures\\66.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:40:52.0975697+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      3
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 4,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 67,
     "Name": "RF Мохнатый шмель",
-    "ImagePath": "Lures\\67.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:34:09.6030627+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      3
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 2,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 68,
     "Name": "RF Оса",
-    "ImagePath": "Lures\\68.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:40:53.3712966+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      3
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 4,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 69,
     "Name": "RF Бокоплав",
-    "ImagePath": "Lures\\69.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:40:56.0211144+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      3
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 4,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 70,
     "Name": "WB Streamer M1",
-    "ImagePath": "Lures\\70.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:36:45.3727954+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      3
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 4,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 71,
     "Name": "WB Streamer M2",
-    "ImagePath": "Lures\\71.png",
-    "Comment": "Аналог живца"
+    "Comment": "Аналог живца",
+    "DateEdited": "2025-11-21T19:36:46.9136756+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      3
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 4,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 72,
     "Name": "WB Streamer M3",
-    "ImagePath": "Lures\\72.png",
-    "Comment": "Аналог пиявки"
+    "Comment": "Аналог пиявки",
+    "DateEdited": "2025-11-21T19:36:51.3194148+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 4,
+    "GroupID": 148,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 73,
     "Name": "VIB UL Cyclope M1",
-    "ImagePath": "Lures\\73.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:05.6548354+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 4,
+    "GroupID": 148,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 74,
     "Name": "VIB UL Cyclope M2",
-    "ImagePath": "Lures\\74.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:05.9094088+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 4,
+    "GroupID": 148,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 75,
     "Name": "VIB UL Cyclope M3",
-    "ImagePath": "Lures\\75.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:06.1533795+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 20,
+    "GroupID": 149,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 76,
     "Name": "VIB MD Cyclope M1",
-    "ImagePath": "Lures\\76.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:01.3866884+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 20,
+    "GroupID": 149,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 77,
     "Name": "VIB MD Cyclope M2",
-    "ImagePath": "Lures\\77.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:01.6186284+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 20,
+    "GroupID": 149,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 78,
     "Name": "VIB MD Cyclope M3",
-    "ImagePath": "Lures\\78.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:01.8506648+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 12,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 79,
     "Name": "VIB Raiden 12g",
-    "ImagePath": "Lures\\79.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:02.0734935+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 18,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 80,
     "Name": "VIB Raiden 18g",
-    "ImagePath": "Lures\\80.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:02.3082418+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 25,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 81,
     "Name": "VIB Raiden 25g",
-    "ImagePath": "Lures\\81.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:02.556332+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 12,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 82,
     "Name": "VIB Rima 12g",
-    "ImagePath": "Lures\\82.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:03.7145394+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 18,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 83,
     "Name": "VIB Rima 18g",
-    "ImagePath": "Lures\\83.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:37:36.9856266+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 25,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 84,
     "Name": "VIB Rima 25g",
-    "ImagePath": "Lures\\84.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:04.1755415+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 12,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 85,
     "Name": "VIB Raiwa 12g",
-    "ImagePath": "Lures\\85.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:37:34.429316+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 18,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 86,
     "Name": "VIB Raiwa 18g",
-    "ImagePath": "Lures\\86.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:37:35.8213206+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 25,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 87,
     "Name": "VIB Raiwa 25g",
-    "ImagePath": "Lures\\87.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:37:36.5975101+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 30,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 88,
     "Name": "VIB Raiwa 30g",
-    "ImagePath": "Lures\\88.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:37:36.2309083+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 18,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 89,
-    "Name": "VIB Atom JS",
-    "ImagePath": "Lures\\89.png",
-    "Comment": ""
+    "Name": "VIB Atom JS 18g",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:39:57.3695536+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 38,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 90,
     "Name": "Блесна-ёлочка",
-    "ImagePath": "Lures\\90.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:36:03.7447399+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 28,
+    "GroupID": 152,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 91,
     "Name": "Akma VB1 gold",
-    "ImagePath": "Lures\\91.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:36:40.8136262+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 28,
+    "GroupID": 152,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 92,
     "Name": "Akma VB2 silver",
-    "ImagePath": "Lures\\92.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:36:41.2323395+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 28,
+    "GroupID": 152,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 93,
     "Name": "Akma VB3 fluo",
-    "ImagePath": "Lures\\93.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:36:56.3174519+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 3,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 94,
     "Name": "CRL Ivara 3g",
-    "ImagePath": "Lures\\94.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:02:47.5419969+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 6,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 95,
     "Name": "CRL Ivara 6g",
-    "ImagePath": "Lures\\95.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:02:47.733086+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 10,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 96,
     "Name": "CRL Ivara 10g",
-    "ImagePath": "Lures\\96.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:02:47.2428941+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 5,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 97,
     "Name": "CRL Atom JS",
-    "ImagePath": "Lures\\97.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-10-22T23:45:20.8813293+03:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 3,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 98,
     "Name": "CRL TroutMaster M1",
-    "ImagePath": "Lures\\98.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:02:48.5235472+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 3,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 99,
     "Name": "CRL TroutMaster M2",
-    "ImagePath": "Lures\\99.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:02:48.7261493+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 3,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 100,
     "Name": "CRL TroutMaster M3",
-    "ImagePath": "Lures\\100.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:02:48.9093316+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 4,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 101,
     "Name": "CRL Marss M1",
-    "ImagePath": "Lures\\101.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:02:47.9302641+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 4,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 102,
     "Name": "CRL Marss M2",
-    "ImagePath": "Lures\\102.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:02:48.132284+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 4,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 103,
     "Name": "CRL Marss M3",
-    "ImagePath": "Lures\\103.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:02:48.3321936+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 28,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 104,
     "Name": "Кальмарница",
-    "ImagePath": "Lures\\104.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:35:59.0719126+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 3,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 105,
     "Name": "JIG TwistNord 40mm",
-    "ImagePath": "Lures\\105.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:02:54.6123774+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 7,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 106,
     "Name": "JIG TwistNord 75mm",
-    "ImagePath": "Lures\\106.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:02:54.8414506+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 12,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 107,
     "Name": "JIG TwistNord 95mm",
-    "ImagePath": "Lures\\107.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:02:55.0664633+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 12,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 108,
     "Name": "JIG Atom JS",
-    "ImagePath": "Lures\\108.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:02:50.8119905+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 4,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 109,
     "Name": "JIG TGreen 50mm",
-    "ImagePath": "Lures\\109.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:02:54.1944194+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 7,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 110,
     "Name": "JIG TGreen 75mm",
-    "ImagePath": "Lures\\110.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:02:54.382496+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 15,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 111,
     "Name": "JIG TGreen 120mm",
-    "ImagePath": "Lures\\111.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:40:28.6810008+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 4,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 112,
     "Name": "Твистер Сиг-II",
-    "ImagePath": "Lures\\112.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:37:43.5339019+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 15,
+    "GroupID": 153,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 113,
     "Name": "VibroTail Shad M1 120mm (белый)",
-    "ImagePath": "Lures\\113.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:39:44.9410054+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 15,
+    "GroupID": 153,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 114,
     "Name": "VibroTail Shad M2 120mm (желтый)",
-    "ImagePath": "Lures\\114.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:39:41.8000328+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 15,
+    "GroupID": 153,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 115,
     "Name": "VibroTail Shad M3 120mm (синий)",
-    "ImagePath": "Lures\\115.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:37:42.7809842+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 15,
+    "GroupID": 153,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 116,
-    "Name": "VibroTail Shad M4 120mm (красный)",
-    "ImagePath": "Lures\\116.png",
-    "Comment": ""
+    "Name": "VibroTail Shad M4 120mm (rouge)",
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:07.1024059+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 15,
+    "GroupID": 153,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 117,
-    "Name": "VibroTail Shad M5 120mm (зеленый)",
-    "ImagePath": "Lures\\117.png",
-    "Comment": ""
+    "Name": "VibroTail Shad M5 120mm (vert)",
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:07.3445042+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 4,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 118,
     "Name": "Вэки-леденец 60mm",
-    "ImagePath": "Lures\\118.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:35:57.5672339+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 4,
+    "GroupID": 154,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 119,
     "Name": "Вэки WRM-I",
-    "ImagePath": "Lures\\119.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-10-09T22:18:09.3027551+03:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 4,
+    "GroupID": 154,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 120,
     "Name": "Вэки WRM-II",
-    "ImagePath": "Lures\\120.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-10-09T22:18:09.8267071+03:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 4,
+    "GroupID": 154,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 121,
     "Name": "Вэки WRM-III",
-    "ImagePath": "Lures\\121.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-10-09T22:18:10.2797841+03:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 4,
+    "GroupID": 154,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 122,
     "Name": "Вэки WRM-IV",
-    "ImagePath": "Lures\\122.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-10-09T22:18:11.3027158+03:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 8,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 123,
     "Name": "BillyWorm M1 10cm",
-    "ImagePath": "Lures\\123.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-10-22T23:45:21.4440655+03:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 8,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 124,
     "Name": "BillyWorm M2 10cm",
-    "ImagePath": "Lures\\124.png",
-    "Comment": "Является имитацией лягушки, выползка и живца"
+    "Comment": "Является имитацией лягушки, выползка и живца",
+    "DateEdited": "2023-02-11T17:02:45.7280242+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 8,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 125,
     "Name": "BillyWorm M3 10cm",
-    "ImagePath": "Lures\\125.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:02:45.9661703+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 5,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 126,
     "Name": "WOB Jumper 5g",
-    "ImagePath": "Lures\\126.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:39:22.9259535+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 10,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 127,
     "Name": "WOB Jumper 10g",
-    "ImagePath": "Lures\\127.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-10-17T12:05:58.3103952+03:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 25,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 128,
     "Name": "WOB Jumper 25g",
-    "ImagePath": "Lures\\128.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:39:26.1985069+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 5,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 129,
     "Name": "WOB Crucian M1 5g",
-    "ImagePath": "Lures\\129.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:09.0004037+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 10,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 130,
     "Name": "WOB Crucian M1 10g",
-    "ImagePath": "Lures\\130.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:08.5866638+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 25,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 131,
     "Name": "WOB Crucian M1 25g",
-    "ImagePath": "Lures\\131.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:08.7797334+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 25,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 132,
-    "Name": "TopW Поппер Лягушка-III-М5",
-    "ImagePath": "Lures\\132.png",
-    "Comment": ""
+    "Name": "Popper \u0022Frog-III-M5\u0022",
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:02:56.6673069+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 10,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 133,
     "Name": "TopW Acn-I",
-    "ImagePath": "Lures\\133.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:36:05.4488256+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 20,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 134,
     "Name": "TopW Acn-II",
-    "ImagePath": "Lures\\134.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:36:07.2032698+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 30,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 135,
     "Name": "TopW Acn-III",
-    "ImagePath": "Lures\\135.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:02:57.8237254+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 45,
+    "GroupID": 150,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 136,
-    "Name": "WOB DeepTail M1 (белый)",
-    "ImagePath": "Lures\\136.png",
-    "Comment": ""
+    "Name": "WOB DeepTail M1 (blanc)",
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:09.2285281+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 45,
+    "GroupID": 150,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 137,
-    "Name": "WOB DeepTail M2 (красный)",
-    "ImagePath": "Lures\\137.png",
-    "Comment": ""
+    "Name": "WOB DeepTail M2 (rouge)",
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:09.4857824+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 45,
+    "GroupID": 150,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 138,
-    "Name": "WOB DeepTail M3 (синий)",
-    "ImagePath": "Lures\\138.png",
-    "Comment": ""
+    "Name": "WOB DeepTail M3 (bleu)",
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:09.7264944+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 12,
+    "GroupID": 151,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 139,
     "Name": "WOB Shad-F1",
-    "ImagePath": "Lures\\139.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-10-09T22:18:17.3207083+03:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 12,
+    "GroupID": 151,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 140,
     "Name": "WOB Shad-F2",
-    "ImagePath": "Lures\\140.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-10-09T22:18:13.5257231+03:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 12,
+    "GroupID": 151,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 141,
     "Name": "WOB Shad-F3",
-    "ImagePath": "Lures\\141.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-10-09T22:18:12.1597566+03:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 12,
+    "GroupID": 151,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 142,
     "Name": "WOB Shad-F4",
-    "ImagePath": "Lures\\142.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:12.0455019+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 5,
+    "Weight": 6,
+    "GroupID": -2,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 143,
     "Name": "Бойл желтый (любой)",
-    "ImagePath": "Lures\\143.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "0001-01-01T00:00:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 5,
+    "Weight": 6,
+    "GroupID": -2,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 144,
     "Name": "Бойл красный (любой)",
-    "ImagePath": "Lures\\144.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "0001-01-01T00:00:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 5,
+    "Weight": 6,
+    "GroupID": -2,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 145,
     "Name": "Бойл коричневый (любой)",
-    "ImagePath": "Lures\\145.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "0001-01-01T00:00:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 5,
+    "Weight": 6,
+    "GroupID": -2,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 146,
     "Name": "Бойл зеленый (любой)",
-    "ImagePath": "Lures\\146.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "0001-01-01T00:00:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 5,
+    "Weight": 0,
+    "GroupID": -2,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 147,
     "Name": "Пенопласт (любой)",
-    "ImagePath": "Lures\\147.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "0001-01-01T00:00:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 4,
+    "GroupID": -2,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 148,
     "Name": "UL Cyclope (любой)",
-    "ImagePath": "Lures\\148.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "0001-01-01T00:00:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 20,
+    "GroupID": -2,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 149,
     "Name": "MD Cyclope (любой)",
-    "ImagePath": "Lures\\149.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "0001-01-01T00:00:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 45,
+    "GroupID": -2,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 150,
     "Name": "WOB DeepTail (любой)",
-    "ImagePath": "Lures\\150.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "0001-01-01T00:00:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 12,
+    "GroupID": -2,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 151,
     "Name": "WOB Shad (любой)",
-    "ImagePath": "Lures\\151.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "0001-01-01T00:00:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 28,
+    "GroupID": -2,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 152,
     "Name": "Вертикальная блесна Akma VB (любая)",
-    "ImagePath": "Lures\\152.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "0001-01-01T00:00:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 15,
+    "GroupID": -2,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 153,
     "Name": "VibroTail Shad 120mm (любой)",
-    "ImagePath": "Lures\\153.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "0001-01-01T00:00:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 4,
+    "GroupID": -2,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 154,
     "Name": "UL Вэки-черви (любой)",
-    "ImagePath": "Lures\\154.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "0001-01-01T00:00:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 2,
+    "HookMax": 2,
+    "Weight": 20,
+    "GroupID": 181,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 155,
     "Name": "Технопланктон",
-    "ImagePath": "Lures\\155.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:38:35.7215201+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 2,
+    "HookMax": 4,
+    "Weight": 50.0,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 156,
     "Name": "Морской живец",
-    "ImagePath": "Lures\\156.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:35:38.5493725+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 38,
+    "GroupID": 160,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 157,
     "Name": "VIB Salmon GT-1",
-    "ImagePath": "Lures\\157.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:37:37.3718991+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 38,
+    "GroupID": 160,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 158,
     "Name": "VIB Salmon GT-2",
-    "ImagePath": "Lures\\158.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:04.6536216+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 38,
+    "GroupID": 160,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 159,
     "Name": "VIB Salmon GT-3",
-    "ImagePath": "Lures\\159.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:04.9483813+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 38,
+    "GroupID": -2,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 160,
     "Name": "VIB Salmon GT-30 (любой)",
-    "ImagePath": "Lures\\160.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2020-10-13T10:00:00.7036875+03:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 32,
+    "GroupID": 164,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 161,
     "Name": "CRL DG-M1",
-    "ImagePath": "Lures\\161.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:02:46.6269184+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 32,
+    "GroupID": 164,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 162,
     "Name": "CRL DG-M2",
-    "ImagePath": "Lures\\162.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:02:46.8188984+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 32,
+    "GroupID": 164,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 163,
     "Name": "CRL DG-M3",
-    "ImagePath": "Lures\\163.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:02:47.0278608+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 32,
+    "GroupID": -2,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 164,
     "Name": "CRL DeepGracia (любой)",
-    "ImagePath": "Lures\\164.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2020-10-13T10:00:00.7036875+03:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 2,
+    "Weight": 1,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 165,
-    "Name": "Личинка подёнки",
-    "ImagePath": "Lures\\165.png",
-    "Comment": ""
+    "Name": "Личинка Подёнки",
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:24.3339077+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 2,
+    "Weight": 1,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 166,
-    "Name": "Личинка стрекозы",
-    "ImagePath": "Lures\\166.png",
-    "Comment": ""
+    "Name": "Личинка Стрекозы",
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:23.5078722+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 25,
+    "GroupID": -2,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 167,
     "Name": "Приманка Мышь (любая)",
-    "ImagePath": "Lures\\167.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2020-12-26T21:00:00.7036875+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 25,
+    "GroupID": 167,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 168,
     "Name": "Приманка Мышь-М1",
-    "ImagePath": "Lures\\168.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-10-09T22:18:17.8687456+03:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 25,
+    "GroupID": 167,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 169,
     "Name": "Приманка Мышь-М2",
-    "ImagePath": "Lures\\169.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-10-09T22:18:18.5657271+03:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 25,
+    "GroupID": 167,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 170,
     "Name": "Приманка Мышь-М3",
-    "ImagePath": "Lures\\170.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-10-17T12:05:54.4881631+03:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 2,
+    "Weight": 1,
+    "GroupID": -2,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 171,
     "Name": "Личинка восковой моли (любая)",
-    "ImagePath": "Lures\\171.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2021-03-07T14:00:00.7036875+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 2,
+    "Weight": 1,
+    "GroupID": 171,
+    "IsDipable": false,
+    "IsFeedMixable": true,
     "ID": 172,
     "Name": "Личинка восковой моли натуральная",
-    "ImagePath": "Lures\\172.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:53.3894883+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 2,
+    "Weight": 1,
+    "GroupID": 171,
+    "IsDipable": false,
+    "IsFeedMixable": true,
     "ID": 173,
-    "Name": "Личинка восковой моли (красная)",
-    "ImagePath": "Lures\\173.png",
-    "Comment": ""
+    "Name": "Личинка восковой моли красная",
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:53.697718+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 2,
+    "Weight": 1,
+    "GroupID": 171,
+    "IsDipable": false,
+    "IsFeedMixable": true,
     "ID": 174,
-    "Name": "Личинка восковой моли (зелёная)",
-    "ImagePath": "Lures\\174.png",
-    "Comment": ""
+    "Name": "Личинка восковой моли зелёная",
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:53.9557167+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 2,
+    "Weight": 1,
+    "GroupID": -2,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 175,
     "Name": "Паста для форели (любая)",
-    "ImagePath": "Lures\\175.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2021-03-07T14:00:00.7036875+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 2,
+    "Weight": 0.7,
+    "GroupID": 175,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 176,
     "Name": "Паста для форели (икра)",
-    "ImagePath": "Lures\\176.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:35:27.5093022+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 2,
+    "Weight": 0.7,
+    "GroupID": 175,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 177,
     "Name": "Паста для форели (сыр)",
-    "ImagePath": "Lures\\177.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:35:26.9170829+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 2,
+    "Weight": 0.7,
+    "GroupID": 175,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 178,
     "Name": "Паста для форели (чеснок)",
-    "ImagePath": "Lures\\178.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:35:23.8192539+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 2,
+    "Weight": 0.8,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
     "ID": 179,
     "Name": "Креветочный хвост",
-    "ImagePath": "Lures\\179.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:38:04.2896523+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 2,
+    "Weight": 3,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
     "ID": 180,
     "Name": "Кусочки кальмара",
-    "ImagePath": "Lures\\180.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:38:50.3823824+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 2,
+    "HookMax": 2,
+    "Weight": 20,
+    "GroupID": -2,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 181,
     "Name": "Технопланктон (любой)",
-    "ImagePath": "Lures\\181.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2021-03-07T14:00:00.7036875+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 2,
+    "HookMax": 2,
+    "Weight": 20,
+    "GroupID": 181,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 182,
     "Name": "Технопланктон Ваниль",
-    "ImagePath": "Lures\\182.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:38:32.4794583+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 2,
+    "HookMax": 2,
+    "Weight": 20,
+    "GroupID": 181,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 183,
-    "Name": "Технопланктон Водяная блоха",
-    "ImagePath": "Lures\\183.png",
-    "Comment": ""
+    "Name": "Технопланктон водяная блоха",
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:33.8203382+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 2,
+    "HookMax": 2,
+    "Weight": 20,
+    "GroupID": 181,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 184,
     "Name": "Технопланктон Шоколад",
-    "ImagePath": "Lures\\184.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:38:33.2308976+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 2,
+    "HookMax": 2,
+    "Weight": 20,
+    "GroupID": 181,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 185,
     "Name": "Технопланктон Чеснок",
-    "ImagePath": "Lures\\185.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:35:17.8651155+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 2,
+    "HookMax": 2,
+    "Weight": 20,
+    "GroupID": 181,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 186,
     "Name": "Технопланктон Анис",
-    "ImagePath": "Lures\\186.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:38:31.3294612+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 2,
+    "HookMax": 2,
+    "Weight": 20,
+    "GroupID": 181,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 187,
-    "Name": "Технопланктон Малина",
-    "ImagePath": "Lures\\187.png",
-    "Comment": ""
+    "Name": "Технопланктон малина",
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:33.3503004+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 2,
+    "Weight": 0.7,
+    "GroupID": -1,
+    "IsDipable": true,
+    "IsFeedMixable": false,
     "ID": 188,
-    "Name": "Тесто кукурузное",
-    "ImagePath": "Lures\\188.png",
-    "Comment": ""
+    "Name": "Кукурузное тесто",
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:31.1438802+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 2,
+    "Weight": 0.7,
+    "GroupID": -1,
+    "IsDipable": true,
+    "IsFeedMixable": false,
     "ID": 189,
-    "Name": "Тесто гороховое",
-    "ImagePath": "Lures\\189.png",
-    "Comment": ""
+    "Name": "Гороховое тесто",
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:31.5798173+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 2,
+    "Weight": 0.7,
+    "GroupID": -1,
+    "IsDipable": true,
+    "IsFeedMixable": false,
     "ID": 190,
-    "Name": "Тесто 速攻1号 (Быстрая атака №1)",
-    "ImagePath": "Lures\\190.png",
-    "Comment": ""
+    "Name": "Тесто \u901F\u653B1\u53F7 (Быстрая атака \u21161)",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:38:14.2387704+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 2,
+    "Weight": 0.7,
+    "GroupID": -1,
+    "IsDipable": true,
+    "IsFeedMixable": false,
     "ID": 191,
-    "Name": "Тесто 速攻2号 (Быстрая атака №2)",
-    "ImagePath": "Lures\\191.png",
-    "Comment": ""
+    "Name": "Тесто \u901F\u653B2\u53F7 (Быстрая атака \u21162)",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:38:16.785404+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 2,
+    "Weight": 0.7,
+    "GroupID": -1,
+    "IsDipable": true,
+    "IsFeedMixable": false,
     "ID": 192,
-    "Name": "Тесто 蓝鲫3号 (Синий карась №3)",
-    "ImagePath": "Lures\\192.png",
-    "Comment": ""
+    "Name": "Тесто \u84DD\u9CAB3\u53F7 (Синий карась \u21163)",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:38:13.8974795+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 1,
+    "HookMax": 3,
+    "Weight": 15,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 193,
     "Name": "Шайнер",
-    "ImagePath": "Lures\\193.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:38:18.2312214+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 2,
+    "Weight": 0.3,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
     "ID": 194,
     "Name": "Мучные черви",
-    "ImagePath": "Lures\\194.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:35:32.8272672+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 39,
+    "GroupID": 198,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 195,
     "Name": "JGlider-Fury",
-    "ImagePath": "Lures\\195.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:02:50.1923633+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 39,
+    "GroupID": 198,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 196,
     "Name": "JGlider-Shiner",
-    "ImagePath": "Lures\\196.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:36:22.4772777+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 39,
+    "GroupID": 198,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 197,
     "Name": "JGlider-Perch",
-    "ImagePath": "Lures\\197.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:02:50.4014239+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 39,
+    "GroupID": -2,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 198,
     "Name": "JGlider (any)",
-    "ImagePath": "Lures\\198.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2021-05-03T16:00:00.7036875+03:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 38,
+    "GroupID": 160,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 199,
     "Name": "VIB Salmon GT-4",
-    "ImagePath": "Lures\\199.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:37:38.7719381+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 38,
+    "GroupID": 160,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 200,
     "Name": "VIB Salmon GT-5",
-    "ImagePath": "Lures\\200.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:05.4287143+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": 1,
+    "HookMax": 2,
+    "Weight": 1,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 201,
     "Name": "JIG Brush S1",
-    "ImagePath": "Lures\\201.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:02:51.0303641+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": 1,
+    "HookMax": 3,
+    "Weight": 1,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 202,
     "Name": "JIG Brush S2",
-    "ImagePath": "Lures\\202.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:02:51.3048789+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": 2,
+    "HookMax": 4,
+    "Weight": 1,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 203,
-    "Name": "JIG Brush S3",
-    "ImagePath": "Lures\\203.png",
-    "Comment": ""
+    "Name": "JIG Brush S3 (1g)",
+    "Comment": "",
+    "DateEdited": "2025-02-23T11:11:10.379291+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": 1,
+    "HookMax": 3,
+    "Weight": 1,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 204,
-    "Name": "Gar's Brush S2",
-    "ImagePath": "Lures\\204.png",
-    "Comment": ""
+    "Name": "Gar\u0027s Brush S2",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:37:06.9498513+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": 2,
+    "HookMax": 4,
+    "Weight": 1,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 205,
-    "Name": "Gar's Brush S3",
-    "ImagePath": "Lures\\205.png",
-    "Comment": ""
+    "Name": "Gar\u0027s Brush S3",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:37:09.1953267+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 55,
+    "GroupID": 198,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 206,
-    "Name": "JGlider-BigClown",
-    "ImagePath": "Lures\\206.png",
-    "Comment": ""
+    "Name": "JGlider-BigClown (55g)",
+    "Comment": "",
+    "DateEdited": "2024-01-24T19:00:43.2449128+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 55,
+    "GroupID": 198,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 207,
-    "Name": "JGlider-BigMullet",
-    "ImagePath": "Lures\\207.png",
-    "Comment": "Возможно, имитация кефали"
+    "Name": "JGlider-BigMullet (55g)",
+    "Comment": "Возможно, имитация кефали",
+    "DateEdited": "2024-01-24T19:00:49.7409069+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 55,
+    "GroupID": 198,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 208,
     "Name": "JGlider-BigSquid",
-    "ImagePath": "Lures\\208.png",
-    "Comment": "Возможно, имитация кальмара"
+    "Comment": "Возможно, имитация кальмара",
+    "DateEdited": "2023-02-19T22:01:59.6502955+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 4.9,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 209,
-    "Name": "TopW Beetle-M0",
-    "ImagePath": "Lures\\209.png",
-    "Comment": ""
+    "Name": "TopW Hanneton",
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:02:58.0494379+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 0,
+    "GroupID": -2,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 210,
     "Name": "TopW Walker (любой)",
-    "ImagePath": "Lures\\210.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2021-05-20T16:00:00.7036875+03:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 4.9,
+    "GroupID": 210,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 211,
     "Name": "TopW Walker-5g",
-    "ImagePath": "Lures\\211.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:34:44.8382401+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 12,
+    "GroupID": 210,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 212,
     "Name": "TopW Walker-12g",
-    "ImagePath": "Lures\\212.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:40:10.0775432+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 20,
+    "GroupID": 210,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 213,
     "Name": "TopW Walker-20g",
-    "ImagePath": "Lures\\213.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:40:11.9420081+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2,
+      4
+    ],
+    "HookMin": 3,
+    "HookMax": 5,
+    "Weight": 130,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 214,
     "Name": "Связка живцов",
-    "ImagePath": "Lures\\214.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-10-09T22:30:35.2676978+03:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2,
+      4
+    ],
+    "HookMin": 3,
+    "HookMax": 5,
+    "Weight": 20,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 215,
     "Name": "Норвежская ставка",
-    "ImagePath": "Lures\\215.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:38:08.462345+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 2,
+    "HookMax": 4,
+    "Weight": 10,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 216,
     "Name": "Личинка миноги",
-    "ImagePath": "Lures\\216.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:23.2929787+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 2,
+    "Weight": 0.7,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 217,
     "Name": "Хлебный фарш",
-    "ImagePath": "Lures\\217.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:35:09.1281998+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 1,
+    "Weight": 1.8,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 218,
     "Name": "Слепень",
-    "ImagePath": "Lures\\218.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:38:27.3084644+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": 3,
+    "HookMax": 5,
+    "Weight": 25,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 219,
     "Name": "JIG Twist-NY Ice 14cm",
-    "ImagePath": "Lures\\219.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:02:55.2904642+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 25,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 220,
     "Name": "Приманка Бурундук-NY",
-    "ImagePath": "Lures\\220.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:39:21.7309194+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 25,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 221,
-    "Name": "TopW Поппер Лягушка-III-М1",
-    "ImagePath": "Lures\\221.png",
-    "Comment": ""
+    "Name": "Popper \u0022Frog-III-M1\u0022 (25gr)",
+    "Comment": "",
+    "DateEdited": "2025-05-01T07:17:12.6121118+03:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 25,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 222,
-    "Name": "TopW Поппер Лягушка-III-М2",
-    "ImagePath": "Lures\\222.png",
-    "Comment": ""
+    "Name": "TopW Popper Grenouille-III-М2",
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:02:58.5301731+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 25,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 223,
-    "Name": "TopW Поппер Лягушка-III-М3",
-    "ImagePath": "Lures\\223.png",
-    "Comment": ""
+    "Name": "TopW Popper Grenouille-III-М3",
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:02:58.7443967+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 3,
+    "HookMax": 5,
+    "Weight": 180,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 224,
     "Name": "Тушка рыбы",
-    "ImagePath": "Lures\\224.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:38:25.6019672+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": 3,
+    "HookMax": 5,
+    "Weight": 35,
+    "GroupID": -2,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 225,
     "Name": "JIG Squid (любой)",
-    "ImagePath": "Lures\\225.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2022-05-07T19:18:39.0130755+03:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": 3,
+    "HookMax": 5,
+    "Weight": 35,
+    "GroupID": 225,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 226,
     "Name": "JIG Squid M1",
-    "ImagePath": "Lures\\226.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:02:52.4044055+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": 3,
+    "HookMax": 5,
+    "Weight": 35,
+    "GroupID": 225,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 227,
     "Name": "JIG Squid M2",
-    "ImagePath": "Lures\\227.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:02:53.2123888+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": 3,
+    "HookMax": 5,
+    "Weight": 35,
+    "GroupID": 225,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 228,
     "Name": "JIG Squid M3",
-    "ImagePath": "Lures\\228.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:02:53.6022228+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 50,
+    "GroupID": -2,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 229,
     "Name": "WOB Searunner (любой)",
-    "ImagePath": "Lures\\229.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2022-05-07T19:18:39.0130755+03:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 50,
+    "GroupID": 229,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 230,
     "Name": "WOB Searunner M1",
-    "ImagePath": "Lures\\230.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:39:22.3209362+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 50,
+    "GroupID": 229,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 231,
     "Name": "WOB Searunner M2",
-    "ImagePath": "Lures\\231.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:10.8925739+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 50,
+    "GroupID": 229,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 232,
     "Name": "WOB Searunner M3",
-    "ImagePath": "Lures\\232.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:11.1123644+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 4,
+    "GroupID": -2,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 233,
     "Name": "VIB Alosa Series",
-    "ImagePath": "Lures\\233.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2022-05-18T23:18:39.0130755+03:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 4,
+    "GroupID": 233,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 234,
-    "Name": "VIB Alosa M1",
-    "ImagePath": "Lures\\234.png",
-    "Comment": ""
+    "Name": "Vib Alosa M1 (4g)",
+    "Comment": "",
+    "DateEdited": "2023-02-19T22:13:57.9856885+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 4,
+    "GroupID": 233,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 235,
-    "Name": "VIB Alosa M2",
-    "ImagePath": "Lures\\235.png",
-    "Comment": ""
+    "Name": "Vib Alosa M2 (4g)",
+    "Comment": "",
+    "DateEdited": "2023-02-19T22:13:58.1808645+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 4,
+    "GroupID": 233,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 236,
-    "Name": "VIB Alosa M3",
-    "ImagePath": "Lures\\236.png",
-    "Comment": ""
+    "Name": "Vib Alosa M3 (4g)",
+    "Comment": "",
+    "DateEdited": "2023-02-19T22:14:01.0344731+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 4,
+    "GroupID": 233,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 237,
-    "Name": "VIB Alosa S",
-    "ImagePath": "Lures\\237.png",
-    "Comment": ""
+    "Name": "Vib Alosa S (4g)",
+    "Comment": "",
+    "DateEdited": "2023-02-19T22:14:01.7798042+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2,
+      4
+    ],
+    "HookMin": 2,
+    "HookMax": 4,
+    "Weight": 70,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 238,
     "Name": "Рак",
-    "ImagePath": "Lures\\238.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:38:13.2273639+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 2,
+    "HookMax": 4,
+    "Weight": 3.8,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
     "ID": 239,
     "Name": "Креветка целая",
-    "ImagePath": "Lures\\239.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:20.3140385+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2,
+      4
+    ],
+    "HookMin": 2,
+    "HookMax": 4,
+    "Weight": 65,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 240,
-    "Name": "Кальмар целый",
-    "ImagePath": "Lures\\240.png",
-    "Comment": ""
+    "Name": "Кальмар",
+    "Comment": "",
+    "DateEdited": "2024-01-24T19:00:55.9726382+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 2,
+    "HookMax": 4,
+    "Weight": 3.8,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 241,
     "Name": "Медведка",
-    "ImagePath": "Lures\\241.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:20.0386696+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2,
+      4
+    ],
+    "HookMin": 3,
+    "HookMax": 5,
+    "Weight": 50,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 242,
     "Name": "Связка медведок",
-    "ImagePath": "Lures\\242.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-10-09T22:30:26.0724065+03:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 2,
+    "HookMax": 4,
+    "Weight": 3.8,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 243,
-    "Name": "Мидии",
-    "ImagePath": "Lures\\243.png",
-    "Comment": ""
+    "Name": "Мясо краба",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:38:41.6711352+02:00"
   },
   {
-    "IsSelected": false,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 2,
+    "HookMax": 4,
+    "Weight": 3.8,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
     "ID": 244,
-    "Name": "Раковое мясо",
-    "ImagePath": "Lures\\244.png",
-    "Comment": ""
+    "Name": "Устрица",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:38:40.6393773+02:00"
   },
   {
-    "IsSelected": false,
-    "ID": 245,
-    "Name": "VOB IceCruncher 5g",
-    "ImagePath": "Lures\\245.png",
-    "Comment": ""
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 2,
+    "Weight": 3.8,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
+    "ID": 1308,
+    "Name": "Gla\u00E7on",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:35:51.2035004+02:00"
   },
   {
-    "IsSelected": false,
-    "ID": 246,
-    "Name": "Ледяной кубик",
-    "ImagePath": "Lures\\246.png",
-    "Comment": ""
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 5,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
+    "ID": 1303,
+    "Name": "SVOB IceCruncher 5gr",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:40:13.7285273+02:00"
   },
   {
-    "IsSelected": false,
-    "ID": 247,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 2,
+    "Weight": 3.8,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
+    "ID": 2299,
     "Name": "Комбикорм",
-    "ImagePath": "Lures\\247.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-10-09T22:18:23.4918097+03:00"
   },
   {
-    "IsSelected": false,
-    "ID": 248,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 1,
+    "HookMax": 3,
+    "Weight": 6,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
+    "ID": 1089,
     "Name": "Жук",
-    "ImagePath": "Lures\\248.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-10-09T22:18:52.7217323+03:00"
   },
   {
-    "IsSelected": false,
-    "ID": 249,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 1,
+    "Weight": 1.9,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
+    "ID": 2290,
     "Name": "Оса",
-    "ImagePath": "Lures\\249.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:38:47.339442+02:00"
   },
   {
-    "IsSelected": false,
-    "ID": 250,
-    "Name": "Кукуруза конс.",
-    "ImagePath": "Lures\\250.png",
-    "Comment": ""
-  },
-  {
-    "IsSelected": false,
-    "ID": 251,
-    "Name": "Картофель конс.",
-    "ImagePath": "Lures\\251.png",
-    "Comment": ""
-  },
-  {
-    "IsSelected": false,
-    "ID": 252,
-    "Name": "Горошек конс.",
-    "ImagePath": "Lures\\252.png",
-    "Comment": ""
-  },
-  {
-    "IsSelected": false,
-    "ID": 253,
-    "Name": "Кастер",
-    "ImagePath": "Lures\\253.png",
-    "Comment": ""
-  },
-  {
-    "IsSelected": false,
-    "ID": 254,
-    "Name": "Чёрная икра",
-    "ImagePath": "Lures\\254.png",
-    "Comment": ""
-  },
-  {
-    "IsSelected": false,
-    "ID": 255,
-    "Name": "Мясо мидии",
-    "ImagePath": "Lures\\255.png",
-    "Comment": ""
-  },
-  {
-    "IsSelected": false,
-    "ID": 256,
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 1,
+    "HookMax": 3,
+    "Weight": 20,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
+    "ID": 2316,
     "Name": "Бычок",
-    "ImagePath": "Lures\\256.png",
-    "Comment": ""
+    "Comment": "",
+    "DateEdited": "2025-10-09T22:18:43.1719956+03:00"
   },
   {
-    "IsSelected": false,
-    "ID": 257,
-    "Name": "Связка копченая сельдь",
-    "ImagePath": "Lures\\257.png",
-    "Comment": ""
+    "RodTypes": [
+      1
+    ],
+    "HookMin": 1,
+    "HookMax": 3,
+    "Weight": 6,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
+    "ID": 2315,
+    "Name": "SPNR S Basser ",
+    "Comment": "",
+    "DateEdited": "2023-02-18T17:56:54.5492691+02:00"
   },
   {
-    "IsSelected": false,
-    "ID": 258,
-    "Name": "TopW BeetleSeries",
-    "ImagePath": "Lures\\258.png",
-    "Comment": ""
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 1,
+    "HookMax": 3,
+    "Weight": 6,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
+    "ID": 2312,
+    "Name": "Бойл карасиный",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:37:56.745374+02:00"
   },
   {
-    "IsSelected": false,
-    "ID": 259,
-    "Name": "TopW Beetle-M1",
-    "ImagePath": "Lures\\259.png",
-    "Comment": ""
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 1,
+    "HookMax": 3,
+    "Weight": 6,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
+    "ID": 2318,
+    "Name": "Связка копчёной сельди",
+    "Comment": "",
+    "DateEdited": "2025-10-17T12:05:39.7539011+03:00"
   },
   {
-    "IsSelected": false,
-    "ID": 260,
-    "Name": "TopW Beetle-M2",
-    "ImagePath": "Lures\\260.png",
-    "Comment": ""
+    "RodTypes": [
+      1
+    ],
+    "HookMin": 1,
+    "HookMax": 3,
+    "Weight": 6,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
+    "ID": 2314,
+    "Name": "WB S Truite",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:39:37.0485625+02:00"
   },
   {
-    "IsSelected": false,
-    "ID": 261,
-    "Name": "TopW Beetle-M3",
-    "ImagePath": "Lures\\261.png",
-    "Comment": ""
+    "RodTypes": [
+      1
+    ],
+    "HookMin": 1,
+    "HookMax": 3,
+    "Weight": 28,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
+    "ID": 2313,
+    "Name": "VIB S Pike",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:39:53.0236208+02:00"
   },
   {
-    "IsSelected": false,
-    "ID": 262,
-    "Name": "TopW BBee-S",
-    "ImagePath": "Lures\\262.png",
-    "Comment": ""
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 4.9,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
+    "ID": 2352,
+    "Name": "TopW Beetle M1",
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:02:58.0494379+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 4.9,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
+    "ID": 2353,
+    "Name": "TopW Beetle M2",
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:02:58.0494379+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 4.9,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
+    "ID": 2354,
+    "Name": "TopW Beetle M3",
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:02:58.0494379+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 4.9,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
+    "ID": 2355,
+    "Name": "TopW Beetle S",
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:02:58.0494379+02:00"
+  },
+  {
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 3,
+    "Weight": 0.8,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
+    "ID": 2370,
+    "Name": "Чёрная икра",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:35:05.2036013+02:00"
+  },
+  {
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 4,
+    "Weight": 0.8,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
+    "ID": 2393,
+    "Name": "Кастер",
+    "Comment": "",
+    "DateEdited": "2025-10-09T22:18:32.0778711+03:00"
+  },
+  {
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 2,
+    "HookMax": 4,
+    "Weight": 0.8,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
+    "ID": 2425,
+    "Name": "Кусочки червя",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:38:48.0094144+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": 1,
+    "HookMax": 3,
+    "Weight": 200,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
+    "ID": 2438,
+    "Name": "PLK TORGSTEN M1",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:36:09.1193078+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": 1,
+    "HookMax": 3,
+    "Weight": 200,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
+    "ID": 2439,
+    "Name": "PLK TORGSTEN M2",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:36:10.2057113+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": 1,
+    "HookMax": 3,
+    "Weight": 200,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
+    "ID": 2440,
+    "Name": "PLK TORGSTEN S",
+    "Comment": "",
+    "DateEdited": "2023-02-18T17:56:54.5492691+02:00"
+  },
+  {
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 1,
+    "HookMax": 3,
+    "Weight": 15,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
+    "ID": 2441,
+    "Name": "GUMMI MAKK M0",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:37:50.0408621+02:00"
+  },
+  {
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 1,
+    "HookMax": 3,
+    "Weight": 15,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
+    "ID": 2442,
+    "Name": "GUMMI MAKK M1",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:37:50.6809605+02:00"
+  },
+  {
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 1,
+    "HookMax": 3,
+    "Weight": 15,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
+    "ID": 2443,
+    "Name": "GUMMI MAKK M2",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:37:51.6196145+02:00"
+  },
+  {
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 1,
+    "HookMax": 3,
+    "Weight": 15,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
+    "ID": 2444,
+    "Name": "GUMMI MAKK M3",
+    "Comment": "",
+    "DateEdited": "2023-02-18T17:56:54.5492691+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": 1,
+    "HookMax": 3,
+    "Weight": 200,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
+    "ID": 2437,
+    "Name": "PLK TORGSTEN M0",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:36:08.8117934+02:00"
+  },
+  {
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 1,
+    "HookMax": 3,
+    "Weight": 15,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
+    "ID": 2445,
+    "Name": "GUMMI MAKK M4",
+    "Comment": "",
+    "DateEdited": "2023-02-18T17:56:54.5492691+02:00"
+  },
+  {
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 1,
+    "HookMax": 3,
+    "Weight": 15,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
+    "ID": 2446,
+    "Name": "GUMMI MAKK M5",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:35:42.4692753+02:00"
+  },
+  {
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 1,
+    "HookMax": 3,
+    "Weight": 28,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
+    "ID": 2447,
+    "Name": "OCTOPUS M0",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:35:45.6690428+02:00"
+  },
+  {
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 1,
+    "HookMax": 3,
+    "Weight": 20,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
+    "ID": 2448,
+    "Name": "OCTOPUS M1",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:35:45.9807551+02:00"
+  },
+  {
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 1,
+    "HookMax": 3,
+    "Weight": 20,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
+    "ID": 2449,
+    "Name": "OCTOPUS M2",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:35:46.3437527+02:00"
+  },
+  {
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 1,
+    "HookMax": 3,
+    "Weight": 20,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
+    "ID": 2450,
+    "Name": "OCTOPUS M3",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:35:47.0217918+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": 1,
+    "HookMax": 3,
+    "Weight": 85,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
+    "ID": 2452,
+    "Name": "PLK ARASI M0",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:36:10.9311686+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": 1,
+    "HookMax": 3,
+    "Weight": 85,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
+    "ID": 2453,
+    "Name": "PLK ARASI M1",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:34:34.8643655+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": 1,
+    "HookMax": 3,
+    "Weight": 85,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
+    "ID": 2454,
+    "Name": "PLK ARASI M2",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:36:10.6175031+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": 1,
+    "HookMax": 3,
+    "Weight": 85,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
+    "ID": 2455,
+    "Name": "PLK ARASI S",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:34:36.1991875+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": 1,
+    "HookMax": 3,
+    "Weight": 120,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
+    "ID": 2457,
+    "Name": "SFC PLK M0",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:40:18.2080652+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": 1,
+    "HookMax": 3,
+    "Weight": 120,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
+    "ID": 2458,
+    "Name": "SFC PLK M1",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:40:17.7896274+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": 1,
+    "HookMax": 3,
+    "Weight": 120,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
+    "ID": 2459,
+    "Name": "SFC PLK M2",
+    "Comment": "",
+    "DateEdited": "2023-02-18T17:56:54.5492691+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": 1,
+    "HookMax": 3,
+    "Weight": 120,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
+    "ID": 2460,
+    "Name": "SFC PLK M3",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:40:16.7094846+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": 1,
+    "HookMax": 3,
+    "Weight": 120,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
+    "ID": 2461,
+    "Name": "SFC PLK S",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:40:16.2554919+02:00"
+  },
+  {
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 1,
+    "HookMax": 3,
+    "Weight": 24,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
+    "ID": 2434,
+    "Name": "Куски рыбы",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:38:58.6623777+02:00"
+  },
+  {
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 1,
+    "HookMax": 3,
+    "Weight": 74,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
+    "ID": 2435,
+    "Name": "Флапер",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:38:21.9119367+02:00"
+  },
+  {
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 0,
+    "HookMax": 4,
+    "Weight": 0,
+    "GroupID": -2,
+    "IsDipable": false,
+    "IsFeedMixable": true,
+    "ID": 1571,
+    "Name": "Billes polystyr\u00E9ne",
+    "Comment": "",
+    "DateEdited": "2023-02-18T17:56:54.5492691+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": 1,
+    "HookMax": 3,
+    "Weight": 3,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
+    "ID": 2351,
+    "Name": "TopW",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:40:15.5884979+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": 1,
+    "HookMax": 3,
+    "Weight": 200,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
+    "ID": 2430,
+    "Name": "PLK Torgsten",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:40:26.6692271+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": 1,
+    "HookMax": 3,
+    "Weight": 85,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
+    "ID": 2451,
+    "Name": "PLK Arasi",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:36:11.3293399+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": 1,
+    "HookMax": 3,
+    "Weight": 120,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
+    "ID": 2456,
+    "Name": "SFC PLK",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:40:22.4652143+02:00"
+  },
+  {
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 1,
+    "HookMax": 3,
+    "Weight": 20,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
+    "ID": 2433,
+    "Name": "Octopus",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:39:13.1194965+02:00"
+  },
+  {
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 1,
+    "HookMax": 3,
+    "Weight": 15,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
+    "ID": 2432,
+    "Name": "Gummy",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:39:15.8919846+02:00"
+  },
+  {
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 3,
+    "HookMax": 5,
+    "Weight": 6,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
+    "ID": 2555,
+    "Name": "Ecrou laiton",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:37:47.2112901+02:00"
+  },
+  {
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 3,
+    "HookMax": 5,
+    "Weight": 6,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
+    "ID": 2556,
+    "Name": "Cartouche",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:37:49.4024217+02:00"
+  },
+  {
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 3,
+    "HookMax": 5,
+    "Weight": 6,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
+    "ID": 2557,
+    "Name": "Chambre a air",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:37:45.7243265+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 6,
+    "GroupID": 148,
+    "IsDipable": false,
+    "IsFeedMixable": false,
+    "ID": 2578,
+    "Name": "CRL Gold Rush V1",
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:05.6548354+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 12,
+    "GroupID": 148,
+    "IsDipable": false,
+    "IsFeedMixable": false,
+    "ID": 2579,
+    "Name": "CRL Gold Rush V2",
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:05.6548354+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 20,
+    "GroupID": 148,
+    "IsDipable": false,
+    "IsFeedMixable": false,
+    "ID": 2580,
+    "Name": "CRL Gold Rush V3",
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:05.6548354+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 18,
+    "GroupID": 148,
+    "IsDipable": false,
+    "IsFeedMixable": false,
+    "ID": 2584,
+    "Name": "VIB Gold Rush C1",
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:05.6548354+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 26,
+    "GroupID": 148,
+    "IsDipable": false,
+    "IsFeedMixable": false,
+    "ID": 2585,
+    "Name": "VIB Gold Rush C2",
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:05.6548354+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 32,
+    "GroupID": 148,
+    "IsDipable": false,
+    "IsFeedMixable": false,
+    "ID": 2586,
+    "Name": "VIB Gold Rush C3",
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:05.6548354+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 8,
+    "GroupID": 148,
+    "IsDipable": false,
+    "IsFeedMixable": false,
+    "ID": 2589,
+    "Name": "WOB Gold Rush B1",
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:05.6548354+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 12,
+    "GroupID": 148,
+    "IsDipable": false,
+    "IsFeedMixable": false,
+    "ID": 2590,
+    "Name": "WOB Gold Rush B2",
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:05.6548354+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 18,
+    "GroupID": 148,
+    "IsDipable": false,
+    "IsFeedMixable": false,
+    "ID": 2591,
+    "Name": "WOB Gold Rush B3",
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:05.6548354+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 25,
+    "GroupID": 148,
+    "IsDipable": false,
+    "IsFeedMixable": false,
+    "ID": 2606,
+    "Name": "Leurre Chipmunk NY M1",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:36:20.2257412+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 25,
+    "GroupID": 148,
+    "IsDipable": false,
+    "IsFeedMixable": false,
+    "ID": 2607,
+    "Name": "Leurre Chipmunk NY M2",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:36:14.7654287+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 1.1,
+    "GroupID": 148,
+    "IsDipable": false,
+    "IsFeedMixable": false,
+    "ID": 2575,
+    "Name": "Goutte d eau 1",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:37:20.3002624+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 1.2,
+    "GroupID": 148,
+    "IsDipable": false,
+    "IsFeedMixable": false,
+    "ID": 2611,
+    "Name": "Goutte d eau M1",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:40:29.5938486+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 1.4,
+    "GroupID": 148,
+    "IsDipable": false,
+    "IsFeedMixable": false,
+    "ID": 2612,
+    "Name": "Goutte d eau M2",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:40:30.2037364+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 1.8,
+    "GroupID": 148,
+    "IsDipable": false,
+    "IsFeedMixable": false,
+    "ID": 2613,
+    "Name": "Goutte d eau M3",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:40:32.0795121+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 3.5,
+    "GroupID": 148,
+    "IsDipable": false,
+    "IsFeedMixable": false,
+    "ID": 2614,
+    "Name": "Balance M1",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:40:43.5478112+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 3.5,
+    "GroupID": 148,
+    "IsDipable": false,
+    "IsFeedMixable": false,
+    "ID": 2615,
+    "Name": "Balance M2",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:40:43.9639191+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 3.5,
+    "GroupID": 148,
+    "IsDipable": false,
+    "IsFeedMixable": false,
+    "ID": 2616,
+    "Name": "Balance M3",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:40:45.4012818+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 4,
+    "GroupID": 148,
+    "IsDipable": false,
+    "IsFeedMixable": false,
+    "ID": 9000,
+    "Name": "Cuillere de Noel S0 4gr",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:40:33.9814804+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 12,
+    "GroupID": 148,
+    "IsDipable": false,
+    "IsFeedMixable": false,
+    "ID": 9001,
+    "Name": "Cuillere de Noel S1 12gr",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:40:39.4116918+02:00"
+  },
+  {
+    "RodTypes": [
+      0,
+      2
+    ],
+    "HookMin": 1,
+    "HookMax": 3,
+    "Weight": 6,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": true,
+    "ID": 2640,
+    "Name": "Майский хрущ",
+    "Comment": "",
+    "DateEdited": "2025-05-01T07:22:29.2669112+03:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 22,
+    "GroupID": 148,
+    "IsDipable": false,
+    "IsFeedMixable": false,
+    "ID": 2729,
+    "Name": "toute Abyss",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:40:06.9409989+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 12,
+    "GroupID": 148,
+    "IsDipable": false,
+    "IsFeedMixable": false,
+    "ID": 2730,
+    "Name": "Abyss 1",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:34:00.6017817+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 12,
+    "GroupID": 148,
+    "IsDipable": false,
+    "IsFeedMixable": false,
+    "ID": 2731,
+    "Name": "Abyss 2",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:34:00.9737856+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 12,
+    "GroupID": 148,
+    "IsDipable": false,
+    "IsFeedMixable": false,
+    "ID": 2732,
+    "Name": "Abyss 3",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:34:04.3435389+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 12,
+    "GroupID": 148,
+    "IsDipable": false,
+    "IsFeedMixable": false,
+    "ID": 2733,
+    "Name": "Abyss 4",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:36:45.0572913+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 28,
+    "GroupID": 148,
+    "IsDipable": false,
+    "IsFeedMixable": false,
+    "ID": 2734,
+    "Name": "Toute Baiter",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:40:07.5781852+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 28,
+    "GroupID": 148,
+    "IsDipable": false,
+    "IsFeedMixable": false,
+    "ID": 2735,
+    "Name": "Baiter HF 1",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:40:46.3755231+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 28,
+    "GroupID": 148,
+    "IsDipable": false,
+    "IsFeedMixable": false,
+    "ID": 2736,
+    "Name": "Baiter HF 2",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:40:46.7495746+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 28,
+    "GroupID": 148,
+    "IsDipable": false,
+    "IsFeedMixable": false,
+    "ID": 2737,
+    "Name": "Baiter HF 3",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:40:47.0913777+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 28,
+    "GroupID": 148,
+    "IsDipable": false,
+    "IsFeedMixable": false,
+    "ID": 2738,
+    "Name": "Baiter HF 4",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:34:16.4590797+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 28,
+    "GroupID": 148,
+    "IsDipable": false,
+    "IsFeedMixable": false,
+    "ID": 2739,
+    "Name": "Baiter HF 5",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:40:47.6575227+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 58,
+    "GroupID": 148,
+    "IsDipable": false,
+    "IsFeedMixable": false,
+    "ID": 2740,
+    "Name": "Tout Gil ",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:40:09.6139283+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 58,
+    "GroupID": 148,
+    "IsDipable": false,
+    "IsFeedMixable": false,
+    "ID": 2741,
+    "Name": "Vob Gill Walker M1",
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:05.6548354+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 58,
+    "GroupID": 148,
+    "IsDipable": false,
+    "IsFeedMixable": false,
+    "ID": 2742,
+    "Name": "Vob Gill Walker M2",
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:05.6548354+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 58,
+    "GroupID": 148,
+    "IsDipable": false,
+    "IsFeedMixable": false,
+    "ID": 2743,
+    "Name": "Vob Gill Walker M3",
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:05.6548354+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 58,
+    "GroupID": 148,
+    "IsDipable": false,
+    "IsFeedMixable": false,
+    "ID": 2744,
+    "Name": "Vob Gill Walker M4",
+    "Comment": "",
+    "DateEdited": "2023-02-11T17:03:05.6548354+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 58,
+    "GroupID": 148,
+    "IsDipable": false,
+    "IsFeedMixable": false,
+    "ID": 2745,
+    "Name": "Vob Gill Walker Unique",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:34:56.1914953+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 28,
+    "GroupID": 148,
+    "IsDipable": false,
+    "IsFeedMixable": false,
+    "ID": 2746,
+    "Name": "Baiter HF Tiger unique",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:40:51.0184899+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": -1,
+    "HookMax": -1,
+    "Weight": 12,
+    "GroupID": 148,
+    "IsDipable": false,
+    "IsFeedMixable": false,
+    "ID": 2747,
+    "Name": "Abyss Flash MV Catcher X unique",
+    "Comment": "",
+    "DateEdited": "2025-11-21T19:36:39.8451458+02:00"
+  },
+  {
+    "RodTypes": [
+      1
+    ],
+    "HookMin": 1,
+    "HookMax": 3,
+    "Weight": 12,
+    "GroupID": -1,
+    "IsDipable": false,
+    "IsFeedMixable": false,
+    "ID": 2822,
+    "Name": "Кусочки бельдюги",
+    "Comment": "",
+    "DateEdited": "2025-10-09T22:17:34.8197479+03:00"
   }
 ]
