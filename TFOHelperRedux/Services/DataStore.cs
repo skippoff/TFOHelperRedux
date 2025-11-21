@@ -52,9 +52,6 @@ public static class DataStore
         AddToRecipe = null;
         _InitDerivedCollections();
 
-        BaitRecipes = JsonService.Load<ObservableCollection<BaitRecipeModel>>(BaitRecipesPath)
-                      ?? new ObservableCollection<BaitRecipeModel>();
-
         CraftLures.Clear();
         foreach (var cl in DataService.LoadCraftLures())
             CraftLures.Add(cl);
