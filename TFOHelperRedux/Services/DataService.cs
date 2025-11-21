@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.IO;
 using TFOHelperRedux.Models;
+using System.Text.Json;
 
 namespace TFOHelperRedux.Services;
 
@@ -68,16 +69,16 @@ public static class DataService
             if (!File.Exists(CraftLuresJson))
                 return new ObservableCollection<CraftLureModel>();
 
-            // Если файл есть, но он пустой или из одних пробелов – тоже не парсим
-            var text = File.ReadAllText(CraftLuresJson);
-            if (string.IsNullOrWhiteSpace(text))
+            // Если файл есть, но он пустой – тоже не парсим
+            var fileInfo = new FileInfo(CraftLuresJson);
+            if (fileInfo.Length == 0)
                 return new ObservableCollection<CraftLureModel>();
 
             // Пробуем загрузить через твой JsonService
             var list = JsonService.Load<ObservableCollection<CraftLureModel>>(CraftLuresJson);
             return list ?? new ObservableCollection<CraftLureModel>();
         }
-        catch (System.Text.Json.JsonException)
+        catch (JsonException)
         {
             // Если файл битый / невалидный – считаем, что крафтовых наживок пока нет
             // (при первом сохранении мы его перезапишем нормальными данными)
