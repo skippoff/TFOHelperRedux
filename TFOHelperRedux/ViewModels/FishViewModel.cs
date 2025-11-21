@@ -17,6 +17,7 @@ namespace TFOHelperRedux.ViewModels
         public ICommand ShowDips { get; }
         public ICommand ShowLures { get; }
         public ICommand EditCurrentItemCommand { get; }
+        public ICommand AddNewItemCommand { get; }
         public ICommand ShowBaits { get; }
         public ICommand ShowMaps { get; }
         public ICommand ShowFishes { get; }
@@ -351,9 +352,11 @@ namespace TFOHelperRedux.ViewModels
             FilteredFishes = new ObservableCollection<FishModel>(Fishes);
 #if DEBUG
             EditCurrentItemCommand = new RelayCommand(EditCurrentItem, CanEditCurrentItem);
+            AddNewItemCommand = new RelayCommand(AddNewItem, CanEditCurrentItem);
 #else
-            // В релизе команда есть, но скрыта и всегда неактивна
+            // В релизе команды есть, но скрыты и всегда неактивны
             EditCurrentItemCommand = new RelayCommand(_ => { }, _ => false);
+            AddNewItemCommand      = new RelayCommand(_ => { }, _ => false);
 #endif
             DeleteFishCommand = new RelayCommand(DeleteFish, CanDeleteFish);
             MapsForFish = new ObservableCollection<MapModel>();
@@ -670,6 +673,32 @@ namespace TFOHelperRedux.ViewModels
             if (CurrentMode != "Baits") return false;
             return BaitsSubMode is "Feeds" or "Dips" or "Lures" or "FeedComponents";
         }
+
+        private void AddNewItem()
+        {
+            if (CurrentMode != "Baits") return;
+
+            // Сбрасываем выбранный элемент в соответствующей вкладке оснастки,
+            // чтобы EditCurrentItem создал новый
+            switch (BaitsSubMode)
+            {
+                case "Feeds":
+                    SelectedFeed = null;
+                    break;
+                case "Dips":
+                    SelectedDip = null;
+                    break;
+                case "Lures":
+                    SelectedLure = null;
+                    break;
+                case "FeedComponents":
+                    SelectedComponent = null;
+                    break;
+            }
+
+            EditCurrentItem();
+        }
+
         private void EditCurrentItem()
         {
             if (CurrentMode != "Baits") return;
@@ -683,26 +712,23 @@ namespace TFOHelperRedux.ViewModels
                     item = SelectedFeed ?? new BaitModel { ID = GetNextId(DataStore.Feeds), Name = "Новая прикормка" };
                     if (SelectedFeed == null) isNew = true;
                     break;
-
                 case "Dips":
                     item = SelectedDip ?? new DipModel { ID = GetNextId(DataStore.Dips), Name = "Новый дип" };
                     if (SelectedDip == null) isNew = true;
                     break;
-
                 case "Lures":
                     item = SelectedLure ?? new LureModel { ID = GetNextId(DataStore.Lures), Name = "Новая наживка" };
                     if (SelectedLure == null) isNew = true;
                     break;
-
                 case "FeedComponents":
                     item = SelectedComponent ?? new FeedComponentModel { ID = GetNextId(DataStore.FeedComponents), Name = "Новый компонент" };
-                    isNew = SelectedComponent == null;
+                    if (SelectedComponent == null) isNew = true;
                     break;
             }
 
             if (item == null) return;
 
-            var wnd = new Views.EditItemWindow(item)
+            var wnd = new EditItemWindow(item)
             {
                 Owner = System.Windows.Application.Current.MainWindow
             };
@@ -728,6 +754,7 @@ namespace TFOHelperRedux.ViewModels
                             break;
                     }
                 }
+
                 // 💾 сохраняем соответствующую коллекцию
                 if (item is BaitModel) DataService.SaveFeeds(DataStore.Feeds);
                 else if (item is DipModel) DataService.SaveDips(DataStore.Dips);
@@ -738,5 +765,6 @@ namespace TFOHelperRedux.ViewModels
             }
         }
 #endif
+
     }
 }

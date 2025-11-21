@@ -18,8 +18,17 @@ public partial class EditItemWindow : Window
         _original = item ?? throw new ArgumentNullException(nameof(item));
         _workingCopy = CreateCopy(item);
         DataContext = _workingCopy;
-    }
 
+        // Панель "Тип наживки" показываем только для LureModel
+        if (_workingCopy is LureModel)
+        {
+            BaitTypePanel.Visibility = Visibility.Visible;
+        }
+        else
+        {
+            BaitTypePanel.Visibility = Visibility.Collapsed;
+        }
+    }
     // Копируем свойства в новый экземпляр того же типа (чтобы отмена не изменила оригинал)
     private IItemModel CreateCopy(IItemModel src)
     {

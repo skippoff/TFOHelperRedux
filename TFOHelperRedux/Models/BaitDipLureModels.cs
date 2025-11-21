@@ -144,14 +144,32 @@ public class LureModel : IItemModel, INotifyPropertyChanged
             }
         }
     }
+
     public int ID { get; set; }
     public string Name { get; set; } = string.Empty;
 
+    // Тип наживки: "live" (живая) или "lure" (искусственная приманка)
+    private string _baitType = "live";
+    public string BaitType
+    {
+        get => _baitType;
+        set
+        {
+            if (_baitType != value)
+            {
+                _baitType = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(BaitType)));
+            }
+        }
+    }
+
+    // Холдит пользовательский путь, если задан
     private string _imagePath = string.Empty;
     public string ImagePath
     {
         get
         {
+            // 1) если путь задан и файл существует – используем его (пользовательский путь)
             if (!string.IsNullOrWhiteSpace(_imagePath) && File.Exists(_imagePath))
                 return _imagePath;
 
