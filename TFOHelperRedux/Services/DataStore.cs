@@ -72,7 +72,6 @@ public static class DataStore
     {
         JsonService.Save(LocalCatchFile, CatchPoints);
         DataService.SaveFeedComponents(FeedComponents);
-        
         DataService.SaveBaitRecipes(BaitRecipes);
         DataService.SaveCraftLures(CraftLures);
         if (App.Current.MainWindow?.DataContext is TFOHelperRedux.ViewModels.FishViewModel vm)
@@ -126,18 +125,17 @@ public static class DataStore
                 {
                     // Объединяем (добавляем только те, которых нет)
                     int added = 0;
+                    var existingKeys = new HashSet<(int MapId, int X, int Y)>(CatchPoints.Select(point =>
+                        (point.MapID, point.Coords.X, point.Coords.Y)));
                     foreach (var p in imported)
                     {
-                        bool duplicate = CatchPoints.Any(existing =>
-                            existing.MapID == p.MapID &&
-                            existing.Coords.X == p.Coords.X &&
-                            existing.Coords.Y == p.Coords.Y);
+                        var key = (p.MapID, p.Coords.X, p.Coords.Y);
+                        if (existingKeys.Contains(key))
+                            continue;
 
-                        if (!duplicate)
-                        {
-                            CatchPoints.Add(p);
-                            added++;
-                        }
+                        CatchPoints.Add(p);
+                        existingKeys.Add(key);
+                        added++;
                     }
 
                     MessageBox.Show($"Импорт завершён. Добавлено {added} новых точек.",
