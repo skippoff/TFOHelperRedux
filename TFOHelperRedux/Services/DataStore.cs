@@ -30,8 +30,7 @@ public static class DataStore
     public static Action<IItemModel>? AddToCraftLure { get; set; }
     private static string LocalDataDir => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Maps");
     private static string LocalCatchFile => Path.Combine(LocalDataDir, "CatchPoints_Local.json");
-    public static string BaitRecipesPath =>
-        Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Recipes", "BaitRecipes.json");
+    
     public static MapModel? SelectedMap { get; set; }
     public static FishModel? SelectedFish { get; set; }
 
@@ -73,7 +72,7 @@ public static class DataStore
     {
         JsonService.Save(LocalCatchFile, CatchPoints);
         DataService.SaveFeedComponents(FeedComponents);
-        JsonService.Save(BaitRecipesPath, BaitRecipes);
+        
         DataService.SaveBaitRecipes(BaitRecipes);
         DataService.SaveCraftLures(CraftLures);
         if (App.Current.MainWindow?.DataContext is TFOHelperRedux.ViewModels.FishViewModel vm)
