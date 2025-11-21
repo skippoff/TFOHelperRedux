@@ -67,7 +67,6 @@ namespace TFOHelperRedux.ViewModels
         }
         public BaitRecipesViewModel BaitRecipesVM { get; } = new();
         public CatchPointsViewModel CatchPointsVM { get; } = new();
-        public CraftLuresViewModel CraftLuresVM { get; } = new CraftLuresViewModel();
         // Добавь публичный враппер для обновления биндингов:
         public void RefreshSelectedFish() => OnPropertyChanged(nameof(SelectedFish));
         public void RefreshRecommendedLures() => OnPropertyChanged(nameof(RecommendedLures));

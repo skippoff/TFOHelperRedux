@@ -18,10 +18,7 @@ public static class DataService
     public static string TagsDir => Path.Combine(BaseDir, "Tags");
     public static string FeedComponentsDir => Path.Combine(BaseDir, "FeedComponents");
     public static string RecipesDir => Path.Combine(BaseDir, "Recipes");
-    public static string CraftLuresDir => Path.Combine(BaseDir, "CraftLures");
-
     // Пути к JSON-файлам (внутри папок)
-    public static string CraftLuresJson => Path.Combine(CraftLuresDir, "CraftLures.json");
     public static string FishesJson => Path.Combine(FishesDir, "Fishes.json");
     public static string MapsJson => Path.Combine(MapsDir, "Maps.json");
     public static string FeedsJson => Path.Combine(FeedsDir, "Feeds.json");
@@ -60,39 +57,6 @@ public static class DataService
 
         return list;
     }
-
-    public static ObservableCollection<CraftLureModel> LoadCraftLures()
-    {
-        try
-        {
-            // Если файла ещё нет – просто возвращаем пустой список
-            if (!File.Exists(CraftLuresJson))
-                return new ObservableCollection<CraftLureModel>();
-
-            // Если файл есть, но он пустой – тоже не парсим
-            var fileInfo = new FileInfo(CraftLuresJson);
-            if (fileInfo.Length == 0)
-                return new ObservableCollection<CraftLureModel>();
-
-            // Пробуем загрузить через твой JsonService
-            var list = JsonService.Load<ObservableCollection<CraftLureModel>>(CraftLuresJson);
-            return list ?? new ObservableCollection<CraftLureModel>();
-        }
-        catch (JsonException)
-        {
-            // Если файл битый / невалидный – считаем, что крафтовых наживок пока нет
-            // (при первом сохранении мы его перезапишем нормальными данными)
-            return new ObservableCollection<CraftLureModel>();
-        }
-    }
-    public static void SaveCraftLures(ObservableCollection<CraftLureModel> craftLures)
-    {
-        // гарантируем, что папка существует
-        Directory.CreateDirectory(CraftLuresDir);
-
-        JsonService.Save(CraftLuresJson, craftLures);
-    }
-
     public static ObservableCollection<TagModel> LoadTags()
     {
         var list = JsonService.Load<ObservableCollection<TagModel>>(TagsJson)

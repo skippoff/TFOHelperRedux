@@ -18,7 +18,6 @@ public static class DataStore
     public static ObservableCollection<BaitModel> Feeds { get; private set; } = new();
     public static ObservableCollection<FeedComponentModel> FeedComponents { get; private set; } = new();
     public static ObservableCollection<BaitRecipeModel> BaitRecipes { get; set; }
-    public static ObservableCollection<CraftLureModel> CraftLures { get; } = new();
     public static ObservableCollection<DipModel> Dips { get; private set; } = new();
     public static ObservableCollection<LureModel> Lures { get; private set; } = new();
     public static ObservableCollection<TagModel> Tags { get; private set; } = new();
@@ -51,10 +50,6 @@ public static class DataStore
         AddToRecipe = null;
         _InitDerivedCollections();
 
-        CraftLures.Clear();
-        foreach (var cl in DataService.LoadCraftLures())
-            CraftLures.Add(cl);
-
         var loaded = JsonService.Load<ObservableCollection<CatchPointModel>>(LocalCatchFile);
         CatchPoints = loaded ?? new ObservableCollection<CatchPointModel>();
     }
@@ -73,7 +68,6 @@ public static class DataStore
         JsonService.Save(LocalCatchFile, CatchPoints);
         DataService.SaveFeedComponents(FeedComponents);
         DataService.SaveBaitRecipes(BaitRecipes);
-        DataService.SaveCraftLures(CraftLures);
         if (App.Current.MainWindow?.DataContext is TFOHelperRedux.ViewModels.FishViewModel vm)
             vm.CatchPointsVM.RefreshFilteredPoints(SelectedFish);
     }
