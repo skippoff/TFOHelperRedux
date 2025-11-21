@@ -97,7 +97,25 @@ public static class DataStore
                 MessageBox.Show("Не удалось загрузить данные из файла.", "Импорт точек", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
+            var uniqueImported = new List<CatchPointModel>();
+            var importedKeys = new HashSet<(int MapId, int X, int Y)>();
+            foreach (var p in imported)
+            {
+                if (p?.Coords == null)
+                    continue;
 
+                var key = (p.MapID, p.Coords.X, p.Coords.Y);
+                if (!importedKeys.Add(key))
+                    continue;
+
+                uniqueImported.Add(p);
+            }
+
+            if (uniqueImported.Count == 0)
+            {
+                MessageBox.Show("В файле нет валидных точек лова.", "Импорт точек", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
             if (CatchPoints.Count > 0)
             {
                 // 🔸 спрашиваем, как поступить
@@ -118,7 +136,7 @@ public static class DataStore
                 {
                     // Полностью заменяем
                     CatchPoints.Clear();
-                    foreach (var p in imported)
+                    foreach (var p in uniqueImported)
                         CatchPoints.Add(p);
                 }
                 else if (result == MessageBoxResult.Yes)
@@ -127,7 +145,7 @@ public static class DataStore
                     int added = 0;
                     var existingKeys = new HashSet<(int MapId, int X, int Y)>(CatchPoints.Select(point =>
                         (point.MapID, point.Coords.X, point.Coords.Y)));
-                    foreach (var p in imported)
+                    foreach (var p in uniqueImported)
                     {
                         var key = (p.MapID, p.Coords.X, p.Coords.Y);
                         if (existingKeys.Contains(key))
@@ -145,7 +163,7 @@ public static class DataStore
             else
             {
                 // если точек не было — просто добавляем
-                foreach (var p in imported)
+                foreach (var p in uniqueImported)
                     CatchPoints.Add(p);
             }
 
@@ -157,8 +175,6 @@ public static class DataStore
                             "Импорт точек", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
-
-
     public static void ClearCatchPoints()
     {
         CatchPoints.Clear();
