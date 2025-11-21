@@ -13,14 +13,10 @@ namespace TFOHelperRedux.Views
         // Представления списков для фильтрации
         private readonly ListCollectionView _fishView;
         private readonly ListCollectionView _luresView;
-        private readonly ListCollectionView _feedsView;
-        private readonly ListCollectionView _dipsView;
         // Свойства для биндинга в XAML
         public ICollectionView FishView => _fishView;
         public ICollectionView LuresView => _luresView;
-        public ICollectionView FeedsView => _feedsView;
-        public ICollectionView DipsView => _dipsView;
-
+        
         public EditCatchPointWindow(CatchPointModel point = null)
         {
             InitializeComponent();
@@ -29,8 +25,6 @@ namespace TFOHelperRedux.Views
             // 🔍 создаём представления для всех коллекций DataStore
             _fishView = new ListCollectionView(DataStore.Fishes);
             _luresView = new ListCollectionView(DataStore.Lures);
-            _feedsView = new ListCollectionView(DataStore.Feeds);
-            _dipsView = new ListCollectionView(DataStore.Dips);
             // 📌 чтобы биндинги FishView / LuresView / FeedsView / DipsView работали
             DataContext = this;
             // дальше оставляешь то, что у тебя уже было
@@ -189,28 +183,6 @@ namespace TFOHelperRedux.Views
             {
                 if (item is LureModel l && !string.IsNullOrEmpty(l.Name))
                     return l.Name.Contains(tbLureSearch.Text, StringComparison.OrdinalIgnoreCase);
-
-                return false;
-            });
-        }
-        // Поиск по прикормке
-        private void tbFeedSearch_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            ApplyFilter(_feedsView, tbFeedSearch.Text, item =>
-            {
-                if (item is BaitModel b && !string.IsNullOrEmpty(b.Name))
-                    return b.Name.Contains(tbFeedSearch.Text, StringComparison.OrdinalIgnoreCase);
-
-                return false;
-            });
-        }
-        // Поиск по дипам
-        private void tbDipSearch_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            ApplyFilter(_dipsView, tbDipSearch.Text, item =>
-            {
-                if (item is DipModel d && !string.IsNullOrEmpty(d.Name))
-                    return d.Name.Contains(tbDipSearch.Text, StringComparison.OrdinalIgnoreCase);
 
                 return false;
             });

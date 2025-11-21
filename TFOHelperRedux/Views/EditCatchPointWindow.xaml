@@ -99,7 +99,7 @@
                              TextChanged="tbFishSearch_TextChanged"
                              ToolTip="Поиск по названию рыбы"/>
                     <Border BorderThickness="1" CornerRadius="3">
-                        <ScrollViewer Height="150" VerticalScrollBarVisibility="Auto">
+                        <ScrollViewer Height="250" VerticalScrollBarVisibility="Auto">
                             <ItemsControl ItemsSource="{Binding FishView}">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
@@ -125,7 +125,7 @@
                              TextChanged="tbLureSearch_TextChanged"
                              ToolTip="Поиск по названию наживки"/>
                     <Border BorderThickness="1" CornerRadius="3">
-                        <ScrollViewer Height="120" VerticalScrollBarVisibility="Auto">
+                        <ScrollViewer Height="220" VerticalScrollBarVisibility="Auto">
                             <ItemsControl ItemsSource="{Binding LuresView}">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
@@ -142,59 +142,6 @@
                             </ItemsControl>
                         </ScrollViewer>
                     </Border>
-
-                    <TextBlock Text="Прикорм:" FontWeight="Bold" Margin="0,10,0,4"/>
-                    <TextBox x:Name="tbFeedSearch"
-                             Height="26"
-                             Margin="0,0,0,4"
-                             Padding="4"
-                             TextChanged="tbFeedSearch_TextChanged"
-                             ToolTip="Поиск по названию прикормки"/>
-                    <Border BorderThickness="1" CornerRadius="3">
-                        <ScrollViewer Height="70" VerticalScrollBarVisibility="Auto">
-                            <ItemsControl ItemsSource="{Binding FeedsView}">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <WrapPanel Orientation="Horizontal"/>
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <CheckBox Content="{Binding Name}"
-                                                  IsChecked="{Binding IsSelected, Mode=TwoWay}"
-                                                  Margin="2"/>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </ScrollViewer>
-                    </Border>
-
-                    <TextBlock Text="Дипы:" FontWeight="Bold" Margin="0,10,0,4"/>
-                    <TextBox x:Name="tbDipSearch"
-                             Height="26"
-                             Margin="0,0,0,4"
-                             Padding="4"
-                             TextChanged="tbDipSearch_TextChanged"
-                             ToolTip="Поиск по названию дипа"/>
-                    <Border BorderThickness="1" CornerRadius="3">
-                        <ScrollViewer Height="60" VerticalScrollBarVisibility="Auto">
-                            <ItemsControl ItemsSource="{Binding DipsView}">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <WrapPanel Orientation="Horizontal"/>
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <CheckBox Content="{Binding Name}"
-                                                  IsChecked="{Binding IsSelected, Mode=TwoWay}"
-                                                  Margin="2"/>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </ScrollViewer>
-                    </Border>
-
                 </StackPanel>
             </ScrollViewer>
             <!-- Нижние кнопки -->
