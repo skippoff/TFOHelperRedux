@@ -147,10 +147,11 @@ public class LureModel : IItemModel, INotifyPropertyChanged
 
     public int ID { get; set; }
     public string Name { get; set; } = string.Empty;
+    public string BaitType { get; set; } = "live";
 
     // Тип наживки: "live" (живая) или "lure" (искусственная приманка)
     private string _baitType = "live";
-    public string BaitType
+    public string BaitsType
     {
         get => _baitType;
         set
@@ -158,7 +159,7 @@ public class LureModel : IItemModel, INotifyPropertyChanged
             if (_baitType != value)
             {
                 _baitType = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(BaitType)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(BaitsType)));
             }
         }
     }

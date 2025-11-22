@@ -1,11 +1,13 @@
 ﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Windows;
+using System.Windows.Data;
+using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using TFOHelperRedux.Helpers;
 using TFOHelperRedux.Models;
 using TFOHelperRedux.Services;
-using System.Windows.Input;
 using TFOHelperRedux.Views;
-using System.Windows;
-using TFOHelperRedux.Helpers;
 
 
 namespace TFOHelperRedux.ViewModels
@@ -21,6 +23,8 @@ namespace TFOHelperRedux.ViewModels
         public ICommand ShowBaits { get; }
         public ICommand ShowMaps { get; }
         public ICommand ShowFishes { get; }
+        public ICommand ShowTopLiveLuresCmd { get; }
+        public ICommand ShowTopArtificialLuresCmd { get; }
         public ICommand DeleteFishCommand { get; }
         public ICommand AttachLureToFishCmd { get; }
         public ICommand DetachLureFromFishCmd { get; }
@@ -74,6 +78,11 @@ namespace TFOHelperRedux.ViewModels
         public ObservableCollection<FeedComponentModel> Components => DataStore.FeedComponents;
         public ObservableCollection<DipModel> Dips => DataStore.Dips;
         public ObservableCollection<LureModel> Lures => DataStore.Lures;
+        public ICollectionView LiveLuresView { get; }
+        public ICollectionView ArtificialLuresView { get; }
+        public ICollectionView CurrentTopLuresView =>
+            TopLuresMode == "Lure" ? ArtificialLuresView : LiveLuresView;
+
         private string _baitsSubMode = "Feeds";
         public string BaitsSubMode
         {
@@ -88,6 +97,21 @@ namespace TFOHelperRedux.ViewModels
                 }
             }
         }
+        private string _topLuresMode = "Live";
+        public string TopLuresMode
+        {
+            get => _topLuresMode;
+            set
+            {
+                if (_topLuresMode != value)
+                {
+                    _topLuresMode = value;
+                    OnPropertyChanged(nameof(TopLuresMode)); // тот же метод, что и у BaitsSubMode
+                    OnPropertyChanged(nameof(CurrentTopLuresView));
+                }
+            }
+        }
+
         private FeedComponentModel? _selectedComponent;
         public FeedComponentModel? SelectedComponent
         {
@@ -399,11 +423,38 @@ namespace TFOHelperRedux.ViewModels
             ShowComponents = new RelayCommand(() => BaitsSubMode = "FeedComponents");
             ShowDips = new RelayCommand(() => BaitsSubMode = "Dips");
             ShowLures = new RelayCommand(() => BaitsSubMode = "Lures");
+            ShowTopLiveLuresCmd = new RelayCommand(() => TopLuresMode = "Live");
+            ShowTopArtificialLuresCmd = new RelayCommand(() => TopLuresMode = "Lure");
             AttachLureToFishCmd = new RelayCommand(AttachLureToFish);
             DetachLureFromFishCmd = new RelayCommand(DetachLureFromFish);
             DeleteRecipeForeverCmd = new RelayCommand(DeleteRecipeForever);
 
             Maps = DataStore.Maps; // Загружаем все карты из JSON
+            TopLuresMode = "Live";// Создаём представление для фильтрации наживок
+            
+            // Плюс: все без Type тоже считаем живыми, чтобы ничего не потерялось
+            LiveLuresView = CollectionViewSource.GetDefaultView(Lures);
+            LiveLuresView.Filter = o =>
+            {
+                if (o is not LureModel l)
+                    return false;
+
+                if (string.IsNullOrWhiteSpace(l.BaitType))
+                    return true; // без типа считаем живой наживкой
+
+                return string.Equals(l.BaitType, "live", StringComparison.OrdinalIgnoreCase);
+            };
+
+            // Отдельное представление только искусственных приманок (lure)
+            ArtificialLuresView = new ListCollectionView(Lures);
+            ArtificialLuresView.Filter = o =>
+            {
+                if (o is not LureModel l)
+                    return false;
+
+                return string.Equals(l.BaitType, "lure", StringComparison.OrdinalIgnoreCase);
+            };
+
             // подготавливаем коллекции для панели локаций
             MapLevels.Clear();
             if (Maps != null)

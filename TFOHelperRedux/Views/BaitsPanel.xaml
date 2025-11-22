@@ -145,64 +145,86 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
                 </Border>
-                <!-- Топовые/крафтовые: наживки + дипы -->
+                <!-- Лучшие наживки + приманки -->
                 <Border Visibility="{Binding BaitsSubMode,
-                                     Converter={StaticResource EqualityToVisibilityConverter},
-                                     ConverterParameter=CraftLures}">
+                     Converter={StaticResource EqualityToVisibilityConverter},
+                     ConverterParameter=CraftLures}">
 
                     <Grid>
-                        <!-- Наживки -->
-                        <GroupBox Header="Наживки" Grid.Row="0" Margin="0,0,0,4">
-                            <ListBox ItemsSource="{Binding Lures}"
-                             SelectedItem="{Binding SelectedLure, Mode=TwoWay}"
-                             Background="Transparent"
-                             BorderThickness="0"
-                             ItemContainerStyle="{StaticResource RoundedCardStyle}"
-                             ScrollViewer.VerticalScrollBarVisibility="Auto"
-                             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                             MouseDoubleClick="Ingredient_MouseDoubleClick">
-                                <ListBox.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <WrapPanel Orientation="Horizontal"/>
-                                    </ItemsPanelTemplate>
-                                </ListBox.ItemsPanel>
-                                <ListBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <Border Width="100" Height="140" Margin="4"
-                                                BorderBrush="#DDD" BorderThickness="1"
-                                                CornerRadius="6" Padding="4">
-                                            <StackPanel>
-                                                <Image Source="{Binding ImagePath,
-                                Converter={StaticResource ImgConverter}}"
-                                                       Height="50"
-                                                       Stretch="Uniform"/>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <!-- кнопки -->
+                            <RowDefinition Height="*"/>
+                            <!-- список -->
+                        </Grid.RowDefinitions>
 
-                                                <TextBlock Text="{Binding Name}"
-                                                           TextAlignment="Center"
-                                                           Margin="0,4,0,4"
-                                                           TextTrimming="CharacterEllipsis"/>
+                        <!-- Кнопки под "Топ наживки" -->
+                        <StackPanel Orientation="Horizontal"
+                    Grid.Row="0"
+                    Margin="0,0,0,4">
 
-                                                <!-- Кнопки работы с Лучшими наживками для выбранной рыбы -->
-                                                <Button Content="➕ к рыбе"
-                                                        Margin="0,0,0,2"
-                                                        Command="{Binding DataContext.AttachLureToFishCmd,
-                                          RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                                        CommandParameter="{Binding}" />
+                            <Button Content="Наживки"
+                    Command="{Binding ShowTopLiveLuresCmd}"
+                    Margin="0,0,4,0"
+                    Padding="8,2"/>
 
-                                                <Button Content="➖ от рыбы"
-                                                        Margin="0,0,0,0"
-                                                        Command="{Binding DataContext.DetachLureFromFishCmd,
-                                          RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                                        CommandParameter="{Binding}" />
-                                            </StackPanel>
-                                        </Border>
-                                    </DataTemplate>
-                                </ListBox.ItemTemplate>
-                            </ListBox>
-                        </GroupBox>
+                            <Button Content="Приманки"
+                    Command="{Binding ShowTopArtificialLuresCmd}"
+                    Padding="8,2"/>
+                        </StackPanel>
+
+                        <!-- ОДИН список: источник меняется через CurrentTopLuresView -->
+                        <ListBox Grid.Row="1"
+                 ItemsSource="{Binding CurrentTopLuresView}"
+                 SelectedItem="{Binding SelectedLure, Mode=TwoWay}"
+                 Background="Transparent"
+                 BorderThickness="0"
+                 ItemContainerStyle="{StaticResource RoundedCardStyle}"
+                 ScrollViewer.VerticalScrollBarVisibility="Auto"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                 MouseDoubleClick="Ingredient_MouseDoubleClick">
+
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
+
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Width="100" Height="140" Margin="4"
+                            BorderBrush="#DDD" BorderThickness="1"
+                            CornerRadius="6" Padding="4">
+                                        <StackPanel>
+                                            <Image Source="{Binding ImagePath,
+                                            Converter={StaticResource ImgConverter}}"
+                                   Height="50"
+                                   Stretch="Uniform"/>
+
+                                            <TextBlock Text="{Binding Name}"
+                                       TextAlignment="Center"
+                                       Margin="0,4,0,4"
+                                       TextTrimming="CharacterEllipsis"/>
+
+                                            <!-- Кнопки работы с ЛУЧШИМИ наживками для выбранной рыбы -->
+                                            <Button Content="➕ к рыбе"
+                                    Margin="0,0,0,2"
+                                    Command="{Binding DataContext.AttachLureToFishCmd,
+                                                      RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                    CommandParameter="{Binding}" />
+
+                                            <Button Content="➖ от рыбы"
+                                    Margin="0,0,0,0"
+                                    Command="{Binding DataContext.DetachLureFromFishCmd,
+                                                      RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                    CommandParameter="{Binding}" />
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
                     </Grid>
                 </Border>
-
             </Grid>
         </Border>
         <!-- ====================== RECIPE / CRAFT PANEL ====================== -->
