@@ -103,8 +103,15 @@ public class CatchPointsViewModel : BaseViewModel
         if (result != MessageBoxResult.Yes)
             return;
 
+        // Удаляем из источника
         DataStore.CatchPoints.Remove(point);
-        DataStore.SaveAll(); // сохранение + обновление фильтра
+
+        // Обновляем локальные коллекции и фильтр сразу, чтобы UI обновился мгновенно
+        RefreshCatchPoints();
+        RefreshFilteredPoints(CurrentFish);
+
+        // Сохраняем изменения
+        DataStore.SaveAll(); // сохранение + обновление фильтра в других местах
     }
 
     private void EditPoint(CatchPointModel? point)
