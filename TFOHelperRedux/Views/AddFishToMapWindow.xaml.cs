@@ -20,6 +20,7 @@ namespace TFOHelperRedux.Views
         {
             public int ID { get; set; }
             public string Name { get; set; } = "";
+            public bool IsSelected { get; set; }
         }
 
         public AddFishToMapWindow(FishModel fish)
@@ -158,6 +159,11 @@ namespace TFOHelperRedux.Views
             if (cbNight.IsChecked == true) times.Add(4);
             SelectedFish.ActiveTimes = times.ToArray();
 
+            // Сохраняем выборы IsSelected в моделях (чекбоксы привязаны к IsSelected)
+            DataService.SaveFeeds(DataStore.Feeds);
+            DataService.SaveDips(DataStore.Dips);
+            DataService.SaveLures(DataStore.Lures);
+
             var existingFish = DataStore.Fishes.FirstOrDefault(f => f.ID == SelectedFish.ID);
             if (existingFish != null)
             {
@@ -178,27 +184,7 @@ namespace TFOHelperRedux.Views
             Close();
         }
 
-        private List<int> GetCheckedIDs(ItemsControl list)
-        {
-            var ids = new List<int>();
-
-            foreach (var item in list.Items)
-            {
-                var container = list.ItemContainerGenerator.ContainerFromItem(item) as FrameworkElement;
-                if (container != null)
-                {
-                    var cb = container.FindName("cbTag") as CheckBox
-                          ?? container.FindName("cbFeed") as CheckBox
-                          ?? container.FindName("cbDip") as CheckBox
-                          ?? container.FindName("cbLure") as CheckBox;
-
-                    if (cb != null && cb.IsChecked == true && cb.Tag is int id)
-                        ids.Add(id);
-                }
-            }
-
-            return ids;
-        }
+        // Removed manual checkbox scanning; models now expose IsSelected properties bound directly to checkboxes.
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {

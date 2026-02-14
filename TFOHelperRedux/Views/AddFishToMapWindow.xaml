@@ -164,13 +164,9 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <CheckBox
-                                x:Name="cbTag"
                                 Margin="4"
                                 Content="{Binding Name}"
-                                Tag="{Binding ID}"
-                                Loaded="Category_Loaded"
-                                Checked="Category_Checked"
-                                Unchecked="Category_Checked" />
+                                IsChecked="{Binding IsSelected, Mode=TwoWay}" />
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
@@ -190,13 +186,9 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <CheckBox
-                                    x:Name="cbFeed"
                                     Margin="4"
                                     Content="{Binding Name}"
-                                    Tag="{Binding ID}"
-                                    Loaded="Feed_Loaded"
-                                    Checked="Feed_Checked"
-                                    Unchecked="Feed_Checked" />
+                                    IsChecked="{Binding IsSelected, Mode=TwoWay}" />
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl></ScrollViewer>
@@ -216,14 +208,10 @@
                                 </ItemsControl.ItemsPanel>
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <CheckBox
-                                            x:Name="cbDip"
-                                            Margin="4"
-                                            Content="{Binding Name}"
-                                            Tag="{Binding ID}"
-                                            Loaded="Dip_Loaded"
-                                            Checked="Dip_Checked"
-                                            Unchecked="Dip_Checked" />
+                                <CheckBox
+                                    Margin="4"
+                                    Content="{Binding Name}"
+                                    IsChecked="{Binding IsSelected, Mode=TwoWay}" />
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
@@ -247,14 +235,10 @@
                                 </ItemsControl.ItemsPanel>
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <CheckBox
-                                            x:Name="cbLure"
-                                            Margin="4"
-                                            Content="{Binding Name}"
-                                            Tag="{Binding ID}"
-                                            Loaded="Lure_Loaded"
-                                            Checked="Lure_Checked"
-                                            Unchecked="Lure_Checked" />
+                                <CheckBox
+                                    Margin="4"
+                                    Content="{Binding Name}"
+                                    IsChecked="{Binding IsSelected, Mode=TwoWay}" />
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
