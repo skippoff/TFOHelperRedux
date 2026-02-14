@@ -18,62 +18,9 @@
             <!-- Левая панель -->
             <local:CatchPointEditorPanel x:Name="LeftPanel" Grid.Column="0" />
             <!-- Правая панель -->
-            <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
-                <StackPanel Margin="6">
-                    <!-- Рыбы -->
-                    <TextBlock Text="Рыбы:" FontWeight="Bold" Margin="0,0,0,4"/>
-                    <TextBox x:Name="tbFishSearch"
-                             Height="26"
-                             Margin="0,0,0,4"
-                             Padding="4"
-                             TextChanged="tbFishSearch_TextChanged"
-                             ToolTip="Поиск по названию рыбы"/>
-                    <Border BorderThickness="1" CornerRadius="3">
-                        <ScrollViewer Height="250" VerticalScrollBarVisibility="Auto">
-                            <ItemsControl ItemsSource="{Binding FishView}">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <WrapPanel Orientation="Horizontal"/>
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <CheckBox Content="{Binding Name}"
-                                                  IsChecked="{Binding IsSelected, Mode=TwoWay}"
-                                                  Margin="2"/>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </ScrollViewer>
-                    </Border>
-
-                    <TextBlock Text="Наживки:" FontWeight="Bold" Margin="0,10,0,4"/>
-                    <TextBox x:Name="tbLureSearch"
-                             Height="26"
-                             Margin="0,0,0,4"
-                             Padding="4"
-                             TextChanged="tbLureSearch_TextChanged"
-                             ToolTip="Поиск по названию наживки"/>
-                    <Border BorderThickness="1" CornerRadius="3">
-                        <ScrollViewer Height="220" VerticalScrollBarVisibility="Auto">
-                            <ItemsControl ItemsSource="{Binding LuresView}">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <WrapPanel Orientation="Horizontal"/>
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <CheckBox Content="{Binding Name}"
-                                                  IsChecked="{Binding IsSelected, Mode=TwoWay}"
-                                                  Margin="2"/>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </ScrollViewer>
-                    </Border>
-                </StackPanel>
-            </ScrollViewer>
+            <local:FishLuresPanel x:Name="RightPanel" Grid.Column="1"
+                                  FishView="{Binding FishView}"
+                                  LuresView="{Binding LuresView}" />
             <!-- Нижние кнопки -->
             <DockPanel Grid.ColumnSpan="2" VerticalAlignment="Bottom" Margin="0,10,0,0">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">

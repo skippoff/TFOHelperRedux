@@ -1,0 +1,66 @@
+<UserControl x:Class="TFOHelperRedux.Views.FishLuresPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             d:DesignHeight="600" d:DesignWidth="600">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="6">
+            <!-- Рыбы -->
+            <TextBlock Text="Рыбы:" FontWeight="Bold" Margin="0,0,0,4"/>
+            <TextBox x:Name="tbFishSearch"
+                     Height="26"
+                     Margin="0,0,0,4"
+                     Padding="4"
+                     TextChanged="TbFishSearch_TextChanged"
+                     ToolTip="Поиск по названию рыбы"/>
+            <Border BorderThickness="1" CornerRadius="3">
+                <ScrollViewer Height="250" VerticalScrollBarVisibility="Auto">
+                    <ItemsControl ItemsSource="{Binding FishView, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <CheckBox Content="{Binding Name}"
+                                          IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                                          Margin="2"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Border>
+
+            <TextBlock Text="Наживки:" FontWeight="Bold" Margin="0,10,0,4"/>
+            <TextBox x:Name="tbLureSearch"
+                     Height="26"
+                     Margin="0,0,0,4"
+                     Padding="4"
+                     TextChanged="TbLureSearch_TextChanged"
+                     ToolTip="Поиск по названию наживки"/>
+            <Border BorderThickness="1" CornerRadius="3">
+                <ScrollViewer Height="220" VerticalScrollBarVisibility="Auto">
+                    <ItemsControl ItemsSource="{Binding LuresView, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <CheckBox Content="{Binding Name}"
+                                          IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                                          Margin="2"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+
+</UserControl>

@@ -69,28 +69,7 @@ namespace TFOHelperRedux.Views
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
-        // Поиск по рыбам
-        private void tbFishSearch_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            ApplyFilter(_fishView, tbFishSearch.Text, item =>
-            {
-                if (item is FishModel f && !string.IsNullOrEmpty(f.Name))
-                    return f.Name.Contains(tbFishSearch.Text, System.StringComparison.OrdinalIgnoreCase);
-
-                return false;
-            });
-        }
-        // Поиск по наживкам
-        private void tbLureSearch_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            ApplyFilter(_luresView, tbLureSearch.Text, item =>
-            {
-                if (item is LureModel l && !string.IsNullOrEmpty(l.Name))
-                    return l.Name.Contains(tbLureSearch.Text, System.StringComparison.OrdinalIgnoreCase);
-
-                return false;
-            });
-        }
+        // Note: fish/lure search moved to FishLuresPanel control; methods removed.
         // Общий помощник для фильтра
         private void ApplyFilter(ListCollectionView view, string text, Predicate<object> predicate)
         {
