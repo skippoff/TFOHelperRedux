@@ -4,6 +4,9 @@ using System.Windows;
 using System.Windows.Controls;
 using TFOHelperRedux.Models;
 using TFOHelperRedux.Services;
+using System.Collections.Specialized;
+using System.ComponentModel;
+using System.Windows.Input;
 
 namespace TFOHelperRedux.Views
 {
@@ -22,6 +25,103 @@ namespace TFOHelperRedux.Views
             cmbMap.ItemsSource = DataStore.Maps;
             if (DataStore.Maps.Any())
                 cmbMap.SelectedIndex = 0;
+
+            // Подписываемся на изменения в коллекции рыб, чтобы обновлять поля веса
+            DataStore.Fishes.CollectionChanged += Fishes_CollectionChanged;
+            foreach (var f in DataStore.Fishes)
+                AttachFishHandler(f);
+        }
+
+        private void Fishes_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.NewItems != null)
+            {
+                foreach (var item in e.NewItems)
+                    if (item is FishModel fm)
+                        AttachFishHandler(fm);
+            }
+
+            if (e.OldItems != null)
+            {
+                foreach (var item in e.OldItems)
+                    if (item is FishModel fm)
+                        DetachFishHandler(fm);
+            }
+
+            UpdateWeightFieldsFromSelection();
+        }
+
+        private void AttachFishHandler(FishModel fish)
+        {
+            if (fish is INotifyPropertyChanged npc)
+                npc.PropertyChanged += Fish_PropertyChanged;
+        }
+
+        private void DetachFishHandler(FishModel fish)
+        {
+            if (fish is INotifyPropertyChanged npc)
+                npc.PropertyChanged -= Fish_PropertyChanged;
+        }
+
+        private void Fish_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(FishModel.IsSelected))
+            {
+                // обновляем поля веса при смене выбора рыбы
+                UpdateWeightFieldsFromSelection();
+            }
+        }
+
+        private void UpdateWeightFieldsFromSelection()
+        {
+            var selected = DataStore.Fishes.Where(f => f.IsSelected).ToList();
+            if (selected.Count == 1)
+            {
+                txtLarge.Text = selected[0].WeightLarge.ToString();
+                txtTrophy.Text = selected[0].WeightTrophy.ToString();
+            }
+            else
+            {
+                txtLarge.Text = string.Empty;
+                txtTrophy.Text = string.Empty;
+            }
+        }
+
+        private void WeightField_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                SaveWeightsToSelectedFish();
+                e.Handled = true;
+                Keyboard.ClearFocus();
+            }
+        }
+
+        private void WeightField_LostFocus(object sender, RoutedEventArgs e)
+        {
+            SaveWeightsToSelectedFish();
+        }
+
+        private void SaveWeightsToSelectedFish()
+        {
+            var selected = DataStore.Fishes.Where(f => f.IsSelected).ToList();
+            if (selected.Count != 1)
+                return;
+
+            var fish = selected[0];
+
+            if (int.TryParse(txtLarge.Text, out var large))
+                fish.WeightLarge = large;
+
+            if (int.TryParse(txtTrophy.Text, out var trophy))
+                fish.WeightTrophy = trophy;
+
+            // Сохраняем изменения
+            DataService.SaveFishes(DataStore.Fishes);
+
+            // Обновляем представления
+            if (App.Current?.MainWindow?.DataContext is TFOHelperRedux.ViewModels.FishViewModel vm)
+                vm.RefreshSelectedFish();
         }
 
         public void LoadPoint(CatchPointModel? point)
@@ -62,6 +162,9 @@ namespace TFOHelperRedux.Views
             cbRodFloat.IsChecked = _point.Rods?.Contains(3) == true;
             cbRodFly.IsChecked = _point.Rods?.Contains(4) == true;
             cbRodSea.IsChecked = _point.Rods?.Contains(5) == true;
+
+            // Обновляем поля веса в зависимости от выбранных рыб
+            UpdateWeightFieldsFromSelection();
         }
 
         public CatchPointModel SavePoint()
