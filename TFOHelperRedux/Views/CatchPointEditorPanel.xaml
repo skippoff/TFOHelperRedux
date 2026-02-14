@@ -35,14 +35,14 @@
                             Margin="0,0,0,4"
                             FontWeight="Bold"
                             Text="Крупная от (г)" />
-                        <TextBox x:Name="txtLarge" Height="26" LostFocus="WeightField_LostFocus" KeyDown="WeightField_KeyDown" />
+                        <TextBox Text="{Binding SelectedLargeText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="26" />
                     </StackPanel>
                     <StackPanel Width="120" Margin="16,0,0,0">
                         <TextBlock
                             Margin="0,0,0,4"
                             FontWeight="Bold"
                             Text="Трофей от (г)" />
-                        <TextBox x:Name="txtTrophy" Height="26" LostFocus="WeightField_LostFocus" KeyDown="WeightField_KeyDown" />
+                        <TextBox Text="{Binding SelectedTrophyText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="26" />
                     </StackPanel>
                 </StackPanel>
 

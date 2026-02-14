@@ -4,7 +4,7 @@
         xmlns:services="clr-namespace:TFOHelperRedux.Services"
         xmlns:local="clr-namespace:TFOHelperRedux.Views"
         Title="Добавление / Редактирование точки лова"
-        Height="790" Width="1000"
+        Height="790" Width="1200"
         WindowStartupLocation="CenterOwner"
         Background="#F4F5F7"
         FontFamily="Segoe UI" FontSize="14">

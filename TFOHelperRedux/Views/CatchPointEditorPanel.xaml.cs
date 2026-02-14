@@ -10,12 +10,41 @@ using System.Windows.Input;
 
 namespace TFOHelperRedux.Views
 {
-    public partial class CatchPointEditorPanel : UserControl
+    public partial class CatchPointEditorPanel : UserControl, System.ComponentModel.INotifyPropertyChanged
     {
         private CatchPointModel? _point;
 
         // raised after a point is saved via SavePoint()
         public event EventHandler<CatchPointModel>? PointSaved;
+
+        public event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
+        private void OnPropertyChanged(string name) => PropertyChanged?.Invoke(this, new System.ComponentModel.PropertyChangedEventArgs(name));
+
+        private string _selectedLargeText = string.Empty;
+        public string SelectedLargeText
+        {
+            get => _selectedLargeText;
+            set
+            {
+                if (_selectedLargeText == value) return;
+                _selectedLargeText = value;
+                OnPropertyChanged(nameof(SelectedLargeText));
+                ApplyLargeToSelectedFish();
+            }
+        }
+
+        private string _selectedTrophyText = string.Empty;
+        public string SelectedTrophyText
+        {
+            get => _selectedTrophyText;
+            set
+            {
+                if (_selectedTrophyText == value) return;
+                _selectedTrophyText = value;
+                OnPropertyChanged(nameof(SelectedTrophyText));
+                ApplyTrophyToSelectedFish();
+            }
+        }
 
         public CatchPointEditorPanel()
         {
@@ -77,13 +106,13 @@ namespace TFOHelperRedux.Views
             var selected = DataStore.Fishes.Where(f => f.IsSelected).ToList();
             if (selected.Count == 1)
             {
-                txtLarge.Text = selected[0].WeightLarge.ToString();
-                txtTrophy.Text = selected[0].WeightTrophy.ToString();
+                SelectedLargeText = selected[0].WeightLarge.ToString();
+                SelectedTrophyText = selected[0].WeightTrophy.ToString();
             }
             else
             {
-                txtLarge.Text = string.Empty;
-                txtTrophy.Text = string.Empty;
+                SelectedLargeText = string.Empty;
+                SelectedTrophyText = string.Empty;
             }
         }
 
@@ -110,10 +139,10 @@ namespace TFOHelperRedux.Views
 
             var fish = selected[0];
 
-            if (int.TryParse(txtLarge.Text, out var large))
+            if (int.TryParse(SelectedLargeText, out var large))
                 fish.WeightLarge = large;
 
-            if (int.TryParse(txtTrophy.Text, out var trophy))
+            if (int.TryParse(SelectedTrophyText, out var trophy))
                 fish.WeightTrophy = trophy;
 
             // Сохраняем изменения
@@ -122,6 +151,36 @@ namespace TFOHelperRedux.Views
             // Обновляем представления
             if (App.Current?.MainWindow?.DataContext is TFOHelperRedux.ViewModels.FishViewModel vm)
                 vm.RefreshSelectedFish();
+        }
+
+        private void ApplyLargeToSelectedFish()
+        {
+            // При изменении текста большого веса применяем его к выбранной рыбе (если выбрана одна)
+            var selected = DataStore.Fishes.Where(f => f.IsSelected).ToList();
+            if (selected.Count != 1) return;
+
+            if (int.TryParse(SelectedLargeText, out var large))
+            {
+                selected[0].WeightLarge = large;
+                DataService.SaveFishes(DataStore.Fishes);
+                if (App.Current?.MainWindow?.DataContext is TFOHelperRedux.ViewModels.FishViewModel vm)
+                    vm.RefreshSelectedFish();
+            }
+        }
+
+        private void ApplyTrophyToSelectedFish()
+        {
+            // При изменении текста трофейного веса применяем его к выбранной рыбе (если выбрана одна)
+            var selected = DataStore.Fishes.Where(f => f.IsSelected).ToList();
+            if (selected.Count != 1) return;
+
+            if (int.TryParse(SelectedTrophyText, out var trophy))
+            {
+                selected[0].WeightTrophy = trophy;
+                DataService.SaveFishes(DataStore.Fishes);
+                if (App.Current?.MainWindow?.DataContext is TFOHelperRedux.ViewModels.FishViewModel vm)
+                    vm.RefreshSelectedFish();
+            }
         }
 
         public void LoadPoint(CatchPointModel? point)
