@@ -14,6 +14,8 @@ namespace TFOHelperRedux.ViewModels
 {
     public class FishViewModel : BaseViewModel
     {
+        // Флаг предотвращает реакцию на PropertyChanged при массовой синхронизации чекбоксов
+        private bool _isSyncingLures = false;
         public ICommand ShowFeeds { get; }
         public ICommand ShowComponents { get; }
         public ICommand ShowDips { get; }
@@ -176,6 +178,25 @@ namespace TFOHelperRedux.ViewModels
                     _selectedFish = value;
                     DataStore.SelectedFish = _selectedFish = value;
                     OnPropertyChanged(nameof(SelectedFish));
+                    // при смене рыбы синхронизируем чекбоксы наживок с её LureIDs
+                    if (DataStore.Lures != null)
+                    {
+                        _isSyncingLures = true;
+                        try
+                        {
+                            var ids = _selectedFish?.LureIDs ?? Array.Empty<int>();
+                            foreach (var l in DataStore.Lures)
+                            {
+                                // устанавливаем IsSelected без побочных эффектов
+                                l.IsSelected = ids.Contains(l.ID);
+                            }
+                        }
+                        finally
+                        {
+                            _isSyncingLures = false;
+                        }
+                    }
+
                     OnPropertyChanged(nameof(RecommendedLures)); // <<< ВАЖНО
                     OnPropertyChanged(nameof(BiteDescription)); // 🔹 обновляем текст
                     OnPropertyChanged(nameof(RecipeCountForSelectedFish));
@@ -192,12 +213,11 @@ namespace TFOHelperRedux.ViewModels
         {
             get
             {
-                var ids = SelectedFish?.LureIDs;
-                if (ids == null || ids.Length == 0)
+                // Источник рекомендаций теперь — чекбоксы в панели наживок (IsSelected)
+                if (DataStore.Lures == null || DataStore.Lures.Count == 0)
                     return Enumerable.Empty<LureModel>();
 
-                // фильтруем только отмеченные наживки
-                return DataStore.Lures.Where(l => ids.Contains(l.ID));
+                return DataStore.Lures.Where(l => l.IsSelected);
             }
         }
         /// Лучшие магазинные наживки для выбранной рыбы (по BestLureIDs).
@@ -459,6 +479,26 @@ namespace TFOHelperRedux.ViewModels
                 return string.Equals(l.BaitType, "lure", StringComparison.OrdinalIgnoreCase);
             };
 
+            // Подпишемся на изменения IsSelected у наживок, чтобы обновлять RecommendedLures
+            if (DataStore.Lures != null)
+            {
+                foreach (var l in DataStore.Lures)
+                    if (l is INotifyPropertyChanged npcL)
+                        npcL.PropertyChanged += LureModel_PropertyChanged;
+
+                DataStore.Lures.CollectionChanged += (s, e) =>
+                {
+                    if (e.NewItems != null)
+                        foreach (var it in e.NewItems)
+                            if (it is INotifyPropertyChanged npc)
+                                npc.PropertyChanged += LureModel_PropertyChanged;
+                    if (e.OldItems != null)
+                        foreach (var it in e.OldItems)
+                            if (it is INotifyPropertyChanged npc)
+                                npc.PropertyChanged -= LureModel_PropertyChanged;
+                };
+            }
+
             // подготавливаем коллекции для панели локаций
             MapLevels.Clear();
             if (Maps != null)
@@ -470,6 +510,7 @@ namespace TFOHelperRedux.ViewModels
                 if (MapLevels.Any())
                     SelectedLevelFilter = MapLevels.Max();
             }
+
             // 🔹 При старте сразу выбираем первую локацию из списка,
             // если уже находимся в режиме "Maps"
             if (CurrentMode == "Maps" && SelectedMap == null)
@@ -488,6 +529,47 @@ namespace TFOHelperRedux.ViewModels
             // В релизе команда существует, но ничего не делает
             OpenAddEditFishWindowCommand = new RelayCommand(_ => { });
 #endif
+        }
+
+        private void LureModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName != nameof(Models.LureModel.IsSelected))
+                return;
+
+            if (_isSyncingLures)
+                return; // игнорируем события во время массовой синхронизации
+
+            // когда пользователь меняет IsSelected — сохраняем это в выбранной рыбе
+            if (sender is not LureModel lure)
+                return;
+
+            var fish = SelectedFish;
+            if (fish == null)
+            {
+                // нет выбранной рыбы — просто обновляем список рекомендуемых
+                OnPropertyChanged(nameof(RecommendedLures));
+                return;
+            }
+
+            var ids = fish.LureIDs ?? Array.Empty<int>();
+            if (lure.IsSelected)
+            {
+                if (!ids.Contains(lure.ID))
+                {
+                    fish.LureIDs = ids.Concat(new[] { lure.ID }).Distinct().ToArray();
+                    DataService.SaveFishes(DataStore.Fishes);
+                    OnPropertyChanged(nameof(RecommendedLures));
+                }
+            }
+            else
+            {
+                if (ids.Contains(lure.ID))
+                {
+                    fish.LureIDs = ids.Where(id => id != lure.ID).ToArray();
+                    DataService.SaveFishes(DataStore.Fishes);
+                    OnPropertyChanged(nameof(RecommendedLures));
+                }
+            }
         }
 
         private void ApplyFilter()

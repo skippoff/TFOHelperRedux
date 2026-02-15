@@ -63,5 +63,32 @@ namespace TFOHelperRedux.Views
                     };
             }
         }
+
+        private void Lure_Checked(object sender, RoutedEventArgs e)
+        {
+            if (sender is CheckBox cb && cb.Tag is int id)
+            {
+                var vm = DataContext as System.ComponentModel.ICollectionView; // fallback not used
+                var fishVm = this.DataContext as dynamic;
+                // Update global SelectedFish from DataStore
+                var fish = TFOHelperRedux.Services.DataStore.SelectedFish;
+                if (fish == null) return;
+
+                fish.LureIDs = (fish.LureIDs ?? Array.Empty<int>()).Concat(new[] { id }).Distinct().ToArray();
+                TFOHelperRedux.Services.DataService.SaveFishes(TFOHelperRedux.Services.DataStore.Fishes);
+            }
+        }
+
+        private void Lure_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (sender is CheckBox cb && cb.Tag is int id)
+            {
+                var fish = TFOHelperRedux.Services.DataStore.SelectedFish;
+                if (fish == null) return;
+
+                fish.LureIDs = (fish.LureIDs ?? Array.Empty<int>()).Where(x => x != id).ToArray();
+                TFOHelperRedux.Services.DataService.SaveFishes(TFOHelperRedux.Services.DataStore.Fishes);
+            }
+        }
     }
 }
