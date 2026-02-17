@@ -148,7 +148,7 @@ namespace TFOHelperRedux.Views
 
             int.TryParse(txtTempMin.Text, out int tMin);
             SelectedFish.TemperatureMin = tMin;
-
+            
             int.TryParse(txtTempMax.Text, out int tMax);
             SelectedFish.TemperatureMax = tMax;
             // Надёжная фиксация состояний времени суток:
