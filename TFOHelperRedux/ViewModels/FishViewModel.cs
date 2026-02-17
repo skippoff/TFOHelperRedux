@@ -20,6 +20,7 @@ namespace TFOHelperRedux.ViewModels
     /// - FishFilterService: фильтрация и поиск
     /// - LureBindingService: привязка наживок к рыбам
     /// - FishDataService: CRUD операции с рыбами
+    /// - LureService: CRUD операции с наживками, прикормками, дипами и компонентами
     /// - NavigationService: навигация между режимами
     /// </summary>
     public class FishViewModel : BaseViewModel
@@ -30,6 +31,7 @@ namespace TFOHelperRedux.ViewModels
         private readonly FishFilterService _filterService;
         private readonly LureBindingService _lureBindingService;
         private readonly FishDataService _fishDataService;
+        private readonly LureService _lureService;
 
         #endregion
 
@@ -336,6 +338,7 @@ namespace TFOHelperRedux.ViewModels
             _filterService = new FishFilterService(Fishes, FilteredFishes);
             _lureBindingService = new LureBindingService();
             _fishDataService = new FishDataService();
+            _lureService = new LureService(_fishDataService);
 
             // Инициализация команд навигации
             ShowMaps = new RelayCommand(NavigateToMaps);
@@ -620,35 +623,19 @@ namespace TFOHelperRedux.ViewModels
             switch (BaitsSubMode)
             {
                 case "Feeds":
-                    item = SelectedFeed ?? new BaitModel
-                    {
-                        ID = _fishDataService.GetNextId(DataStore.Feeds),
-                        Name = "Новая прикормка"
-                    };
+                    item = _lureService.GetOrCreateFeedForEdit(SelectedFeed);
                     if (SelectedFeed == null) isNew = true;
                     break;
                 case "Dips":
-                    item = SelectedDip ?? new DipModel
-                    {
-                        ID = _fishDataService.GetNextId(DataStore.Dips),
-                        Name = "Новый дип"
-                    };
+                    item = _lureService.GetOrCreateDipForEdit(SelectedDip);
                     if (SelectedDip == null) isNew = true;
                     break;
                 case "Lures":
-                    item = SelectedLure ?? new LureModel
-                    {
-                        ID = _fishDataService.GetNextId(DataStore.Lures),
-                        Name = "Новая наживка"
-                    };
+                    item = _lureService.GetOrCreateLureForEdit(SelectedLure);
                     if (SelectedLure == null) isNew = true;
                     break;
                 case "FeedComponents":
-                    item = SelectedComponent ?? new FeedComponentModel
-                    {
-                        ID = _fishDataService.GetNextId(DataStore.FeedComponents),
-                        Name = "Новый компонент"
-                    };
+                    item = _lureService.GetOrCreateComponentForEdit(SelectedComponent);
                     if (SelectedComponent == null) isNew = true;
                     break;
             }
@@ -667,24 +654,21 @@ namespace TFOHelperRedux.ViewModels
                     switch (BaitsSubMode)
                     {
                         case "Feeds":
-                            DataStore.Feeds.Add((BaitModel)item);
+                            _lureService.AddFeedIfNew((BaitModel)item, DataStore.Feeds);
                             break;
                         case "Dips":
-                            DataStore.Dips.Add((DipModel)item);
+                            _lureService.AddDipIfNew((DipModel)item, DataStore.Dips);
                             break;
                         case "Lures":
-                            DataStore.Lures.Add((LureModel)item);
+                            _lureService.AddLureIfNew((LureModel)item, DataStore.Lures);
                             break;
                         case "FeedComponents":
-                            DataStore.FeedComponents.Add((FeedComponentModel)item);
+                            _lureService.AddComponentIfNew((FeedComponentModel)item, DataStore.FeedComponents);
                             break;
                     }
                 }
 
-                if (item is BaitModel) DataService.SaveFeeds(DataStore.Feeds);
-                else if (item is DipModel) DataService.SaveDips(DataStore.Dips);
-                else if (item is LureModel) DataService.SaveLures(DataStore.Lures);
-                else if (item is FeedComponentModel) DataService.SaveFeedComponents(DataStore.FeedComponents);
+                _lureService.SaveItem(item);
 
                 OnPropertyChanged(nameof(Components));
             }

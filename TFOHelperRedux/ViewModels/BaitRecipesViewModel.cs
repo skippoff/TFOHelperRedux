@@ -9,6 +9,8 @@ namespace TFOHelperRedux.ViewModels
 {
     public class BaitRecipesViewModel : BaseViewModel
     {
+        private readonly BaitRecipeService _recipeService;
+
         // Теперь это отдельная коллекция для отображения (только не скрытые рецепты)
         public ObservableCollection<BaitRecipeModel> Recipes { get; } = new();
 
@@ -47,11 +49,13 @@ namespace TFOHelperRedux.ViewModels
 
         public BaitRecipesViewModel()
         {
+            _recipeService = new BaitRecipeService();
+
             // гарантируем, что главная коллекция существует
             if (DataStore.BaitRecipes == null)
                 DataStore.BaitRecipes = new ObservableCollection<BaitRecipeModel>();
 
-            NormalizeRecipeIds();
+            _recipeService.NormalizeRecipeIds(DataStore.BaitRecipes);
             RebuildRecipesList();
 
             SaveRecipeCmd = new RelayCommand(SaveRecipe);
@@ -70,31 +74,9 @@ namespace TFOHelperRedux.ViewModels
         {
             if (item == null) return;
             if (CurrentRecipe == null)
-                CurrentRecipe = new BaitRecipeModel { Name = "Новый рецепт" };
+                CurrentRecipe = _recipeService.CreateNewRecipe();
 
-            switch (item)
-            {
-                case BaitModel feed:
-                    if (!CurrentRecipe.FeedIDs.Contains(feed.ID))
-                        CurrentRecipe.FeedIDs = CurrentRecipe.FeedIDs.Append(feed.ID).ToArray();
-                    break;
-
-                case LureModel lure:
-                    if (!CurrentRecipe.LureIDs.Contains(lure.ID))
-                        CurrentRecipe.LureIDs = CurrentRecipe.LureIDs.Append(lure.ID).ToArray();
-                    break;
-
-                case DipModel dip:
-                    if (!CurrentRecipe.DipIDs.Contains(dip.ID))
-                        CurrentRecipe.DipIDs = CurrentRecipe.DipIDs.Append(dip.ID).ToArray();
-                    break;
-
-                case FeedComponentModel comp:
-                    if (!CurrentRecipe.ComponentIDs.Contains(comp.ID))
-                        CurrentRecipe.ComponentIDs = CurrentRecipe.ComponentIDs.Append(comp.ID).ToArray();
-                    break;
-            }
-
+            _recipeService.AddItemToRecipe(CurrentRecipe, item);
             UpdatePreviewList();
         }
 
@@ -144,20 +126,8 @@ namespace TFOHelperRedux.ViewModels
 
             // обновляем поля текущего рецепта
             CurrentRecipe.Name = RecipeName;
-            CurrentRecipe.DateEdited = DateTime.Now;
 
-            var all = DataStore.BaitRecipes ??= new ObservableCollection<BaitRecipeModel>();
-
-            // если рецепт ещё не в общей коллекции – это НОВЫЙ рецепт
-            if (!all.Contains(CurrentRecipe))
-            {
-                int newId = all.Any() ? all.Max(r => r.ID) + 1 : 0;
-                CurrentRecipe.ID = newId;
-                all.Add(CurrentRecipe);
-            }
-            // если он уже в all – он там по ссылке, и мы уже изменили его поля выше
-
-            DataService.SaveBaitRecipes(all);
+            _recipeService.SaveRecipe(CurrentRecipe, DataStore.BaitRecipes);
             RebuildRecipesList();
 
             MessageBox.Show("Рецепт сохранён.", "Успех",
@@ -166,7 +136,7 @@ namespace TFOHelperRedux.ViewModels
 
         private void NewRecipe()
         {
-            CurrentRecipe = new BaitRecipeModel { Name = "Новый рецепт" };
+            CurrentRecipe = _recipeService.CreateNewRecipe();
             RecipeName = "";
             PreviewItems.Clear();
         }
@@ -178,10 +148,7 @@ namespace TFOHelperRedux.ViewModels
             if (MessageBox.Show("Очистить текущий рецепт?", "Подтверждение",
                 MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
-                CurrentRecipe.FeedIDs = Array.Empty<int>();
-                CurrentRecipe.LureIDs = Array.Empty<int>();
-                CurrentRecipe.DipIDs = Array.Empty<int>();
-                CurrentRecipe.ComponentIDs = Array.Empty<int>();
+                _recipeService.ClearRecipe(CurrentRecipe);
                 UpdatePreviewList();
             }
         }
@@ -200,11 +167,7 @@ namespace TFOHelperRedux.ViewModels
             if (result != MessageBoxResult.Yes)
                 return;
 
-            // ❌ Не удаляем из DataStore.BaitRecipes и не трогаем привязки к рыбе
-            // ✅ Только помечаем как скрытый
-            CurrentRecipe.IsHidden = true;
-
-            DataService.SaveBaitRecipes(DataStore.BaitRecipes);
+            _recipeService.HideRecipe(CurrentRecipe);
             RebuildRecipesList();
             NewRecipe();
         }
@@ -214,30 +177,8 @@ namespace TFOHelperRedux.ViewModels
             if (parameter is not BaitRecipeModel recipe)
                 return;
 
-            var fish = DataStore.SelectedFish;
-            if (fish == null)
-            {
-                MessageBox.Show("Сначала выберите рыбу в панели справа.", "Привязка рецепта",
-                    MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-
-            // гарантируем, что массив есть
-            fish.RecipeIDs ??= Array.Empty<int>();
-
-            if (!fish.RecipeIDs.Contains(recipe.ID))
-                fish.RecipeIDs = fish.RecipeIDs
-                    .Concat(new[] { recipe.ID })
-                    .Distinct()
-                    .ToArray();
-
-            DataService.SaveFishes(DataStore.Fishes);
-
-            MessageBox.Show(
-                $"Рецепт '{recipe.Name}' привязан к рыбе {fish.Name}.",
-                "Привязка рецепта",
-                MessageBoxButton.OK,
-                MessageBoxImage.Information);
+            var result = _recipeService.AttachRecipeToFish(recipe, DataStore.SelectedFish);
+            result.ShowMessageBox();
         }
 
         private void DetachRecipeFromFish(object? parameter)
@@ -245,51 +186,8 @@ namespace TFOHelperRedux.ViewModels
             if (parameter is not BaitRecipeModel recipe)
                 return;
 
-            var fish = DataStore.SelectedFish;
-            if (fish == null)
-            {
-                MessageBox.Show("Сначала выберите рыбу в панели справа.", "Отвязка рецепта",
-                    MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-
-            if (fish.RecipeIDs == null || fish.RecipeIDs.Length == 0)
-                return;
-
-            if (!fish.RecipeIDs.Contains(recipe.ID))
-                return;
-
-            fish.RecipeIDs = fish.RecipeIDs
-                .Where(id => id != recipe.ID)
-                .ToArray();
-
-            DataService.SaveFishes(DataStore.Fishes);
-
-            MessageBox.Show($"Рецепт '{recipe.Name}' отвязан от рыбы {fish.Name}.",
-                "Отвязка рецепта",
-                MessageBoxButton.OK,
-                MessageBoxImage.Information);
-        }
-
-        private void NormalizeRecipeIds()
-        {
-            var all = DataStore.BaitRecipes;
-            if (all == null || all.Count == 0)
-                return;
-
-            // если ID не уникальны (или все 0) – переиндексируем
-            var distinctCount = all.Select(r => r.ID).Distinct().Count();
-            if (distinctCount != all.Count)
-            {
-                int id = 0;
-                foreach (var r in all)
-                {
-                    r.ID = id++;
-                }
-
-                // сразу сохраняем исправленные ID в json
-                DataService.SaveBaitRecipes(all);
-            }
+            var result = _recipeService.DetachRecipeFromFish(recipe, DataStore.SelectedFish);
+            result.ShowMessageBox();
         }
     }
 }
