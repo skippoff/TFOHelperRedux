@@ -22,6 +22,7 @@ namespace TFOHelperRedux.ViewModels
     /// - FishDataService: CRUD операции с рыбами
     /// - LureService: CRUD операции с наживками, прикормками, дипами и компонентами
     /// - NavigationService: навигация между режимами
+    /// - MapsService: управление картами (фильтрация, обновление данных)
     /// </summary>
     public class FishViewModel : BaseViewModel
     {
@@ -32,6 +33,7 @@ namespace TFOHelperRedux.ViewModels
         private readonly LureBindingService _lureBindingService;
         private readonly FishDataService _fishDataService;
         private readonly LureService _lureService;
+        private readonly MapsService _mapsService;
 
         #endregion
 
@@ -70,31 +72,22 @@ namespace TFOHelperRedux.ViewModels
 
         public ObservableCollection<FishModel> Fishes { get; }
         public ObservableCollection<FishModel> FilteredFishes { get; }
-        public ObservableCollection<MapModel> MapsForFish { get; private set; }
-        public ObservableCollection<MapModel> Maps { get; set; } = null!;
+        public ObservableCollection<MapModel> MapsForFish => _mapsService.MapsForFish;
+        public ObservableCollection<MapModel> Maps => _mapsService.Maps;
 
         // Карты для панели локаций (обычные + DLC) и фильтр по уровню
-        public ObservableCollection<MapModel> NonDlcMaps { get; } = new();
-        public ObservableCollection<MapModel> DlcMaps { get; } = new();
-        public ObservableCollection<int> MapLevels { get; } = new();
+        public ObservableCollection<MapModel> NonDlcMaps => _mapsService.NonDlcMaps;
+        public ObservableCollection<MapModel> DlcMaps => _mapsService.DlcMaps;
+        public ObservableCollection<int> MapLevels => _mapsService.MapLevels;
 
         #endregion
 
         #region Свойства навигации и режимов
 
-        private int _selectedLevelFilter;
         public int SelectedLevelFilter
         {
-            get => _selectedLevelFilter;
-            set
-            {
-                if (_selectedLevelFilter != value)
-                {
-                    _selectedLevelFilter = value;
-                    OnPropertyChanged(nameof(SelectedLevelFilter));
-                    UpdateMapFilters();
-                }
-            }
+            get => _mapsService.SelectedLevelFilter;
+            set => _mapsService.SelectedLevelFilter = value;
         }
 
         private string _currentMode = DataStore.CurrentMode;
@@ -210,6 +203,7 @@ namespace TFOHelperRedux.ViewModels
                 OnPropertyChanged(nameof(RecipesForSelectedFish));
                 OnPropertyChanged(nameof(TopLuresForSelectedFish));
                 OnPropertyChanged(nameof(TopRecipesForSelectedFish));
+                _mapsService.UpdateMapsForFish(value);
                 CatchPointsVM.RefreshFilteredPoints(value);
                 UpdateFishDetails();
             }
@@ -219,7 +213,7 @@ namespace TFOHelperRedux.ViewModels
 
         #region Свойства для отображения данных
 
-        public BitmapImage? FishImage { get; private set; }
+        public BitmapImage? FishImage { get; set; }
 
         public BaitRecipesViewModel BaitRecipesVM { get; } = new();
         public CatchPointsViewModel CatchPointsVM { get; } = new();
@@ -322,8 +316,6 @@ namespace TFOHelperRedux.ViewModels
             // Инициализация коллекций
             Fishes = DataStore.Fishes;
             FilteredFishes = new ObservableCollection<FishModel>(Fishes);
-            MapsForFish = new ObservableCollection<MapModel>();
-            Maps = DataStore.Maps;
 
             // Инициализация сервисов
             _selectionService = new FishSelectionService(
@@ -339,6 +331,12 @@ namespace TFOHelperRedux.ViewModels
             _lureBindingService = new LureBindingService();
             _fishDataService = new FishDataService();
             _lureService = new LureService(_fishDataService);
+            _mapsService = new MapsService(
+                DataStore.Maps,
+                onMapsChanged: () => OnPropertyChanged(nameof(Maps)),
+                onSelectedMapChanged: () => OnPropertyChanged(nameof(SelectedMap)),
+                onSelectedLevelFilterChanged: () => OnPropertyChanged(nameof(SelectedLevelFilter))
+            );
 
             // Инициализация команд навигации
             ShowMaps = new RelayCommand(NavigateToMaps);
@@ -397,15 +395,12 @@ namespace TFOHelperRedux.ViewModels
             SubscribeToLureChanges();
 
             // Инициализация фильтров карт
-            InitializeMapFilters();
+            _mapsService.InitializeMapFilters();
 
             // Выбор первой локации при старте в режиме Maps
-            if (CurrentMode == "Maps" && SelectedMap == null)
+            if (CurrentMode == "Maps" && _mapsService.SelectedMap == null)
             {
-                if (NonDlcMaps.Any())
-                    SelectedMap = NonDlcMaps.First();
-                else if (DlcMaps.Any())
-                    SelectedMap = DlcMaps.First();
+                _mapsService.SelectFirstDlcMapIfNull();
             }
         }
 
@@ -418,31 +413,26 @@ namespace TFOHelperRedux.ViewModels
         private void NavigateToMaps()
         {
             CurrentMode = "Maps";
-
-            if (SelectedMap == null && Maps.Any())
-            {
-                SelectedMap = Maps.First();
-            }
-
-            if (FilteredFishes.Any())
-            {
-                SelectedFish = FilteredFishes.First();
-            }
+            _mapsService.NavigateToMaps(
+                () =>
+                {
+                    if (FilteredFishes.Any())
+                        SelectedFish = FilteredFishes.First();
+                },
+                CatchPointsVM,
+                SelectedFish
+            );
         }
 
         private void NavigateToFishes()
         {
             CurrentMode = "Fish";
-
-            if (SelectedMap != null)
-                SelectedMap = null;
-
-            DataStore.SelectedMap = null;
-
-            if (SelectedFish == null && FilteredFishes.Any())
-                SelectedFish = FilteredFishes.First();
-
-            CatchPointsVM.RefreshFilteredPoints(SelectedFish);
+            _mapsService.NavigateToFishes(
+                () => SelectedMap = null,
+                CatchPointsVM,
+                SelectedFish,
+                FilteredFishes
+            );
         }
 
         #endregion
@@ -721,64 +711,8 @@ namespace TFOHelperRedux.ViewModels
 
         private void UpdateFishDetails()
         {
-            MapsForFish.Clear();
-            FishImage = null;
-
-            if (SelectedFish == null)
-            {
-                OnPropertyChanged(nameof(FishImage));
-                OnPropertyChanged(nameof(MapsForFish));
-                return;
-            }
-
-            var imgPath = DataService.GetFishImagePath(SelectedFish.ID);
-            if (System.IO.File.Exists(imgPath))
-                FishImage = new BitmapImage(new Uri(imgPath));
-
-            var maps = DataStore.Maps
-                .Where(m => m.FishIDs != null && m.FishIDs.Contains(SelectedFish.ID))
-                .OrderBy(m => m.Name);
-
-            foreach (var map in maps)
-                MapsForFish.Add(map);
-
+            FishImage = _mapsService.GetFishImage(SelectedFish?.ID);
             OnPropertyChanged(nameof(FishImage));
-            OnPropertyChanged(nameof(MapsForFish));
-        }
-
-        private void UpdateMapFilters()
-        {
-            NonDlcMaps.Clear();
-            DlcMaps.Clear();
-
-            if (Maps == null || Maps.Count == 0)
-                return;
-
-            var nonDlc = Maps.Where(m => !m.DLC);
-            var dlc = Maps.Where(m => m.DLC);
-
-            if (SelectedLevelFilter > 0)
-                nonDlc = nonDlc.Where(m => m.Level <= SelectedLevelFilter);
-
-            foreach (var map in nonDlc.OrderBy(m => m.Level).ThenBy(m => m.Name))
-                NonDlcMaps.Add(map);
-
-            foreach (var map in dlc.OrderBy(m => m.Level).ThenBy(m => m.Name))
-                DlcMaps.Add(map);
-        }
-
-        private void InitializeMapFilters()
-        {
-            MapLevels.Clear();
-
-            if (Maps != null)
-            {
-                foreach (var lvl in Maps.Select(m => m.Level).Distinct().OrderBy(l => l))
-                    MapLevels.Add(lvl);
-
-                if (MapLevels.Any())
-                    SelectedLevelFilter = MapLevels.Max();
-            }
         }
 
         #endregion
