@@ -23,6 +23,7 @@ namespace TFOHelperRedux.ViewModels
     /// - LureService: CRUD операции с наживками, прикормками, дипами и компонентами
     /// - NavigationService: навигация между режимами
     /// - MapsService: управление картами (фильтрация, обновление данных)
+    /// - CatchPointsService: управление точками лова (фильтрация, CRUD, импорт/экспорт)
     /// </summary>
     public class FishViewModel : BaseViewModel
     {
@@ -397,10 +398,16 @@ namespace TFOHelperRedux.ViewModels
             // Инициализация фильтров карт
             _mapsService.InitializeMapFilters();
 
-            // Выбор первой локации при старте в режиме Maps
-            if (CurrentMode == "Maps" && _mapsService.SelectedMap == null)
+            // Выбор первой локации при старте
+            if (_mapsService.SelectedMap == null)
             {
                 _mapsService.SelectFirstDlcMapIfNull();
+            }
+
+            // Выбор первой рыбы при старте
+            if (FilteredFishes.Any() && SelectedFish == null)
+            {
+                SelectedFish = FilteredFishes.First();
             }
         }
 

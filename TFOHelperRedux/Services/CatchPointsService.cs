@@ -1,0 +1,309 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
+using System.Linq;
+using System.Windows;
+using Microsoft.Win32;
+using TFOHelperRedux.Models;
+using TFOHelperRedux.ViewModels;
+
+namespace TFOHelperRedux.Services;
+
+/// <summary>
+/// Сервис для управления точками лова (CatchPoints).
+/// Отвечает за фильтрацию, CRUD операции, импорт/экспорт.
+/// </summary>
+public class CatchPointsService
+{
+    private readonly string _localDataDir;
+    private readonly string _localCatchFile;
+
+    public CatchPointsService()
+    {
+        _localDataDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Maps");
+        _localCatchFile = Path.Combine(_localDataDir, "CatchPoints_Local.json");
+
+        if (!Directory.Exists(_localDataDir))
+            Directory.CreateDirectory(_localDataDir);
+    }
+
+    /// <summary>
+    /// Загрузка точек лова из файла
+    /// </summary>
+    public ObservableCollection<CatchPointModel> LoadCatchPoints()
+    {
+        var loaded = JsonService.Load<ObservableCollection<CatchPointModel>>(_localCatchFile);
+        return loaded ?? new ObservableCollection<CatchPointModel>();
+    }
+
+    /// <summary>
+    /// Сохранение точек лова в файл
+    /// </summary>
+    public void SaveCatchPoints(ObservableCollection<CatchPointModel> catchPoints)
+    {
+        JsonService.Save(_localCatchFile, catchPoints);
+    }
+
+    /// <summary>
+    /// Фильтрация точек лова на основе выбранной рыбы, карты и текущего режима
+    /// </summary>
+    public ObservableCollection<CatchPointModel> FilterCatchPoints(
+        FishModel? selectedFish,
+        MapModel? selectedMap,
+        string currentMode,
+        ObservableCollection<CatchPointModel> allPoints)
+    {
+        var points = allPoints.AsEnumerable();
+
+        switch (currentMode)
+        {
+            case "Fish":
+                if (selectedFish != null)
+                    points = points.Where(p => p.FishIDs.Contains(selectedFish.ID));
+                break;
+
+            case "Maps":
+                if (selectedMap != null)
+                    points = points.Where(p => p.MapID == selectedMap.ID);
+                if (selectedFish != null)
+                    points = points.Where(p => p.FishIDs.Contains(selectedFish.ID));
+                break;
+
+            default:
+                // при других режимах (например, Baits) ничего не фильтруем
+                break;
+        }
+
+        return new ObservableCollection<CatchPointModel>(points.ToList());
+    }
+
+    /// <summary>
+    /// Обновление метаданных точек (MapName, FishNames)
+    /// </summary>
+    public void UpdateCatchPointsMetadata(
+        ObservableCollection<CatchPointModel> catchPoints,
+        ObservableCollection<MapModel> maps,
+        ObservableCollection<FishModel> fishes)
+    {
+        foreach (var point in catchPoints)
+        {
+            point.MapName = maps.FirstOrDefault(m => m.ID == point.MapID)?.Name ?? "—";
+            point.FishNames = string.Join(", ",
+                point.FishIDs?.Select(id => fishes.FirstOrDefault(f => f.ID == id)?.Name)
+                ?? new[] { "—" });
+        }
+    }
+
+    /// <summary>
+    /// Удаление точки лова
+    /// </summary>
+    public bool DeleteCatchPoint(
+        CatchPointModel point,
+        ObservableCollection<CatchPointModel> catchPoints)
+    {
+        if (point == null)
+            return false;
+
+        var result = MessageBox.Show(
+            $"Удалить точку лова на {point.MapName} (X={point.Coords.X}; Y={point.Coords.Y})?",
+            "Удаление точки лова",
+            MessageBoxButton.YesNo,
+            MessageBoxImage.Question);
+
+        if (result != MessageBoxResult.Yes)
+            return false;
+
+        catchPoints.Remove(point);
+        return true;
+    }
+
+    /// <summary>
+    /// Редактирование точки лова (открывает окно)
+    /// </summary>
+    public void EditCatchPoint(CatchPointModel? point, CatchPointsViewModel catchPointsVm)
+    {
+        if (point == null)
+            return;
+
+        var wnd = new Views.EditCatchPointWindow(point);
+        if (wnd.ShowDialog() == true)
+        {
+            // после окна данные уже сохранены через SaveAll()
+            var fish = DataStore.SelectedFish ?? catchPointsVm.CurrentFish;
+            catchPointsVm.RefreshFilteredPoints(fish);
+        }
+    }
+
+    /// <summary>
+    /// Открытие окна добавления/редактирования точки лова
+    /// </summary>
+    public void OpenEditCatchPointWindow(CatchPointsViewModel catchPointsVm)
+    {
+        var wnd = new Views.EditCatchPointWindow();
+        if (wnd.ShowDialog() == true)
+        {
+            catchPointsVm.RefreshFilteredPoints(DataStore.SelectedFish);
+        }
+    }
+
+    /// <summary>
+    /// Импорт точек лова из файла
+    /// </summary>
+    public void ImportCatchPoints(ObservableCollection<CatchPointModel> catchPoints)
+    {
+        var dlg = new OpenFileDialog
+        {
+            Filter = "JSON files (*.json)|*.json|All files (*.*)|*.*",
+            Title = "Импорт точек лова"
+        };
+
+        if (dlg.ShowDialog() != true)
+            return;
+
+        try
+        {
+            if (!File.Exists(dlg.FileName))
+            {
+                MessageBox.Show("Файл не найден.", "Импорт точек", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            var imported = JsonService.Load<List<CatchPointModel>>(dlg.FileName);
+            if (imported == null || imported.Count == 0)
+            {
+                MessageBox.Show("Не удалось загрузить данные из файла.", "Импорт точек", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            var uniqueImported = GetUniqueCatchPoints(imported);
+
+            if (uniqueImported.Count == 0)
+            {
+                MessageBox.Show("В файле нет валидных точек лова.", "Импорт точек", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (catchPoints.Count > 0)
+            {
+                var result = MessageBox.Show(
+                    "В программе уже есть точки лова.\n\n" +
+                    "Объединить новые точки с существующими?\n" +
+                    "Да — объединить\n" +
+                    "Нет — заменить существующие\n" +
+                    "Отмена — прервать импорт",
+                    "Импорт точек",
+                    MessageBoxButton.YesNoCancel,
+                    MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Cancel)
+                    return;
+
+                if (result == MessageBoxResult.No)
+                {
+                    catchPoints.Clear();
+                    foreach (var p in uniqueImported)
+                        catchPoints.Add(p);
+                }
+                else if (result == MessageBoxResult.Yes)
+                {
+                    MergeCatchPoints(catchPoints, uniqueImported);
+                }
+            }
+            else
+            {
+                foreach (var p in uniqueImported)
+                    catchPoints.Add(p);
+            }
+
+            SaveCatchPoints(catchPoints);
+            MessageBox.Show("Импорт завершён ✅", "Импорт", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show("Ошибка при импорте точек:\n" + ex.Message,
+                "Импорт точек", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    /// <summary>
+    /// Экспорт точек лова в файл
+    /// </summary>
+    public void ExportCatchPoints(ObservableCollection<CatchPointModel> catchPoints)
+    {
+        var dlg = new SaveFileDialog
+        {
+            Filter = "JSON files (*.json)|*.json",
+            Title = "Экспорт точек лова"
+        };
+
+        if (dlg.ShowDialog() != true)
+            return;
+
+        JsonService.Save(dlg.FileName, catchPoints);
+        MessageBox.Show("Точки экспортированы 💾", "Экспорт", MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+
+    /// <summary>
+    /// Очистка всех точек лова
+    /// </summary>
+    public void ClearCatchPoints(ObservableCollection<CatchPointModel> catchPoints)
+    {
+        if (MessageBox.Show("Очистить все точки лова?", "Подтверждение",
+                MessageBoxButton.YesNo, MessageBoxImage.Warning) != MessageBoxResult.Yes)
+            return;
+
+        catchPoints.Clear();
+        SaveCatchPoints(catchPoints);
+        MessageBox.Show("Точки очищены 🗑", "Очистка", MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+
+    /// <summary>
+    /// Получение уникальных точек лова (без дубликатов по MapID + X + Y)
+    /// </summary>
+    private List<CatchPointModel> GetUniqueCatchPoints(List<CatchPointModel> points)
+    {
+        var unique = new List<CatchPointModel>();
+        var keys = new HashSet<(int MapId, int X, int Y)>();
+
+        foreach (var p in points)
+        {
+            if (p?.Coords == null)
+                continue;
+
+            var key = (p.MapID, p.Coords.X, p.Coords.Y);
+            if (!keys.Add(key))
+                continue;
+
+            unique.Add(p);
+        }
+
+        return unique;
+    }
+
+    /// <summary>
+    /// Объединение точек лова (добавление только новых)
+    /// </summary>
+    private void MergeCatchPoints(
+        ObservableCollection<CatchPointModel> existing,
+        List<CatchPointModel> newPoints)
+    {
+        var existingKeys = new HashSet<(int MapId, int X, int Y)>(
+            existing.Select(p => (p.MapID, p.Coords.X, p.Coords.Y)));
+
+        int added = 0;
+        foreach (var p in newPoints)
+        {
+            var key = (p.MapID, p.Coords.X, p.Coords.Y);
+            if (existingKeys.Contains(key))
+                continue;
+
+            existing.Add(p);
+            existingKeys.Add(key);
+            added++;
+        }
+
+        MessageBox.Show($"Импорт завершён. Добавлено {added} новых точек.",
+            "Импорт точек", MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+}
