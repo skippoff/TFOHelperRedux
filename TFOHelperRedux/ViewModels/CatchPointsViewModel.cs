@@ -85,12 +85,24 @@ public class CatchPointsViewModel : BaseViewModel
 
     private void DeletePoint(CatchPointModel? point)
     {
-        if (!_catchPointsService.DeleteCatchPoint(point, CatchPoints))
+        if (point == null)
             return;
 
-        RefreshCatchPoints();
-        RefreshFilteredPoints(CurrentFish);
-        DataStore.SaveAll();
+        var result = MessageBox.Show(
+            $"Удалить точку лова на {point.MapName} (X={point.Coords.X}; Y={point.Coords.Y})?",
+            "Удаление точки лова",
+            MessageBoxButton.YesNo,
+            MessageBoxImage.Question);
+
+        if (result != MessageBoxResult.Yes)
+            return;
+
+        // Удаляем из коллекции — UI обновится мгновенно
+        CatchPoints.Remove(point);
+        FilteredPoints.Remove(point);
+
+        // Сохраняем изменения
+        _catchPointsService.SaveCatchPoints(CatchPoints);
     }
 
     private void EditPoint(CatchPointModel? point)

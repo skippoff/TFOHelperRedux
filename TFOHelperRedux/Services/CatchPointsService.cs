@@ -96,29 +96,6 @@ public class CatchPointsService
     }
 
     /// <summary>
-    /// Удаление точки лова
-    /// </summary>
-    public bool DeleteCatchPoint(
-        CatchPointModel point,
-        ObservableCollection<CatchPointModel> catchPoints)
-    {
-        if (point == null)
-            return false;
-
-        var result = MessageBox.Show(
-            $"Удалить точку лова на {point.MapName} (X={point.Coords.X}; Y={point.Coords.Y})?",
-            "Удаление точки лова",
-            MessageBoxButton.YesNo,
-            MessageBoxImage.Question);
-
-        if (result != MessageBoxResult.Yes)
-            return false;
-
-        catchPoints.Remove(point);
-        return true;
-    }
-
-    /// <summary>
     /// Редактирование точки лова (открывает окно)
     /// </summary>
     public void EditCatchPoint(CatchPointModel? point, CatchPointsViewModel catchPointsVm)
