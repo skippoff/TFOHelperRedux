@@ -8,7 +8,6 @@ using TFOHelperRedux.Models;
 using TFOHelperRedux.Services.Business;
 using TFOHelperRedux.Services.Data;
 using TFOHelperRedux.Services.UI;
-using TFOHelperRedux.Views;
 
 namespace TFOHelperRedux.ViewModels
 {
@@ -110,8 +109,6 @@ namespace TFOHelperRedux.ViewModels
 
         #region Команды редактирования
 
-        public ICommand AddItemCmd { get; }
-        public ICommand EditItemCmd { get; }
         public ICommand DeleteItemCmd { get; }
 
         #endregion
@@ -130,8 +127,6 @@ namespace TFOHelperRedux.ViewModels
             ShowLuresCmd = new RelayCommand(() => SwitchCategory(CategoryType.Lures));
 
             // Инициализация команд редактирования
-            AddItemCmd = new RelayCommand(AddItem);
-            EditItemCmd = new RelayCommand(EditItem, CanEditItem);
             DeleteItemCmd = new RelayCommand(DeleteItem, CanDeleteItem);
 
             // Загрузка начальной категории
@@ -197,7 +192,6 @@ namespace TFOHelperRedux.ViewModels
 
         #region Методы редактирования
 
-        private bool CanEditItem() => true;
         private bool CanDeleteItem() => GetSelectedItem() != null;
 
         private IItemModel? GetSelectedItem() => _currentCategory switch
@@ -208,43 +202,6 @@ namespace TFOHelperRedux.ViewModels
             CategoryType.Lures => SelectedLure,
             _ => null
         };
-
-        private void AddItem()
-        {
-            IItemModel newItem = _currentCategory switch
-            {
-                CategoryType.Feeds => _baitCrudService.CreateFeed(),
-                CategoryType.FeedComponents => _baitCrudService.CreateComponent(),
-                CategoryType.Dips => _baitCrudService.CreateDip(),
-                CategoryType.Lures => _baitCrudService.CreateLure(),
-                _ => throw new InvalidOperationException("Неизвестная категория")
-            };
-
-            var window = new EditItemWindow(newItem) { Owner = Application.Current.MainWindow };
-            if (window.ShowDialog() == true)
-            {
-                _baitCrudService.AddToCollection(newItem);
-                _baitCrudService.SaveItem(newItem);
-                LoadCurrentCategory();
-            }
-        }
-
-        private void EditItem()
-        {
-            var selectedItem = GetSelectedItem();
-            if (selectedItem == null)
-            {
-                _uiService.ShowInfo("Выберите элемент для редактирования.", "Редактирование");
-                return;
-            }
-
-            var window = new EditItemWindow(selectedItem) { Owner = Application.Current.MainWindow };
-            if (window.ShowDialog() == true)
-            {
-                _baitCrudService.SaveItem(selectedItem);
-                LoadCurrentCategory();
-            }
-        }
 
         private void DeleteItem()
         {
