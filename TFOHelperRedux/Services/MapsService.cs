@@ -162,23 +162,6 @@ namespace TFOHelperRedux.Services
             catchPointsVm.RefreshFilteredPoints(selectedFish);
         }
 
-        public void NavigateToFishes(
-            Action clearSelectedMap,
-            CatchPointsViewModel catchPointsVm,
-            FishModel? selectedFish,
-            ObservableCollection<FishModel> filteredFishes)
-        {
-            clearSelectedMap();
-            DataStore.SelectedMap = null;
-
-            if (selectedFish == null && filteredFishes.Any())
-            {
-                SelectedMap = null;
-            }
-
-            catchPointsVm.RefreshFilteredPoints(selectedFish);
-        }
-
         #endregion
 
         #region Вспомогательные методы

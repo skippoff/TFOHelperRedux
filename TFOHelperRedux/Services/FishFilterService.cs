@@ -12,7 +12,6 @@ public class FishFilterService
 {
     private readonly ObservableCollection<FishModel> _allFishes;
     private readonly ObservableCollection<FishModel> _filteredFishes;
-    private int _selectedCategoryId;
     private string _searchText;
 
     public FishFilterService(
@@ -21,7 +20,6 @@ public class FishFilterService
     {
         _allFishes = allFishes;
         _filteredFishes = filteredFishes;
-        _selectedCategoryId = 0;
         _searchText = string.Empty;
     }
 
@@ -42,17 +40,11 @@ public class FishFilterService
     }
 
     /// <summary>
-    /// Применяет фильтр по категории и поиску
+    /// Применяет фильтр по поиску
     /// </summary>
     public void ApplyFilter()
     {
         var filtered = _allFishes.AsEnumerable();
-
-        // Фильтр по категории
-        if (_selectedCategoryId > 0)
-        {
-            filtered = filtered.Where(f => f.Tags != null && f.Tags.Contains(_selectedCategoryId));
-        }
 
         // Фильтр по поиску
         if (!string.IsNullOrWhiteSpace(_searchText))
@@ -63,15 +55,6 @@ public class FishFilterService
 
         // Обновляем коллекцию
         UpdateFilteredCollection(filtered.ToList());
-    }
-
-    /// <summary>
-    /// Фильтрует по категории
-    /// </summary>
-    public void FilterByCategory(int categoryId)
-    {
-        _selectedCategoryId = categoryId;
-        ApplyFilter();
     }
 
     /// <summary>
@@ -91,15 +74,6 @@ public class FishFilterService
             .ToList();
 
         UpdateFilteredCollection(fishOnMap);
-    }
-
-    /// <summary>
-    /// Сбрасывает фильтр по категории
-    /// </summary>
-    public void ResetCategoryFilter()
-    {
-        _selectedCategoryId = 0;
-        ApplyFilter();
     }
 
     /// <summary>

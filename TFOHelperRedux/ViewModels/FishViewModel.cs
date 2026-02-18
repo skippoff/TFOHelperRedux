@@ -46,7 +46,6 @@ namespace TFOHelperRedux.ViewModels
         public ICommand ShowLures { get; }
         public ICommand ShowBaits { get; }
         public ICommand ShowMaps { get; }
-        public ICommand ShowFishes { get; }
         public ICommand ShowTopLiveLuresCmd { get; }
         public ICommand ShowTopArtificialLuresCmd { get; }
 
@@ -56,8 +55,6 @@ namespace TFOHelperRedux.ViewModels
 
         public ICommand EditCurrentItemCommand { get; }
         public ICommand AddNewItemCommand { get; }
-        public ICommand DeleteFishCommand { get; }
-        public ICommand OpenAddEditFishWindowCommand { get; }
 
         #endregion
 
@@ -185,7 +182,21 @@ namespace TFOHelperRedux.ViewModels
         public MapModel? SelectedMap
         {
             get => _selectionService.SelectedMap;
-            set => _selectionService.SetSelectedMap(value, Fishes, FilteredFishes);
+            set
+            {
+                _selectionService.SetSelectedMap(value, Fishes, FilteredFishes);
+                OnPropertyChanged(nameof(SelectedMap));
+                OnPropertyChanged(nameof(SelectedFish));
+                OnPropertyChanged(nameof(RecommendedLures));
+                OnPropertyChanged(nameof(BiteDescription));
+                OnPropertyChanged(nameof(RecipeCountForSelectedFish));
+                OnPropertyChanged(nameof(RecipesForSelectedFish));
+                OnPropertyChanged(nameof(TopLuresForSelectedFish));
+                OnPropertyChanged(nameof(TopRecipesForSelectedFish));
+                _mapsService.UpdateMapsForFish(SelectedFish);
+                CatchPointsVM.RefreshFilteredPoints(SelectedFish);
+                UpdateFishDetails();
+            }
         }
 
         /// <summary>
@@ -341,7 +352,6 @@ namespace TFOHelperRedux.ViewModels
 
             // Инициализация команд навигации
             ShowMaps = new RelayCommand(NavigateToMaps);
-            ShowFishes = new RelayCommand(NavigateToFishes);
             ShowBaits = new RelayCommand(() => CurrentMode = "Baits");
             ShowFeeds = new RelayCommand(() => BaitsSubMode = "Feeds");
             ShowComponents = new RelayCommand(() => BaitsSubMode = "FeedComponents");
@@ -359,13 +369,9 @@ namespace TFOHelperRedux.ViewModels
 #if DEBUG
             EditCurrentItemCommand = new RelayCommand(EditCurrentItem, CanEditCurrentItem);
             AddNewItemCommand = new RelayCommand(AddNewItem, CanEditCurrentItem);
-            DeleteFishCommand = new RelayCommand(DeleteFish, CanDeleteFish);
-            OpenAddEditFishWindowCommand = new RelayCommand(OpenAddEditFishWindow);
 #else
             EditCurrentItemCommand = new RelayCommand(_ => { }, _ => false);
             AddNewItemCommand = new RelayCommand(_ => { }, _ => false);
-            DeleteFishCommand = new RelayCommand(_ => { }, _ => false);
-            OpenAddEditFishWindowCommand = new RelayCommand(_ => { });
 #endif
 
             // Инициализация фильтров наживок
@@ -398,16 +404,15 @@ namespace TFOHelperRedux.ViewModels
             // Инициализация фильтров карт
             _mapsService.InitializeMapFilters();
 
-            // Выбор первой локации при старте
+            // Выбор первой локации при старте и фильтрация рыб
             if (_mapsService.SelectedMap == null)
             {
                 _mapsService.SelectFirstDlcMapIfNull();
-            }
-
-            // Выбор первой рыбы при старте
-            if (FilteredFishes.Any() && SelectedFish == null)
-            {
-                SelectedFish = FilteredFishes.First();
+                // После выбора карты нужно отфильтровать рыб и выбрать первую
+                if (_mapsService.SelectedMap != null)
+                {
+                    SelectedMap = _mapsService.SelectedMap;
+                }
             }
         }
 
@@ -431,30 +436,9 @@ namespace TFOHelperRedux.ViewModels
             );
         }
 
-        private void NavigateToFishes()
-        {
-            CurrentMode = "Fish";
-            _mapsService.NavigateToFishes(
-                () => SelectedMap = null,
-                CatchPointsVM,
-                SelectedFish,
-                FilteredFishes
-            );
-        }
-
         #endregion
 
         #region Методы фильтрации
-
-        public void FilterByCategory(int categoryId)
-        {
-            _filterService.FilterByCategory(categoryId);
-        }
-
-        private void ApplyFilter()
-        {
-            _filterService.ApplyFilter();
-        }
 
         #endregion
 
@@ -511,69 +495,6 @@ namespace TFOHelperRedux.ViewModels
                 OnPropertyChanged(nameof(RecipeCountForSelectedFish));
                 OnPropertyChanged(nameof(SelectedFish));
             }
-        }
-
-        #endregion
-
-        #region Методы CRUD
-
-        private void DeleteFish(object? parameter)
-        {
-#if DEBUG
-            if (parameter is not FishModel fish)
-                return;
-
-            var result = MessageBox.Show(
-                $"Удалить рыбу '{fish.Name}' из всех данных?",
-                "Удаление рыбы",
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Warning);
-
-            if (result != MessageBoxResult.Yes)
-                return;
-
-            var deleteResult = _fishDataService.DeleteFish(fish);
-            deleteResult.ShowMessageBox();
-
-            if (FilteredFishes.Contains(fish))
-                FilteredFishes.Remove(fish);
-
-            if (SelectedFish == fish)
-            {
-                SelectedFish = FilteredFishes.FirstOrDefault();
-            }
-
-            OnPropertyChanged(nameof(Fishes));
-            ApplyFilter();
-#endif
-        }
-
-        private bool CanDeleteFish(object? parameter)
-        {
-#if DEBUG
-            return parameter is FishModel;
-#else
-            return false;
-#endif
-        }
-
-        private void OpenAddEditFishWindow()
-        {
-#if DEBUG
-            var fish = _fishDataService.GetOrCreateFishForEdit(SelectedFish, Fishes);
-            var isNew = !Fishes.Contains(fish);
-            var wnd = new AddFishToMapWindow(fish);
-
-            if (wnd.ShowDialog() == true)
-            {
-                if (isNew)
-                    Fishes.Add(fish);
-
-                _fishDataService.AddFishIfNew(fish, Fishes);
-                OnPropertyChanged(nameof(RecommendedLures));
-                DataService.SaveFishes(DataStore.Fishes);
-            }
-#endif
         }
 
         #endregion

@@ -14,26 +14,6 @@
                 Background="Aquamarine"
                 Foreground="White"
                 BorderBrush="Black"/>
-        <Button Content="🐟 Рыбы"
-                Command="{Binding ShowFishes}"
-                Style="{StaticResource IconButton}"
-                Margin="0,0,6,0"
-                Background="Orchid"
-                Foreground="White"
-                BorderBrush="Black"
-                Visibility="{Binding Source={x:Static app:DebugFlags.IsDebug},
-                             Converter={StaticResource BoolToVisibilityConverter}}"/>
-        <!-- ➕ Добавить / Редактировать -->
-        <Button Content="➕/✏"
-                Command="{Binding OpenAddEditFishWindowCommand}"
-                Style="{StaticResource IconButton}"
-                Background="Orchid"
-                Foreground="White"
-                BorderBrush="Black"
-                Margin="0,0,6,0"
-                ToolTip="Добавить/Редактировать"
-                Visibility="{Binding Source={x:Static app:DebugFlags.IsDebug},
-                             Converter={StaticResource BoolToVisibilityConverter}}"/>
         <Button Content="Прикорм и дипы"
                 Command="{Binding ShowBaits}"
                 Style="{StaticResource IconButton}"

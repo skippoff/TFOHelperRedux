@@ -150,22 +150,15 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <!-- LEFT: Категории -->
-            <Grid>
-                <!-- Новая панель категорий -->
-                <local:FishCategoriesPanel
-                    Visibility="{Binding CurrentMode,
-                                         Converter={StaticResource EqualityToVisibilityConverter},
-                                         ConverterParameter=Fish}" />
-                <!-- Прикорм и дипы -->
-                <Border x:Name="BaitsPanel"
-                        Margin="2"
-                        Background="AliceBlue" 
-                        CornerRadius="6" 
-                        BorderBrush="#DDDDDD" 
-                        BorderThickness="1" 
-                        Padding="12"
-                        Visibility="{Binding CurrentMode, Converter={StaticResource EqualityToVisibilityConverter}, ConverterParameter=Baits}">
+            <!-- Прикорм и дипы -->
+            <Border Grid.Column="0"
+                    Margin="2"
+                    Background="AliceBlue"
+                    CornerRadius="6"
+                    BorderBrush="#DDDDDD"
+                    BorderThickness="1"
+                    Padding="12"
+                    Visibility="{Binding CurrentMode, Converter={StaticResource EqualityToVisibilityConverter}, ConverterParameter=Baits}">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
                         <StackPanel>
                             <TextBlock Text="ОСНАСТКА"
@@ -187,7 +180,6 @@
                         </StackPanel>
                     </ScrollViewer>
                 </Border>
-            </Grid>
             <local:MapsPanel Grid.Column="0"
                              Grid.ColumnSpan="3"
                              Visibility="{Binding CurrentMode,
