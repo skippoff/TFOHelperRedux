@@ -20,25 +20,5 @@
                 Background="DarkOrange"
                 Foreground="White"
                 BorderBrush="Black"/>
-        <Button Content="➕"
-                Command="{Binding AddNewItemCommand}"
-                Style="{StaticResource IconButton}"
-                Background="DarkOrange"
-                Foreground="White"
-                BorderBrush="Black"
-                Margin="1,0,1,0"
-                ToolTip="Добавить новый элемент (для текущей вкладки оснастки)"
-                Visibility="{Binding Source={x:Static app:DebugFlags.IsDebug},
-             Converter={StaticResource BoolToVisibilityConverter}}"/>
-        <Button Content="✏️"
-                Command="{Binding EditCurrentItemCommand}"
-                Style="{StaticResource IconButton}"
-                Background="DarkOrange"
-                Foreground="White"
-                BorderBrush="Black"
-                Margin="0,0,6,0"
-                ToolTip="Редактировать выбранный элемент"
-                Visibility="{Binding Source={x:Static app:DebugFlags.IsDebug},
-             Converter={StaticResource BoolToVisibilityConverter}}"/>
     </StackPanel>
 </UserControl>

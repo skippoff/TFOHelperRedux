@@ -57,13 +57,6 @@ namespace TFOHelperRedux.ViewModels
 
         #endregion
 
-        #region Команды редактирования
-
-        public ICommand EditCurrentItemCommand { get; }
-        public ICommand AddNewItemCommand { get; }
-
-        #endregion
-
         #region Команды привязки наживок
 
         public ICommand AttachLureToFishCmd { get; }
@@ -300,15 +293,6 @@ namespace TFOHelperRedux.ViewModels
             DetachLureFromFishCmd = new RelayCommand(DetachLureFromFish);
             DeleteRecipeForeverCmd = new RelayCommand(DeleteRecipeForever);
 
-            // Инициализация команд редактирования (только DEBUG)
-#if DEBUG
-            EditCurrentItemCommand = new RelayCommand(EditCurrentItem, CanEditCurrentItem);
-            AddNewItemCommand = new RelayCommand(AddNewItem, CanEditCurrentItem);
-#else
-            EditCurrentItemCommand = new RelayCommand(_ => { }, _ => false);
-            AddNewItemCommand = new RelayCommand(_ => { }, _ => false);
-#endif
-
             // Подписка на изменения IsSelected у наживок
             SubscribeToLureChanges();
 
@@ -415,114 +399,6 @@ namespace TFOHelperRedux.ViewModels
                 OnPropertyChanged(nameof(SelectedFish));
             }
         }
-
-        #endregion
-
-        #region Методы редактирования элементов (Baits)
-
-#if DEBUG
-        private bool CanEditCurrentItem()
-        {
-            if (CurrentMode != NavigationViewModel.Modes.Baits) return false;
-            return BaitsSubMode is NavigationViewModel.BaitsSubModes.Feeds 
-                or NavigationViewModel.BaitsSubModes.Dips 
-                or NavigationViewModel.BaitsSubModes.Lures 
-                or NavigationViewModel.BaitsSubModes.FeedComponents;
-        }
-
-        private void AddNewItem()
-        {
-            if (CurrentMode != NavigationViewModel.Modes.Baits) return;
-
-            // Сброс выбранного элемента перед добавлением нового
-            switch (BaitsSubMode)
-            {
-                case NavigationViewModel.BaitsSubModes.Feeds:
-                    SelectedFeed = null;
-                    break;
-                case NavigationViewModel.BaitsSubModes.Dips:
-                    SelectedDip = null;
-                    break;
-                case NavigationViewModel.BaitsSubModes.Lures:
-                    SelectedLure = null;
-                    break;
-                case NavigationViewModel.BaitsSubModes.FeedComponents:
-                    SelectedComponent = null;
-                    break;
-            }
-
-            EditCurrentItem();
-        }
-
-        private void EditCurrentItem()
-        {
-            if (CurrentMode != NavigationViewModel.Modes.Baits) return;
-
-            IItemModel? item = null;
-            bool isNew = false;
-
-            switch (BaitsSubMode)
-            {
-                case NavigationViewModel.BaitsSubModes.Feeds:
-                    item = new LureService(_fishDataService).GetOrCreateFeedForEdit(SelectedFeed);
-                    if (SelectedFeed == null) isNew = true;
-                    break;
-                case NavigationViewModel.BaitsSubModes.Dips:
-                    item = new LureService(_fishDataService).GetOrCreateDipForEdit(SelectedDip);
-                    if (SelectedDip == null) isNew = true;
-                    break;
-                case NavigationViewModel.BaitsSubModes.Lures:
-                    item = new LureService(_fishDataService).GetOrCreateLureForEdit(SelectedLure);
-                    if (SelectedLure == null) isNew = true;
-                    break;
-                case NavigationViewModel.BaitsSubModes.FeedComponents:
-                    item = new LureService(_fishDataService).GetOrCreateComponentForEdit(SelectedComponent);
-                    if (SelectedComponent == null) isNew = true;
-                    break;
-            }
-
-            if (item == null) return;
-
-            var wnd = new EditItemWindow(item)
-            {
-                Owner = Application.Current.MainWindow
-            };
-
-            if (wnd.ShowDialog() == true)
-            {
-                if (isNew)
-                {
-                    AddNewItemToCollection(item);
-                }
-
-                new LureService(_fishDataService).SaveItem(item);
-                BaitsVM.RefreshCollections();
-            }
-        }
-
-        private void AddNewItemToCollection(IItemModel item)
-        {
-            switch (item)
-            {
-                case BaitModel feed:
-                    if (!DataStore.Feeds.Contains(feed))
-                        DataStore.Feeds.Add(feed);
-                    break;
-                case DipModel dip:
-                    if (!DataStore.Dips.Contains(dip))
-                        DataStore.Dips.Add(dip);
-                    break;
-                case LureModel lure:
-                    if (!DataStore.Lures.Contains(lure))
-                        DataStore.Lures.Add(lure);
-                    break;
-                case FeedComponentModel component:
-                    if (!DataStore.FeedComponents.Contains(component))
-                        DataStore.FeedComponents.Add(component);
-                    break;
-            }
-        }
-#endif
 
         #endregion
 
