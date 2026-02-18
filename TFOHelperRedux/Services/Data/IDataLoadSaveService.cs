@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using TFOHelperRedux.Models;
 
-namespace TFOHelperRedux.Services;
+namespace TFOHelperRedux.Services.Data;
 
 /// <summary>
 /// Интерфейс для загрузки и сохранения данных

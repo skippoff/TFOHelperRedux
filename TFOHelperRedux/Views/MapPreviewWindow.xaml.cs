@@ -3,6 +3,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using TFOHelperRedux.Models;
+using TFOHelperRedux.Services.Data;
+using TFOHelperRedux.Services.State;
 
 namespace TFOHelperRedux.Views
 {
@@ -69,8 +71,8 @@ namespace TFOHelperRedux.Views
                     _map.PixelTop = (int)Math.Round(Math.Min(_calibBL.Value.Y, _calibTR.Value.Y));
 
                     // сохраняем в JSON
-                    var all = TFOHelperRedux.Services.DataStore.Maps;
-                    TFOHelperRedux.Services.DataService.SaveMaps(all);
+                    var all = DataStore.Maps;
+                    DataService.SaveMaps(all);
 
                     _calibrating = false;
                     Title = "Карта водоёма — калибровка сохранена";
@@ -143,7 +145,7 @@ namespace TFOHelperRedux.Views
         }
         public string CoordsInfo => $"Координаты: {_point?.Coords.X}:{_point?.Coords.Y}";
         public string FishName => _point != null && _point.FishIDs?.Length > 0
-            ? $"Рыба: {TFOHelperRedux.Services.DataStore.Fishes.FirstOrDefault(f => f.ID == _point.FishIDs[0])?.Name ?? "Неизвестно"}"
+            ? $"Рыба: {DataStore.Fishes.FirstOrDefault(f => f.ID == _point.FishIDs[0])?.Name ?? "Неизвестно"}"
             : "Рыба: —";
         // 🧩 "О программе"
         private void About_Click(object sender, RoutedEventArgs e)

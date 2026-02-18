@@ -1,7 +1,7 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 using TFOHelperRedux.Models;
-using TFOHelperRedux.Services;
+using TFOHelperRedux.Services.Data;
 
 namespace TFOHelperRedux.Views
 {

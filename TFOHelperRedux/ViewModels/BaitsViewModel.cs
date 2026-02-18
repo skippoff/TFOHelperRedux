@@ -5,7 +5,9 @@ using System.Windows;
 using System.Windows.Input;
 using TFOHelperRedux.Helpers;
 using TFOHelperRedux.Models;
-using TFOHelperRedux.Services;
+using TFOHelperRedux.Services.Business;
+using TFOHelperRedux.Services.Data;
+using TFOHelperRedux.Services.UI;
 using TFOHelperRedux.Views;
 
 namespace TFOHelperRedux.ViewModels

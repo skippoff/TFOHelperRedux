@@ -4,7 +4,7 @@ using System.Windows.Controls;
 using System.ComponentModel;
 using System.Windows;
 using TFOHelperRedux.Models;
-using TFOHelperRedux.Services;
+using TFOHelperRedux.Services.Data;
 
 namespace TFOHelperRedux.Views
 {

@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Windows.Data;
 using TFOHelperRedux.Models;
-using TFOHelperRedux.Services;
+using TFOHelperRedux.Services.Data;
 
 namespace TFOHelperRedux.Converters
 {

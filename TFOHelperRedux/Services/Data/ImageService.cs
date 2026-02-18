@@ -1,7 +1,7 @@
 using System.IO;
 using System.Windows.Media.Imaging;
 
-namespace TFOHelperRedux.Services;
+namespace TFOHelperRedux.Services.Data;
 
 public static class ImageService
 {

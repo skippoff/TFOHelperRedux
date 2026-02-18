@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace TFOHelperRedux.Services;
+namespace TFOHelperRedux.Services.UI;
 
 /// <summary>
 /// Сервис для UI-операций (MessageBox и др.)

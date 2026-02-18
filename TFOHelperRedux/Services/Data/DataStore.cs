@@ -3,8 +3,9 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using TFOHelperRedux.Models;
+using TFOHelperRedux.Services.State;
 
-namespace TFOHelperRedux.Services;
+namespace TFOHelperRedux.Services.Data;
 
 /// <summary>
 /// Централизованное хранилище данных (статический класс для обратной совместимости)

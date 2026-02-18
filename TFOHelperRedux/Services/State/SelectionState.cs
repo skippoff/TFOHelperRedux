@@ -3,8 +3,10 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using TFOHelperRedux.Models;
+using TFOHelperRedux.Services.Data;
+using TFOHelperRedux.Services.DI;
 
-namespace TFOHelperRedux.Services;
+namespace TFOHelperRedux.Services.State;
 
 /// <summary>
 /// Централизованное хранилище состояния выбора (рыба, карта, точка лова)

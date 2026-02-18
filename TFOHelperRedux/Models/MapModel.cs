@@ -1,4 +1,6 @@
-﻿namespace TFOHelperRedux.Models;
+﻿using TFOHelperRedux.Services.Data;
+
+namespace TFOHelperRedux.Models;
 public class MapModel
 {
     public int ID { get; set; }
@@ -15,6 +17,6 @@ public class MapModel
     public int PixelTop { get; set; }     // y верхнего края
     public int PixelRight { get; set; }   // x правого края
     public int PixelBottom { get; set; }  // y нижнего края
-    public string ImagePath => TFOHelperRedux.Services.DataService.GetMapImagePath(ID);
+    public string ImagePath => DataService.GetMapImagePath(ID);
 
 }

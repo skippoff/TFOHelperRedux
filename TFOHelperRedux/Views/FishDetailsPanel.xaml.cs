@@ -1,5 +1,7 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Input;
+using TFOHelperRedux.Services.Data;
+using TFOHelperRedux.Services.State;
 using TFOHelperRedux.ViewModels;
 
 namespace TFOHelperRedux.Views
@@ -28,7 +30,7 @@ namespace TFOHelperRedux.Views
                 vm.RefreshSelectedFish(); // обновляем UI
                 vm.OnPropertyChanged(nameof(vm.BiteDescription));
                 // 💾 Автоматически сохраняем изменения
-                TFOHelperRedux.Services.DataService.SaveFishes(TFOHelperRedux.Services.DataStore.Fishes);
+                DataService.SaveFishes(DataStore.Fishes);
             }
         }
     }

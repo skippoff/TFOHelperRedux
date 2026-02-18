@@ -1,6 +1,8 @@
 ﻿using System.Windows;
 using TFOHelperRedux.Models;
-using TFOHelperRedux.Services;
+using TFOHelperRedux.Services.Business;
+using TFOHelperRedux.Services.Data;
+using TFOHelperRedux.Services.State;
 using System.ComponentModel;
 using System.Windows.Data;
 using System.Windows.Controls;
@@ -32,15 +34,15 @@ namespace TFOHelperRedux.Views
             LeftPanel.PointSaved += (s, savedPoint) =>
             {
                 // Обновляем DataStore и VM после сохранения
-                if (!TFOHelperRedux.Services.DataStore.CatchPoints.Contains(savedPoint))
-                    TFOHelperRedux.Services.DataStore.CatchPoints.Add(savedPoint);
+                if (!DataStore.CatchPoints.Contains(savedPoint))
+                    DataStore.CatchPoints.Add(savedPoint);
 
                 // обновим вспомогательные коллекции
                 var vm = App.Current.MainWindow?.DataContext as TFOHelperRedux.ViewModels.FishViewModel;
                 if (vm != null)
-                    vm.CatchPointsVM.RefreshFilteredPoints(TFOHelperRedux.Services.DataStore.Selection.SelectedFish);
+                    vm.CatchPointsVM.RefreshFilteredPoints(DataStore.Selection.SelectedFish);
 
-                TFOHelperRedux.Services.DataStore.SaveAll();
+                DataStore.SaveAll();
             };
 
             if (point != null)
@@ -57,10 +59,10 @@ namespace TFOHelperRedux.Views
             {
                 var point = LeftPanel.SavePoint();
 
-                if (!TFOHelperRedux.Services.DataStore.CatchPoints.Contains(point))
-                    TFOHelperRedux.Services.DataStore.CatchPoints.Add(point);
+                if (!DataStore.CatchPoints.Contains(point))
+                    DataStore.CatchPoints.Add(point);
 
-                TFOHelperRedux.Services.DataStore.SaveAll();
+                DataStore.SaveAll();
                 DialogResult = true;
                 Close();
             }

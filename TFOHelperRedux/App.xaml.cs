@@ -2,7 +2,8 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using TFOHelperRedux.Services;
+using TFOHelperRedux.Services.DI;
+using TFOHelperRedux.Services.Data;
 using TFOHelperRedux.ViewModels;
 
 namespace TFOHelperRedux

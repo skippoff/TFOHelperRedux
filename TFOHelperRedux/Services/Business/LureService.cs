@@ -2,8 +2,9 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using TFOHelperRedux.Models;
+using TFOHelperRedux.Services.Data;
 
-namespace TFOHelperRedux.Services;
+namespace TFOHelperRedux.Services.Business;
 
 /// <summary>
 /// Сервис CRUD операций для наживок (Lures), прикормок (Feeds), дипов (Dips) и компонентов (FeedComponents)

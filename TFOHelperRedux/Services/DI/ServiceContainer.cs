@@ -1,6 +1,11 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using TFOHelperRedux.Services.Business;
+using TFOHelperRedux.Services.Data;
+using TFOHelperRedux.Services.UI;
+using TFOHelperRedux.Services.State;
+using TFOHelperRedux.ViewModels;
 
-namespace TFOHelperRedux.Services;
+namespace TFOHelperRedux.Services.DI;
 
 /// <summary>
 /// Контейнер сервисов приложения
@@ -82,7 +87,7 @@ public static class ServiceContainer
             var loadSaveService = provider.GetRequiredService<IDataLoadSaveService>();
             return new CatchPointsService(uiService, loadSaveService);
         });
-        
+
         // MapsService требует фабрику из-за параметров Action
         services.AddTransient<MapsService>(provider =>
         {
@@ -97,36 +102,36 @@ public static class ServiceContainer
         });
 
         // ViewModels
-        services.AddTransient<ViewModels.NavigationViewModel>();
-        services.AddTransient<ViewModels.BaitRecipesViewModel>(provider =>
+        services.AddTransient<NavigationViewModel>();
+        services.AddTransient<BaitRecipesViewModel>(provider =>
         {
             var uiService = provider.GetRequiredService<IUIService>();
-            return new ViewModels.BaitRecipesViewModel(uiService);
+            return new BaitRecipesViewModel(uiService);
         });
-        services.AddTransient<ViewModels.CatchPointsViewModel>(provider =>
+        services.AddTransient<CatchPointsViewModel>(provider =>
         {
             var catchPointsService = provider.GetRequiredService<CatchPointsService>();
             var uiService = provider.GetRequiredService<IUIService>();
-            return new ViewModels.CatchPointsViewModel(catchPointsService, uiService);
+            return new CatchPointsViewModel(catchPointsService, uiService);
         });
-        services.AddTransient<ViewModels.BaitsViewModel>(provider =>
+        services.AddTransient<BaitsViewModel>(provider =>
         {
             var baitCrudService = provider.GetRequiredService<BaitCrudService>();
             var uiService = provider.GetRequiredService<IUIService>();
-            return new ViewModels.BaitsViewModel(baitCrudService, uiService);
+            return new BaitsViewModel(baitCrudService, uiService);
         });
-        services.AddTransient<ViewModels.FishViewModel>(provider =>
+        services.AddTransient<FishViewModel>(provider =>
         {
             var filterService = provider.GetRequiredService<FishFilterService>();
             var lureBindingService = provider.GetRequiredService<LureBindingService>();
             var fishDataService = provider.GetRequiredService<FishDataService>();
             var mapsService = provider.GetRequiredService<MapsService>();
-            var navigationVM = provider.GetRequiredService<ViewModels.NavigationViewModel>();
-            var baitsVM = provider.GetRequiredService<ViewModels.BaitsViewModel>();
-            var baitRecipesVM = provider.GetRequiredService<ViewModels.BaitRecipesViewModel>();
-            var catchPointsVM = provider.GetRequiredService<ViewModels.CatchPointsViewModel>();
+            var navigationVM = provider.GetRequiredService<NavigationViewModel>();
+            var baitsVM = provider.GetRequiredService<BaitsViewModel>();
+            var baitRecipesVM = provider.GetRequiredService<BaitRecipesViewModel>();
+            var catchPointsVM = provider.GetRequiredService<CatchPointsViewModel>();
             
-            return new ViewModels.FishViewModel(
+            return new FishViewModel(
                 filterService,
                 lureBindingService,
                 fishDataService,

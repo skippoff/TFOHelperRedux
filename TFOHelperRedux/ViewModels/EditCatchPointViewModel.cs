@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using TFOHelperRedux.Models;
-using TFOHelperRedux.Services;
+using TFOHelperRedux.Services.Data;
 
 namespace TFOHelperRedux.ViewModels
 {

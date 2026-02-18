@@ -4,9 +4,10 @@ using System.IO;
 using System.Linq;
 using System.Windows.Media.Imaging;
 using TFOHelperRedux.Models;
+using TFOHelperRedux.Services.Data;
 using TFOHelperRedux.ViewModels;
 
-namespace TFOHelperRedux.Services
+namespace TFOHelperRedux.Services.Business
 {
     /// <summary>
     /// Сервис для управления картами: фильтрация, обновление данных для рыб, навигация

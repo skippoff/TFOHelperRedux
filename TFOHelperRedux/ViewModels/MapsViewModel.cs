@@ -1,7 +1,8 @@
 using System.Collections.ObjectModel;
 using System.Windows.Media.Imaging;
 using TFOHelperRedux.Models;
-using TFOHelperRedux.Services;
+using TFOHelperRedux.Services.Business;
+using TFOHelperRedux.Services.Data;
 
 namespace TFOHelperRedux.ViewModels
 {

@@ -4,7 +4,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
 using TFOHelperRedux.Models;
-using TFOHelperRedux.Services;
+using TFOHelperRedux.Services.Business;
+using TFOHelperRedux.Services.Data;
+using TFOHelperRedux.Services.State;
 
 namespace TFOHelperRedux.Views;
 
@@ -29,7 +31,7 @@ public partial class CatchPointsView : UserControl
             if (_pendingPoint == null) return;
 
             // показываем карту (одинарный клик)
-            var map = Services.DataStore.Maps.FirstOrDefault(m => m.ID == _pendingPoint.MapID);
+            var map = DataStore.Maps.FirstOrDefault(m => m.ID == _pendingPoint.MapID);
             if (map != null)
             {
                 if (_mapWindow == null || !_mapWindow.IsLoaded)
@@ -74,7 +76,7 @@ public partial class CatchPointsView : UserControl
             _pendingPoint = point;
             _clickTimer.Stop();
             _clickTimer.Start();
-            var map = TFOHelperRedux.Services.DataStore.Maps
+            var map = DataStore.Maps
                 .FirstOrDefault(m => m.ID == point.MapID);
 
             if (map == null)
@@ -104,14 +106,14 @@ public partial class CatchPointsView : UserControl
             if (wnd.ShowDialog() == true &&
                 DataContext is TFOHelperRedux.ViewModels.CatchPointsViewModel vm)
             {
-                var fish = TFOHelperRedux.Services.DataStore.Selection.SelectedFish ?? vm.CurrentFish;
+                var fish = DataStore.Selection.SelectedFish ?? vm.CurrentFish;
                 vm.RefreshFilteredPoints(fish);
             }
 
             // Если окно карты открыто — обновим маркер
             if (_mapWindow is { IsLoaded: true })
             {
-                var map = TFOHelperRedux.Services.DataStore.Maps
+                var map = DataStore.Maps
                     .FirstOrDefault(m => m.ID == point.MapID);
                 if (map != null)
                     _mapWindow.UpdatePoint(map, point);

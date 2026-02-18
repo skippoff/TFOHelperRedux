@@ -2,7 +2,7 @@ using System.IO;
 using System.Text.Json;
 using System.Text.Encodings.Web;
 
-namespace TFOHelperRedux.Services;
+namespace TFOHelperRedux.Services.Data;
 
 public static class JsonService
 {

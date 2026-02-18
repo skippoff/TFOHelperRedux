@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Windows.Input;
 using TFOHelperRedux.Helpers;
-using TFOHelperRedux.Services;
+using TFOHelperRedux.Services.Business;
+using TFOHelperRedux.Services.Data;
 
 namespace TFOHelperRedux.ViewModels
 {

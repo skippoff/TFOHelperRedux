@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using TFOHelperRedux.Models;
+using TFOHelperRedux.Services.Data;
+using TFOHelperRedux.Services.DI;
 
-namespace TFOHelperRedux.Services;
+namespace TFOHelperRedux.Services.Business;
 
 /// <summary>
 /// Сервис привязки наживок к рыбам (BestLureIDs)

@@ -2,7 +2,7 @@
 using System.IO;
 using TFOHelperRedux.Models;
 
-namespace TFOHelperRedux.Services;
+namespace TFOHelperRedux.Services.Data;
 
 /// <summary>
 /// Сервис-обёртка для обратной совместимости (методы для загрузки/сохранения)

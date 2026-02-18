@@ -6,9 +6,11 @@ using System.Linq;
 using System.Windows;
 using Microsoft.Win32;
 using TFOHelperRedux.Models;
+using TFOHelperRedux.Services.Data;
+using TFOHelperRedux.Services.UI;
 using TFOHelperRedux.ViewModels;
 
-namespace TFOHelperRedux.Services;
+namespace TFOHelperRedux.Services.Business;
 
 /// <summary>
 /// Сервис для управления точками лова (CatchPoints).

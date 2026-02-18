@@ -1,4 +1,6 @@
-﻿namespace TFOHelperRedux.Services;
+﻿using TFOHelperRedux.Services.UI;
+
+namespace TFOHelperRedux.Services.DI;
 
 /// <summary>
 /// Результат операции
