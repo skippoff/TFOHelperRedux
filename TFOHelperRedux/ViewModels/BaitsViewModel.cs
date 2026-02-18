@@ -29,46 +29,38 @@ namespace TFOHelperRedux.ViewModels
 
         private CategoryType _currentCategory = CategoryType.Feeds;
         private string _searchText = string.Empty;
+        private IItemModel? _selectedItem;
 
         #endregion
 
-        #region Коллекции данных
+        #region Коллекции данных (публичные для XAML)
 
         public ObservableCollection<BaitModel> Feeds => DataStore.Feeds;
         public ObservableCollection<FeedComponentModel> Components => DataStore.FeedComponents;
         public ObservableCollection<DipModel> Dips => DataStore.Dips;
         public ObservableCollection<LureModel> Lures => DataStore.Lures;
 
+        /// <summary>
+        /// Текущая коллекция элементов в зависимости от категории (типобезопасно)
+        /// </summary>
+        public ObservableCollection<IItemModel> CurrentItems { get; private set; } = new();
+
         #endregion
 
-        #region Выбранные элементы
+        #region Выбранный элемент (единый для всех категорий)
 
-        private BaitModel? _selectedFeed;
-        public BaitModel? SelectedFeed
+        public IItemModel? SelectedItem
         {
-            get => _selectedFeed;
-            set { _selectedFeed = value; OnPropertyChanged(nameof(SelectedFeed)); }
-        }
-
-        private FeedComponentModel? _selectedComponent;
-        public FeedComponentModel? SelectedComponent
-        {
-            get => _selectedComponent;
-            set { _selectedComponent = value; OnPropertyChanged(nameof(SelectedComponent)); }
-        }
-
-        private DipModel? _selectedDip;
-        public DipModel? SelectedDip
-        {
-            get => _selectedDip;
-            set { _selectedDip = value; OnPropertyChanged(nameof(SelectedDip)); }
-        }
-
-        private LureModel? _selectedLure;
-        public LureModel? SelectedLure
-        {
-            get => _selectedLure;
-            set { _selectedLure = value; OnPropertyChanged(nameof(SelectedLure)); }
+            get => _selectedItem;
+            set
+            {
+                if (_selectedItem != value)
+                {
+                    _selectedItem = value;
+                    OnPropertyChanged(nameof(SelectedItem));
+                    OnPropertyChanged(nameof(CanDeleteItem));
+                }
+            }
         }
 
         #endregion
@@ -87,13 +79,6 @@ namespace TFOHelperRedux.ViewModels
                     OnPropertyChanged(nameof(SearchText));
                 }
             }
-        }
-
-        private ObservableCollection<object> _filteredItems = new();
-        public ObservableCollection<object> FilteredItems
-        {
-            get => _filteredItems;
-            set { _filteredItems = value; OnPropertyChanged(nameof(FilteredItems)); }
         }
 
         #endregion
@@ -144,69 +129,85 @@ namespace TFOHelperRedux.ViewModels
             ApplyFilter();
         }
 
-        private void LoadCurrentCategory()
+        public void LoadCurrentCategory()
         {
-            FilteredItems = _currentCategory switch
+            CurrentItems.Clear();
+            
+            var items = _currentCategory switch
             {
-                CategoryType.Feeds => new ObservableCollection<object>(DataStore.Feeds.Cast<object>()),
-                CategoryType.FeedComponents => new ObservableCollection<object>(DataStore.FeedComponents.Cast<object>()),
-                CategoryType.Dips => new ObservableCollection<object>(DataStore.Dips.Cast<object>()),
-                CategoryType.Lures => new ObservableCollection<object>(DataStore.Lures.Cast<object>()),
-                _ => new ObservableCollection<object>()
+                CategoryType.Feeds => DataStore.Feeds.Cast<IItemModel>(),
+                CategoryType.FeedComponents => DataStore.FeedComponents.Cast<IItemModel>(),
+                CategoryType.Dips => DataStore.Dips.Cast<IItemModel>(),
+                CategoryType.Lures => DataStore.Lures.Cast<IItemModel>(),
+                _ => Enumerable.Empty<IItemModel>()
             };
 
-            OnPropertyChanged(nameof(FilteredItems));
+            foreach (var item in items)
+                CurrentItems.Add(item);
+
+            OnPropertyChanged(nameof(CurrentItems));
+            OnPropertyChanged(nameof(SelectedItem));
+            SelectedItem = null;
+        }
+
+        /// <summary>
+        /// Переключает категорию по имени (для интеграции с NavigationVM)
+        /// </summary>
+        public void SetCategory(string categoryName)
+        {
+            _currentCategory = categoryName switch
+            {
+                "Feeds" => CategoryType.Feeds,
+                "FeedComponents" => CategoryType.FeedComponents,
+                "Dips" => CategoryType.Dips,
+                "Lures" => CategoryType.Lures,
+                _ => _currentCategory
+            };
+            
+            LoadCurrentCategory();
+            ApplyFilter();
         }
 
         private void ApplyFilter()
         {
-            var filtered = _currentCategory switch
+            CurrentItems.Clear();
+            
+            var items = _currentCategory switch
             {
-                CategoryType.Feeds => new ObservableCollection<object>(
-                    DataStore.Feeds
-                        .Where(i => i.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
-                        .Cast<object>()),
+                CategoryType.Feeds => DataStore.Feeds
+                    .Where(i => i.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
+                    .Cast<IItemModel>(),
 
-                CategoryType.FeedComponents => new ObservableCollection<object>(
-                    DataStore.FeedComponents
-                        .Where(i => i.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
-                        .Cast<object>()),
+                CategoryType.FeedComponents => DataStore.FeedComponents
+                    .Where(i => i.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
+                    .Cast<IItemModel>(),
 
-                CategoryType.Dips => new ObservableCollection<object>(
-                    DataStore.Dips
-                        .Where(i => i.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
-                        .Cast<object>()),
+                CategoryType.Dips => DataStore.Dips
+                    .Where(i => i.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
+                    .Cast<IItemModel>(),
 
-                CategoryType.Lures => new ObservableCollection<object>(
-                    DataStore.Lures
-                        .Where(i => i.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
-                        .Cast<object>()),
+                CategoryType.Lures => DataStore.Lures
+                    .Where(i => i.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
+                    .Cast<IItemModel>(),
 
-                _ => new ObservableCollection<object>()
+                _ => Enumerable.Empty<IItemModel>()
             };
 
-            FilteredItems = filtered;
+            foreach (var item in items)
+                CurrentItems.Add(item);
+
+            OnPropertyChanged(nameof(CurrentItems));
         }
 
         #endregion
 
         #region Методы редактирования
 
-        private bool CanDeleteItem() => GetSelectedItem() != null;
-
-        private IItemModel? GetSelectedItem() => _currentCategory switch
-        {
-            CategoryType.Feeds => SelectedFeed,
-            CategoryType.FeedComponents => SelectedComponent,
-            CategoryType.Dips => SelectedDip,
-            CategoryType.Lures => SelectedLure,
-            _ => null
-        };
+        private bool CanDeleteItem() => SelectedItem != null;
 
         private void DeleteItem()
         {
-            var selectedItem = GetSelectedItem();
-            if (selectedItem == null)
+            if (SelectedItem == null)
             {
                 _uiService.ShowInfo("Выберите элемент для удаления.", "Удаление");
                 return;
@@ -215,12 +216,9 @@ namespace TFOHelperRedux.ViewModels
             if (!_uiService.ShowConfirm("Удалить выбранный элемент?", "Подтверждение"))
                 return;
 
-            _baitCrudService.RemoveFromCollection(selectedItem);
-            _baitCrudService.SaveItem(selectedItem);
-            SelectedFeed = null;
-            SelectedComponent = null;
-            SelectedDip = null;
-            SelectedLure = null;
+            _baitCrudService.RemoveFromCollection(SelectedItem);
+            _baitCrudService.SaveItem(SelectedItem);
+            SelectedItem = null;
             LoadCurrentCategory();
         }
 
@@ -235,6 +233,7 @@ namespace TFOHelperRedux.ViewModels
             OnPropertyChanged(nameof(Dips));
             OnPropertyChanged(nameof(Lures));
             LoadCurrentCategory();
+            ApplyFilter();
         }
 
         #endregion

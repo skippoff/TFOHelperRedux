@@ -27,124 +27,32 @@
                 CornerRadius="6"
                 Padding="12"
                 Margin="2">
-            <Grid>
-                <!-- Прикормки -->
-                <Border Visibility="{Binding NavigationVM.BaitsSubMode, Converter={StaticResource EqualityToVisibilityConverter}, ConverterParameter=Feeds}">
-                    <ListBox ItemsSource="{Binding BaitsVM.Feeds}"
-                             SelectedItem="{Binding BaitsVM.SelectedFeed, Mode=TwoWay}"
-                             Background="Transparent"
-                             BorderThickness="0"
-                             ItemContainerStyle="{StaticResource RoundedCardStyle}"
-                             ScrollViewer.VerticalScrollBarVisibility="Auto"
-                             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                             MouseDoubleClick="Ingredient_MouseDoubleClick">
-                        <ListBox.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel Orientation="Horizontal"/>
-                            </ItemsPanelTemplate>
-                        </ListBox.ItemsPanel>
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <Border Width="100" Height="100" Margin="4"
-                                        BorderBrush="#DDD" BorderThickness="1"
-                                        CornerRadius="6" Padding="4">
-                                    <StackPanel>
-                                        <Image Source="{Binding ImagePath, Converter={StaticResource ImgConverter}}" Height="50" Stretch="Uniform"/>
-                                        <TextBlock Text="{Binding Name}" FontSize="13" TextAlignment="Center" Margin="0,4,0,0" TextTrimming="CharacterEllipsis"/>
-                                    </StackPanel>
-                                </Border>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                </Border>
-                <!-- Дипы -->
-                <Border Visibility="{Binding NavigationVM.BaitsSubMode, Converter={StaticResource EqualityToVisibilityConverter}, ConverterParameter=Dips}">
-                    <ListBox ItemsSource="{Binding BaitsVM.Dips}"
-                             SelectedItem="{Binding BaitsVM.SelectedDip, Mode=TwoWay}"
-                             Background="Transparent"
-                             BorderThickness="0"
-                             ItemContainerStyle="{StaticResource RoundedCardStyle}"
-                             ScrollViewer.VerticalScrollBarVisibility="Auto"
-                             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                             MouseDoubleClick="Ingredient_MouseDoubleClick">
-                        <ListBox.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel Orientation="Horizontal"/>
-                            </ItemsPanelTemplate>
-                        </ListBox.ItemsPanel>
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <Border Width="100" Height="100" Margin="4"
-                                        BorderBrush="#DDD" BorderThickness="1"
-                                        CornerRadius="6" Padding="4">
-                                    <StackPanel>
-                                        <Image Source="{Binding ImagePath, Converter={StaticResource ImgConverter}}" Height="50" Stretch="Uniform"/>
-                                        <TextBlock Text="{Binding Name}" FontSize="13" TextAlignment="Center" Margin="0,4,0,0" TextTrimming="CharacterEllipsis"/>
-                                    </StackPanel>
-                                </Border>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                </Border>
-                <!-- Наживки -->
-                <Border Visibility="{Binding NavigationVM.BaitsSubMode, Converter={StaticResource EqualityToVisibilityConverter}, ConverterParameter=Lures}">
-                    <ListBox ItemsSource="{Binding BaitsVM.Lures}"
-                             SelectedItem="{Binding BaitsVM.SelectedLure, Mode=TwoWay}"
-                             Background="Transparent"
-                             BorderThickness="0"
-                             ItemContainerStyle="{StaticResource RoundedCardStyle}"
-                             ScrollViewer.VerticalScrollBarVisibility="Auto"
-                             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                             MouseDoubleClick="Ingredient_MouseDoubleClick">
-                        <ListBox.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel Orientation="Horizontal"/>
-                            </ItemsPanelTemplate>
-                        </ListBox.ItemsPanel>
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <Border Width="100" Height="100" Margin="4"
-                                        BorderBrush="#DDD" BorderThickness="1"
-                                        CornerRadius="6" Padding="4">
-                                    <StackPanel>
-                                        <Image Source="{Binding ImagePath, Converter={StaticResource ImgConverter}}" Height="50" Stretch="Uniform"/>
-                                        <TextBlock Text="{Binding Name}" FontSize="13" TextAlignment="Center" Margin="0,4,0,0" TextTrimming="CharacterEllipsis"/>
-                                    </StackPanel>
-                                </Border>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                </Border>
-                <!-- Компоненты -->
-                <Border Visibility="{Binding NavigationVM.BaitsSubMode, Converter={StaticResource EqualityToVisibilityConverter}, ConverterParameter=FeedComponents}">
-                    <ListBox ItemsSource="{Binding BaitsVM.Components}"
-                             SelectedItem="{Binding BaitsVM.SelectedComponent, Mode=TwoWay}"
-                             Background="Transparent"
-                             BorderThickness="0"
-                             ItemContainerStyle="{StaticResource RoundedCardStyle}"
-                             ScrollViewer.VerticalScrollBarVisibility="Auto"
-                             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                             MouseDoubleClick="Ingredient_MouseDoubleClick">
-                        <ListBox.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel Orientation="Horizontal"/>
-                            </ItemsPanelTemplate>
-                        </ListBox.ItemsPanel>
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <Border Width="100" Height="100" Margin="4"
-                                        BorderBrush="#DDD" BorderThickness="1"
-                                        CornerRadius="6" Padding="4">
-                                    <StackPanel>
-                                        <Image Source="{Binding ImagePath, Converter={StaticResource ImgConverter}}" Height="50" Stretch="Uniform"/>
-                                        <TextBlock Text="{Binding Name}" FontSize="13" TextAlignment="Center" Margin="0,4,0,0" TextTrimming="CharacterEllipsis"/>
-                                    </StackPanel>
-                                </Border>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                </Border>
-            </Grid>
+            <ListBox ItemsSource="{Binding BaitsVM.CurrentItems}"
+                     SelectedItem="{Binding BaitsVM.SelectedItem, Mode=TwoWay}"
+                     Background="Transparent"
+                     BorderThickness="0"
+                     ItemContainerStyle="{StaticResource RoundedCardStyle}"
+                     ScrollViewer.VerticalScrollBarVisibility="Auto"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                     MouseDoubleClick="Ingredient_MouseDoubleClick">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border Width="100" Height="100" Margin="4"
+                                BorderBrush="#DDD" BorderThickness="1"
+                                CornerRadius="6" Padding="4">
+                            <StackPanel>
+                                <Image Source="{Binding ImagePath, Converter={StaticResource ImgConverter}}" Height="50" Stretch="Uniform"/>
+                                <TextBlock Text="{Binding Name}" FontSize="13" TextAlignment="Center" Margin="0,4,0,0" TextTrimming="CharacterEllipsis"/>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </Border>
 
         <!-- ====================== RECIPE / CRAFT PANEL ====================== -->

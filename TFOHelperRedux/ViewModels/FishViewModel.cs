@@ -294,6 +294,7 @@ namespace TFOHelperRedux.ViewModels
 
         private void OnBaitsSubModeChanged()
         {
+            BaitsVM.SetCategory(NavigationVM.BaitsSubMode);
             Requery();
         }
 
