@@ -15,10 +15,8 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="380"/>
             <!-- левая панель -->
-            <ColumnDefinition Width="500"/>
-            <!-- рецепты -->
             <ColumnDefinition Width="*"/>
-            <!-- рыбы -->
+            <!-- рецепты -->
         </Grid.ColumnDefinitions>
         <!-- ====================== LEFT PANEL ====================== -->
         <Border Grid.Column="0"
@@ -29,8 +27,20 @@
                 Padding="12"
                 Margin="2">
             <Grid DataContext="{Binding BaitsVM}">
+                <Grid.Resources>
+                    <!-- Общий стиль для переключения видимости по BaitsSubMode -->
+                    <Style x:Key="SubModeVisibilityStyle" TargetType="Border">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding DataContext.NavigationVM.BaitsSubMode, RelativeSource={RelativeSource AncestorType=UserControl}}" Value="Feeds">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Resources>
+
                 <!-- Прикормки -->
-                <Border Visibility="{Binding DataContext.BaitsSubMode, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource EqualityToVisibilityConverter}, ConverterParameter=Feeds}">
+                <Border Style="{StaticResource SubModeVisibilityStyle}">
                     <ListBox ItemsSource="{Binding Feeds}"
                              SelectedItem="{Binding SelectedFeed, Mode=TwoWay}"
                              Background="Transparent"
@@ -58,8 +68,18 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
                 </Border>
+
                 <!-- Дипы -->
-                <Border Visibility="{Binding DataContext.BaitsSubMode, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource EqualityToVisibilityConverter}, ConverterParameter=Dips}">
+                <Border>
+                    <Border.Style>
+                        <Style TargetType="Border" BasedOn="{StaticResource SubModeVisibilityStyle}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding DataContext.NavigationVM.BaitsSubMode, RelativeSource={RelativeSource AncestorType=UserControl}}" Value="Dips">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
                     <ListBox ItemsSource="{Binding Dips}"
                              SelectedItem="{Binding SelectedDip, Mode=TwoWay}"
                              Background="Transparent"
@@ -87,8 +107,18 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
                 </Border>
+
                 <!-- Наживки -->
-                <Border Visibility="{Binding DataContext.BaitsSubMode, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource EqualityToVisibilityConverter}, ConverterParameter=Lures}">
+                <Border>
+                    <Border.Style>
+                        <Style TargetType="Border" BasedOn="{StaticResource SubModeVisibilityStyle}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding DataContext.NavigationVM.BaitsSubMode, RelativeSource={RelativeSource AncestorType=UserControl}}" Value="Lures">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
                     <ListBox ItemsSource="{Binding Lures}"
                              SelectedItem="{Binding SelectedLure, Mode=TwoWay}"
                              Background="Transparent"
@@ -116,8 +146,18 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
                 </Border>
+
                 <!-- Компоненты -->
-                <Border Visibility="{Binding DataContext.BaitsSubMode, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource EqualityToVisibilityConverter}, ConverterParameter=FeedComponents}">
+                <Border>
+                    <Border.Style>
+                        <Style TargetType="Border" BasedOn="{StaticResource SubModeVisibilityStyle}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding DataContext.NavigationVM.BaitsSubMode, RelativeSource={RelativeSource AncestorType=UserControl}}" Value="FeedComponents">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
                     <ListBox ItemsSource="{Binding Components}"
                              SelectedItem="{Binding SelectedComponent, Mode=TwoWay}"
                              Background="Transparent"
@@ -160,16 +200,6 @@
                 <local:BaitRecipesPanel Grid.Row="0"
                                         DataContext="{Binding BaitRecipesVM}" />
             </Grid>
-        </Border>
-        <!-- ====================== FISH PANEL (ALWAYS VISIBLE HERE) ====================== -->
-        <Border Grid.Column="2"
-                Background="{StaticResource PanelBackground}"
-                BorderBrush="{StaticResource BorderBrushLight}"
-                BorderThickness="1"
-                CornerRadius="6"
-                Padding="6"
-                Margin="2">
-            <local:FishSelectorPanel/>
         </Border>
     </Grid>
 </UserControl>

@@ -158,7 +158,7 @@
                     BorderBrush="#DDDDDD"
                     BorderThickness="1"
                     Padding="12"
-                    Visibility="{Binding CurrentMode, Converter={StaticResource EqualityToVisibilityConverter}, ConverterParameter=Baits}">
+                    Visibility="{Binding NavigationVM.CurrentMode, Converter={StaticResource EqualityToVisibilityConverter}, ConverterParameter=Baits}">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
                         <StackPanel>
                             <TextBlock Text="ОСНАСТКА"
@@ -166,7 +166,7 @@
                                        FontSize="12"
                                        Margin="4,0,0,8"
                                        Foreground="#666"/>
-                            <ListBox SelectedValue="{Binding BaitsSubMode, Mode=TwoWay}"
+                            <ListBox SelectedValue="{Binding NavigationVM.BaitsSubMode, Mode=TwoWay}"
                                      Background="Transparent"
                                      BorderThickness="0"
                                      ItemContainerStyle="{StaticResource CategoryListBoxItem}"
@@ -181,17 +181,17 @@
                 </Border>
             <local:MapsPanel Grid.Column="0"
                              Grid.ColumnSpan="3"
-                             Visibility="{Binding CurrentMode,
+                             Visibility="{Binding NavigationVM.CurrentMode,
                 Converter={StaticResource EqualityToVisibilityConverter},
                 ConverterParameter=Maps}"/>
             <local:FishPanel Grid.Column="1"
                              Grid.ColumnSpan="2"
-                             Visibility="{Binding CurrentMode,
+                             Visibility="{Binding NavigationVM.CurrentMode,
                 Converter={StaticResource EqualityToVisibilityConverter},
                 ConverterParameter=Fish}"/>
             <local:BaitsPanel Grid.Column="1"
-                              Grid.ColumnSpan="2"
-                              Visibility="{Binding CurrentMode,
+                              Grid.ColumnSpan="3"
+                              Visibility="{Binding NavigationVM.CurrentMode,
                 Converter={StaticResource EqualityToVisibilityConverter},
                 ConverterParameter=Baits}"/>
             <local:FishDetailsPanel Grid.Column="2">
@@ -200,10 +200,10 @@
                         <Setter Property="Visibility" Value="Collapsed"/>
                         <Style.Triggers>
                             <!-- Показывать панель деталей только при Maps и Fish -->
-                            <DataTrigger Binding="{Binding CurrentMode}" Value="Maps">
+                            <DataTrigger Binding="{Binding NavigationVM.CurrentMode}" Value="Maps">
                                 <Setter Property="Visibility" Value="Visible"/>
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding CurrentMode}" Value="Fish">
+                            <DataTrigger Binding="{Binding NavigationVM.CurrentMode}" Value="Fish">
                                 <Setter Property="Visibility" Value="Visible"/>
                             </DataTrigger>
                         </Style.Triggers>
