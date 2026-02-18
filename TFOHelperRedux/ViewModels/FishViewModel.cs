@@ -20,7 +20,6 @@ namespace TFOHelperRedux.ViewModels
     /// - FishFilterService: фильтрация и поиск
     /// - LureBindingService: привязка наживок к рыбам
     /// - FishDataService: CRUD операции с рыбами
-    /// - LureService: CRUD операции с наживками, прикормками, дипами и компонентами
     /// - NavigationService: навигация между режимами
     /// - MapsService: управление картами (фильтрация, обновление данных)
     /// - CatchPointsService: управление точками лова (фильтрация, CRUD, импорт/экспорт)
@@ -33,19 +32,28 @@ namespace TFOHelperRedux.ViewModels
         private readonly FishFilterService _filterService;
         private readonly LureBindingService _lureBindingService;
         private readonly FishDataService _fishDataService;
-        private readonly LureService _lureService;
         private readonly MapsService _mapsService;
 
         #endregion
 
-        #region Команды навигации
+        #region ViewModel для под-панелей
 
-        public ICommand ShowFeeds { get; }
-        public ICommand ShowComponents { get; }
-        public ICommand ShowDips { get; }
-        public ICommand ShowLures { get; }
-        public ICommand ShowBaits { get; }
-        public ICommand ShowMaps { get; }
+        public NavigationViewModel NavigationVM { get; }
+        public BaitsViewModel BaitsVM { get; }
+        public BaitRecipesViewModel BaitRecipesVM { get; } = new();
+        public CatchPointsViewModel CatchPointsVM { get; } = new();
+
+        #endregion
+
+        #region Команды навигации (делегированы в NavigationViewModel)
+
+        public ICommand ShowFish => NavigationVM.ShowFishCmd;
+        public ICommand ShowMaps => NavigationVM.ShowMapsCmd;
+        public ICommand ShowBaits => NavigationVM.ShowBaitsCmd;
+        public ICommand ShowFeeds => NavigationVM.ShowFeedsCmd;
+        public ICommand ShowComponents => NavigationVM.ShowComponentsCmd;
+        public ICommand ShowDips => NavigationVM.ShowDipsCmd;
+        public ICommand ShowLures => NavigationVM.ShowLuresCmd;
 
         #endregion
 
@@ -68,17 +76,29 @@ namespace TFOHelperRedux.ViewModels
 
         public ObservableCollection<FishModel> Fishes { get; }
         public ObservableCollection<FishModel> FilteredFishes { get; }
-        public ObservableCollection<MapModel> MapsForFish => _mapsService.MapsForFish;
-        public ObservableCollection<MapModel> Maps => _mapsService.Maps;
 
         // Карты для панели локаций (обычные + DLC) и фильтр по уровню
+        public ObservableCollection<MapModel> MapsForFish => _mapsService.MapsForFish;
+        public ObservableCollection<MapModel> Maps => _mapsService.Maps;
         public ObservableCollection<MapModel> NonDlcMaps => _mapsService.NonDlcMaps;
         public ObservableCollection<MapModel> DlcMaps => _mapsService.DlcMaps;
         public ObservableCollection<int> MapLevels => _mapsService.MapLevels;
 
         #endregion
 
-        #region Свойства навигации и режимов
+        #region Свойства навигации и режимов (делегированы в NavigationViewModel)
+
+        public string CurrentMode
+        {
+            get => NavigationVM.CurrentMode;
+            set => NavigationVM.CurrentMode = value;
+        }
+
+        public string BaitsSubMode
+        {
+            get => NavigationVM.BaitsSubMode;
+            set => NavigationVM.BaitsSubMode = value;
+        }
 
         public int SelectedLevelFilter
         {
@@ -86,73 +106,32 @@ namespace TFOHelperRedux.ViewModels
             set => _mapsService.SelectedLevelFilter = value;
         }
 
-        private string _currentMode = DataStore.CurrentMode;
-        public string CurrentMode
-        {
-            get => _currentMode;
-            set
-            {
-                if (_currentMode != value)
-                {
-                    _currentMode = value;
-                    DataStore.CurrentMode = value;
-                    OnPropertyChanged(nameof(CurrentMode));
-                    Requery();
-
-                    if (_currentMode == "Fish")
-                    {
-                        DataStore.SelectedMap = null;
-                        CatchPointsVM.RefreshFilteredPoints(SelectedFish);
-                    }
-                }
-            }
-        }
-
-        private string _baitsSubMode = "Feeds";
-        public string BaitsSubMode
-        {
-            get => _baitsSubMode;
-            set
-            {
-                if (_baitsSubMode != value)
-                {
-                    _baitsSubMode = value;
-                    OnPropertyChanged(nameof(BaitsSubMode));
-                    Requery();
-                }
-            }
-        }
-
         #endregion
 
-        #region Выбранные элементы (Baits)
+        #region Выбранные элементы (делегированы в BaitsViewModel)
 
-        private FeedComponentModel? _selectedComponent;
-        public FeedComponentModel? SelectedComponent
-        {
-            get => _selectedComponent;
-            set { _selectedComponent = value; OnPropertyChanged(nameof(SelectedComponent)); Requery(); }
-        }
-
-        private BaitModel? _selectedFeed;
         public BaitModel? SelectedFeed
         {
-            get => _selectedFeed;
-            set { _selectedFeed = value; OnPropertyChanged(nameof(SelectedFeed)); }
+            get => BaitsVM.SelectedFeed;
+            set => BaitsVM.SelectedFeed = value;
         }
 
-        private DipModel? _selectedDip;
+        public FeedComponentModel? SelectedComponent
+        {
+            get => BaitsVM.SelectedComponent;
+            set => BaitsVM.SelectedComponent = value;
+        }
+
         public DipModel? SelectedDip
         {
-            get => _selectedDip;
-            set { _selectedDip = value; OnPropertyChanged(nameof(SelectedDip)); }
+            get => BaitsVM.SelectedDip;
+            set => BaitsVM.SelectedDip = value;
         }
 
-        private LureModel? _selectedLure;
         public LureModel? SelectedLure
         {
-            get => _selectedLure;
-            set { _selectedLure = value; OnPropertyChanged(nameof(SelectedLure)); }
+            get => BaitsVM.SelectedLure;
+            set => BaitsVM.SelectedLure = value;
         }
 
         #endregion
@@ -188,7 +167,7 @@ namespace TFOHelperRedux.ViewModels
             get => _selectionService.SelectedFish;
             set
             {
-                _selectionService.SetSelectedFish(value, Lures);
+                _selectionService.SetSelectedFish(value, DataStore.Lures);
                 OnPropertyChanged(nameof(SelectedFish));
                 OnPropertyChanged(nameof(RecommendedLures));
                 OnPropertyChanged(nameof(BiteDescription));
@@ -205,9 +184,6 @@ namespace TFOHelperRedux.ViewModels
         #region Свойства для отображения данных
 
         public BitmapImage? FishImage { get; set; }
-
-        public BaitRecipesViewModel BaitRecipesVM { get; } = new();
-        public CatchPointsViewModel CatchPointsVM { get; } = new();
 
         public ObservableCollection<BaitModel> Feeds => DataStore.Feeds;
         public ObservableCollection<FeedComponentModel> Components => DataStore.FeedComponents;
@@ -304,7 +280,6 @@ namespace TFOHelperRedux.ViewModels
             _filterService = new FishFilterService(Fishes, FilteredFishes);
             _lureBindingService = new LureBindingService();
             _fishDataService = new FishDataService();
-            _lureService = new LureService(_fishDataService);
             _mapsService = new MapsService(
                 DataStore.Maps,
                 onMapsChanged: () => OnPropertyChanged(nameof(Maps)),
@@ -312,13 +287,13 @@ namespace TFOHelperRedux.ViewModels
                 onSelectedLevelFilterChanged: () => OnPropertyChanged(nameof(SelectedLevelFilter))
             );
 
-            // Инициализация команд навигации
-            ShowMaps = new RelayCommand(NavigateToMaps);
-            ShowBaits = new RelayCommand(() => CurrentMode = "Baits");
-            ShowFeeds = new RelayCommand(() => BaitsSubMode = "Feeds");
-            ShowComponents = new RelayCommand(() => BaitsSubMode = "FeedComponents");
-            ShowDips = new RelayCommand(() => BaitsSubMode = "Dips");
-            ShowLures = new RelayCommand(() => BaitsSubMode = "Lures");
+            // Инициализация ViewModel для навигации и прикормок
+            NavigationVM = new NavigationViewModel();
+            BaitsVM = new BaitsViewModel();
+
+            // Подписка на изменения режимов навигации
+            NavigationVM.OnModeChanged += OnModeChanged;
+            NavigationVM.OnBaitsSubModeChanged += OnBaitsSubModeChanged;
 
             // Инициализация команд привязки
             AttachLureToFishCmd = new RelayCommand(AttachLureToFish);
@@ -344,12 +319,35 @@ namespace TFOHelperRedux.ViewModels
             if (_mapsService.SelectedMap == null)
             {
                 _mapsService.SelectFirstDlcMapIfNull();
-                // После выбора карты нужно отфильтровать рыб и выбрать первую
                 if (_mapsService.SelectedMap != null)
                 {
                     SelectedMap = _mapsService.SelectedMap;
                 }
             }
+        }
+
+        #endregion
+
+        #region Обработчики изменений режимов
+
+        private void OnModeChanged()
+        {
+            Requery();
+
+            if (CurrentMode == NavigationViewModel.Modes.Fish)
+            {
+                DataStore.SelectedMap = null;
+                CatchPointsVM.RefreshFilteredPoints(SelectedFish);
+            }
+            else if (CurrentMode == NavigationViewModel.Modes.Maps)
+            {
+                NavigateToMaps();
+            }
+        }
+
+        private void OnBaitsSubModeChanged()
+        {
+            Requery();
         }
 
         #endregion
@@ -360,7 +358,6 @@ namespace TFOHelperRedux.ViewModels
 
         private void NavigateToMaps()
         {
-            CurrentMode = "Maps";
             _mapsService.NavigateToMaps(
                 () =>
                 {
@@ -371,10 +368,6 @@ namespace TFOHelperRedux.ViewModels
                 SelectedFish
             );
         }
-
-        #endregion
-
-        #region Методы фильтрации
 
         #endregion
 
@@ -430,26 +423,30 @@ namespace TFOHelperRedux.ViewModels
 #if DEBUG
         private bool CanEditCurrentItem()
         {
-            if (CurrentMode != "Baits") return false;
-            return BaitsSubMode is "Feeds" or "Dips" or "Lures" or "FeedComponents";
+            if (CurrentMode != NavigationViewModel.Modes.Baits) return false;
+            return BaitsSubMode is NavigationViewModel.BaitsSubModes.Feeds 
+                or NavigationViewModel.BaitsSubModes.Dips 
+                or NavigationViewModel.BaitsSubModes.Lures 
+                or NavigationViewModel.BaitsSubModes.FeedComponents;
         }
 
         private void AddNewItem()
         {
-            if (CurrentMode != "Baits") return;
+            if (CurrentMode != NavigationViewModel.Modes.Baits) return;
 
+            // Сброс выбранного элемента перед добавлением нового
             switch (BaitsSubMode)
             {
-                case "Feeds":
+                case NavigationViewModel.BaitsSubModes.Feeds:
                     SelectedFeed = null;
                     break;
-                case "Dips":
+                case NavigationViewModel.BaitsSubModes.Dips:
                     SelectedDip = null;
                     break;
-                case "Lures":
+                case NavigationViewModel.BaitsSubModes.Lures:
                     SelectedLure = null;
                     break;
-                case "FeedComponents":
+                case NavigationViewModel.BaitsSubModes.FeedComponents:
                     SelectedComponent = null;
                     break;
             }
@@ -459,27 +456,27 @@ namespace TFOHelperRedux.ViewModels
 
         private void EditCurrentItem()
         {
-            if (CurrentMode != "Baits") return;
+            if (CurrentMode != NavigationViewModel.Modes.Baits) return;
 
             IItemModel? item = null;
             bool isNew = false;
 
             switch (BaitsSubMode)
             {
-                case "Feeds":
-                    item = _lureService.GetOrCreateFeedForEdit(SelectedFeed);
+                case NavigationViewModel.BaitsSubModes.Feeds:
+                    item = new LureService(_fishDataService).GetOrCreateFeedForEdit(SelectedFeed);
                     if (SelectedFeed == null) isNew = true;
                     break;
-                case "Dips":
-                    item = _lureService.GetOrCreateDipForEdit(SelectedDip);
+                case NavigationViewModel.BaitsSubModes.Dips:
+                    item = new LureService(_fishDataService).GetOrCreateDipForEdit(SelectedDip);
                     if (SelectedDip == null) isNew = true;
                     break;
-                case "Lures":
-                    item = _lureService.GetOrCreateLureForEdit(SelectedLure);
+                case NavigationViewModel.BaitsSubModes.Lures:
+                    item = new LureService(_fishDataService).GetOrCreateLureForEdit(SelectedLure);
                     if (SelectedLure == null) isNew = true;
                     break;
-                case "FeedComponents":
-                    item = _lureService.GetOrCreateComponentForEdit(SelectedComponent);
+                case NavigationViewModel.BaitsSubModes.FeedComponents:
+                    item = new LureService(_fishDataService).GetOrCreateComponentForEdit(SelectedComponent);
                     if (SelectedComponent == null) isNew = true;
                     break;
             }
@@ -495,26 +492,34 @@ namespace TFOHelperRedux.ViewModels
             {
                 if (isNew)
                 {
-                    switch (BaitsSubMode)
-                    {
-                        case "Feeds":
-                            _lureService.AddFeedIfNew((BaitModel)item, DataStore.Feeds);
-                            break;
-                        case "Dips":
-                            _lureService.AddDipIfNew((DipModel)item, DataStore.Dips);
-                            break;
-                        case "Lures":
-                            _lureService.AddLureIfNew((LureModel)item, DataStore.Lures);
-                            break;
-                        case "FeedComponents":
-                            _lureService.AddComponentIfNew((FeedComponentModel)item, DataStore.FeedComponents);
-                            break;
-                    }
+                    AddNewItemToCollection(item);
                 }
 
-                _lureService.SaveItem(item);
+                new LureService(_fishDataService).SaveItem(item);
+                BaitsVM.RefreshCollections();
+            }
+        }
 
-                OnPropertyChanged(nameof(Components));
+        private void AddNewItemToCollection(IItemModel item)
+        {
+            switch (item)
+            {
+                case BaitModel feed:
+                    if (!DataStore.Feeds.Contains(feed))
+                        DataStore.Feeds.Add(feed);
+                    break;
+                case DipModel dip:
+                    if (!DataStore.Dips.Contains(dip))
+                        DataStore.Dips.Add(dip);
+                    break;
+                case LureModel lure:
+                    if (!DataStore.Lures.Contains(lure))
+                        DataStore.Lures.Add(lure);
+                    break;
+                case FeedComponentModel component:
+                    if (!DataStore.FeedComponents.Contains(component))
+                        DataStore.FeedComponents.Add(component);
+                    break;
             }
         }
 #endif

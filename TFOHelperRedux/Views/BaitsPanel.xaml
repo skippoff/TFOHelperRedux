@@ -28,9 +28,9 @@
                 CornerRadius="6"
                 Padding="12"
                 Margin="2">
-            <Grid>
+            <Grid DataContext="{Binding BaitsVM}">
                 <!-- Прикормки -->
-                <Border Visibility="{Binding BaitsSubMode, Converter={StaticResource EqualityToVisibilityConverter}, ConverterParameter=Feeds}">
+                <Border Visibility="{Binding DataContext.BaitsSubMode, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource EqualityToVisibilityConverter}, ConverterParameter=Feeds}">
                     <ListBox ItemsSource="{Binding Feeds}"
                              SelectedItem="{Binding SelectedFeed, Mode=TwoWay}"
                              Background="Transparent"
@@ -59,7 +59,7 @@
                     </ListBox>
                 </Border>
                 <!-- Дипы -->
-                <Border Visibility="{Binding BaitsSubMode, Converter={StaticResource EqualityToVisibilityConverter}, ConverterParameter=Dips}">
+                <Border Visibility="{Binding DataContext.BaitsSubMode, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource EqualityToVisibilityConverter}, ConverterParameter=Dips}">
                     <ListBox ItemsSource="{Binding Dips}"
                              SelectedItem="{Binding SelectedDip, Mode=TwoWay}"
                              Background="Transparent"
@@ -88,7 +88,7 @@
                     </ListBox>
                 </Border>
                 <!-- Наживки -->
-                <Border Visibility="{Binding BaitsSubMode, Converter={StaticResource EqualityToVisibilityConverter}, ConverterParameter=Lures}">
+                <Border Visibility="{Binding DataContext.BaitsSubMode, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource EqualityToVisibilityConverter}, ConverterParameter=Lures}">
                     <ListBox ItemsSource="{Binding Lures}"
                              SelectedItem="{Binding SelectedLure, Mode=TwoWay}"
                              Background="Transparent"
@@ -117,7 +117,7 @@
                     </ListBox>
                 </Border>
                 <!-- Компоненты -->
-                <Border Visibility="{Binding BaitsSubMode, Converter={StaticResource EqualityToVisibilityConverter}, ConverterParameter=FeedComponents}">
+                <Border Visibility="{Binding DataContext.BaitsSubMode, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource EqualityToVisibilityConverter}, ConverterParameter=FeedComponents}">
                     <ListBox ItemsSource="{Binding Components}"
                              SelectedItem="{Binding SelectedComponent, Mode=TwoWay}"
                              Background="Transparent"

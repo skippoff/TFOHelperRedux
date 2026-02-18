@@ -18,6 +18,14 @@ public class LureService
     }
 
     /// <summary>
+    /// Получает следующий доступный ID для коллекции
+    /// </summary>
+    public int GetNextId<T>(IEnumerable<T> collection) where T : IItemModel
+    {
+        return _fishDataService.GetNextId(collection);
+    }
+
+    /// <summary>
     /// Создаёт или получает наживку для редактирования
     /// </summary>
     public LureModel GetOrCreateLureForEdit(LureModel? selectedLure)
