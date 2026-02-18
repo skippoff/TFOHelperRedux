@@ -15,7 +15,7 @@ namespace TFOHelperRedux.ViewModels
     /// </summary>
     public class BaitsViewModel : BaseViewModel
     {
-        private readonly LureService _lureService;
+        private readonly BaitCrudService _baitCrudService;
 
         #region Перечисление категорий
 
@@ -117,7 +117,7 @@ namespace TFOHelperRedux.ViewModels
 
         public BaitsViewModel()
         {
-            _lureService = new LureService(new FishDataService());
+            _baitCrudService = new BaitCrudService(new FishDataService());
 
             // Инициализация команд навигации
             ShowFeedsCmd = new RelayCommand(() => SwitchCategory(CategoryType.Feeds));
@@ -209,18 +209,18 @@ namespace TFOHelperRedux.ViewModels
         {
             IItemModel newItem = _currentCategory switch
             {
-                CategoryType.Feeds => new BaitModel { ID = _lureService.GetNextId(DataStore.Feeds), Name = "Новая прикормка" },
-                CategoryType.FeedComponents => new FeedComponentModel { ID = _lureService.GetNextId(DataStore.FeedComponents), Name = "Новый компонент" },
-                CategoryType.Dips => new DipModel { ID = _lureService.GetNextId(DataStore.Dips), Name = "Новый дип" },
-                CategoryType.Lures => new LureModel { ID = _lureService.GetNextId(DataStore.Lures), Name = "Новая наживка" },
+                CategoryType.Feeds => _baitCrudService.CreateFeed(),
+                CategoryType.FeedComponents => _baitCrudService.CreateComponent(),
+                CategoryType.Dips => _baitCrudService.CreateDip(),
+                CategoryType.Lures => _baitCrudService.CreateLure(),
                 _ => throw new InvalidOperationException("Неизвестная категория")
             };
 
             var window = new EditItemWindow(newItem) { Owner = Application.Current.MainWindow };
             if (window.ShowDialog() == true)
             {
-                AddItemToCollection(newItem);
-                _lureService.SaveItem(newItem);
+                _baitCrudService.AddToCollection(newItem);
+                _baitCrudService.SaveItem(newItem);
                 LoadCurrentCategory();
             }
         }
@@ -237,7 +237,7 @@ namespace TFOHelperRedux.ViewModels
             var window = new EditItemWindow(selectedItem) { Owner = Application.Current.MainWindow };
             if (window.ShowDialog() == true)
             {
-                _lureService.SaveItem(selectedItem);
+                _baitCrudService.SaveItem(selectedItem);
                 LoadCurrentCategory();
             }
         }
@@ -254,55 +254,13 @@ namespace TFOHelperRedux.ViewModels
             if (MessageBox.Show("Удалить выбранный элемент?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes)
                 return;
 
-            RemoveItemFromCollection(selectedItem);
-            _lureService.SaveItem(selectedItem);
+            _baitCrudService.RemoveFromCollection(selectedItem);
+            _baitCrudService.SaveItem(selectedItem);
             SelectedFeed = null;
             SelectedComponent = null;
             SelectedDip = null;
             SelectedLure = null;
             LoadCurrentCategory();
-        }
-
-        private void AddItemToCollection(IItemModel item)
-        {
-            switch (item)
-            {
-                case BaitModel feed:
-                    if (!DataStore.Feeds.Contains(feed))
-                        DataStore.Feeds.Add(feed);
-                    break;
-                case FeedComponentModel component:
-                    if (!DataStore.FeedComponents.Contains(component))
-                        DataStore.FeedComponents.Add(component);
-                    break;
-                case DipModel dip:
-                    if (!DataStore.Dips.Contains(dip))
-                        DataStore.Dips.Add(dip);
-                    break;
-                case LureModel lure:
-                    if (!DataStore.Lures.Contains(lure))
-                        DataStore.Lures.Add(lure);
-                    break;
-            }
-        }
-
-        private void RemoveItemFromCollection(IItemModel item)
-        {
-            switch (item)
-            {
-                case BaitModel feed:
-                    DataStore.Feeds.Remove(feed);
-                    break;
-                case FeedComponentModel component:
-                    DataStore.FeedComponents.Remove(component);
-                    break;
-                case DipModel dip:
-                    DataStore.Dips.Remove(dip);
-                    break;
-                case LureModel lure:
-                    DataStore.Lures.Remove(lure);
-                    break;
-            }
         }
 
         #endregion

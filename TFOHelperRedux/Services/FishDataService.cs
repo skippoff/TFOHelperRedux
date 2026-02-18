@@ -130,5 +130,37 @@ public class FishDataService
             fishes.Add(fish);
         }
     }
+
+    /// <summary>
+    /// Сохраняет прикормку (BaitModel)
+    /// </summary>
+    public void SaveFeed(BaitModel feed)
+    {
+        DataService.SaveFeeds(DataStore.Feeds);
+    }
+
+    /// <summary>
+    /// Сохраняет компонент прикормки
+    /// </summary>
+    public void SaveFeedComponent(FeedComponentModel component)
+    {
+        DataService.SaveFeedComponents(DataStore.FeedComponents);
+    }
+
+    /// <summary>
+    /// Сохраняет дип
+    /// </summary>
+    public void SaveDip(DipModel dip)
+    {
+        DataService.SaveDips(DataStore.Dips);
+    }
+
+    /// <summary>
+    /// Сохраняет воблер
+    /// </summary>
+    public void SaveLure(LureModel lure)
+    {
+        DataService.SaveLures(DataStore.Lures);
+    }
 }
 

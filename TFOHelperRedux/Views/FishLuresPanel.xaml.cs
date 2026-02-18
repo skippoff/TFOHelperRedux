@@ -71,7 +71,7 @@ namespace TFOHelperRedux.Views
                 var vm = DataContext as System.ComponentModel.ICollectionView; // fallback not used
                 var fishVm = this.DataContext as dynamic;
                 // Update global SelectedFish from DataStore
-                var fish = TFOHelperRedux.Services.DataStore.SelectedFish;
+                var fish = TFOHelperRedux.Services.DataStore.Selection.SelectedFish;
                 if (fish == null) return;
 
                 fish.LureIDs = (fish.LureIDs ?? Array.Empty<int>()).Concat(new[] { id }).Distinct().ToArray();
@@ -83,7 +83,7 @@ namespace TFOHelperRedux.Views
         {
             if (sender is CheckBox cb && cb.Tag is int id)
             {
-                var fish = TFOHelperRedux.Services.DataStore.SelectedFish;
+                var fish = TFOHelperRedux.Services.DataStore.Selection.SelectedFish;
                 if (fish == null) return;
 
                 fish.LureIDs = (fish.LureIDs ?? Array.Empty<int>()).Where(x => x != id).ToArray();

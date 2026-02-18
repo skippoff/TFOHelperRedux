@@ -102,7 +102,7 @@ public partial class CatchPointsView : UserControl
             if (wnd.ShowDialog() == true &&
                 DataContext is TFOHelperRedux.ViewModels.CatchPointsViewModel vm)
             {
-                var fish = TFOHelperRedux.Services.DataStore.SelectedFish ?? vm.CurrentFish;
+                var fish = TFOHelperRedux.Services.DataStore.Selection.SelectedFish ?? vm.CurrentFish;
                 vm.RefreshFilteredPoints(fish);
             }
 

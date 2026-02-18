@@ -16,7 +16,7 @@ namespace TFOHelperRedux.ViewModels
     /// <summary>
     /// ViewModel для управления рыбами, навигации и отображения данных.
     /// Бизнес-логика делегирована сервисам:
-    /// - FishSelectionService: выбор рыбы и синхронизация чекбоксов
+    /// - DataStore.Selection: выбор рыбы и синхронизация чекбоксов
     /// - FishFilterService: фильтрация и поиск
     /// - LureBindingService: привязка наживок к рыбам
     /// - FishDataService: CRUD операции с рыбами
@@ -28,7 +28,6 @@ namespace TFOHelperRedux.ViewModels
     {
         #region Сервисы
 
-        private readonly FishSelectionService _selectionService;
         private readonly FishFilterService _filterService;
         private readonly LureBindingService _lureBindingService;
         private readonly FishDataService _fishDataService;
@@ -42,18 +41,6 @@ namespace TFOHelperRedux.ViewModels
         public BaitsViewModel BaitsVM { get; }
         public BaitRecipesViewModel BaitRecipesVM { get; } = new();
         public CatchPointsViewModel CatchPointsVM { get; } = new();
-
-        #endregion
-
-        #region Команды навигации (делегированы в NavigationViewModel)
-
-        public ICommand ShowFish => NavigationVM.ShowFishCmd;
-        public ICommand ShowMaps => NavigationVM.ShowMapsCmd;
-        public ICommand ShowBaits => NavigationVM.ShowBaitsCmd;
-        public ICommand ShowFeeds => NavigationVM.ShowFeedsCmd;
-        public ICommand ShowComponents => NavigationVM.ShowComponentsCmd;
-        public ICommand ShowDips => NavigationVM.ShowDipsCmd;
-        public ICommand ShowLures => NavigationVM.ShowLuresCmd;
 
         #endregion
 
@@ -129,17 +116,17 @@ namespace TFOHelperRedux.ViewModels
 
         #endregion
 
-        #region Свойства выбора рыбы и карты (делегированы в сервис)
+        #region Свойства выбора рыбы и карты
 
         /// <summary>
-        /// Выбранная карта (делегировано в FishSelectionService)
+        /// Выбранная карта
         /// </summary>
         public MapModel? SelectedMap
         {
-            get => _selectionService.SelectedMap;
+            get => DataStore.Selection.SelectedMap;
             set
             {
-                _selectionService.SetSelectedMap(value, Fishes, FilteredFishes);
+                DataStore.Selection.SetSelectedMap(value, Fishes, FilteredFishes, DataStore.Lures);
                 OnPropertyChanged(nameof(SelectedMap));
                 OnPropertyChanged(nameof(SelectedFish));
                 OnPropertyChanged(nameof(RecommendedLures));
@@ -153,14 +140,14 @@ namespace TFOHelperRedux.ViewModels
         }
 
         /// <summary>
-        /// Выбранная рыба (делегировано в FishSelectionService)
+        /// Выбранная рыба
         /// </summary>
         public FishModel? SelectedFish
         {
-            get => _selectionService.SelectedFish;
+            get => DataStore.Selection.SelectedFish;
             set
             {
-                _selectionService.SetSelectedFish(value, DataStore.Lures);
+                DataStore.Selection.SetSelectedFish(value, DataStore.Lures);
                 OnPropertyChanged(nameof(SelectedFish));
                 OnPropertyChanged(nameof(RecommendedLures));
                 OnPropertyChanged(nameof(BiteDescription));
@@ -261,15 +248,6 @@ namespace TFOHelperRedux.ViewModels
             FilteredFishes = new ObservableCollection<FishModel>(Fishes);
 
             // Инициализация сервисов
-            _selectionService = new FishSelectionService(
-                onSelectionChanged: () =>
-                {
-                    OnPropertyChanged(nameof(SelectedFish));
-                    OnPropertyChanged(nameof(SelectedMap));
-                },
-                onLuresSynced: () => OnPropertyChanged(nameof(RecommendedLures))
-            );
-
             _filterService = new FishFilterService(Fishes, FilteredFishes);
             _lureBindingService = new LureBindingService();
             _fishDataService = new FishDataService();
@@ -287,6 +265,14 @@ namespace TFOHelperRedux.ViewModels
             // Подписка на изменения режимов навигации
             NavigationVM.OnModeChanged += OnModeChanged;
             NavigationVM.OnBaitsSubModeChanged += OnBaitsSubModeChanged;
+
+            // Подписка на изменения выбора в DataStore.Selection
+            DataStore.Selection.SelectionChanged += () =>
+            {
+                OnPropertyChanged(nameof(SelectedFish));
+                OnPropertyChanged(nameof(SelectedMap));
+            };
+            DataStore.Selection.LuresSynced += () => OnPropertyChanged(nameof(RecommendedLures));
 
             // Инициализация команд привязки
             AttachLureToFishCmd = new RelayCommand(AttachLureToFish);
@@ -320,7 +306,7 @@ namespace TFOHelperRedux.ViewModels
 
             if (CurrentMode == NavigationViewModel.Modes.Fish)
             {
-                DataStore.SelectedMap = null;
+                DataStore.Selection.SelectedMap = null;
                 CatchPointsVM.RefreshFilteredPoints(SelectedFish);
             }
             else if (CurrentMode == NavigationViewModel.Modes.Maps)
@@ -434,13 +420,13 @@ namespace TFOHelperRedux.ViewModels
             if (e.PropertyName != nameof(LureModel.IsSelected))
                 return;
 
-            if (_selectionService.IsSyncingLures)
+            if (DataStore.Selection.IsSyncingLures)
                 return;
 
             if (sender is not LureModel lure)
                 return;
 
-            _selectionService.HandleLureSelectionChanged(lure);
+            DataStore.Selection.HandleLureSelectionChanged(lure);
             OnPropertyChanged(nameof(RecommendedLures));
         }
 

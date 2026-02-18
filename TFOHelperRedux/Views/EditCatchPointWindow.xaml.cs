@@ -38,7 +38,7 @@ namespace TFOHelperRedux.Views
                 // обновим вспомогательные коллекции
                 var vm = App.Current.MainWindow?.DataContext as TFOHelperRedux.ViewModels.FishViewModel;
                 if (vm != null)
-                    vm.CatchPointsVM.RefreshFilteredPoints(TFOHelperRedux.Services.DataStore.SelectedFish);
+                    vm.CatchPointsVM.RefreshFilteredPoints(TFOHelperRedux.Services.DataStore.Selection.SelectedFish);
 
                 TFOHelperRedux.Services.DataStore.SaveAll();
             };

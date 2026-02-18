@@ -75,7 +75,7 @@ public class CatchPointsViewModel : BaseViewModel
 
         var points = _catchPointsService.FilterCatchPoints(
             selectedFish,
-            DataStore.SelectedMap,
+            DataStore.Selection.SelectedMap,
             DataStore.CurrentMode,
             CatchPoints);
 

@@ -225,12 +225,12 @@ namespace TFOHelperRedux.Views
             // Обновляем поля веса в зависимости от выбранных рыб
             UpdateWeightFieldsFromSelection();
 
-            // Если в точке не выбрана ни одна рыба, заполнить поля значениями из глобально выбранной рыбы (DataStore.SelectedFish)
+            // Если в точке не выбрана ни одна рыба, заполнить поля значениями из глобально выбранной рыбы (DataStore.Selection.SelectedFish)
             var anySelected = DataStore.Fishes.Any(f => f.IsSelected);
-            if (!anySelected && DataStore.SelectedFish != null)
+            if (!anySelected && DataStore.Selection.SelectedFish != null)
             {
-                SelectedLargeText = DataStore.SelectedFish.WeightLarge.ToString();
-                SelectedTrophyText = DataStore.SelectedFish.WeightTrophy.ToString();
+                SelectedLargeText = DataStore.Selection.SelectedFish.WeightLarge.ToString();
+                SelectedTrophyText = DataStore.Selection.SelectedFish.WeightTrophy.ToString();
             }
         }
 

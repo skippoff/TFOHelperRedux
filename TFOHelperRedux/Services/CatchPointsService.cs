@@ -107,7 +107,7 @@ public class CatchPointsService
         if (wnd.ShowDialog() == true)
         {
             // после окна данные уже сохранены через SaveAll()
-            var fish = DataStore.SelectedFish ?? catchPointsVm.CurrentFish;
+            var fish = DataStore.Selection.SelectedFish ?? catchPointsVm.CurrentFish;
             catchPointsVm.RefreshFilteredPoints(fish);
         }
     }
@@ -120,7 +120,7 @@ public class CatchPointsService
         var wnd = new Views.EditCatchPointWindow();
         if (wnd.ShowDialog() == true)
         {
-            catchPointsVm.RefreshFilteredPoints(DataStore.SelectedFish);
+            catchPointsVm.RefreshFilteredPoints(DataStore.Selection.SelectedFish);
         }
     }
 

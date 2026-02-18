@@ -13,6 +13,11 @@ public static class DataStore
 {
     public static Action? OnMapWindowClosed;
 
+    /// <summary>
+    /// Централизованное состояние выбора (рыба, карта, точка лова)
+    /// </summary>
+    public static SelectionState Selection { get; } = new();
+
     public static void MapWindowClosed()
     {
         OnMapWindowClosed?.Invoke();
@@ -28,13 +33,9 @@ public static class DataStore
     public static ObservableCollection<CatchPointModel> CatchPoints { get; private set; } = new();
     // 🧭 Текущая выбранная точка лова (для редактирования)
     public static ObservableCollection<CatchPointModel> FilteredPoints { get; set; } = new();
-    public static CatchPointModel? SelectedCatchPoint { get; set; }
     public static Action<IItemModel>? AddToRecipe { get; set; }
     private static string LocalDataDir => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Maps");
     private static string LocalCatchFile => Path.Combine(LocalDataDir, "CatchPoints_Local.json");
-    
-    public static MapModel? SelectedMap { get; set; }
-    public static FishModel? SelectedFish { get; set; }
 
 
     public static void LoadAll()
@@ -167,7 +168,7 @@ public static class DataStore
         DataService.SaveFeedComponents(FeedComponents);
         DataService.SaveBaitRecipes(BaitRecipes);
         if (App.Current.MainWindow?.DataContext is TFOHelperRedux.ViewModels.FishViewModel vm)
-            vm.CatchPointsVM.RefreshFilteredPoints(SelectedFish);
+            vm.CatchPointsVM.RefreshFilteredPoints(Selection.SelectedFish);
     }
 
     public static string CurrentMode { get; set; } = "Maps";

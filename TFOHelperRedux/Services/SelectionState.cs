@@ -7,29 +7,72 @@ using TFOHelperRedux.Models;
 namespace TFOHelperRedux.Services;
 
 /// <summary>
-/// Сервис управления выбором рыбы и синхронизации состояния
+/// Централизованное хранилище состояния выбора (рыба, карта, точка лова)
 /// </summary>
-public class FishSelectionService
+public class SelectionState
 {
     private bool _isSyncingLures;
-    private readonly Action _onSelectionChanged;
-    private readonly Action _onLuresSynced;
-
-    public FishSelectionService(Action onSelectionChanged, Action? onLuresSynced = null)
-    {
-        _onSelectionChanged = onSelectionChanged;
-        _onLuresSynced = onLuresSynced ?? (() => { });
-    }
+    private FishModel? _selectedFish;
+    private MapModel? _selectedMap;
+    private CatchPointModel? _selectedCatchPoint;
 
     /// <summary>
     /// Выбранная рыба
     /// </summary>
-    public FishModel? SelectedFish { get; private set; }
+    public FishModel? SelectedFish
+    {
+        get => _selectedFish;
+        set
+        {
+            if (_selectedFish == value)
+                return;
+
+            _selectedFish = value;
+            SelectionChanged?.Invoke();
+        }
+    }
 
     /// <summary>
     /// Выбранная карта
     /// </summary>
-    public MapModel? SelectedMap { get; private set; }
+    public MapModel? SelectedMap
+    {
+        get => _selectedMap;
+        set
+        {
+            if (_selectedMap == value)
+                return;
+
+            _selectedMap = value;
+            SelectionChanged?.Invoke();
+        }
+    }
+
+    /// <summary>
+    /// Выбранная точка лова
+    /// </summary>
+    public CatchPointModel? SelectedCatchPoint
+    {
+        get => _selectedCatchPoint;
+        set
+        {
+            if (_selectedCatchPoint == value)
+                return;
+
+            _selectedCatchPoint = value;
+            SelectionChanged?.Invoke();
+        }
+    }
+
+    /// <summary>
+    /// Делегат обратного вызова при изменении выбора
+    /// </summary>
+    public Action? SelectionChanged { get; set; }
+
+    /// <summary>
+    /// Делегат обратного вызова при синхронизации наживок
+    /// </summary>
+    public Action? LuresSynced { get; set; }
 
     /// <summary>
     /// Устанавливает выбранную рыбу и синхронизирует чекбоксы наживок
@@ -40,35 +83,33 @@ public class FishSelectionService
             return;
 
         SelectedFish = fish;
-        DataStore.SelectedFish = fish;
-
         SyncLuresWithFish(fish, lures);
-        _onSelectionChanged();
     }
 
     /// <summary>
-    /// Устанавливает выбранную карту
+    /// Устанавливает выбранную карту и фильтрует рыб
     /// </summary>
-    public void SetSelectedMap(MapModel? map, ObservableCollection<FishModel> allFishes, ObservableCollection<FishModel> filteredFishes)
+    public void SetSelectedMap(
+        MapModel? map,
+        ObservableCollection<FishModel> allFishes,
+        ObservableCollection<FishModel> filteredFishes,
+        ObservableCollection<LureModel> lures)
     {
         if (SelectedMap == map)
             return;
 
         SelectedMap = map;
-        DataStore.SelectedMap = map;
 
         // Фильтруем рыб по карте
         filteredFishes.Clear();
 
         if (map == null)
         {
-            // Без карты — все рыбы
             foreach (var f in allFishes)
                 filteredFishes.Add(f);
         }
         else
         {
-            // Только рыбы на этой карте
             var fishOnMap = allFishes
                 .Where(f => map.FishIDs != null && map.FishIDs.Contains(f.ID))
                 .ToList();
@@ -78,16 +119,7 @@ public class FishSelectionService
         }
 
         // Выбираем первую рыбу из отфильтрованных
-        if (filteredFishes.Any())
-        {
-            SetSelectedFish(filteredFishes.First(), DataStore.Lures);
-        }
-        else
-        {
-            SetSelectedFish(null, DataStore.Lures);
-        }
-
-        _onSelectionChanged();
+        SetSelectedFish(filteredFishes.Any() ? filteredFishes.First() : null, lures);
     }
 
     /// <summary>
@@ -112,7 +144,7 @@ public class FishSelectionService
             _isSyncingLures = false;
         }
 
-        _onLuresSynced();
+        LuresSynced?.Invoke();
     }
 
     /// <summary>

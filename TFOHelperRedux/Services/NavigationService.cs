@@ -49,7 +49,7 @@ public class NavigationService
     public void NavigateToFish()
     {
         CurrentMode = "Fish";
-        DataStore.SelectedMap = null;
+        DataStore.Selection.SelectedMap = null;
         _onNavigateToFish?.Invoke();
     }
 
