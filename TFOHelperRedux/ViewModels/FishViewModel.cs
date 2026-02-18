@@ -46,8 +46,6 @@ namespace TFOHelperRedux.ViewModels
         public ICommand ShowLures { get; }
         public ICommand ShowBaits { get; }
         public ICommand ShowMaps { get; }
-        public ICommand ShowTopLiveLuresCmd { get; }
-        public ICommand ShowTopArtificialLuresCmd { get; }
 
         #endregion
 
@@ -125,21 +123,6 @@ namespace TFOHelperRedux.ViewModels
             }
         }
 
-        private string _topLuresMode = "Live";
-        public string TopLuresMode
-        {
-            get => _topLuresMode;
-            set
-            {
-                if (_topLuresMode != value)
-                {
-                    _topLuresMode = value;
-                    OnPropertyChanged(nameof(TopLuresMode));
-                    OnPropertyChanged(nameof(CurrentTopLuresView));
-                }
-            }
-        }
-
         #endregion
 
         #region Выбранные элементы (Baits)
@@ -191,8 +174,6 @@ namespace TFOHelperRedux.ViewModels
                 OnPropertyChanged(nameof(BiteDescription));
                 OnPropertyChanged(nameof(RecipeCountForSelectedFish));
                 OnPropertyChanged(nameof(RecipesForSelectedFish));
-                OnPropertyChanged(nameof(TopLuresForSelectedFish));
-                OnPropertyChanged(nameof(TopRecipesForSelectedFish));
                 _mapsService.UpdateMapsForFish(SelectedFish);
                 CatchPointsVM.RefreshFilteredPoints(SelectedFish);
                 UpdateFishDetails();
@@ -213,8 +194,6 @@ namespace TFOHelperRedux.ViewModels
                 OnPropertyChanged(nameof(BiteDescription));
                 OnPropertyChanged(nameof(RecipeCountForSelectedFish));
                 OnPropertyChanged(nameof(RecipesForSelectedFish));
-                OnPropertyChanged(nameof(TopLuresForSelectedFish));
-                OnPropertyChanged(nameof(TopRecipesForSelectedFish));
                 _mapsService.UpdateMapsForFish(value);
                 CatchPointsVM.RefreshFilteredPoints(value);
                 UpdateFishDetails();
@@ -234,11 +213,6 @@ namespace TFOHelperRedux.ViewModels
         public ObservableCollection<FeedComponentModel> Components => DataStore.FeedComponents;
         public ObservableCollection<DipModel> Dips => DataStore.Dips;
         public ObservableCollection<LureModel> Lures => DataStore.Lures;
-
-        public ICollectionView LiveLuresView { get; }
-        public ICollectionView ArtificialLuresView { get; }
-        public ICollectionView CurrentTopLuresView =>
-            TopLuresMode == "Lure" ? ArtificialLuresView : LiveLuresView;
 
         public int RecipeCountForSelectedFish =>
             SelectedFish == null || SelectedFish.RecipeIDs == null
@@ -260,18 +234,6 @@ namespace TFOHelperRedux.ViewModels
                 return DataStore.Lures.Where(l => l.IsSelected);
             }
         }
-
-        /// <summary>
-        /// Лучшие магазинные наживки для выбранной рыбы (делегировано в LureBindingService)
-        /// </summary>
-        public IEnumerable<LureModel> TopLuresForSelectedFish =>
-            _lureBindingService.GetTopLuresForFish(SelectedFish);
-
-        /// <summary>
-        /// Лучшие крафтовые рецепты для выбранной рыбы (делегировано в LureBindingService)
-        /// </summary>
-        public IEnumerable<BaitRecipeModel> TopRecipesForSelectedFish =>
-            _lureBindingService.GetTopRecipesForFish(SelectedFish);
 
         public string BiteDescription
         {
@@ -357,8 +319,6 @@ namespace TFOHelperRedux.ViewModels
             ShowComponents = new RelayCommand(() => BaitsSubMode = "FeedComponents");
             ShowDips = new RelayCommand(() => BaitsSubMode = "Dips");
             ShowLures = new RelayCommand(() => BaitsSubMode = "Lures");
-            ShowTopLiveLuresCmd = new RelayCommand(() => TopLuresMode = "Live");
-            ShowTopArtificialLuresCmd = new RelayCommand(() => TopLuresMode = "Lure");
 
             // Инициализация команд привязки
             AttachLureToFishCmd = new RelayCommand(AttachLureToFish);
@@ -373,30 +333,6 @@ namespace TFOHelperRedux.ViewModels
             EditCurrentItemCommand = new RelayCommand(_ => { }, _ => false);
             AddNewItemCommand = new RelayCommand(_ => { }, _ => false);
 #endif
-
-            // Инициализация фильтров наживок
-            TopLuresMode = "Live";
-
-            LiveLuresView = CollectionViewSource.GetDefaultView(Lures);
-            LiveLuresView.Filter = o =>
-            {
-                if (o is not LureModel l)
-                    return false;
-
-                if (string.IsNullOrWhiteSpace(l.BaitType))
-                    return true;
-
-                return string.Equals(l.BaitType, "live", StringComparison.OrdinalIgnoreCase);
-            };
-
-            ArtificialLuresView = new ListCollectionView(Lures);
-            ArtificialLuresView.Filter = o =>
-            {
-                if (o is not LureModel l)
-                    return false;
-
-                return string.Equals(l.BaitType, "lure", StringComparison.OrdinalIgnoreCase);
-            };
 
             // Подписка на изменения IsSelected у наживок
             SubscribeToLureChanges();
@@ -451,11 +387,6 @@ namespace TFOHelperRedux.ViewModels
 
             var result = _lureBindingService.AttachLureToFish(lure, SelectedFish);
             result.ShowMessageBox();
-
-            if (result.IsSuccess)
-            {
-                OnPropertyChanged(nameof(TopLuresForSelectedFish));
-            }
         }
 
         private void DetachLureFromFish(object? parameter)
@@ -465,11 +396,6 @@ namespace TFOHelperRedux.ViewModels
 
             var result = _lureBindingService.DetachLureFromFish(lure, SelectedFish);
             result.ShowMessageBox();
-
-            if (result.IsSuccess)
-            {
-                OnPropertyChanged(nameof(TopLuresForSelectedFish));
-            }
         }
 
         private void DeleteRecipeForever(object? parameter)

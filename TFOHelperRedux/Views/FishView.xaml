@@ -175,7 +175,6 @@
                                 <ListBoxItem Content="Дипы" Tag="Dips"/>
                                 <ListBoxItem Content="Наживки" Tag="Lures"/>
                                 <ListBoxItem Content="Компоненты прикормки" Tag="FeedComponents"/>
-                                <ListBoxItem Content="Топовые наживки" Tag="CraftLures"/>
                             </ListBox>
                         </StackPanel>
                     </ScrollViewer>

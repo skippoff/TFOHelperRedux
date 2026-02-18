@@ -30,7 +30,6 @@ public static class DataStore
     public static ObservableCollection<CatchPointModel> FilteredPoints { get; set; } = new();
     public static CatchPointModel? SelectedCatchPoint { get; set; }
     public static Action<IItemModel>? AddToRecipe { get; set; }
-    public static Action<IItemModel>? AddToCraftLure { get; set; }
     private static string LocalDataDir => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Maps");
     private static string LocalCatchFile => Path.Combine(LocalDataDir, "CatchPoints_Local.json");
     
