@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.IO;
 using TFOHelperRedux.Services.Data;
 
@@ -12,86 +13,103 @@ public interface IItemModel
     string ImagePath { get; set; }
 }
 
-public class BaitModel : IItemModel, INotifyPropertyChanged
+public class BaitModel : ValidatableModel, IItemModel
 {
     private bool _isSelected;
+    private int _id;
+    private string _name = string.Empty;
+    private string _imagePath = string.Empty;
+    private string _comment = string.Empty;
+
     public bool IsSelected
     {
         get => _isSelected;
-        set
-        {
-            if (_isSelected != value)
-            {
-                _isSelected = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsSelected)));
-            }
-        }
+        set => SetProperty(ref _isSelected, value);
     }
 
-    public int ID { get; set; }
-    public string Name { get; set; } = string.Empty;
+    public int ID
+    {
+        get => _id;
+        set => SetProperty(ref _id, value);
+    }
 
-    // Холдит пользовательский путь, если задан
-    private string _imagePath = string.Empty;
+    public string Name
+    {
+        get => _name;
+        set => SetProperty(ref _name, value ?? string.Empty);
+    }
+
     public string ImagePath
     {
         get
         {
-            // 1) если путь задан и файл существует – используем его (пользовательский путь)
             if (!string.IsNullOrWhiteSpace(_imagePath) && File.Exists(_imagePath))
                 return _imagePath;
 
-            // 2) иначе пробуем стандартный путь по ID из папки Feeds
             var p = DataService.GetFeedImagePath(ID);
             return File.Exists(p) ? p : string.Empty;
         }
-        set
-        {
-            if (_imagePath != value)
-            {
-                _imagePath = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ImagePath)));
-            }
-        }
+        set => SetProperty(ref _imagePath, value ?? string.Empty);
     }
-    private string _comment = string.Empty;
+
     public string Comment
     {
         get => _comment;
-        set
-        {
-            if (_comment != value)
-            {
-                _comment = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Comment)));
-            }
-        }
+        set => SetProperty(ref _comment, value ?? string.Empty);
     }
 
-    public event PropertyChangedEventHandler? PropertyChanged;
     public int[] ComponentIDs { get; set; } = Array.Empty<int>();
+
+    protected override void Validate(string? propertyName = null)
+    {
+        base.Validate(propertyName);
+
+        if (propertyName == null || propertyName == nameof(ID))
+        {
+            if (ID < 0)
+                AddError(nameof(ID), "ID должен быть неотрицательным");
+            else
+                RemoveError(nameof(ID));
+        }
+
+        if (propertyName == null || propertyName == nameof(Name))
+        {
+            if (string.IsNullOrWhiteSpace(Name))
+                AddError(nameof(Name), "Название обязательно");
+            else if (Name.Length > 100)
+                AddError(nameof(Name), "Название не должно превышать 100 символов");
+            else
+                RemoveError(nameof(Name));
+        }
+    }
 }
 
-public class DipModel : IItemModel, INotifyPropertyChanged
+public class DipModel : ValidatableModel, IItemModel
 {
     private bool _isSelected;
+    private int _id;
+    private string _name = string.Empty;
+    private string _imagePath = string.Empty;
+    private string _comment = string.Empty;
+
     public bool IsSelected
     {
         get => _isSelected;
-        set
-        {
-            if (_isSelected != value)
-            {
-                _isSelected = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsSelected)));
-            }
-        }
+        set => SetProperty(ref _isSelected, value);
     }
 
-    public int ID { get; set; }
-    public string Name { get; set; } = string.Empty;
+    public int ID
+    {
+        get => _id;
+        set => SetProperty(ref _id, value);
+    }
 
-    private string _imagePath = string.Empty;
+    public string Name
+    {
+        get => _name;
+        set => SetProperty(ref _name, value ?? string.Empty);
+    }
+
     public string ImagePath
     {
         get
@@ -102,104 +120,125 @@ public class DipModel : IItemModel, INotifyPropertyChanged
             var p = DataService.GetDipImagePath(ID);
             return File.Exists(p) ? p : string.Empty;
         }
-        set
-        {
-            if (_imagePath != value)
-            {
-                _imagePath = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ImagePath)));
-            }
-        }
+        set => SetProperty(ref _imagePath, value ?? string.Empty);
     }
 
-    private string _comment = string.Empty;
     public string Comment
     {
         get => _comment;
-        set
-        {
-            if (_comment != value)
-            {
-                _comment = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Comment)));
-            }
-        }
+        set => SetProperty(ref _comment, value ?? string.Empty);
     }
 
-    public event PropertyChangedEventHandler? PropertyChanged;
+    protected override void Validate(string? propertyName = null)
+    {
+        base.Validate(propertyName);
+
+        if (propertyName == null || propertyName == nameof(ID))
+        {
+            if (ID < 0)
+                AddError(nameof(ID), "ID должен быть неотрицательным");
+            else
+                RemoveError(nameof(ID));
+        }
+
+        if (propertyName == null || propertyName == nameof(Name))
+        {
+            if (string.IsNullOrWhiteSpace(Name))
+                AddError(nameof(Name), "Название обязательно");
+            else if (Name.Length > 100)
+                AddError(nameof(Name), "Название не должно превышать 100 символов");
+            else
+                RemoveError(nameof(Name));
+        }
+    }
 }
 
-public class LureModel : IItemModel, INotifyPropertyChanged
+public class LureModel : ValidatableModel, IItemModel
 {
     private bool _isSelected;
+    private int _id;
+    private string _name = string.Empty;
+    private string _imagePath = string.Empty;
+    private string _comment = string.Empty;
+    private string _baitType = "live";
+
     public bool IsSelected
     {
         get => _isSelected;
-        set
-        {
-            if (_isSelected != value)
-            {
-                _isSelected = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsSelected)));
-            }
-        }
+        set => SetProperty(ref _isSelected, value);
     }
 
-    public int ID { get; set; }
-    public string Name { get; set; } = string.Empty;
-    public string BaitType { get; set; } = "live";
+    public int ID
+    {
+        get => _id;
+        set => SetProperty(ref _id, value);
+    }
 
-    // Тип наживки: "live" (живая) или "lure" (искусственная приманка)
-    private string _baitType = "live";
+    public string Name
+    {
+        get => _name;
+        set => SetProperty(ref _name, value ?? string.Empty);
+    }
+
+    public string BaitType
+    {
+        get => _baitType;
+        set => SetProperty(ref _baitType, value ?? "live");
+    }
+
     public string BaitsType
     {
         get => _baitType;
-        set
-        {
-            if (_baitType != value)
-            {
-                _baitType = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(BaitsType)));
-            }
-        }
+        set => SetProperty(ref _baitType, value ?? "live");
     }
 
-    // Холдит пользовательский путь, если задан
-    private string _imagePath = string.Empty;
     public string ImagePath
     {
         get
         {
-            // 1) если путь задан и файл существует – используем его (пользовательский путь)
             if (!string.IsNullOrWhiteSpace(_imagePath) && File.Exists(_imagePath))
                 return _imagePath;
 
             var p = DataService.GetLureImagePath(ID);
             return File.Exists(p) ? p : string.Empty;
         }
-        set
-        {
-            if (_imagePath != value)
-            {
-                _imagePath = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ImagePath)));
-            }
-        }
+        set => SetProperty(ref _imagePath, value ?? string.Empty);
     }
 
-    private string _comment = string.Empty;
     public string Comment
     {
         get => _comment;
-        set
-        {
-            if (_comment != value)
-            {
-                _comment = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Comment)));
-            }
-        }
+        set => SetProperty(ref _comment, value ?? string.Empty);
     }
 
-    public event PropertyChangedEventHandler? PropertyChanged;
+    protected override void Validate(string? propertyName = null)
+    {
+        base.Validate(propertyName);
+
+        if (propertyName == null || propertyName == nameof(ID))
+        {
+            if (ID < 0)
+                AddError(nameof(ID), "ID должен быть неотрицательным");
+            else
+                RemoveError(nameof(ID));
+        }
+
+        if (propertyName == null || propertyName == nameof(Name))
+        {
+            if (string.IsNullOrWhiteSpace(Name))
+                AddError(nameof(Name), "Название обязательно");
+            else if (Name.Length > 100)
+                AddError(nameof(Name), "Название не должно превышать 100 символов");
+            else
+                RemoveError(nameof(Name));
+        }
+
+        if (propertyName == null || propertyName == nameof(BaitType))
+        {
+            if (BaitType != "live" && BaitType != "lure")
+                AddError(nameof(BaitType), "Тип наживки должен быть 'live' или 'lure'");
+            else
+                RemoveError(nameof(BaitType));
+        }
+    }
 }
