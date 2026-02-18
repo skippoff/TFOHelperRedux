@@ -176,19 +176,6 @@
                                                 <TextBlock Text="{Binding DateEdited, StringFormat='dd.MM.yyyy HH:mm'}"
                                                            FontSize="10"
                                                            Foreground="#777"/>
-
-                                                <Button Content="➕ к рыбе"
-                                                        Margin="0,4,0,4"
-                                                        Command="{Binding DataContext.AttachRecipeToFishCmd,
-                          RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                                        CommandParameter="{Binding}" />
-
-                                                <Button Content="➖ от рыбы"
-                                                        Margin="0,0,0,4"
-                                                        Command="{Binding DataContext.DetachRecipeFromFishCmd,
-                          RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                                        CommandParameter="{Binding}" />
-
                                             </StackPanel>
                                         </Border>
                                     </Border>

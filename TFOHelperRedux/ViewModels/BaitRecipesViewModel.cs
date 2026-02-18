@@ -44,8 +44,6 @@ namespace TFOHelperRedux.ViewModels
         public ICommand NewRecipeCmd { get; }
         public ICommand DeleteRecipeCmd { get; }
         public ICommand ClearRecipeCmd { get; }
-        public ICommand AttachRecipeToFishCmd { get; }
-        public ICommand DetachRecipeFromFishCmd { get; }
 
         public BaitRecipesViewModel()
         {
@@ -62,8 +60,6 @@ namespace TFOHelperRedux.ViewModels
             NewRecipeCmd = new RelayCommand(NewRecipe);
             DeleteRecipeCmd = new RelayCommand(DeleteRecipe);
             ClearRecipeCmd = new RelayCommand(ClearRecipe);
-            AttachRecipeToFishCmd = new RelayCommand(AttachRecipeToFish);
-            DetachRecipeFromFishCmd = new RelayCommand(DetachRecipeFromFish);
 
             // Связываем двойной клик из левой панели
             DataStore.AddToRecipe = AddToCurrentRecipe;
@@ -170,24 +166,6 @@ namespace TFOHelperRedux.ViewModels
             _recipeService.HideRecipe(CurrentRecipe);
             RebuildRecipesList();
             NewRecipe();
-        }
-
-        private void AttachRecipeToFish(object? parameter)
-        {
-            if (parameter is not BaitRecipeModel recipe)
-                return;
-
-            var result = _recipeService.AttachRecipeToFish(recipe, DataStore.SelectedFish);
-            result.ShowMessageBox();
-        }
-
-        private void DetachRecipeFromFish(object? parameter)
-        {
-            if (parameter is not BaitRecipeModel recipe)
-                return;
-
-            var result = _recipeService.DetachRecipeFromFish(recipe, DataStore.SelectedFish);
-            result.ShowMessageBox();
         }
     }
 }

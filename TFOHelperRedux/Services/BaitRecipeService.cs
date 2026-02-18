@@ -121,66 +121,6 @@ public class BaitRecipeService
     }
 
     /// <summary>
-    /// Привязывает рецепт к рыбе
-    /// </summary>
-    public ServiceResult AttachRecipeToFish(BaitRecipeModel recipe, FishModel? fish)
-    {
-        if (fish == null)
-        {
-            return ServiceResult.Failure("Сначала выберите рыбу в панели справа.");
-        }
-
-        fish.RecipeIDs ??= Array.Empty<int>();
-
-        if (fish.RecipeIDs.Contains(recipe.ID))
-        {
-            return ServiceResult.Failure(
-                $"Рецепт «{recipe.Name}» уже привязан к рыбе «{fish.Name}».");
-        }
-
-        fish.RecipeIDs = fish.RecipeIDs
-            .Concat(new[] { recipe.ID })
-            .Distinct()
-            .ToArray();
-
-        DataService.SaveFishes(DataStore.Fishes);
-
-        return ServiceResult.Success(
-            $"Рецепт «{recipe.Name}» привязан к рыбе «{fish.Name}».");
-    }
-
-    /// <summary>
-    /// Отвязывает рецепт от рыбы
-    /// </summary>
-    public ServiceResult DetachRecipeFromFish(BaitRecipeModel recipe, FishModel? fish)
-    {
-        if (fish == null)
-        {
-            return ServiceResult.Failure("Сначала выберите рыбу в панели справа.");
-        }
-
-        if (fish.RecipeIDs == null || fish.RecipeIDs.Length == 0)
-        {
-            return ServiceResult.Failure($"У рыбы «{fish.Name}» ещё нет привязанных рецептов.");
-        }
-
-        if (!fish.RecipeIDs.Contains(recipe.ID))
-        {
-            return ServiceResult.Failure(
-                $"Рецепт «{recipe.Name}» не привязан к рыбе «{fish.Name}».");
-        }
-
-        fish.RecipeIDs = fish.RecipeIDs
-            .Where(id => id != recipe.ID)
-            .ToArray();
-
-        DataService.SaveFishes(DataStore.Fishes);
-
-        return ServiceResult.Success(
-            $"Рецепт «{recipe.Name}» отвязан от рыбы «{fish.Name}».");
-    }
-
-    /// <summary>
     /// Нормализует ID рецептов (переиндексация при дубликатах)
     /// </summary>
     public void NormalizeRecipeIds(ObservableCollection<BaitRecipeModel> recipes)
