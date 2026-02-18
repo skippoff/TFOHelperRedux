@@ -28,7 +28,6 @@ namespace TFOHelperRedux.Models
         public int HookMax { get; set; }
         public int TemperatureMin { get; set; }
         public int TemperatureMax { get; set; }
-        public int[] Tags { get; set; } = Array.Empty<int>();
         public int[] FeedIDs { get; set; } = Array.Empty<int>();
         public int[] DipIDs { get; set; } = Array.Empty<int>();
         public int[] LureIDs { get; set; } = Array.Empty<int>();

@@ -9,7 +9,7 @@ namespace TFOHelperRedux.Behaviors
 {
     public static class IdsSelectionBehavior
     {
-        // Источник: массив ID (напр. SelectedFish.FeedIDs / DipIDs / Tags)
+        // Источник: массив ID (напр. SelectedFish.FeedIDs / DipIDs)
         public static readonly DependencyProperty SourceProperty =
             DependencyProperty.RegisterAttached(
                 "Source",
@@ -96,8 +96,6 @@ namespace TFOHelperRedux.Behaviors
                 if (ReferenceEquals(ids, fish.FeedIDs)) fish.FeedIDs = next;
                 else if (ReferenceEquals(ids, fish.DipIDs)) fish.DipIDs = next;
                 else if (ReferenceEquals(ids, fish.LureIDs)) fish.LureIDs = next;
-                else if (ReferenceEquals(ids, fish.Tags)) fish.Tags = next;
-                else fish.Tags = next; // дефолт на всякий
             }
 
             // Обновим Source DP у чекбокса, чтобы IsChecked пересчитался

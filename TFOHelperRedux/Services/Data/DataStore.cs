@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
+using Serilog;
 using TFOHelperRedux.Models;
 using TFOHelperRedux.Services.State;
 
@@ -12,6 +13,8 @@ namespace TFOHelperRedux.Services.Data;
 /// </summary>
 public static class DataStore
 {
+    private static readonly ILogger _log = Log.ForContext(typeof(DataStore));
+    
     private static IDataLoadSaveService? _loadSaveService;
     private static SaveDebouncer? _saveDebouncer;
     private static SelectionState? _selection;
@@ -22,7 +25,6 @@ public static class DataStore
     private static ObservableCollection<BaitRecipeModel>? _baitRecipes;
     private static ObservableCollection<DipModel>? _dips;
     private static ObservableCollection<LureModel>? _lures;
-    private static ObservableCollection<TagModel>? _tags;
     private static ObservableCollection<CatchPointModel>? _catchPoints;
     private static ObservableCollection<CatchPointModel>? _filteredPoints;
     private static string? _currentMode = "Maps";
@@ -43,7 +45,6 @@ public static class DataStore
         _baitRecipes = new ObservableCollection<BaitRecipeModel>();
         _dips = new ObservableCollection<DipModel>();
         _lures = new ObservableCollection<LureModel>();
-        _tags = new ObservableCollection<TagModel>();
         _catchPoints = new ObservableCollection<CatchPointModel>();
         _filteredPoints = new ObservableCollection<CatchPointModel>();
         
@@ -62,7 +63,6 @@ public static class DataStore
     public static ObservableCollection<BaitRecipeModel> BaitRecipes => _baitRecipes ??= new ObservableCollection<BaitRecipeModel>();
     public static ObservableCollection<DipModel> Dips => _dips ??= new ObservableCollection<DipModel>();
     public static ObservableCollection<LureModel> Lures => _lures ??= new ObservableCollection<LureModel>();
-    public static ObservableCollection<TagModel> Tags => _tags ??= new ObservableCollection<TagModel>();
     public static ObservableCollection<CatchPointModel> CatchPoints => _catchPoints ??= new ObservableCollection<CatchPointModel>();
     public static ObservableCollection<CatchPointModel> FilteredPoints => _filteredPoints ??= new ObservableCollection<CatchPointModel>();
     
@@ -79,36 +79,68 @@ public static class DataStore
     /// </summary>
     public static void LoadAll()
     {
-        if (_loadSaveService == null)
-            _loadSaveService = new DataLoadSaveService();
-        if (_saveDebouncer == null)
-            _saveDebouncer = new SaveDebouncer(_loadSaveService);
-        if (_selection == null)
-            _selection = new SelectionState();
-
-        _maps = _loadSaveService.LoadMaps();
-        _fishes = _loadSaveService.LoadFishes();
-        _feeds = _loadSaveService.LoadFeeds();
-        _feedComponents = _loadSaveService.LoadFeedComponents();
-        _baitRecipes = _loadSaveService.LoadBaitRecipes();
-        _dips = _loadSaveService.LoadDips();
-        _lures = _loadSaveService.LoadLures();
-        _tags = _loadSaveService.LoadTags();
+        _log.Information("Начало загрузки данных...");
         
+        if (_loadSaveService == null)
+        {
+            _log.Debug("Создание DataLoadSaveService...");
+            _loadSaveService = new DataLoadSaveService();
+        }
+        
+        if (_saveDebouncer == null)
+        {
+            _log.Debug("Создание SaveDebouncer...");
+            _saveDebouncer = new SaveDebouncer(_loadSaveService);
+        }
+        
+        if (_selection == null)
+        {
+            _log.Debug("Создание SelectionState...");
+            _selection = new SelectionState();
+        }
+
+        _log.Debug("Загрузка карт...");
+        _maps = _loadSaveService.LoadMaps();
+        
+        _log.Debug("Загрузка рыб...");
+        _fishes = _loadSaveService.LoadFishes();
+        
+        _log.Debug("Загрузка прикормок...");
+        _feeds = _loadSaveService.LoadFeeds();
+        
+        _log.Debug("Загрузка компонентов прикормок...");
+        _feedComponents = _loadSaveService.LoadFeedComponents();
+        
+        _log.Debug("Загрузка рецептов...");
+        _baitRecipes = _loadSaveService.LoadBaitRecipes();
+        
+        _log.Debug("Загрузка дипов...");
+        _dips = _loadSaveService.LoadDips();
+        
+        _log.Debug("Загрузка воблеров...");
+        _lures = _loadSaveService.LoadLures();
+
         // Загрузка точек лова из локального файла
         var localDataDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Maps");
         var localCatchFile = Path.Combine(localDataDir, "CatchPoints_Local.json");
-        
+
         if (!Directory.Exists(localDataDir))
+        {
+            _log.Debug("Создание папки точек лова: {Path}", localDataDir);
             Directory.CreateDirectory(localDataDir);
-            
+        }
+
+        _log.Debug("Загрузка точек лова из {Path}", localCatchFile);
         var loaded = JsonService.Load<ObservableCollection<CatchPointModel>>(localCatchFile);
         _catchPoints = loaded ?? new ObservableCollection<CatchPointModel>();
         _filteredPoints = new ObservableCollection<CatchPointModel>(_catchPoints);
-        
+
         AddToRecipe = null;
         _InitDerivedCollections();
         _InitSelectionSaveHandlers();
+        
+        _log.Information("Данные загруены: рыбы={Fishes}, карты={Maps}, прикормки={Feeds}, дипы={Dips}, воблеры={Lures}, рецепты={Recipes}, компоненты={Components}, точки лова={CatchPoints}",
+            _fishes.Count, _maps.Count, _feeds.Count, _dips.Count, _lures.Count, _baitRecipes.Count, _feedComponents.Count, _catchPoints.Count);
     }
 
     /// <summary>
@@ -116,12 +148,21 @@ public static class DataStore
     /// </summary>
     public static void SaveAll()
     {
+        _log.Information("Начало сохранения данных...");
+        
         var localDataDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Maps");
         var localCatchFile = Path.Combine(localDataDir, "CatchPoints_Local.json");
-        JsonService.Save(localCatchFile, CatchPoints);
         
+        _log.Debug("Сохранение точек лова в {Path}", localCatchFile);
+        JsonService.Save(localCatchFile, CatchPoints);
+
+        _log.Debug("Сохранение компонентов прикормок...");
         _loadSaveService?.SaveFeedComponents(FeedComponents);
+        
+        _log.Debug("Сохранение рецептов...");
         _loadSaveService?.SaveBaitRecipes(BaitRecipes);
+        
+        _log.Information("Данные сохранены");
     }
 
     private static void _InitDerivedCollections()
