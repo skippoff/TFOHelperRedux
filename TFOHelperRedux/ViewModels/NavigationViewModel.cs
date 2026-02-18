@@ -31,7 +31,7 @@ namespace TFOHelperRedux.ViewModels
 
         #region Поля
 
-        private string _currentMode = DataStore.CurrentMode;
+        private string _currentMode = "Maps";
         private string _baitsSubMode = BaitsSubModes.Feeds;
 
         #endregion
@@ -49,7 +49,6 @@ namespace TFOHelperRedux.ViewModels
                 if (_currentMode != value)
                 {
                     _currentMode = value;
-                    DataStore.CurrentMode = value;
                     OnPropertyChanged(nameof(CurrentMode));
                     OnPropertyChanged(nameof(IsFishMode));
                     OnPropertyChanged(nameof(IsMapsMode));

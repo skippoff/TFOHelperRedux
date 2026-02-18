@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Windows.Media.Imaging;
 using TFOHelperRedux.Models;
@@ -12,16 +13,19 @@ namespace TFOHelperRedux.Services
     /// </summary>
     public class MapsService
     {
+        private readonly IDataLoadSaveService _loadSaveService;
         private readonly Action? _onMapsChanged;
         private readonly Action? _onSelectedMapChanged;
         private readonly Action? _onSelectedLevelFilterChanged;
 
         public MapsService(
+            IDataLoadSaveService loadSaveService,
             ObservableCollection<MapModel> maps,
             Action? onMapsChanged = null,
             Action? onSelectedMapChanged = null,
             Action? onSelectedLevelFilterChanged = null)
         {
+            _loadSaveService = loadSaveService;
             Maps = maps;
             _onMapsChanged = onMapsChanged;
             _onSelectedMapChanged = onSelectedMapChanged;
@@ -94,8 +98,8 @@ namespace TFOHelperRedux.Services
             if (fishId == null)
                 return null;
 
-            var imgPath = DataService.GetFishImagePath(fishId.Value);
-            if (System.IO.File.Exists(imgPath))
+            var imgPath = _loadSaveService.GetFishImagePath(fishId.Value);
+            if (File.Exists(imgPath))
                 return new BitmapImage(new Uri(imgPath));
 
             return null;

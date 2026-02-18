@@ -16,6 +16,7 @@ namespace TFOHelperRedux.ViewModels
     public class BaitsViewModel : BaseViewModel
     {
         private readonly BaitCrudService _baitCrudService;
+        private readonly IUIService _uiService;
 
         #region Перечисление категорий
 
@@ -115,9 +116,10 @@ namespace TFOHelperRedux.ViewModels
 
         #region Конструктор
 
-        public BaitsViewModel()
+        public BaitsViewModel(BaitCrudService baitCrudService, IUIService uiService)
         {
-            _baitCrudService = new BaitCrudService(new FishDataService());
+            _baitCrudService = baitCrudService;
+            _uiService = uiService;
 
             // Инициализация команд навигации
             ShowFeedsCmd = new RelayCommand(() => SwitchCategory(CategoryType.Feeds));
@@ -230,7 +232,7 @@ namespace TFOHelperRedux.ViewModels
             var selectedItem = GetSelectedItem();
             if (selectedItem == null)
             {
-                MessageBox.Show("Выберите элемент для редактирования.", "Редактирование", MessageBoxButton.OK, MessageBoxImage.Information);
+                _uiService.ShowInfo("Выберите элемент для редактирования.", "Редактирование");
                 return;
             }
 
@@ -247,11 +249,11 @@ namespace TFOHelperRedux.ViewModels
             var selectedItem = GetSelectedItem();
             if (selectedItem == null)
             {
-                MessageBox.Show("Выберите элемент для удаления.", "Удаление", MessageBoxButton.OK, MessageBoxImage.Information);
+                _uiService.ShowInfo("Выберите элемент для удаления.", "Удаление");
                 return;
             }
 
-            if (MessageBox.Show("Удалить выбранный элемент?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes)
+            if (!_uiService.ShowConfirm("Удалить выбранный элемент?", "Подтверждение"))
                 return;
 
             _baitCrudService.RemoveFromCollection(selectedItem);

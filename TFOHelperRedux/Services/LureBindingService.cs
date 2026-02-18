@@ -10,6 +10,13 @@ namespace TFOHelperRedux.Services;
 /// </summary>
 public class LureBindingService
 {
+    private readonly IDataLoadSaveService _loadSaveService;
+
+    public LureBindingService(IDataLoadSaveService loadSaveService)
+    {
+        _loadSaveService = loadSaveService;
+    }
+
     /// <summary>
     /// Добавляет наживку в список лучших для рыбы
     /// </summary>
@@ -33,7 +40,7 @@ public class LureBindingService
             .Distinct()
             .ToArray();
 
-        DataService.SaveFishes(DataStore.Fishes);
+        _loadSaveService.SaveFishes(DataStore.Fishes);
 
         return ServiceResult.Success(
             $"Наживка «{lure.Name}» добавлена в лучшие для рыбы «{selectedFish.Name}».");
@@ -64,7 +71,7 @@ public class LureBindingService
             .Where(id => id != lure.ID)
             .ToArray();
 
-        DataService.SaveFishes(DataStore.Fishes);
+        _loadSaveService.SaveFishes(DataStore.Fishes);
 
         return ServiceResult.Success(
             $"Наживка «{lure.Name}» убрана из лучших для рыбы «{selectedFish.Name}».");
@@ -95,7 +102,7 @@ public class LureBindingService
             .Where(id => id != recipe.ID)
             .ToArray();
 
-        DataService.SaveFishes(DataStore.Fishes);
+        _loadSaveService.SaveFishes(DataStore.Fishes);
 
         return ServiceResult.Success(
             $"Рецепт «{recipe.Name}» убран из списка для рыбы «{selectedFish.Name}».");
@@ -123,4 +130,3 @@ public class LureBindingService
         return DataStore.BaitRecipes.Where(r => fish.BestRecipeIDs.Contains(r.ID));
     }
 }
-

@@ -10,6 +10,7 @@ namespace TFOHelperRedux.ViewModels
     public class BaitRecipesViewModel : BaseViewModel
     {
         private readonly BaitRecipeService _recipeService;
+        private readonly IUIService _uiService;
 
         // Теперь это отдельная коллекция для отображения (только не скрытые рецепты)
         public ObservableCollection<BaitRecipeModel> Recipes { get; } = new();
@@ -45,14 +46,13 @@ namespace TFOHelperRedux.ViewModels
         public ICommand DeleteRecipeCmd { get; }
         public ICommand ClearRecipeCmd { get; }
 
-        public BaitRecipesViewModel()
+        public BaitRecipesViewModel(IUIService uiService)
         {
+            _uiService = uiService;
             _recipeService = new BaitRecipeService();
 
             // гарантируем, что главная коллекция существует
-            if (DataStore.BaitRecipes == null)
-                DataStore.BaitRecipes = new ObservableCollection<BaitRecipeModel>();
-
+            // свойство BaitRecipes само создаёт коллекцию при необходимости
             _recipeService.NormalizeRecipeIds(DataStore.BaitRecipes);
             RebuildRecipesList();
 
@@ -104,9 +104,7 @@ namespace TFOHelperRedux.ViewModels
         {
             Recipes.Clear();
 
-            if (DataStore.BaitRecipes == null)
-                DataStore.BaitRecipes = new ObservableCollection<BaitRecipeModel>();
-
+            // свойство BaitRecipes само создаёт коллекцию при необходимости
             foreach (var r in DataStore.BaitRecipes.Where(r => !r.IsHidden))
                 Recipes.Add(r);
         }
@@ -115,8 +113,7 @@ namespace TFOHelperRedux.ViewModels
         {
             if (CurrentRecipe == null || string.IsNullOrWhiteSpace(RecipeName))
             {
-                MessageBox.Show("Введите название рецепта.", "Сохранение",
-                    MessageBoxButton.OK, MessageBoxImage.Warning);
+                _uiService.ShowWarning("Введите название рецепта.", "Сохранение");
                 return;
             }
 
@@ -126,8 +123,7 @@ namespace TFOHelperRedux.ViewModels
             _recipeService.SaveRecipe(CurrentRecipe, DataStore.BaitRecipes);
             RebuildRecipesList();
 
-            MessageBox.Show("Рецепт сохранён.", "Успех",
-                MessageBoxButton.OK, MessageBoxImage.Information);
+            _uiService.ShowInfo("Рецепт сохранён.", "Успех");
         }
 
         private void NewRecipe()
@@ -141,8 +137,7 @@ namespace TFOHelperRedux.ViewModels
         {
             if (CurrentRecipe == null) return;
 
-            if (MessageBox.Show("Очистить текущий рецепт?", "Подтверждение",
-                MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            if (_uiService.ShowConfirm("Очистить текущий рецепт?", "Подтверждение"))
             {
                 _recipeService.ClearRecipe(CurrentRecipe);
                 UpdatePreviewList();
@@ -153,7 +148,7 @@ namespace TFOHelperRedux.ViewModels
         {
             if (CurrentRecipe == null) return;
 
-            var result = MessageBox.Show(
+            var result = _uiService.ShowMessageBox(
                 $"Удалить рецепт '{CurrentRecipe.Name}' только из крафтового списка?\n" +
                 "Привязки к рыбе сохранятся.",
                 "Удаление",

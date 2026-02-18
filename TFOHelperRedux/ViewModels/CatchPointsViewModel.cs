@@ -10,6 +10,7 @@ namespace TFOHelperRedux.ViewModels;
 public class CatchPointsViewModel : BaseViewModel
 {
     private readonly CatchPointsService _catchPointsService;
+    private readonly IUIService _uiService;
 
     public ObservableCollection<CatchPointModel> FilteredPoints { get; private set; } = new();
     public bool IsFiltered => CurrentFish != null;
@@ -36,13 +37,10 @@ public class CatchPointsViewModel : BaseViewModel
 
     public ObservableCollection<CatchPointModel> CatchPoints { get; } = new();
 
-    public CatchPointsViewModel() : this(new CatchPointsService())
-    {
-    }
-
-    public CatchPointsViewModel(CatchPointsService catchPointsService)
+    public CatchPointsViewModel(CatchPointsService catchPointsService, IUIService uiService)
     {
         _catchPointsService = catchPointsService;
+        _uiService = uiService;
 
         // Загрузка и инициализация точек
         var loadedPoints = _catchPointsService.LoadCatchPoints();
@@ -88,7 +86,7 @@ public class CatchPointsViewModel : BaseViewModel
         if (point == null)
             return;
 
-        var result = MessageBox.Show(
+        var result = _uiService.ShowMessageBox(
             $"Удалить точку лова на {point.MapName} (X={point.Coords.X}; Y={point.Coords.Y})?",
             "Удаление точки лова",
             MessageBoxButton.YesNo,
@@ -136,7 +134,7 @@ public class CatchPointsViewModel : BaseViewModel
     private void SavePoints()
     {
         _catchPointsService.SaveCatchPoints(CatchPoints);
-        MessageBox.Show("Изменения сохранены 💾", "Сохранение", MessageBoxButton.OK, MessageBoxImage.Information);
+        _uiService.ShowInfo("Изменения сохранены 💾", "Сохранение");
     }
 
     private void RefreshCatchPoints()

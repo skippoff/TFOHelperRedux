@@ -1,9 +1,7 @@
-﻿using System.Windows;
-
-namespace TFOHelperRedux.Services;
+﻿namespace TFOHelperRedux.Services;
 
 /// <summary>
-/// Результат операции привязки/удаления
+/// Результат операции
 /// </summary>
 public class ServiceResult
 {
@@ -22,13 +20,14 @@ public class ServiceResult
         Message = message
     };
 
-    public void ShowMessageBox()
+    public void ShowMessageBox(IUIService uiService)
     {
         if (string.IsNullOrEmpty(Message))
             return;
 
-        var icon = IsSuccess ? MessageBoxImage.Information : MessageBoxImage.Warning;
-        var title = IsSuccess ? "Успешно" : "Ошибка";
-        MessageBox.Show(Message, title, MessageBoxButton.OK, icon);
+        if (IsSuccess)
+            uiService.ShowInfo(Message);
+        else
+            uiService.ShowWarning(Message);
     }
 }

@@ -3,36 +3,51 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using TFOHelperRedux.Services;
+using TFOHelperRedux.ViewModels;
 
 namespace TFOHelperRedux
 {
     public partial class App : Application
     {
+        public static new App Current => (App)Application.Current;
+        
+        public FishViewModel MainViewModel { get; private set; } = null!;
+
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
 
             try
             {
-                // Загружаем все данные из JSON
+                // РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РєРѕРЅС‚РµР№РЅРµСЂР° СЃРµСЂРІРёСЃРѕРІ
+                ServiceContainer.Initialize();
+
+                // Р—Р°РіСЂСѓР·РєР° РґР°РЅРЅС‹С… С‡РµСЂРµР· DataStore (СЃС‚Р°С‚РёС‡РµСЃРєРёР№ РєР»Р°СЃСЃ)
                 DataStore.LoadAll();
 
-                // Пробуем запустить главное окно
-                //var window = new Views.MainWindow();
-                //window.Show();
+                // РЎРѕР·РґР°РЅРёРµ РіР»Р°РІРЅРѕР№ ViewModel С‡РµСЂРµР· DI
+                MainViewModel = ServiceContainer.GetService<ViewModels.FishViewModel>();
+
+                // РЎРѕР·РґР°РЅРёРµ Рё РїРѕРєР°Р· РіР»Р°РІРЅРѕРіРѕ РѕРєРЅР°
+                var window = new Views.FishWindow
+                {
+                    DataContext = MainViewModel
+                };
+                window.Show();
             }
             catch (Exception ex)
             {
                 string message =
-                    $"Ошибка при запуске программы:\n\n" +
+                    $"РћС€РёР±РєР° РїСЂРё Р·Р°РїСѓСЃРєРµ РїСЂРёР»РѕР¶РµРЅРёСЏ:\n\n" +
                     $"{ex.GetType().FullName}\n{ex.Message}\n\n" +
-                    $"{(ex.InnerException != null ? "Внутренняя ошибка:\n" + ex.InnerException.Message + "\n\n" : "")}" +
-                    $"Стек вызовов:\n{ex.StackTrace}";
+                    $"{(ex.InnerException != null ? "Р’РЅСѓС‚СЂРµРЅРЅСЏСЏ РѕС€РёР±РєР°:\n" + ex.InnerException.Message + "\n\n" : "")}" +
+                    $"РЎС‚РµРє РІС‹Р·РѕРІРѕРІ:\n{ex.StackTrace}";
 
                 MessageBox.Show(message, "TFO Helper 3.0 Redux (RU)",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
         protected override void OnExit(ExitEventArgs e)
         {
             base.OnExit(e);
@@ -43,11 +58,12 @@ namespace TFOHelperRedux
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка при сохранении данных:\n" + ex.Message,
+                MessageBox.Show("РћС€РёР±РєР° РїСЂРё СЃРѕС…СЂР°РЅРµРЅРёРё РґР°РЅРЅС‹С…:\n" + ex.Message,
                                 "TFO Helper 3.0 Redux (RU)",
                                 MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
+
         private void ScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
             if (sender is ScrollViewer scroll)

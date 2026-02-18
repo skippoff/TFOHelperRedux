@@ -4,43 +4,52 @@ using System.Threading.Tasks;
 
 namespace TFOHelperRedux.Services
 {
-    internal static class SaveDebouncer
+    /// <summary>
+    /// Сервис для отложенного сохранения данных
+    /// </summary>
+    public class SaveDebouncer
     {
-        private static readonly TimeSpan Delay = TimeSpan.FromMilliseconds(800);
-        private static CancellationTokenSource? _cts;
+        private readonly IDataLoadSaveService _loadSaveService;
+        private readonly TimeSpan _delay = TimeSpan.FromMilliseconds(800);
+        private CancellationTokenSource? _cts;
 
-        public static void ScheduleSaveFishes()
+        public SaveDebouncer(IDataLoadSaveService loadSaveService)
         {
-            Schedule(async () => await Task.Run(() => DataService.SaveFishes(DataStore.Fishes)));
+            _loadSaveService = loadSaveService;
         }
 
-        public static void ScheduleSaveFeeds()
+        public void ScheduleSaveFishes()
         {
-            Schedule(async () => await Task.Run(() => DataService.SaveFeeds(DataStore.Feeds)));
+            Schedule(() => _loadSaveService.SaveFishes(DataStore.Fishes));
         }
 
-        public static void ScheduleSaveDips()
+        public void ScheduleSaveFeeds()
         {
-            Schedule(async () => await Task.Run(() => DataService.SaveDips(DataStore.Dips)));
+            Schedule(() => _loadSaveService.SaveFeeds(DataStore.Feeds));
         }
 
-        public static void ScheduleSaveLures()
+        public void ScheduleSaveDips()
         {
-            Schedule(async () => await Task.Run(() => DataService.SaveLures(DataStore.Lures)));
+            Schedule(() => _loadSaveService.SaveDips(DataStore.Dips));
         }
 
-        private static void Schedule(Func<Task> saveAction)
+        public void ScheduleSaveLures()
+        {
+            Schedule(() => _loadSaveService.SaveLures(DataStore.Lures));
+        }
+
+        private void Schedule(Action saveAction)
         {
             _cts?.Cancel();
             _cts = new CancellationTokenSource();
             var token = _cts.Token;
 
-            Task.Delay(Delay, token).ContinueWith(t =>
+            Task.Delay(_delay, token).ContinueWith(t =>
             {
                 if (t.IsCanceled) return;
                 try
                 {
-                    saveAction().Wait();
+                    saveAction();
                 }
                 catch { }
             }, TaskScheduler.Default);

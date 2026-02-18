@@ -1,21 +1,19 @@
 ﻿<UserControl x:Class="TFOHelperRedux.Views.NavigationPanel"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:vm="clr-namespace:TFOHelperRedux.ViewModels"
-             xmlns:app="clr-namespace:TFOHelperRedux">
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <StackPanel Orientation="Horizontal"
                 Margin="0,6,0,0"
                 HorizontalAlignment="Left">
         <Button Content="📍 Локации"
-                Command="{Binding ShowMaps}"
+                Command="{Binding NavigationVM.ShowMapsCmd}"
                 Style="{StaticResource IconButton}"
                 Margin="0,0,6,0"
                 Background="Aquamarine"
                 Foreground="White"
                 BorderBrush="Black"/>
         <Button Content="Прикорм и дипы"
-                Command="{Binding ShowBaits}"
+                Command="{Binding NavigationVM.ShowBaitsCmd}"
                 Style="{StaticResource IconButton}"
                 Background="DarkOrange"
                 Foreground="White"

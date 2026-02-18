@@ -10,6 +10,13 @@ namespace TFOHelperRedux.Services;
 /// </summary>
 public class BaitRecipeService
 {
+    private readonly IDataLoadSaveService _loadSaveService;
+
+    public BaitRecipeService(IDataLoadSaveService? loadSaveService = null)
+    {
+        _loadSaveService = loadSaveService ?? new DataLoadSaveService();
+    }
+
     /// <summary>
     /// Создаёт новый рецепт по умолчанию
     /// </summary>
@@ -89,7 +96,7 @@ public class BaitRecipeService
             allRecipes.Add(recipe);
         }
 
-        DataService.SaveBaitRecipes(allRecipes);
+        _loadSaveService.SaveBaitRecipes(allRecipes);
     }
 
     /// <summary>
@@ -101,7 +108,7 @@ public class BaitRecipeService
             return;
 
         recipe.IsHidden = true;
-        DataService.SaveBaitRecipes(DataStore.BaitRecipes);
+        _loadSaveService.SaveBaitRecipes(DataStore.BaitRecipes);
     }
 
     /// <summary>
@@ -137,7 +144,7 @@ public class BaitRecipeService
                 r.ID = id++;
             }
 
-            DataService.SaveBaitRecipes(recipes);
+            _loadSaveService.SaveBaitRecipes(recipes);
         }
     }
 }

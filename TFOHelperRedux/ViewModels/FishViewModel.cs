@@ -9,7 +9,6 @@ using System.Windows.Media.Imaging;
 using TFOHelperRedux.Helpers;
 using TFOHelperRedux.Models;
 using TFOHelperRedux.Services;
-using TFOHelperRedux.Views;
 
 namespace TFOHelperRedux.ViewModels
 {
@@ -39,8 +38,8 @@ namespace TFOHelperRedux.ViewModels
 
         public NavigationViewModel NavigationVM { get; }
         public BaitsViewModel BaitsVM { get; }
-        public BaitRecipesViewModel BaitRecipesVM { get; } = new();
-        public CatchPointsViewModel CatchPointsVM { get; } = new();
+        public BaitRecipesViewModel BaitRecipesVM { get; }
+        public CatchPointsViewModel CatchPointsVM { get; }
 
         #endregion
 
@@ -54,12 +53,12 @@ namespace TFOHelperRedux.ViewModels
 
         #region Коллекции данных
 
-        public ObservableCollection<FishModel> Fishes { get; }
+        public ObservableCollection<FishModel> Fishes => DataStore.Fishes;
         public ObservableCollection<FishModel> FilteredFishes { get; }
 
         // Карты для панели локаций (обычные + DLC) и фильтр по уровню
         public ObservableCollection<MapModel> MapsForFish => _mapsService.MapsForFish;
-        public ObservableCollection<MapModel> Maps => _mapsService.Maps;
+        public ObservableCollection<MapModel> Maps => DataStore.Maps;
         public ObservableCollection<MapModel> NonDlcMaps => _mapsService.NonDlcMaps;
         public ObservableCollection<MapModel> DlcMaps => _mapsService.DlcMaps;
         public ObservableCollection<int> MapLevels => _mapsService.MapLevels;
@@ -88,34 +87,6 @@ namespace TFOHelperRedux.ViewModels
 
         #endregion
 
-        #region Выбранные элементы (делегированы в BaitsViewModel)
-
-        public BaitModel? SelectedFeed
-        {
-            get => BaitsVM.SelectedFeed;
-            set => BaitsVM.SelectedFeed = value;
-        }
-
-        public FeedComponentModel? SelectedComponent
-        {
-            get => BaitsVM.SelectedComponent;
-            set => BaitsVM.SelectedComponent = value;
-        }
-
-        public DipModel? SelectedDip
-        {
-            get => BaitsVM.SelectedDip;
-            set => BaitsVM.SelectedDip = value;
-        }
-
-        public LureModel? SelectedLure
-        {
-            get => BaitsVM.SelectedLure;
-            set => BaitsVM.SelectedLure = value;
-        }
-
-        #endregion
-
         #region Свойства выбора рыбы и карты
 
         /// <summary>
@@ -126,7 +97,7 @@ namespace TFOHelperRedux.ViewModels
             get => DataStore.Selection.SelectedMap;
             set
             {
-                DataStore.Selection.SetSelectedMap(value, Fishes, FilteredFishes, DataStore.Lures);
+                DataStore.Selection.SetSelectedMap(value, DataStore.Fishes, FilteredFishes, DataStore.Lures);
                 OnPropertyChanged(nameof(SelectedMap));
                 OnPropertyChanged(nameof(SelectedFish));
                 OnPropertyChanged(nameof(RecommendedLures));
@@ -241,26 +212,29 @@ namespace TFOHelperRedux.ViewModels
 
         #region Конструктор
 
-        public FishViewModel()
+        public FishViewModel(
+            FishFilterService filterService,
+            LureBindingService lureBindingService,
+            FishDataService fishDataService,
+            MapsService mapsService,
+            NavigationViewModel navigationVM,
+            BaitsViewModel baitsVM,
+            BaitRecipesViewModel baitRecipesVM,
+            CatchPointsViewModel catchPointsVM)
         {
-            // Инициализация коллекций
-            Fishes = DataStore.Fishes;
-            FilteredFishes = new ObservableCollection<FishModel>(Fishes);
+            _filterService = filterService;
+            _lureBindingService = lureBindingService;
+            _fishDataService = fishDataService;
+            _mapsService = mapsService;
 
-            // Инициализация сервисов
-            _filterService = new FishFilterService(Fishes, FilteredFishes);
-            _lureBindingService = new LureBindingService();
-            _fishDataService = new FishDataService();
-            _mapsService = new MapsService(
-                DataStore.Maps,
-                onMapsChanged: () => OnPropertyChanged(nameof(Maps)),
-                onSelectedMapChanged: () => OnPropertyChanged(nameof(SelectedMap)),
-                onSelectedLevelFilterChanged: () => OnPropertyChanged(nameof(SelectedLevelFilter))
-            );
+            // Инициализация коллекций
+            FilteredFishes = new ObservableCollection<FishModel>(DataStore.Fishes);
 
             // Инициализация ViewModel для навигации и прикормок
-            NavigationVM = new NavigationViewModel();
-            BaitsVM = new BaitsViewModel();
+            NavigationVM = navigationVM;
+            BaitsVM = baitsVM;
+            BaitRecipesVM = baitRecipesVM;
+            CatchPointsVM = catchPointsVM;
 
             // Подписка на изменения режимов навигации
             NavigationVM.OnModeChanged += OnModeChanged;
@@ -349,7 +323,7 @@ namespace TFOHelperRedux.ViewModels
                 return;
 
             var result = _lureBindingService.AttachLureToFish(lure, SelectedFish);
-            result.ShowMessageBox();
+            result.ShowMessageBox(ServiceContainer.GetService<IUIService>());
         }
 
         private void DetachLureFromFish(object? parameter)
@@ -358,7 +332,7 @@ namespace TFOHelperRedux.ViewModels
                 return;
 
             var result = _lureBindingService.DetachLureFromFish(lure, SelectedFish);
-            result.ShowMessageBox();
+            result.ShowMessageBox(ServiceContainer.GetService<IUIService>());
         }
 
         private void DeleteRecipeForever(object? parameter)
@@ -366,7 +340,8 @@ namespace TFOHelperRedux.ViewModels
             if (parameter is not BaitRecipeModel recipe)
                 return;
 
-            var result = MessageBox.Show(
+            var uiService = ServiceContainer.GetService<IUIService>();
+            var result = uiService.ShowMessageBox(
                 $"Удалить рецепт \"{recipe.Name}\" только для текущей рыбы?",
                 "Удаление рецепта для рыбы",
                 MessageBoxButton.YesNo,
@@ -376,7 +351,7 @@ namespace TFOHelperRedux.ViewModels
                 return;
 
             var bindResult = _lureBindingService.RemoveRecipeFromFish(recipe, SelectedFish);
-            bindResult.ShowMessageBox();
+            bindResult.ShowMessageBox(uiService);
 
             if (bindResult.IsSuccess)
             {

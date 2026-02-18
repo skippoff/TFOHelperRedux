@@ -14,12 +14,10 @@ public class FishFilterService
     private readonly ObservableCollection<FishModel> _filteredFishes;
     private string _searchText;
 
-    public FishFilterService(
-        ObservableCollection<FishModel> allFishes,
-        ObservableCollection<FishModel> filteredFishes)
+    public FishFilterService()
     {
-        _allFishes = allFishes;
-        _filteredFishes = filteredFishes;
+        _allFishes = DataStore.Fishes;
+        _filteredFishes = new ObservableCollection<FishModel>();
         _searchText = string.Empty;
     }
 
@@ -93,4 +91,7 @@ public class FishFilterService
             _filteredFishes.Add(fish);
         }
     }
+
+    public ObservableCollection<FishModel> GetFilteredFishes() => _filteredFishes;
+    public ObservableCollection<FishModel> GetAllFishes() => _allFishes;
 }

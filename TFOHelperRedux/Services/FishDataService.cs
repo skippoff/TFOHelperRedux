@@ -10,6 +10,13 @@ namespace TFOHelperRedux.Services;
 /// </summary>
 public class FishDataService
 {
+    private readonly IDataLoadSaveService _loadSaveService;
+
+    public FishDataService(IDataLoadSaveService loadSaveService)
+    {
+        _loadSaveService = loadSaveService;
+    }
+
     /// <summary>
     /// Получает следующий доступный ID для коллекции рыб
     /// </summary>
@@ -43,7 +50,7 @@ public class FishDataService
         };
 
         fishes.Add(newFish);
-        DataService.SaveFishes(fishes);
+        _loadSaveService.SaveFishes(fishes);
 
         return newFish;
     }
@@ -84,8 +91,8 @@ public class FishDataService
             }
         }
 
-        DataService.SaveFishes(DataStore.Fishes);
-        DataService.SaveMaps(DataStore.Maps);
+        _loadSaveService.SaveFishes(DataStore.Fishes);
+        _loadSaveService.SaveMaps(DataStore.Maps);
         DataStore.SaveAll();
 
         return ServiceResult.Success($"Рыба '{fish.Name}' удалена.");
@@ -96,7 +103,7 @@ public class FishDataService
     /// </summary>
     public void UpdateFish(FishModel fish)
     {
-        DataService.SaveFishes(DataStore.Fishes);
+        _loadSaveService.SaveFishes(DataStore.Fishes);
     }
 
     /// <summary>
@@ -136,7 +143,7 @@ public class FishDataService
     /// </summary>
     public void SaveFeed(BaitModel feed)
     {
-        DataService.SaveFeeds(DataStore.Feeds);
+        _loadSaveService.SaveFeeds(DataStore.Feeds);
     }
 
     /// <summary>
@@ -144,7 +151,7 @@ public class FishDataService
     /// </summary>
     public void SaveFeedComponent(FeedComponentModel component)
     {
-        DataService.SaveFeedComponents(DataStore.FeedComponents);
+        _loadSaveService.SaveFeedComponents(DataStore.FeedComponents);
     }
 
     /// <summary>
@@ -152,7 +159,7 @@ public class FishDataService
     /// </summary>
     public void SaveDip(DipModel dip)
     {
-        DataService.SaveDips(DataStore.Dips);
+        _loadSaveService.SaveDips(DataStore.Dips);
     }
 
     /// <summary>
@@ -160,7 +167,6 @@ public class FishDataService
     /// </summary>
     public void SaveLure(LureModel lure)
     {
-        DataService.SaveLures(DataStore.Lures);
+        _loadSaveService.SaveLures(DataStore.Lures);
     }
 }
-

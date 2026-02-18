@@ -18,9 +18,13 @@ public class CatchPointsService
 {
     private readonly string _localDataDir;
     private readonly string _localCatchFile;
+    private readonly IUIService _uiService;
+    private readonly IDataLoadSaveService _loadSaveService;
 
-    public CatchPointsService()
+    public CatchPointsService(IUIService uiService, IDataLoadSaveService loadSaveService)
     {
+        _uiService = uiService;
+        _loadSaveService = loadSaveService;
         _localDataDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Maps");
         _localCatchFile = Path.Combine(_localDataDir, "CatchPoints_Local.json");
 
@@ -42,7 +46,7 @@ public class CatchPointsService
     /// </summary>
     public void SaveCatchPoints(ObservableCollection<CatchPointModel> catchPoints)
     {
-        JsonService.Save(_localCatchFile, catchPoints);
+        _loadSaveService.SaveCatchPoints(_localCatchFile, catchPoints);
     }
 
     /// <summary>
@@ -71,7 +75,6 @@ public class CatchPointsService
                 break;
 
             default:
-                // при других режимах (например, Baits) ничего не фильтруем
                 break;
         }
 
@@ -106,7 +109,6 @@ public class CatchPointsService
         var wnd = new Views.EditCatchPointWindow(point);
         if (wnd.ShowDialog() == true)
         {
-            // после окна данные уже сохранены через SaveAll()
             var fish = DataStore.Selection.SelectedFish ?? catchPointsVm.CurrentFish;
             catchPointsVm.RefreshFilteredPoints(fish);
         }
@@ -142,14 +144,14 @@ public class CatchPointsService
         {
             if (!File.Exists(dlg.FileName))
             {
-                MessageBox.Show("Файл не найден.", "Импорт точек", MessageBoxButton.OK, MessageBoxImage.Warning);
+                _uiService.ShowWarning("Файл не найден.", "Импорт точек");
                 return;
             }
 
             var imported = JsonService.Load<List<CatchPointModel>>(dlg.FileName);
             if (imported == null || imported.Count == 0)
             {
-                MessageBox.Show("Не удалось загрузить данные из файла.", "Импорт точек", MessageBoxButton.OK, MessageBoxImage.Warning);
+                _uiService.ShowWarning("Не удалось загрузить данные из файла.", "Импорт точек");
                 return;
             }
 
@@ -157,13 +159,13 @@ public class CatchPointsService
 
             if (uniqueImported.Count == 0)
             {
-                MessageBox.Show("В файле нет валидных точек лова.", "Импорт точек", MessageBoxButton.OK, MessageBoxImage.Warning);
+                _uiService.ShowWarning("В файле нет валидных точек лова.", "Импорт точек");
                 return;
             }
 
             if (catchPoints.Count > 0)
             {
-                var result = MessageBox.Show(
+                var result = _uiService.ShowMessageBox(
                     "В программе уже есть точки лова.\n\n" +
                     "Объединить новые точки с существующими?\n" +
                     "Да — объединить\n" +
@@ -194,12 +196,11 @@ public class CatchPointsService
             }
 
             SaveCatchPoints(catchPoints);
-            MessageBox.Show("Импорт завершён ✅", "Импорт", MessageBoxButton.OK, MessageBoxImage.Information);
+            _uiService.ShowInfo("Импорт завершён ✅", "Импорт");
         }
         catch (Exception ex)
         {
-            MessageBox.Show("Ошибка при импорте точек:\n" + ex.Message,
-                "Импорт точек", MessageBoxButton.OK, MessageBoxImage.Error);
+            _uiService.ShowError("Ошибка при импорте точек:\n" + ex.Message, "Импорт точек");
         }
     }
 
@@ -218,7 +219,7 @@ public class CatchPointsService
             return;
 
         JsonService.Save(dlg.FileName, catchPoints);
-        MessageBox.Show("Точки экспортированы 💾", "Экспорт", MessageBoxButton.OK, MessageBoxImage.Information);
+        _uiService.ShowInfo("Точки экспортированы 💾", "Экспорт");
     }
 
     /// <summary>
@@ -226,13 +227,12 @@ public class CatchPointsService
     /// </summary>
     public void ClearCatchPoints(ObservableCollection<CatchPointModel> catchPoints)
     {
-        if (MessageBox.Show("Очистить все точки лова?", "Подтверждение",
-                MessageBoxButton.YesNo, MessageBoxImage.Warning) != MessageBoxResult.Yes)
+        if (!_uiService.ShowConfirm("Очистить все точки лова?", "Подтверждение"))
             return;
 
         catchPoints.Clear();
         SaveCatchPoints(catchPoints);
-        MessageBox.Show("Точки очищены 🗑", "Очистка", MessageBoxButton.OK, MessageBoxImage.Information);
+        _uiService.ShowInfo("Точки очищены 🗑", "Очистка");
     }
 
     /// <summary>
@@ -280,7 +280,6 @@ public class CatchPointsService
             added++;
         }
 
-        MessageBox.Show($"Импорт завершён. Добавлено {added} новых точек.",
-            "Импорт точек", MessageBoxButton.OK, MessageBoxImage.Information);
+        _uiService.ShowInfo($"Импорт завершён. Добавлено {added} новых точек.", "Импорт точек");
     }
 }

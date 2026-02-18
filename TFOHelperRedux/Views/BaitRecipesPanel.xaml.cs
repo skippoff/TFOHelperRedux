@@ -7,6 +7,7 @@ namespace TFOHelperRedux.Views
         public BaitRecipesPanel()
         {
             InitializeComponent();
+            // DataContext наследуется от родителя (BaitsPanel → FishViewModel → BaitRecipesVM)
         }
     }
 }

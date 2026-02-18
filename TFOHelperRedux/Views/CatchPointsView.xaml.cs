@@ -4,6 +4,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
 using TFOHelperRedux.Models;
+using TFOHelperRedux.Services;
 
 namespace TFOHelperRedux.Views;
 
@@ -16,6 +17,7 @@ public partial class CatchPointsView : UserControl
     public CatchPointsView()
     {
         InitializeComponent();
+        // DataContext устанавливается из родителя (FishDetailsPanel → FishViewModel → CatchPointsVM)
 
         _clickTimer = new DispatcherTimer
         {

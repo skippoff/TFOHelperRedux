@@ -10,11 +10,11 @@ namespace TFOHelperRedux.Services;
 /// </summary>
 public class BaitCrudService
 {
-    private readonly FishDataService _dataService;
+    private readonly FishDataService _fishDataService;
 
-    public BaitCrudService(FishDataService dataService)
+    public BaitCrudService(FishDataService fishDataService)
     {
-        _dataService = dataService;
+        _fishDataService = fishDataService;
     }
 
     /// <summary>
@@ -132,16 +132,16 @@ public class BaitCrudService
         switch (item)
         {
             case BaitModel feed:
-                _dataService.SaveFeed(feed);
+                _fishDataService.SaveFeed(feed);
                 break;
             case FeedComponentModel component:
-                _dataService.SaveFeedComponent(component);
+                _fishDataService.SaveFeedComponent(component);
                 break;
             case DipModel dip:
-                _dataService.SaveDip(dip);
+                _fishDataService.SaveDip(dip);
                 break;
             case LureModel lure:
-                _dataService.SaveLure(lure);
+                _fishDataService.SaveLure(lure);
                 break;
         }
     }

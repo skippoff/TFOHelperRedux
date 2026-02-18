@@ -14,11 +14,12 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="380"/>
-            <!-- левая панель -->
+            <!-- содержимое (прикормки/дипы/наживки/компоненты) -->
             <ColumnDefinition Width="*"/>
             <!-- рецепты -->
         </Grid.ColumnDefinitions>
-        <!-- ====================== LEFT PANEL ====================== -->
+
+        <!-- ====================== CONTENT PANEL ====================== -->
         <Border Grid.Column="0"
                 Background="{StaticResource PanelBackground}"
                 BorderBrush="{StaticResource BorderBrushLight}"
@@ -26,23 +27,11 @@
                 CornerRadius="6"
                 Padding="12"
                 Margin="2">
-            <Grid DataContext="{Binding BaitsVM}">
-                <Grid.Resources>
-                    <!-- Общий стиль для переключения видимости по BaitsSubMode -->
-                    <Style x:Key="SubModeVisibilityStyle" TargetType="Border">
-                        <Setter Property="Visibility" Value="Collapsed"/>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding DataContext.NavigationVM.BaitsSubMode, RelativeSource={RelativeSource AncestorType=UserControl}}" Value="Feeds">
-                                <Setter Property="Visibility" Value="Visible"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Grid.Resources>
-
+            <Grid>
                 <!-- Прикормки -->
-                <Border Style="{StaticResource SubModeVisibilityStyle}">
-                    <ListBox ItemsSource="{Binding Feeds}"
-                             SelectedItem="{Binding SelectedFeed, Mode=TwoWay}"
+                <Border Visibility="{Binding NavigationVM.BaitsSubMode, Converter={StaticResource EqualityToVisibilityConverter}, ConverterParameter=Feeds}">
+                    <ListBox ItemsSource="{Binding BaitsVM.Feeds}"
+                             SelectedItem="{Binding BaitsVM.SelectedFeed, Mode=TwoWay}"
                              Background="Transparent"
                              BorderThickness="0"
                              ItemContainerStyle="{StaticResource RoundedCardStyle}"
@@ -68,20 +57,10 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
                 </Border>
-
                 <!-- Дипы -->
-                <Border>
-                    <Border.Style>
-                        <Style TargetType="Border" BasedOn="{StaticResource SubModeVisibilityStyle}">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding DataContext.NavigationVM.BaitsSubMode, RelativeSource={RelativeSource AncestorType=UserControl}}" Value="Dips">
-                                    <Setter Property="Visibility" Value="Visible"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Border.Style>
-                    <ListBox ItemsSource="{Binding Dips}"
-                             SelectedItem="{Binding SelectedDip, Mode=TwoWay}"
+                <Border Visibility="{Binding NavigationVM.BaitsSubMode, Converter={StaticResource EqualityToVisibilityConverter}, ConverterParameter=Dips}">
+                    <ListBox ItemsSource="{Binding BaitsVM.Dips}"
+                             SelectedItem="{Binding BaitsVM.SelectedDip, Mode=TwoWay}"
                              Background="Transparent"
                              BorderThickness="0"
                              ItemContainerStyle="{StaticResource RoundedCardStyle}"
@@ -107,20 +86,10 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
                 </Border>
-
                 <!-- Наживки -->
-                <Border>
-                    <Border.Style>
-                        <Style TargetType="Border" BasedOn="{StaticResource SubModeVisibilityStyle}">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding DataContext.NavigationVM.BaitsSubMode, RelativeSource={RelativeSource AncestorType=UserControl}}" Value="Lures">
-                                    <Setter Property="Visibility" Value="Visible"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Border.Style>
-                    <ListBox ItemsSource="{Binding Lures}"
-                             SelectedItem="{Binding SelectedLure, Mode=TwoWay}"
+                <Border Visibility="{Binding NavigationVM.BaitsSubMode, Converter={StaticResource EqualityToVisibilityConverter}, ConverterParameter=Lures}">
+                    <ListBox ItemsSource="{Binding BaitsVM.Lures}"
+                             SelectedItem="{Binding BaitsVM.SelectedLure, Mode=TwoWay}"
                              Background="Transparent"
                              BorderThickness="0"
                              ItemContainerStyle="{StaticResource RoundedCardStyle}"
@@ -146,20 +115,10 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
                 </Border>
-
                 <!-- Компоненты -->
-                <Border>
-                    <Border.Style>
-                        <Style TargetType="Border" BasedOn="{StaticResource SubModeVisibilityStyle}">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding DataContext.NavigationVM.BaitsSubMode, RelativeSource={RelativeSource AncestorType=UserControl}}" Value="FeedComponents">
-                                    <Setter Property="Visibility" Value="Visible"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Border.Style>
-                    <ListBox ItemsSource="{Binding Components}"
-                             SelectedItem="{Binding SelectedComponent, Mode=TwoWay}"
+                <Border Visibility="{Binding NavigationVM.BaitsSubMode, Converter={StaticResource EqualityToVisibilityConverter}, ConverterParameter=FeedComponents}">
+                    <ListBox ItemsSource="{Binding BaitsVM.Components}"
+                             SelectedItem="{Binding BaitsVM.SelectedComponent, Mode=TwoWay}"
                              Background="Transparent"
                              BorderThickness="0"
                              ItemContainerStyle="{StaticResource RoundedCardStyle}"
@@ -187,6 +146,7 @@
                 </Border>
             </Grid>
         </Border>
+
         <!-- ====================== RECIPE / CRAFT PANEL ====================== -->
         <Border Grid.Column="1"
                 Background="{StaticResource PanelBackground}"
@@ -197,8 +157,7 @@
                 Margin="2">
             <Grid>
                 <!-- Обычные рецепты прикорма -->
-                <local:BaitRecipesPanel Grid.Row="0"
-                                        DataContext="{Binding BaitRecipesVM}" />
+                <local:BaitRecipesPanel DataContext="{Binding BaitRecipesVM}" />
             </Grid>
         </Border>
     </Grid>
