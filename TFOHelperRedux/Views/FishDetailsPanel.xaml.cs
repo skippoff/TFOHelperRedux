@@ -1,4 +1,6 @@
-﻿using System.Windows.Controls;
+﻿using System.ComponentModel;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using TFOHelperRedux.Services.Data;
 using TFOHelperRedux.Services.State;
@@ -11,7 +13,33 @@ namespace TFOHelperRedux.Views
         public FishDetailsPanel()
         {
             InitializeComponent();
+            Loaded += FishDetailsPanel_Loaded;
         }
+
+        private void FishDetailsPanel_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is FishViewModel vm)
+            {
+                vm.PropertyChanged += ViewModel_PropertyChanged;
+                UpdateVisibility(vm.SelectedFish);
+            }
+        }
+
+        private void ViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(FishViewModel.SelectedFish))
+            {
+                UpdateVisibility((sender as FishViewModel)?.SelectedFish);
+            }
+        }
+
+        private void UpdateVisibility(object? selectedFish)
+        {
+            var isVisible = selectedFish != null;
+            FishDetailsContent.Visibility = isVisible ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
+            FishPlaceholder.Visibility = isVisible ? System.Windows.Visibility.Collapsed : System.Windows.Visibility.Visible;
+        }
+
         // 🟢 Обработчик кликов по столбцам графика
         private void BiteBar_Click(object sender, MouseButtonEventArgs e)
         {

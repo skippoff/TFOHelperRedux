@@ -12,6 +12,7 @@ using TFOHelperRedux.Services.Business;
 using TFOHelperRedux.Services.Data;
 using TFOHelperRedux.Services.DI;
 using TFOHelperRedux.Services.UI;
+using TFOHelperRedux.Views;
 
 namespace TFOHelperRedux.ViewModels
 {
@@ -51,6 +52,7 @@ namespace TFOHelperRedux.ViewModels
         public ICommand AttachLureToFishCmd { get; }
         public ICommand DetachLureFromFishCmd { get; }
         public ICommand DeleteRecipeForeverCmd { get; }
+        public ICommand EditMapFishesCmd { get; }
 
         #endregion
 
@@ -252,6 +254,7 @@ namespace TFOHelperRedux.ViewModels
             AttachLureToFishCmd = new RelayCommand(AttachLureToFish);
             DetachLureFromFishCmd = new RelayCommand(DetachLureFromFish);
             DeleteRecipeForeverCmd = new RelayCommand(DeleteRecipeForever);
+            EditMapFishesCmd = new RelayCommand(EditMapFishes);
 
             // Подписка на изменения IsSelected у наживок
             SubscribeToLureChanges();
@@ -410,6 +413,27 @@ namespace TFOHelperRedux.ViewModels
         {
             FishImage = _mapsService.GetFishImage(SelectedFish?.ID);
             OnPropertyChanged(nameof(FishImage));
+        }
+
+        private void EditMapFishes()
+        {
+#if DEBUG
+            var map = SelectedMap;
+            if (map == null)
+            {
+                UIService.ShowMessage("Сначала выбери локацию слева.", "Редактирование локации");
+                return;
+            }
+
+            var win = new EditMapFishesWindow(map);
+            UIService.ShowWindowModal(win, () =>
+            {
+                // После изменений обновляем список рыб по карте
+                var current = SelectedMap;
+                SelectedMap = null;
+                SelectedMap = current;
+            });
+#endif
         }
 
         #endregion

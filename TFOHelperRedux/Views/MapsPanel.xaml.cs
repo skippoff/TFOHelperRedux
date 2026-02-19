@@ -1,7 +1,7 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using TFOHelperRedux.ViewModels;
-using System.Windows;
 
 namespace TFOHelperRedux.Views
 {
@@ -22,30 +22,10 @@ namespace TFOHelperRedux.Views
         private void EditMapFishes_Click(object sender, RoutedEventArgs e)
         {
 #if DEBUG
-            // DataContext здесь – FishViewModel
-            if (DataContext is not FishViewModel vm)
-                return;
-
-            var map = vm.SelectedMap;
-            if (map == null)
+            if (DataContext is FishViewModel vm)
             {
-                MessageBox.Show("Сначала выбери локацию слева.",
-                    "Редактирование локации",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Information);
-                return;
+                vm.EditMapFishesCmd.Execute(null);
             }
-
-            var win = new EditMapFishesWindow(map)
-            {
-                Owner = Window.GetWindow(this)
-            };
-            win.ShowDialog();
-
-            // После изменений обновляем список рыб по карте
-            var current = vm.SelectedMap;
-            vm.SelectedMap = null;
-            vm.SelectedMap = current;
 #endif
         }
 

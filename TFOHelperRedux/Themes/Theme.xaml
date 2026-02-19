@@ -2,7 +2,9 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:conv="clr-namespace:TFOHelperRedux.Converters"
                     mc:Ignorable="d">
+
     <!-- 🎨 Глобальная цветовая палитра -->
     <SolidColorBrush x:Key="AppBackground" Color="SlateGray"/>
     <SolidColorBrush x:Key="PanelBackground" Color="AliceBlue"/>
@@ -14,6 +16,15 @@
     <SolidColorBrush x:Key="TextPrimary" Color="#212121"/>
     <SolidColorBrush x:Key="TextSecondary" Color="#666666"/>
     <SolidColorBrush x:Key="BorderBrushLight" Color="#DDDDDD"/>
+    
+    <!-- 🎨 Дополнительные цвета для кнопок -->
+    <SolidColorBrush x:Key="ButtonImportBrush" Color="#4CAF50"/>
+    <SolidColorBrush x:Key="ButtonExportBrush" Color="#2196F3"/>
+    <SolidColorBrush x:Key="ButtonDeleteBrush" Color="#E57373"/>
+    <SolidColorBrush x:Key="ButtonEditBrush" Color="#ADBB2A"/>
+    <SolidColorBrush x:Key="ButtonNavLocationBrush" Color="#7FFFD4"/>
+    <SolidColorBrush x:Key="ButtonNavBaitBrush" Color="#FF8C00"/>
+    
     <DropShadowEffect x:Key="DropShadow" BlurRadius="10" ShadowDepth="2" Opacity="0.25" />
     
     <!-- Цветовое выделение карточек рецептов -->
@@ -98,6 +109,7 @@
         <Setter Property="FontWeight" Value="Medium"/>
     </Style>
 
+    <!-- 🎨 Подключаем все визуальные стили из Theme.xaml -->
     <!-- 🧭 Кнопка-иконка (используется в тулбаре/меню) -->
     <!-- 🔘 Кнопки -->
     <Style x:Key="IconButton" TargetType="Button">
@@ -163,6 +175,7 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+    
     <!-- 🪶 Единый стиль карточек -->
     <Style x:Key="RoundedCardStyle" TargetType="ListBoxItem">
         <Setter Property="Margin" Value="6"/>
@@ -248,8 +261,8 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
-    <!-- Для точки ловли -->
+
+    <!-- 🎯 Карточка точки лова -->
     <Style x:Key="CatchPointCardStyle" TargetType="Border">
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="CornerRadius" Value="6"/>

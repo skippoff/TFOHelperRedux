@@ -1,9 +1,9 @@
 <UserControl x:Class="TFOHelperRedux.Views.FishView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:conv="clr-namespace:TFOHelperRedux.Converters"
              xmlns:local="clr-namespace:TFOHelperRedux.Views"
              xmlns:views="clr-namespace:TFOHelperRedux.Views"
+             xmlns:helpers="clr-namespace:TFOHelperRedux.Helpers"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
@@ -11,95 +11,8 @@
              VerticalAlignment="Stretch">
     <!--MinHeight="600" MinWidth="900"-->
     <UserControl.Resources>
-        <conv:EqualityToVisibilityConverter x:Key="EqualityToVisibilityConverter"/>
-        <conv:BiteToHeightConverter x:Key="BiteToHeightConverter"/>
-        <conv:StringToImageSourceConverter x:Key="ImgConverter"/>
-        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        <!-- DropShadow для карточек -->
         <DropShadowEffect x:Key="DropShadow" BlurRadius="10" ShadowDepth="2" Opacity="0.25" />
-        <!-- Стиль кнопки-иконки -->
-        <Style x:Key="IconButton" TargetType="Button">
-            <Setter Property="Background" Value="{StaticResource PanelBackground}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource BorderBrushLight}"/>
-            <Setter Property="Padding" Value="6"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" 
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="4"
-                                Padding="{TemplateBinding Padding}">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#E0E0E0"/>
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" Value="#BDBDBD"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <!-- Стиль для ListBoxItem категорий -->
-        <Style x:Key="CategoryListBoxItem" TargetType="ListBoxItem">
-            <Setter Property="Margin" Value="2"/>
-            <Setter Property="Padding" Value="8,6"/>
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ListBoxItem">
-                        <Border Background="{TemplateBinding Background}" 
-                                CornerRadius="4" 
-                                Padding="{TemplateBinding Padding}">
-                            <ContentPresenter/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsSelected" Value="True">
-                    <Setter Property="Background" Value="#2196F3"/>
-                    <Setter Property="Foreground" Value="White"/>
-                </Trigger>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#BBDEFB"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-        <!-- Стиль для карточек рыб -->
-        <Style x:Key="FishCardStyle" TargetType="ListBoxItem">
-            <Setter Property="Margin" Value="6"/>
-            <Setter Property="Padding" Value="0"/>
-            <Setter Property="Background" Value="#FAFAFA"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ListBoxItem">
-                        <Border x:Name="border" 
-                                Background="{TemplateBinding Background}"
-                                BorderBrush="{StaticResource BorderBrushLight}"
-                                BorderThickness="1"
-                                CornerRadius="6"
-                                Padding="8">
-                            <ContentPresenter/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsSelected" Value="True">
-                                <Setter TargetName="border" Property="BorderBrush" Value="#2196F3"/>
-                                <Setter TargetName="border" Property="BorderThickness" Value="2"/>
-                                <Setter TargetName="border" Property="Background" Value="#E3F2FD"/>
-                            </Trigger>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="border" Property="Background" Value="#F5F5F5"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
     </UserControl.Resources>
     <Grid x:Name="MainGrid"
         Background="{StaticResource AppBackground}"
@@ -111,15 +24,15 @@
         </Grid.RowDefinitions>
         <!-- Header / Toolbar -->
         <Border Grid.Row="0"
-        Background="{StaticResource PanelBackground}"
-        BorderBrush="{StaticResource BorderBrushLight}"
-        BorderThickness="0,0,0,0"
-        Padding="0,0">
-            <Border Grid.Row="0" 
-        Background="#ff708090"
-        BorderBrush="{StaticResource BorderBrushLight}" 
-        BorderThickness="0,0,0,1"
-        Padding="8,6">
+                Background="{StaticResource PanelBackground}"
+                BorderBrush="{StaticResource BorderBrushLight}"
+                BorderThickness="0,0,0,0"
+                Padding="0,0">
+            <Border Grid.Row="0"
+                    Background="{StaticResource AppBackground}"
+                    BorderBrush="{StaticResource BorderBrushLight}"
+                    BorderThickness="0,0,0,1"
+                    Padding="8,6">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -149,19 +62,19 @@
             <!-- Прикорм и дипы -->
             <Border Grid.Column="0"
                     Margin="2"
-                    Background="AliceBlue"
+                    Background="{StaticResource PanelBackground}"
                     CornerRadius="6"
-                    BorderBrush="#DDDDDD"
+                    BorderBrush="{StaticResource BorderBrushLight}"
                     BorderThickness="1"
                     Padding="12"
-                    Visibility="{Binding NavigationVM.CurrentMode, Converter={StaticResource EqualityToVisibilityConverter}, ConverterParameter=Baits}">
+                    Visibility="{Binding NavigationVM.CurrentMode, Converter={StaticResource EqualityToVisibilityConverter}, ConverterParameter={x:Static helpers:NavigationModes.Baits}}">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel>
                         <TextBlock Text="ОСНАСТКА"
                                    FontWeight="Bold"
                                    FontSize="12"
                                    Margin="4,0,0,8"
-                                   Foreground="#666"/>
+                                   Foreground="{StaticResource TextSecondary}"/>
                         <ListBox SelectedValue="{Binding NavigationVM.BaitsSubMode, Mode=TwoWay}"
                                  Background="Transparent"
                                  BorderThickness="0"
@@ -179,27 +92,27 @@
                              Grid.ColumnSpan="3"
                              Visibility="{Binding NavigationVM.CurrentMode,
                 Converter={StaticResource EqualityToVisibilityConverter},
-                ConverterParameter=Maps}"/>
+                ConverterParameter={x:Static helpers:NavigationModes.Maps}}"/>
             <local:FishPanel Grid.Column="1"
                              Grid.ColumnSpan="2"
                              Visibility="{Binding NavigationVM.CurrentMode,
                 Converter={StaticResource EqualityToVisibilityConverter},
-                ConverterParameter=Fish}"/>
+                ConverterParameter={x:Static helpers:NavigationModes.Fish}}"/>
             <local:BaitsPanel Grid.Column="1"
                               Grid.ColumnSpan="2"
                               Visibility="{Binding NavigationVM.CurrentMode,
                 Converter={StaticResource EqualityToVisibilityConverter},
-                ConverterParameter=Baits}"/>
+                ConverterParameter={x:Static helpers:NavigationModes.Baits}}"/>
             <local:FishDetailsPanel Grid.Column="2">
                 <local:FishDetailsPanel.Style>
                     <Style TargetType="local:FishDetailsPanel">
                         <Setter Property="Visibility" Value="Collapsed"/>
                         <Style.Triggers>
                             <!-- Показывать панель деталей только при Maps и Fish -->
-                            <DataTrigger Binding="{Binding NavigationVM.CurrentMode}" Value="Maps">
+                            <DataTrigger Binding="{Binding NavigationVM.CurrentMode}" Value="{x:Static helpers:NavigationModes.Maps}">
                                 <Setter Property="Visibility" Value="Visible"/>
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding NavigationVM.CurrentMode}" Value="Fish">
+                            <DataTrigger Binding="{Binding NavigationVM.CurrentMode}" Value="{x:Static helpers:NavigationModes.Fish}">
                                 <Setter Property="Visibility" Value="Visible"/>
                             </DataTrigger>
                         </Style.Triggers>

@@ -7,10 +7,10 @@
     <!-- 📁 Импорт / Экспорт / Очистить -->
     <StackPanel Orientation="Horizontal"
                 HorizontalAlignment="Left">
-        <Button Content="📂 Импорт" 
+        <Button Content="📂 Импорт"
                 Command="{Binding CatchPointsVM.ImportPointsCmd}"
                 Style="{StaticResource IconButton}"
-                Background="#4CAF50"
+                Background="{StaticResource ButtonImportBrush}"
                 Foreground="White"
                 BorderBrush="Black"
                 Padding="10,4"
@@ -19,7 +19,7 @@
         <Button Content="💾 Экспорт"
                 Command="{Binding CatchPointsVM.ExportPointsCmd}"
                 Style="{StaticResource IconButton}"
-                Background="#2196F3"
+                Background="{StaticResource ButtonExportBrush}"
                 Foreground="White"
                 BorderBrush="Black"
                 Padding="10,4"
@@ -28,7 +28,7 @@
         <Button Content="🗑 Очистить"
                 Command="{Binding CatchPointsVM.ClearPointsCmd}"
                 Style="{StaticResource IconButton}"
-                Background="RosyBrown"
+                Background="{StaticResource ButtonDeleteBrush}"
                 Foreground="White"
                 BorderBrush="Black"
                 Padding="10,4"
@@ -38,10 +38,10 @@
                    Margin="6"
                    VerticalAlignment="Center"
                    FontSize="14" Foreground="#FF090A0A"/>
-        <Button Content="➕/✏" 
+        <Button Content="➕/✏"
                 Command="{Binding CatchPointsVM.EditCatchPointWindowCommand}"
                 Style="{StaticResource IconButton}"
-                Background="#FFADBB2A" 
+                Background="{StaticResource ButtonEditBrush}"
                 Foreground="White"
                 BorderBrush="Black"
                 ToolTip="Добавить/Редактировать"/>

@@ -9,13 +9,13 @@
                 Command="{Binding NavigationVM.ShowMapsCmd}"
                 Style="{StaticResource IconButton}"
                 Margin="0,0,6,0"
-                Background="Aquamarine"
+                Background="{StaticResource ButtonNavLocationBrush}"
                 Foreground="White"
                 BorderBrush="Black"/>
         <Button Content="Прикорм и дипы"
                 Command="{Binding NavigationVM.ShowBaitsCmd}"
                 Style="{StaticResource IconButton}"
-                Background="DarkOrange"
+                Background="{StaticResource ButtonNavBaitBrush}"
                 Foreground="White"
                 BorderBrush="Black"/>
     </StackPanel>
