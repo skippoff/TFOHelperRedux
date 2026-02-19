@@ -34,7 +34,8 @@ namespace TFOHelperRedux.Views
             LeftPanel.PointSaved += (s, savedPoint) =>
             {
                 // Обновляем DataStore и VM после сохранения
-                if (!DataStore.CatchPoints.Contains(savedPoint))
+                // Не добавляем точку, если она уже есть в коллекции (по ссылке)
+                if (!ReferenceEquals(savedPoint, _point) && !DataStore.CatchPoints.Contains(savedPoint))
                     DataStore.CatchPoints.Add(savedPoint);
 
                 // обновим вспомогательные коллекции
@@ -59,6 +60,7 @@ namespace TFOHelperRedux.Views
             {
                 var point = LeftPanel.SavePoint();
 
+                // Не добавляем точку, если она уже есть в коллекции (редактирование существующей)
                 if (!DataStore.CatchPoints.Contains(point))
                     DataStore.CatchPoints.Add(point);
 

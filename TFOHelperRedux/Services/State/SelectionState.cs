@@ -125,7 +125,7 @@ public class SelectionState
     }
 
     /// <summary>
-    /// Синхронизирует чекбоксы наживок с LureIDs выбранной рыбы
+    /// Синхронизирует чекбоксы наживок с LureIDs и BestLureIDs выбранной рыбы
     /// </summary>
     private void SyncLuresWithFish(FishModel? fish, ObservableCollection<LureModel> lures)
     {
@@ -135,10 +135,13 @@ public class SelectionState
         _isSyncingLures = true;
         try
         {
-            var ids = fish?.LureIDs ?? Array.Empty<int>();
+            var lureIds = fish?.LureIDs ?? Array.Empty<int>();
+            var bestLureIds = fish?.BestLureIDs ?? Array.Empty<int>();
+            
             foreach (var lure in lures)
             {
-                lure.IsSelected = ids.Contains(lure.ID);
+                lure.IsSelected = lureIds.Contains(lure.ID);
+                lure.IsBestSelected = bestLureIds.Contains(lure.ID);
             }
         }
         finally
@@ -178,6 +181,36 @@ public class SelectionState
             if (ids.Contains(lure.ID))
             {
                 SelectedFish.LureIDs = ids.Where(id => id != lure.ID).ToArray();
+                if (saveChanges)
+                    DataService.SaveFishes(DataStore.Fishes);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Обрабатывает изменение чекбокса лучшей наживки
+    /// </summary>
+    public void HandleBestLureSelectionChanged(LureModel lure, bool saveChanges = true)
+    {
+        if (_isSyncingLures || SelectedFish == null)
+            return;
+
+        var ids = SelectedFish.BestLureIDs ?? Array.Empty<int>();
+
+        if (lure.IsBestSelected)
+        {
+            if (!ids.Contains(lure.ID))
+            {
+                SelectedFish.BestLureIDs = ids.Concat(new[] { lure.ID }).Distinct().ToArray();
+                if (saveChanges)
+                    DataService.SaveFishes(DataStore.Fishes);
+            }
+        }
+        else
+        {
+            if (ids.Contains(lure.ID))
+            {
+                SelectedFish.BestLureIDs = ids.Where(id => id != lure.ID).ToArray();
                 if (saveChanges)
                     DataService.SaveFishes(DataStore.Fishes);
             }

@@ -11,14 +11,7 @@ namespace TFOHelperRedux.Views
         {
             InitializeComponent();
         }
-        private void ScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
-        {
-            if (sender is ScrollViewer scroll)
-            {
-                scroll.ScrollToVerticalOffset(scroll.VerticalOffset - e.Delta / 3.0);
-                e.Handled = true;
-            }
-        }
+
         private void EditMapFishes_Click(object sender, RoutedEventArgs e)
         {
 #if DEBUG
@@ -28,6 +21,5 @@ namespace TFOHelperRedux.Views
             }
 #endif
         }
-
     }
 }

@@ -15,6 +15,7 @@
             <conv:EqualityToVisibilityConverter x:Key="EqualityToVisibilityConverter"/>
             <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
             <conv:RecipeRankToStyleConverter x:Key="RecipeRankToStyleConverter"/>
+            <conv:MapGroupConverter x:Key="MapGroupConverter"/>
 
             <!-- Если нужны чекбокс-конвертеры, раскомментируй:
              <conv:FishCheckedConverter x:Key="FishCheckedConverter"/>-->

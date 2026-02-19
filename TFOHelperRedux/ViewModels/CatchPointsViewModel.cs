@@ -13,6 +13,7 @@ public class CatchPointsViewModel : BaseViewModel
 {
     private readonly CatchPointsService _catchPointsService;
     private readonly IUIService _uiService;
+    private bool _isRefreshing;
 
     public ObservableCollection<CatchPointModel> FilteredPoints { get; private set; } = new();
     public bool IsFiltered => CurrentFish != null;
@@ -37,20 +38,15 @@ public class CatchPointsViewModel : BaseViewModel
     public ICommand DeletePointCmd { get; }
     public ICommand EditPointCmd { get; }
 
-    public ObservableCollection<CatchPointModel> CatchPoints { get; } = new();
+    // Используем единую коллекцию из DataStore
+    public ObservableCollection<CatchPointModel> CatchPoints => DataStore.CatchPoints;
 
     public CatchPointsViewModel(CatchPointsService catchPointsService, IUIService uiService)
     {
         _catchPointsService = catchPointsService;
         _uiService = uiService;
 
-        // Загрузка и инициализация точек
-        var loadedPoints = _catchPointsService.LoadCatchPoints();
-        foreach (var point in loadedPoints)
-        {
-            CatchPoints.Add(point);
-        }
-
+        // Обновляем метаданные точек после загрузки DataStore
         _catchPointsService.UpdateCatchPointsMetadata(CatchPoints, DataStore.Maps, DataStore.Fishes);
 
         // Инициализация команд
@@ -65,22 +61,40 @@ public class CatchPointsViewModel : BaseViewModel
 
     public void RefreshFilteredPoints(FishModel? selectedFish)
     {
+        // Защита от повторных вызовов
+        if (_isRefreshing)
+            return;
+
         if (selectedFish == null)
         {
             selectedFish = CurrentFish;
         }
 
-        FilteredPoints.Clear();
-        CurrentFish = selectedFish;
+        _isRefreshing = true;
+        try
+        {
+            // Очищаем и загружаем заново
+            FilteredPoints.Clear();
 
-        var points = _catchPointsService.FilterCatchPoints(
-            selectedFish,
-            DataStore.Selection.SelectedMap,
-            DataStore.CurrentMode,
-            CatchPoints);
+            CurrentFish = selectedFish;
 
-        foreach (var p in points)
-            FilteredPoints.Add(p);
+            var points = _catchPointsService.FilterCatchPoints(
+                selectedFish,
+                DataStore.Selection.SelectedMap,
+                DataStore.CurrentMode,
+                CatchPoints);
+
+            foreach (var p in points)
+                FilteredPoints.Add(p);
+
+            // Явно триггерим обновление UI
+            OnPropertyChanged(nameof(FilteredPoints));
+            OnPropertyChanged(nameof(IsFiltered));
+        }
+        finally
+        {
+            _isRefreshing = false;
+        }
     }
 
     private void DeletePoint(CatchPointModel? point)
@@ -118,7 +132,7 @@ public class CatchPointsViewModel : BaseViewModel
     private void ImportPoints()
     {
         _catchPointsService.ImportCatchPoints(CatchPoints);
-        RefreshCatchPoints();
+        RefreshFilteredPoints(CurrentFish);
     }
 
     private void ExportPoints()
@@ -137,17 +151,5 @@ public class CatchPointsViewModel : BaseViewModel
     {
         _catchPointsService.SaveCatchPoints(CatchPoints);
         _uiService.ShowInfo("Изменения сохранены 💾", "Сохранение");
-    }
-
-    private void RefreshCatchPoints()
-    {
-        CatchPoints.Clear();
-        var loadedPoints = _catchPointsService.LoadCatchPoints();
-        foreach (var point in loadedPoints)
-        {
-            CatchPoints.Add(point);
-        }
-
-        _catchPointsService.UpdateCatchPointsMetadata(CatchPoints, DataStore.Maps, DataStore.Fishes);
     }
 }

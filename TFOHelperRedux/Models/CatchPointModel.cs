@@ -1,25 +1,142 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Text.Json.Serialization;
 
 namespace TFOHelperRedux.Models;
 
-public class CatchPointModel
+public class CatchPointModel : INotifyPropertyChanged
 {
-    public int MapID { get; set; }
-    public Coords Coords { get; set; } = new();
-    public int[] FishIDs { get; set; } = Array.Empty<int>();
-    public int[] LureIDs { get; set; } = Array.Empty<int>();
-    public int[] FeedIDs { get; set; } = Array.Empty<int>();
-    public int[] DipsIDs { get; set; } = Array.Empty<int>();
-    public int[] Times { get; set; } = Array.Empty<int>();
-    public int[] Rods { get; set; } = Array.Empty<int>();
-    public bool Cautious { get; set; } = false;
-    public bool Trophy { get; set; }
-    public bool Tournament { get; set; }
-    public double DepthValue { get; set; }
-    public double ClipValue { get; set; }
+    private int _mapId;
+    private Coords _coords = new();
+    private int[] _fishIds = Array.Empty<int>();
+    private int[] _lureIds = Array.Empty<int>();
+    private int[] _feedIds = Array.Empty<int>();
+    private int[] _dipsIds = Array.Empty<int>();
+    private int[] _times = Array.Empty<int>();
+    private int[] _rods = Array.Empty<int>();
+    private bool _cautious;
+    private bool _trophy;
+    private bool _tournament;
+    private double _depthValue;
+    private double _clipValue;
+    private string _comment = string.Empty;
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    public void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        
+        // Триггерим зависимые свойства
+        if (propertyName is nameof(Trophy) or nameof(Tournament) or nameof(Cautious))
+        {
+            OnPropertyChanged(nameof(FeaturesInfo));
+        }
+        if (propertyName is nameof(Times))
+        {
+            OnPropertyChanged(nameof(TimeInfo));
+        }
+        if (propertyName is nameof(Rods))
+        {
+            OnPropertyChanged(nameof(RodTypeInfo));
+        }
+        if (propertyName is nameof(DepthValue))
+        {
+            OnPropertyChanged(nameof(DepthInfo));
+        }
+        if (propertyName is nameof(ClipValue))
+        {
+            OnPropertyChanged(nameof(ClipInfo));
+        }
+    }
+
+    public int MapID
+    {
+        get => _mapId;
+        set { _mapId = value; OnPropertyChanged(); }
+    }
+
+    public Coords Coords
+    {
+        get => _coords;
+        set { _coords = value; OnPropertyChanged(); }
+    }
+
+    public int[] FishIDs
+    {
+        get => _fishIds;
+        set { _fishIds = value; OnPropertyChanged(); }
+    }
+
+    public int[] LureIDs
+    {
+        get => _lureIds;
+        set { _lureIds = value; OnPropertyChanged(); }
+    }
+
+    public int[] FeedIDs
+    {
+        get => _feedIds;
+        set { _feedIds = value; OnPropertyChanged(); }
+    }
+
+    public int[] DipsIDs
+    {
+        get => _dipsIds;
+        set { _dipsIds = value; OnPropertyChanged(); }
+    }
+
+    public int[] Times
+    {
+        get => _times;
+        set { _times = value; OnPropertyChanged(); }
+    }
+
+    public int[] Rods
+    {
+        get => _rods;
+        set { _rods = value; OnPropertyChanged(); }
+    }
+
+    public bool Cautious
+    {
+        get => _cautious;
+        set { _cautious = value; OnPropertyChanged(); }
+    }
+
+    public bool Trophy
+    {
+        get => _trophy;
+        set { _trophy = value; OnPropertyChanged(); }
+    }
+
+    public bool Tournament
+    {
+        get => _tournament;
+        set { _tournament = value; OnPropertyChanged(); }
+    }
+
+    public double DepthValue
+    {
+        get => _depthValue;
+        set { _depthValue = value; OnPropertyChanged(); }
+    }
+
+    public double ClipValue
+    {
+        get => _clipValue;
+        set { _clipValue = value; OnPropertyChanged(); }
+    }
+
     public double Temperature { get; set; }
     public ThrowMarker? ThrowMarker { get; set; }
-    public string Comment { get; set; } = string.Empty;
+
+    public string Comment
+    {
+        get => _comment;
+        set { _comment = value ?? string.Empty; OnPropertyChanged(); }
+    }
+
     public string MadeBy { get; set; } = Environment.UserName;
     public DateTime DateEdited { get; set; } = DateTime.Now;
 

@@ -68,6 +68,34 @@ namespace TFOHelperRedux.ViewModels
         public ObservableCollection<MapModel> DlcMaps => _mapsService.DlcMaps;
         public ObservableCollection<int> MapLevels => _mapsService.MapLevels;
 
+        // Единый список карт с группировкой для ListBox
+        public System.ComponentModel.ICollectionView AllMaps
+        {
+            get
+            {
+                var view = System.Windows.Data.CollectionViewSource.GetDefaultView(Maps);
+                view.GroupDescriptions?.Clear();
+                view.GroupDescriptions?.Add(new System.Windows.Data.PropertyGroupDescription("DLC"));
+                view.SortDescriptions?.Clear();
+                view.SortDescriptions?.Add(new System.ComponentModel.SortDescription("DLC", System.ComponentModel.ListSortDirection.Ascending));
+                view.SortDescriptions?.Add(new System.ComponentModel.SortDescription("Level", System.ComponentModel.ListSortDirection.Ascending));
+                view.SortDescriptions?.Add(new System.ComponentModel.SortDescription("Name", System.ComponentModel.ListSortDirection.Ascending));
+                
+                // Фильтрация по уровню
+                view.Filter = m =>
+                {
+                    if (m is not MapModel map)
+                        return false;
+                    if (SelectedLevelFilter <= 0)
+                        return true;
+                    // DLC карты показываем всегда, обычные фильтруем по уровню
+                    return map.DLC || map.Level <= SelectedLevelFilter;
+                };
+                
+                return view;
+            }
+        }
+
         #endregion
 
         #region Свойства навигации и режимов (делегированы в NavigationViewModel)
@@ -87,7 +115,17 @@ namespace TFOHelperRedux.ViewModels
         public int SelectedLevelFilter
         {
             get => _mapsService.SelectedLevelFilter;
-            set => _mapsService.SelectedLevelFilter = value;
+            set
+            {
+                if (_mapsService.SelectedLevelFilter != value)
+                {
+                    _mapsService.SelectedLevelFilter = value;
+                    OnPropertyChanged(nameof(SelectedLevelFilter));
+                    OnPropertyChanged(nameof(AllMaps));
+                    // Обновляем представление
+                    System.Windows.Data.CollectionViewSource.GetDefaultView(Maps)?.Refresh();
+                }
+            }
         }
 
         #endregion
@@ -102,10 +140,19 @@ namespace TFOHelperRedux.ViewModels
             get => DataStore.Selection.SelectedMap;
             set
             {
+                // Игнорируем установку null при переключении между ListBox
+                if (value == null)
+                    return;
+
+                // Проверяем, что карта действительно изменилась
+                if (DataStore.Selection.SelectedMap == value)
+                    return;
+
                 DataStore.Selection.SetSelectedMap(value, DataStore.Fishes, _filterService.GetFilteredFishes(), DataStore.Lures);
                 OnPropertyChanged(nameof(SelectedMap));
                 OnPropertyChanged(nameof(SelectedFish));
                 OnPropertyChanged(nameof(MaybeCatchLures));
+                OnPropertyChanged(nameof(BestLures));
                 OnPropertyChanged(nameof(BiteDescription));
                 OnPropertyChanged(nameof(RecipeCountForSelectedFish));
                 OnPropertyChanged(nameof(RecipesForSelectedFish));
@@ -126,6 +173,7 @@ namespace TFOHelperRedux.ViewModels
                 DataStore.Selection.SetSelectedFish(value, DataStore.Lures);
                 OnPropertyChanged(nameof(SelectedFish));
                 OnPropertyChanged(nameof(MaybeCatchLures));
+                OnPropertyChanged(nameof(BestLures));
                 OnPropertyChanged(nameof(BiteDescription));
                 OnPropertyChanged(nameof(RecipeCountForSelectedFish));
                 OnPropertyChanged(nameof(RecipesForSelectedFish));
@@ -167,6 +215,20 @@ namespace TFOHelperRedux.ViewModels
                     return Enumerable.Empty<LureModel>();
 
                 return DataStore.Lures.Where(l => SelectedFish.LureIDs.Contains(l.ID));
+            }
+        }
+
+        public IEnumerable<LureModel> BestLures
+        {
+            get
+            {
+                if (SelectedFish?.BestLureIDs == null || SelectedFish.BestLureIDs.Length == 0)
+                    return Enumerable.Empty<LureModel>();
+
+                if (DataStore.Lures == null || DataStore.Lures.Count == 0)
+                    return Enumerable.Empty<LureModel>();
+
+                return DataStore.Lures.Where(l => SelectedFish.BestLureIDs.Contains(l.ID));
             }
         }
 
@@ -251,7 +313,11 @@ namespace TFOHelperRedux.ViewModels
                 OnPropertyChanged(nameof(SelectedFish));
                 OnPropertyChanged(nameof(SelectedMap));
             };
-            DataStore.Selection.LuresSynced += () => OnPropertyChanged(nameof(MaybeCatchLures));
+            DataStore.Selection.LuresSynced += () =>
+            {
+                OnPropertyChanged(nameof(MaybeCatchLures));
+                OnPropertyChanged(nameof(BestLures));
+            };
 
             // Инициализация команд привязки
             AttachLureToFishCmd = new RelayCommand(AttachLureToFish);
@@ -410,6 +476,7 @@ namespace TFOHelperRedux.ViewModels
 
             DataStore.Selection.HandleLureSelectionChanged(lure);
             OnPropertyChanged(nameof(MaybeCatchLures));
+            OnPropertyChanged(nameof(BestLures));
         }
 
         private void UpdateFishDetails()
@@ -445,6 +512,7 @@ namespace TFOHelperRedux.ViewModels
 
         public void RefreshSelectedFish() => OnPropertyChanged(nameof(SelectedFish));
         public void RefreshMaybeCatchLures() => OnPropertyChanged(nameof(MaybeCatchLures));
+        public void RefreshBestLures() => OnPropertyChanged(nameof(BestLures));
 
         #endregion
     }

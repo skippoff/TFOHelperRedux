@@ -18,7 +18,7 @@
                 <RowDefinition Height="271*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="270"/>
                 <ColumnDefinition Width="575"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
@@ -40,8 +40,7 @@
                                DockPanel.Dock="Top"/>
                     <ScrollViewer VerticalScrollBarVisibility="Auto"
                                   PanningMode="VerticalOnly"
-                                  Focusable="False"
-                                  PreviewMouseWheel="ScrollViewer_PreviewMouseWheel">
+                                  Focusable="False">
                         <StackPanel>
                             <!-- Фильтр по уровню водоёма -->
                             <StackPanel Orientation="Horizontal"
@@ -55,30 +54,43 @@
                                           Width="80"
                                           Margin="6,0,0,0"/>
                             </StackPanel>
-                            <!-- Обычные локации -->
-                            <TextBlock Text="Обычные локации"
-                                       Margin="4,0,4,2"
-                                       FontSize="14"
-                                       FontWeight="Bold"
-                                       Foreground="{StaticResource TextSecondary}"/>
-                            <ListBox ItemsSource="{Binding NonDlcMaps}"
+                            <!-- Единый список локаций с группировкой -->
+                            <ListBox ItemsSource="{Binding AllMaps}"
                                      SelectedItem="{Binding SelectedMap, Mode=TwoWay}"
                                      DisplayMemberPath="Name"
                                      Background="Transparent"
                                      BorderThickness="0"
-                                     ItemContainerStyle="{StaticResource CategoryListBoxItem}"/>
-                            <!-- Локации DLC -->
-                            <TextBlock Text="Локации DLC"
-                                       Margin="4,8,4,2"
-                                       FontSize="14"
-                                       FontWeight="Bold"
-                                       Foreground="DarkGoldenrod"/>
-                            <ListBox ItemsSource="{Binding DlcMaps}"
-                                     SelectedItem="{Binding SelectedMap, Mode=TwoWay}"
-                                     DisplayMemberPath="Name"
-                                     Background="Transparent"
-                                     BorderThickness="0"
-                                     ItemContainerStyle="{StaticResource CategoryListBoxItem}"/>
+                                     ScrollViewer.CanContentScroll="False">
+                                <ListBox.GroupStyle>
+                                    <GroupStyle>
+                                        <GroupStyle.HeaderTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Name, Converter={StaticResource MapGroupConverter}}"
+                                                           FontSize="14"
+                                                           FontWeight="Bold"
+                                                           Margin="4,8,4,2"
+                                                           Padding="4,2">
+                                                    <TextBlock.Style>
+                                                        <Style TargetType="TextBlock">
+                                                            <Setter Property="Foreground" Value="{StaticResource TextSecondary}"/>
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding Name, Converter={StaticResource MapGroupConverter}}" Value="Локации DLC">
+                                                                    <Setter Property="Foreground" Value="DarkGoldenrod"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </TextBlock.Style>
+                                                </TextBlock>
+                                            </DataTemplate>
+                                        </GroupStyle.HeaderTemplate>
+                                    </GroupStyle>
+                                </ListBox.GroupStyle>
+                                <ListBox.ItemContainerStyle>
+                                    <Style TargetType="ListBoxItem" BasedOn="{StaticResource CategoryListBoxItem}">
+                                        <Setter Property="Padding" Value="8,4"/>
+                                    </Style>
+                                </ListBox.ItemContainerStyle>
+                            </ListBox>
                         </StackPanel>
                     </ScrollViewer>
                 </DockPanel>

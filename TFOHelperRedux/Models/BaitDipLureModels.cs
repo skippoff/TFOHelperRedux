@@ -156,6 +156,7 @@ public class DipModel : ValidatableModel, IItemModel
 public class LureModel : ValidatableModel, IItemModel
 {
     private bool _isSelected;
+    private bool _isBestSelected;
     private int _id;
     private string _name = string.Empty;
     private string _imagePath = string.Empty;
@@ -166,6 +167,12 @@ public class LureModel : ValidatableModel, IItemModel
     {
         get => _isSelected;
         set => SetProperty(ref _isSelected, value);
+    }
+
+    public bool IsBestSelected
+    {
+        get => _isBestSelected;
+        set => SetProperty(ref _isBestSelected, value);
     }
 
     public int ID

@@ -93,10 +93,19 @@ public class CatchPointsService
     {
         foreach (var point in catchPoints)
         {
+            var oldMapName = point.MapName;
+            var oldFishNames = point.FishNames;
+            
             point.MapName = maps.FirstOrDefault(m => m.ID == point.MapID)?.Name ?? "—";
             point.FishNames = string.Join(", ",
                 point.FishIDs?.Select(id => fishes.FirstOrDefault(f => f.ID == id)?.Name)
                 ?? new[] { "—" });
+            
+            // Триггерим PropertyChanged для обновления UI
+            if (oldMapName != point.MapName)
+                point.OnPropertyChanged(nameof(CatchPointModel.MapName));
+            if (oldFishNames != point.FishNames)
+                point.OnPropertyChanged(nameof(CatchPointModel.FishNames));
         }
     }
 
@@ -111,6 +120,13 @@ public class CatchPointsService
         var wnd = new Views.EditCatchPointWindow(point);
         if (wnd.ShowDialog() == true)
         {
+            // Обновляем метаданные точки после редактирования
+            UpdateCatchPointsMetadata(catchPointsVm.CatchPoints, DataStore.Maps, DataStore.Fishes);
+            
+            // Триггерим PropertyChanged для обновления UI
+            catchPointsVm.OnPropertyChanged(nameof(catchPointsVm.FilteredPoints));
+            catchPointsVm.OnPropertyChanged(nameof(catchPointsVm.CurrentFish));
+            
             var fish = DataStore.Selection.SelectedFish ?? catchPointsVm.CurrentFish;
             catchPointsVm.RefreshFilteredPoints(fish);
         }

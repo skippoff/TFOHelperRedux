@@ -63,6 +63,36 @@
                     </ItemsControl>
                 </ScrollViewer>
             </Border>
+
+            <!-- Лучшие наживки (по водоёмам) -->
+            <TextBlock Text="Лучшие наживки:" FontWeight="Bold" Margin="0,10,0,4"/>
+            <TextBox x:Name="tbBestLureSearch"
+                     Height="26"
+                     Margin="0,0,0,4"
+                     Padding="4"
+                     TextChanged="TbBestLureSearch_TextChanged"
+                     ToolTip="Поиск по названию лучшей наживки"/>
+            <Border BorderThickness="1" CornerRadius="3">
+                <ScrollViewer Height="220" VerticalScrollBarVisibility="Auto">
+                    <ItemsControl ItemsSource="{Binding LuresView, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <CheckBox Content="{Binding Name}"
+                                          IsChecked="{Binding IsBestSelected, Mode=TwoWay}"
+                                          Tag="{Binding ID}"
+                                          Checked="BestLure_Checked"
+                                          Unchecked="BestLure_Unchecked"
+                                          Margin="2"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Border>
         </StackPanel>
     </ScrollViewer>
 

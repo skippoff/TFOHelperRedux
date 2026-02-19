@@ -66,6 +66,24 @@ namespace TFOHelperRedux.Views
             }
         }
 
+        private void TbBestLureSearch_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            var view = LuresView;
+            if (view != null)
+            {
+                var text = tbBestLureSearch.Text;
+                if (string.IsNullOrWhiteSpace(text))
+                    view.Filter = null;
+                else
+                    view.Filter = o =>
+                    {
+                        dynamic item = o;
+                        string name = item?.Name as string;
+                        return !string.IsNullOrEmpty(name) && name.Contains(text, System.StringComparison.OrdinalIgnoreCase);
+                    };
+            }
+        }
+
         private void Lure_Checked(object sender, RoutedEventArgs e)
         {
             if (sender is CheckBox cb && cb.Tag is int id)
@@ -75,7 +93,7 @@ namespace TFOHelperRedux.Views
 
                 fish.LureIDs = (fish.LureIDs ?? Array.Empty<int>()).Concat(new[] { id }).Distinct().ToArray();
                 DataService.SaveFishes(DataStore.Fishes);
-                
+
                 // Обновляем UI рекомендованных наживок
                 if (this.DataContext is ViewModels.FishViewModel fishVm)
                     fishVm.OnPropertyChanged(nameof(ViewModels.FishViewModel.MaybeCatchLures));
@@ -91,10 +109,42 @@ namespace TFOHelperRedux.Views
 
                 fish.LureIDs = (fish.LureIDs ?? Array.Empty<int>()).Where(x => x != id).ToArray();
                 DataService.SaveFishes(DataStore.Fishes);
-                
+
                 // Обновляем UI рекомендованных наживок
                 if (this.DataContext is ViewModels.FishViewModel fishVm)
                     fishVm.OnPropertyChanged(nameof(ViewModels.FishViewModel.MaybeCatchLures));
+            }
+        }
+
+        private void BestLure_Checked(object sender, RoutedEventArgs e)
+        {
+            if (sender is CheckBox cb && cb.Tag is int id)
+            {
+                var fish = DataStore.Selection.SelectedFish;
+                if (fish == null) return;
+
+                fish.BestLureIDs = (fish.BestLureIDs ?? Array.Empty<int>()).Concat(new[] { id }).Distinct().ToArray();
+                DataService.SaveFishes(DataStore.Fishes);
+
+                // Обновляем UI лучших наживок
+                if (this.DataContext is ViewModels.FishViewModel fishVm)
+                    fishVm.OnPropertyChanged(nameof(ViewModels.FishViewModel.BestLures));
+            }
+        }
+
+        private void BestLure_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (sender is CheckBox cb && cb.Tag is int id)
+            {
+                var fish = DataStore.Selection.SelectedFish;
+                if (fish == null) return;
+
+                fish.BestLureIDs = (fish.BestLureIDs ?? Array.Empty<int>()).Where(x => x != id).ToArray();
+                DataService.SaveFishes(DataStore.Fishes);
+
+                // Обновляем UI лучших наживок
+                if (this.DataContext is ViewModels.FishViewModel fishVm)
+                    fishVm.OnPropertyChanged(nameof(ViewModels.FishViewModel.BestLures));
             }
         }
     }
