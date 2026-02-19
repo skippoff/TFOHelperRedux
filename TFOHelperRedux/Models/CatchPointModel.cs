@@ -12,6 +12,7 @@ public class CatchPointModel : INotifyPropertyChanged
     private int[] _lureIds = Array.Empty<int>();
     private int[] _feedIds = Array.Empty<int>();
     private int[] _dipsIds = Array.Empty<int>();
+    private int[] _recipeIds = Array.Empty<int>();
     private int[] _times = Array.Empty<int>();
     private int[] _rods = Array.Empty<int>();
     private bool _cautious;
@@ -84,6 +85,12 @@ public class CatchPointModel : INotifyPropertyChanged
     {
         get => _dipsIds;
         set { _dipsIds = value; OnPropertyChanged(); }
+    }
+
+    public int[] RecipeIDs
+    {
+        get => _recipeIds;
+        set { _recipeIds = value; OnPropertyChanged(); }
     }
 
     public int[] Times

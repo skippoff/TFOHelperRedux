@@ -12,17 +12,20 @@
     <Border BorderBrush="#D0D0D0" BorderThickness="1" CornerRadius="6" Padding="10" Background="White">
         <Grid Margin="10">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="5*"/>
                 <ColumnDefinition Width="3*"/>
-                <ColumnDefinition Width="7*"/>
             </Grid.ColumnDefinitions>
             <!-- Левая панель -->
             <local:CatchPointEditorPanel x:Name="LeftPanel" Grid.Column="0" />
-            <!-- Правая панель -->
-            <local:FishLuresPanel x:Name="RightPanel" Grid.Column="1"
+            <!-- Центральная панель: Рыбы и воблеры -->
+            <local:FishLuresPanel x:Name="CenterPanel" Grid.Column="1"
                                   FishView="{Binding FishView}"
                                   LuresView="{Binding LuresView}" />
+            <!-- Правая панель: Прикормки -->
+            <local:FishFeedsPanel x:Name="RightPanel" Grid.Column="2" />
             <!-- Нижние кнопки -->
-            <DockPanel Grid.ColumnSpan="2" VerticalAlignment="Bottom" Margin="0,10,0,0">
+            <DockPanel Grid.ColumnSpan="3" VerticalAlignment="Bottom" Margin="0,10,0,0">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <Button Content="❌ Отмена"
                             Width="120" Height="34"

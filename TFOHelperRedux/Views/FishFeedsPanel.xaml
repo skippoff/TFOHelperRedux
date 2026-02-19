@@ -1,0 +1,73 @@
+﻿<UserControl x:Class="TFOHelperRedux.Views.FishFeedsPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             d:DesignHeight="600" d:DesignWidth="600">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="6">
+            <!-- Поиск -->
+            <TextBlock Text="Поиск прикормки:" FontWeight="Bold" Margin="0,0,0,4"/>
+            <TextBox x:Name="tbSearch"
+                     Height="26"
+                     Margin="0,0,0,8"
+                     Padding="4"
+                     TextChanged="TbSearch_TextChanged"
+                     ToolTip="Поиск по названию прикормки или рецепта"/>
+
+            <!-- Фильтры -->
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                <CheckBox Content="Обычные"
+                          IsChecked="{Binding ShowFeeds, Mode=TwoWay}"
+                          Margin="0,0,8,0"/>
+                <CheckBox Content="Крафтовые"
+                          IsChecked="{Binding ShowRecipes, Mode=TwoWay}"/>
+            </StackPanel>
+
+            <!-- Обычные прикормки -->
+            <TextBlock Text="Обычные прикормки:" FontWeight="Bold" Margin="0,0,0,4"/>
+            <Border BorderThickness="1" CornerRadius="3">
+                <ScrollViewer Height="200" VerticalScrollBarVisibility="Auto">
+                    <ItemsControl ItemsSource="{Binding FeedsView}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <CheckBox Content="{Binding Name}"
+                                          IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                                          Margin="2"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Border>
+
+            <!-- Крафтовые прикормки (рецепты) -->
+            <TextBlock Text="Крафтовые прикормки (рецепты):" FontWeight="Bold" Margin="0,10,0,4"/>
+            <Border BorderThickness="1" CornerRadius="3">
+                <ScrollViewer Height="200" VerticalScrollBarVisibility="Auto">
+                    <ItemsControl ItemsSource="{Binding RecipesView}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <CheckBox Content="{Binding Name}"
+                                          IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                                          Margin="2"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+
+</UserControl>

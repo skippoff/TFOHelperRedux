@@ -8,5 +8,6 @@
         public const string Fish = "Fish";
         public const string Maps = "Maps";
         public const string Baits = "Baits";
+        public const string FishFeeds = "FishFeeds";
     }
 }

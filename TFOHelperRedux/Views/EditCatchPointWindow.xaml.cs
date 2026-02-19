@@ -18,7 +18,7 @@ namespace TFOHelperRedux.Views
         // Свойства для биндинга в XAML
         public ICollectionView FishView => _fishView;
         public ICollectionView LuresView => _luresView;
-        
+
         public EditCatchPointWindow(CatchPointModel point = null)
         {
             InitializeComponent();
@@ -27,8 +27,16 @@ namespace TFOHelperRedux.Views
             // 🔍 создаём представления для всех коллекций DataStore
             _fishView = new ListCollectionView(DataStore.Fishes);
             _luresView = new ListCollectionView(DataStore.Lures);
-            // 📌 чтобы биндинги FishView / LuresView / FeedsView / DipsView работали
+            // 📌 чтобы биндинги FishView / LuresView работали
             DataContext = this;
+
+            // Устанавливаем DataContext и CatchPoint для FishFeedsPanel
+            var mainVM = App.Current.MainWindow?.DataContext as TFOHelperRedux.ViewModels.FishViewModel;
+            if (mainVM != null)
+            {
+                RightPanel.DataContext = mainVM.FishFeedsVM;
+                RightPanel.CatchPoint = _point;
+            }
 
             // Инициализация левой панели (она сама заполнит cmbMap)
             LeftPanel.PointSaved += (s, savedPoint) =>
@@ -71,23 +79,6 @@ namespace TFOHelperRedux.Views
             catch (InvalidOperationException ex)
             {
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
-        }
-        // Note: fish/lure search moved to FishLuresPanel control; methods removed.
-        // Общий помощник для фильтра
-        private void ApplyFilter(ListCollectionView view, string text, Predicate<object> predicate)
-        {
-            if (view == null)
-                return;
-
-            if (string.IsNullOrWhiteSpace(text))
-            {
-                // Пустая строка – показываем всех
-                view.Filter = null;
-            }
-            else
-            {
-                view.Filter = o => predicate(o);
             }
         }
     }

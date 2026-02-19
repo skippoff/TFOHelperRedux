@@ -108,7 +108,7 @@
                     <Style TargetType="local:FishDetailsPanel">
                         <Setter Property="Visibility" Value="Collapsed"/>
                         <Style.Triggers>
-                            <!-- Показывать панель деталей только при Maps и Fish -->
+                            <!-- Показывать панель деталей только при Maps, Fish и FishFeeds -->
                             <DataTrigger Binding="{Binding NavigationVM.CurrentMode}" Value="{x:Static helpers:NavigationModes.Maps}">
                                 <Setter Property="Visibility" Value="Visible"/>
                             </DataTrigger>

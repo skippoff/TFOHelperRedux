@@ -45,6 +45,7 @@ namespace TFOHelperRedux.ViewModels
         public BaitsViewModel BaitsVM { get; }
         public BaitRecipesViewModel BaitRecipesVM { get; }
         public CatchPointsViewModel CatchPointsVM { get; }
+        public FishFeedsViewModel FishFeedsVM { get; }
 
         #endregion
 
@@ -129,6 +130,8 @@ namespace TFOHelperRedux.ViewModels
                 OnPropertyChanged(nameof(SelectedFish));
                 OnPropertyChanged(nameof(MaybeCatchLures));
                 OnPropertyChanged(nameof(BestLures));
+                OnPropertyChanged(nameof(SelectedFeeds));
+                OnPropertyChanged(nameof(SelectedRecipes));
                 OnPropertyChanged(nameof(BiteDescription));
                 OnPropertyChanged(nameof(RecipeCountForSelectedFish));
                 OnPropertyChanged(nameof(RecipesForSelectedFish));
@@ -150,6 +153,8 @@ namespace TFOHelperRedux.ViewModels
                 OnPropertyChanged(nameof(SelectedFish));
                 OnPropertyChanged(nameof(MaybeCatchLures));
                 OnPropertyChanged(nameof(BestLures));
+                OnPropertyChanged(nameof(SelectedFeeds));
+                OnPropertyChanged(nameof(SelectedRecipes));
                 OnPropertyChanged(nameof(BiteDescription));
                 OnPropertyChanged(nameof(RecipeCountForSelectedFish));
                 OnPropertyChanged(nameof(RecipesForSelectedFish));
@@ -205,6 +210,34 @@ namespace TFOHelperRedux.ViewModels
                     return Enumerable.Empty<LureModel>();
 
                 return DataStore.Lures.Where(l => SelectedFish.BestLureIDs.Contains(l.ID));
+            }
+        }
+
+        public IEnumerable<BaitModel> SelectedFeeds
+        {
+            get
+            {
+                if (SelectedFish?.FeedIDs == null || SelectedFish.FeedIDs.Length == 0)
+                    return Enumerable.Empty<BaitModel>();
+
+                if (DataStore.Feeds == null || DataStore.Feeds.Count == 0)
+                    return Enumerable.Empty<BaitModel>();
+
+                return DataStore.Feeds.Where(f => SelectedFish.FeedIDs.Contains(f.ID));
+            }
+        }
+
+        public IEnumerable<BaitRecipeModel> SelectedRecipes
+        {
+            get
+            {
+                if (SelectedFish?.RecipeIDs == null || SelectedFish.RecipeIDs.Length == 0)
+                    return Enumerable.Empty<BaitRecipeModel>();
+
+                if (DataStore.BaitRecipes == null || DataStore.BaitRecipes.Count == 0)
+                    return Enumerable.Empty<BaitRecipeModel>();
+
+                return DataStore.BaitRecipes.Where(r => SelectedFish.RecipeIDs.Contains(r.ID));
             }
         }
 
@@ -267,7 +300,8 @@ namespace TFOHelperRedux.ViewModels
             NavigationViewModel navigationVM,
             BaitsViewModel baitsVM,
             BaitRecipesViewModel baitRecipesVM,
-            CatchPointsViewModel catchPointsVM)
+            CatchPointsViewModel catchPointsVM,
+            FishFeedsViewModel fishFeedsVM)
         {
             _filterService = filterService;
             _lureBindingService = lureBindingService;
@@ -280,6 +314,7 @@ namespace TFOHelperRedux.ViewModels
             BaitsVM = baitsVM;
             BaitRecipesVM = baitRecipesVM;
             CatchPointsVM = catchPointsVM;
+            FishFeedsVM = fishFeedsVM;
 
             // Подписка на изменения режимов навигации
             NavigationVM.OnModeChanged += OnModeChanged;

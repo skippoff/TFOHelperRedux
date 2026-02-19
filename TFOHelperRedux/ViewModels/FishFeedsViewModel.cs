@@ -1,0 +1,311 @@
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
+using System.Windows.Data;
+using TFOHelperRedux.Models;
+using TFOHelperRedux.Services.Data;
+
+namespace TFOHelperRedux.ViewModels;
+
+/// <summary>
+/// ViewModel для управления прикормками (обычными и крафтовыми) с привязкой к рыбам
+/// </summary>
+public class FishFeedsViewModel : BaseViewModel
+{
+    private string _searchText = string.Empty;
+    private bool _showFeeds = true;
+    private bool _showRecipes = true;
+    private CatchPointModel? _catchPoint;
+    private bool _isCatchPointMode;
+
+    public ICollectionView FeedsView { get; private set; } = null!;
+    public ICollectionView RecipesView { get; private set; } = null!;
+
+    public ObservableCollection<BaitModel> Feeds => DataStore.Feeds;
+    public ObservableCollection<BaitRecipeModel> Recipes => DataStore.BaitRecipes;
+
+    public string SearchText
+    {
+        get => _searchText;
+        set
+        {
+            if (_searchText != value)
+            {
+                _searchText = value;
+                OnPropertyChanged(nameof(SearchText));
+                ApplyFilter();
+            }
+        }
+    }
+
+    public bool ShowFeeds
+    {
+        get => _showFeeds;
+        set
+        {
+            if (_showFeeds != value)
+            {
+                _showFeeds = value;
+                OnPropertyChanged(nameof(ShowFeeds));
+                ApplyFilter();
+            }
+        }
+    }
+
+    public bool ShowRecipes
+    {
+        get => _showRecipes;
+        set
+        {
+            if (_showRecipes != value)
+            {
+                _showRecipes = value;
+                OnPropertyChanged(nameof(ShowRecipes));
+                ApplyFilter();
+            }
+        }
+    }
+
+    public FishFeedsViewModel()
+    {
+        InitializeViews();
+        SubscribeToCollectionChanges();
+        // Начальная синхронизация состояния чекбоксов
+        UpdateRecipesIsSelected();
+        UpdateFeedsIsSelected();
+    }
+
+    private void InitializeViews()
+    {
+        // Представление для обычных прикормок
+        FeedsView = CollectionViewSource.GetDefaultView(Feeds);
+        FeedsView.Filter = f =>
+        {
+            if (f is not BaitModel feed)
+                return false;
+            if (string.IsNullOrWhiteSpace(SearchText))
+                return ShowFeeds;
+            return ShowFeeds && feed.Name.Contains(SearchText, System.StringComparison.OrdinalIgnoreCase);
+        };
+
+        // Представление для рецептов (показываем все, включая скрытые, т.к. они могут быть привязаны к рыбам)
+        RecipesView = CollectionViewSource.GetDefaultView(Recipes);
+        RecipesView.Filter = r =>
+        {
+            if (r is not BaitRecipeModel recipe)
+                return false;
+            if (string.IsNullOrWhiteSpace(SearchText))
+                return ShowRecipes;
+            return ShowRecipes && recipe.Name.Contains(SearchText, System.StringComparison.OrdinalIgnoreCase);
+        };
+    }
+
+    private void SubscribeToCollectionChanges()
+    {
+        // Подписка на изменения коллекции рецептов для обновления IsSelected
+        Recipes.CollectionChanged += (s, e) =>
+        {
+            if (e.NewItems != null)
+                foreach (var item in e.NewItems)
+                    if (item is BaitRecipeModel recipe)
+                        recipe.PropertyChanged += Recipe_PropertyChanged;
+
+            if (e.OldItems != null)
+                foreach (var item in e.OldItems)
+                    if (item is BaitRecipeModel recipe)
+                        recipe.PropertyChanged -= Recipe_PropertyChanged;
+
+            // Обновляем IsSelected для всех рецептов при изменении коллекции
+            UpdateRecipesIsSelected();
+        };
+
+        // Подписка на изменения коллекции прикормок
+        Feeds.CollectionChanged += (s, e) =>
+        {
+            if (e.NewItems != null)
+                foreach (var item in e.NewItems)
+                    if (item is BaitModel feed)
+                        feed.PropertyChanged += Feed_PropertyChanged;
+
+            if (e.OldItems != null)
+                foreach (var item in e.OldItems)
+                    if (item is BaitModel feed)
+                        feed.PropertyChanged -= Feed_PropertyChanged;
+
+            // Обновляем IsSelected для всех прикормок при изменении коллекции
+            UpdateFeedsIsSelected();
+        };
+
+        // Подписка на изменения выбранной рыбы
+        DataStore.Selection.SelectionChanged += Selection_SelectionChanged;
+    }
+
+    private bool _isUpdating = false;
+
+    private void Recipe_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        // При изменении IsSelected сохраняем изменения
+        if (e.PropertyName == nameof(BaitRecipeModel.IsSelected) && sender is BaitRecipeModel recipe && !_isUpdating)
+        {
+            _isUpdating = true;
+            try
+            {
+                ToggleFeedSelection(recipe.ID, recipe.IsSelected);
+            }
+            finally
+            {
+                _isUpdating = false;
+            }
+        }
+    }
+
+    private void Feed_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        // При изменении IsSelected сохраняем изменения
+        if (e.PropertyName == nameof(BaitModel.IsSelected) && sender is BaitModel feed && !_isUpdating)
+        {
+            _isUpdating = true;
+            try
+            {
+                ToggleFeedSelection(feed.ID, feed.IsSelected, isRecipe: false);
+            }
+            finally
+            {
+                _isUpdating = false;
+            }
+        }
+    }
+
+    private void Selection_SelectionChanged()
+    {
+        // При смене выбранной рыбы обновляем состояние чекбоксов (только если не в режиме точки лова)
+        if (!_isCatchPointMode)
+        {
+            UpdateRecipesIsSelected();
+            UpdateFeedsIsSelected();
+        }
+    }
+
+    /// <summary>
+    /// Устанавливает режим работы с точкой лова
+    /// </summary>
+    public void SetCatchPoint(CatchPointModel? catchPoint)
+    {
+        _catchPoint = catchPoint;
+        _isCatchPointMode = catchPoint != null;
+        
+        if (_isCatchPointMode)
+        {
+            UpdateFeedsIsSelectedForCatchPoint();
+            UpdateRecipesIsSelectedForCatchPoint();
+        }
+        else
+        {
+            UpdateRecipesIsSelected();
+            UpdateFeedsIsSelected();
+        }
+    }
+
+    private void UpdateRecipesIsSelected()
+    {
+        var fish = DataStore.Selection.SelectedFish;
+        foreach (var recipe in Recipes)
+        {
+            recipe.IsSelected = fish?.RecipeIDs?.Contains(recipe.ID) ?? false;
+        }
+    }
+
+    private void UpdateRecipesIsSelectedForCatchPoint()
+    {
+        foreach (var recipe in Recipes)
+        {
+            recipe.IsSelected = _catchPoint?.RecipeIDs?.Contains(recipe.ID) ?? false;
+        }
+    }
+
+    private void UpdateFeedsIsSelected()
+    {
+        var fish = DataStore.Selection.SelectedFish;
+        foreach (var feed in Feeds)
+        {
+            feed.IsSelected = fish?.FeedIDs?.Contains(feed.ID) ?? false;
+        }
+    }
+
+    private void UpdateFeedsIsSelectedForCatchPoint()
+    {
+        foreach (var feed in Feeds)
+        {
+            feed.IsSelected = _catchPoint?.FeedIDs?.Contains(feed.ID) ?? false;
+        }
+    }
+
+    private void ApplyFilter()
+    {
+        FeedsView.Refresh();
+        RecipesView.Refresh();
+    }
+
+    /// <summary>
+    /// Переключение выбора прикормки/рецепта для выбранной рыбы или точки лова
+    /// </summary>
+    public void ToggleFeedSelection(int id, bool isChecked, bool isRecipe = false)
+    {
+        if (_isCatchPointMode && _catchPoint != null)
+        {
+            // Режим точки лова
+            if (isRecipe)
+            {
+                var recipeIds = _catchPoint.RecipeIDs?.ToList() ?? new List<int>();
+                if (isChecked && !recipeIds.Contains(id))
+                    recipeIds.Add(id);
+                else if (!isChecked && recipeIds.Contains(id))
+                    recipeIds.Remove(id);
+                _catchPoint.RecipeIDs = recipeIds.Distinct().ToArray();
+            }
+            else
+            {
+                var feedIds = _catchPoint.FeedIDs?.ToList() ?? new List<int>();
+                if (isChecked && !feedIds.Contains(id))
+                    feedIds.Add(id);
+                else if (!isChecked && feedIds.Contains(id))
+                    feedIds.Remove(id);
+                _catchPoint.FeedIDs = feedIds.Distinct().ToArray();
+            }
+            
+            // Сохраняем точки лова
+            DataStore.SaveAll();
+        }
+        else
+        {
+            // Режим рыбы
+            var fish = DataStore.Selection.SelectedFish;
+            if (fish == null)
+                return;
+
+            if (isRecipe)
+            {
+                var recipeIds = fish.RecipeIDs?.ToList() ?? new List<int>();
+                if (isChecked && !recipeIds.Contains(id))
+                    recipeIds.Add(id);
+                else if (!isChecked && recipeIds.Contains(id))
+                    recipeIds.Remove(id);
+                fish.RecipeIDs = recipeIds.Distinct().ToArray();
+            }
+            else
+            {
+                var feedIds = fish.FeedIDs?.ToList() ?? new List<int>();
+                if (isChecked && !feedIds.Contains(id))
+                    feedIds.Add(id);
+                else if (!isChecked && feedIds.Contains(id))
+                    feedIds.Remove(id);
+                fish.FeedIDs = feedIds.Distinct().ToArray();
+            }
+
+            DataService.SaveFishes(DataStore.Fishes);
+        }
+
+        OnPropertyChanged(nameof(FeedsView));
+        OnPropertyChanged(nameof(RecipesView));
+    }
+}

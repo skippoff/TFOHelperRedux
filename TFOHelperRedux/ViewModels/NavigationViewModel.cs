@@ -18,6 +18,7 @@ namespace TFOHelperRedux.ViewModels
             public const string Fish = "Fish";
             public const string Maps = "Maps";
             public const string Baits = "Baits";
+            public const string FishFeeds = "FishFeeds";
         }
 
         public static class BaitsSubModes
@@ -87,6 +88,7 @@ namespace TFOHelperRedux.ViewModels
         public bool IsFishMode => _currentMode == Modes.Fish;
         public bool IsMapsMode => _currentMode == Modes.Maps;
         public bool IsBaitsMode => _currentMode == Modes.Baits;
+        public bool IsFishFeedsMode => _currentMode == Modes.FishFeeds;
 
         public bool IsFeedsMode => _baitsSubMode == BaitsSubModes.Feeds;
         public bool IsComponentsMode => _baitsSubMode == BaitsSubModes.FeedComponents;
@@ -107,6 +109,7 @@ namespace TFOHelperRedux.ViewModels
         public ICommand ShowFishCmd { get; }
         public ICommand ShowMapsCmd { get; }
         public ICommand ShowBaitsCmd { get; }
+        public ICommand ShowFishFeedsCmd { get; }
         public ICommand ShowFeedsCmd { get; }
         public ICommand ShowComponentsCmd { get; }
         public ICommand ShowDipsCmd { get; }
@@ -121,6 +124,7 @@ namespace TFOHelperRedux.ViewModels
             ShowFishCmd = new RelayCommand(() => CurrentMode = Modes.Fish);
             ShowMapsCmd = new RelayCommand(() => CurrentMode = Modes.Maps);
             ShowBaitsCmd = new RelayCommand(() => CurrentMode = Modes.Baits);
+            ShowFishFeedsCmd = new RelayCommand(() => CurrentMode = Modes.FishFeeds);
 
             ShowFeedsCmd = new RelayCommand(() => BaitsSubMode = BaitsSubModes.Feeds);
             ShowComponentsCmd = new RelayCommand(() => BaitsSubMode = BaitsSubModes.FeedComponents);
