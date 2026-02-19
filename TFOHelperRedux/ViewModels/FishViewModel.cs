@@ -105,7 +105,7 @@ namespace TFOHelperRedux.ViewModels
                 DataStore.Selection.SetSelectedMap(value, DataStore.Fishes, _filterService.GetFilteredFishes(), DataStore.Lures);
                 OnPropertyChanged(nameof(SelectedMap));
                 OnPropertyChanged(nameof(SelectedFish));
-                OnPropertyChanged(nameof(RecommendedLures));
+                OnPropertyChanged(nameof(MaybeCatchLures));
                 OnPropertyChanged(nameof(BiteDescription));
                 OnPropertyChanged(nameof(RecipeCountForSelectedFish));
                 OnPropertyChanged(nameof(RecipesForSelectedFish));
@@ -125,7 +125,7 @@ namespace TFOHelperRedux.ViewModels
             {
                 DataStore.Selection.SetSelectedFish(value, DataStore.Lures);
                 OnPropertyChanged(nameof(SelectedFish));
-                OnPropertyChanged(nameof(RecommendedLures));
+                OnPropertyChanged(nameof(MaybeCatchLures));
                 OnPropertyChanged(nameof(BiteDescription));
                 OnPropertyChanged(nameof(RecipeCountForSelectedFish));
                 OnPropertyChanged(nameof(RecipesForSelectedFish));
@@ -156,14 +156,17 @@ namespace TFOHelperRedux.ViewModels
                 ? Enumerable.Empty<BaitRecipeModel>()
                 : DataStore.BaitRecipes.Where(r => SelectedFish.RecipeIDs.Contains(r.ID));
 
-        public IEnumerable<LureModel> RecommendedLures
+        public IEnumerable<LureModel> MaybeCatchLures
         {
             get
             {
+                if (SelectedFish?.LureIDs == null || SelectedFish.LureIDs.Length == 0)
+                    return Enumerable.Empty<LureModel>();
+
                 if (DataStore.Lures == null || DataStore.Lures.Count == 0)
                     return Enumerable.Empty<LureModel>();
 
-                return DataStore.Lures.Where(l => l.IsSelected);
+                return DataStore.Lures.Where(l => SelectedFish.LureIDs.Contains(l.ID));
             }
         }
 
@@ -248,7 +251,7 @@ namespace TFOHelperRedux.ViewModels
                 OnPropertyChanged(nameof(SelectedFish));
                 OnPropertyChanged(nameof(SelectedMap));
             };
-            DataStore.Selection.LuresSynced += () => OnPropertyChanged(nameof(RecommendedLures));
+            DataStore.Selection.LuresSynced += () => OnPropertyChanged(nameof(MaybeCatchLures));
 
             // Инициализация команд привязки
             AttachLureToFishCmd = new RelayCommand(AttachLureToFish);
@@ -406,7 +409,7 @@ namespace TFOHelperRedux.ViewModels
                 return;
 
             DataStore.Selection.HandleLureSelectionChanged(lure);
-            OnPropertyChanged(nameof(RecommendedLures));
+            OnPropertyChanged(nameof(MaybeCatchLures));
         }
 
         private void UpdateFishDetails()
@@ -441,7 +444,7 @@ namespace TFOHelperRedux.ViewModels
         #region Публичные методы для обновления UI
 
         public void RefreshSelectedFish() => OnPropertyChanged(nameof(SelectedFish));
-        public void RefreshRecommendedLures() => OnPropertyChanged(nameof(RecommendedLures));
+        public void RefreshMaybeCatchLures() => OnPropertyChanged(nameof(MaybeCatchLures));
 
         #endregion
     }
