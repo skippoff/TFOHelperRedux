@@ -35,6 +35,7 @@ namespace TFOHelperRedux.ViewModels
         private readonly LureBindingService _lureBindingService;
         private readonly FishDataService _fishDataService;
         private readonly MapsService _mapsService;
+        private readonly MapListViewService _mapListViewService;
 
         #endregion
 
@@ -68,33 +69,9 @@ namespace TFOHelperRedux.ViewModels
         public ObservableCollection<MapModel> DlcMaps => _mapsService.DlcMaps;
         public ObservableCollection<int> MapLevels => _mapsService.MapLevels;
 
-        // Единый список карт с группировкой для ListBox
-        public System.ComponentModel.ICollectionView AllMaps
-        {
-            get
-            {
-                var view = System.Windows.Data.CollectionViewSource.GetDefaultView(Maps);
-                view.GroupDescriptions?.Clear();
-                view.GroupDescriptions?.Add(new System.Windows.Data.PropertyGroupDescription("DLC"));
-                view.SortDescriptions?.Clear();
-                view.SortDescriptions?.Add(new System.ComponentModel.SortDescription("DLC", System.ComponentModel.ListSortDirection.Ascending));
-                view.SortDescriptions?.Add(new System.ComponentModel.SortDescription("Level", System.ComponentModel.ListSortDirection.Ascending));
-                view.SortDescriptions?.Add(new System.ComponentModel.SortDescription("Name", System.ComponentModel.ListSortDirection.Ascending));
-                
-                // Фильтрация по уровню
-                view.Filter = m =>
-                {
-                    if (m is not MapModel map)
-                        return false;
-                    if (SelectedLevelFilter <= 0)
-                        return true;
-                    // DLC карты показываем всегда, обычные фильтруем по уровню
-                    return map.DLC || map.Level <= SelectedLevelFilter;
-                };
-                
-                return view;
-            }
-        }
+        // Единый список карт с группировкой для ListBox (делегировано в MapListViewService)
+        public System.ComponentModel.ICollectionView AllMaps =>
+            _mapListViewService.GetAllMapsView(Maps, SelectedLevelFilter);
 
         #endregion
 
@@ -121,9 +98,8 @@ namespace TFOHelperRedux.ViewModels
                 {
                     _mapsService.SelectedLevelFilter = value;
                     OnPropertyChanged(nameof(SelectedLevelFilter));
-                    OnPropertyChanged(nameof(AllMaps));
-                    // Обновляем представление
-                    System.Windows.Data.CollectionViewSource.GetDefaultView(Maps)?.Refresh();
+                    // Обновляем фильтр через сервис
+                    _mapListViewService.RefreshFilter(value);
                 }
             }
         }
@@ -287,6 +263,7 @@ namespace TFOHelperRedux.ViewModels
             LureBindingService lureBindingService,
             FishDataService fishDataService,
             MapsService mapsService,
+            MapListViewService mapListViewService,
             NavigationViewModel navigationVM,
             BaitsViewModel baitsVM,
             BaitRecipesViewModel baitRecipesVM,
@@ -296,6 +273,7 @@ namespace TFOHelperRedux.ViewModels
             _lureBindingService = lureBindingService;
             _fishDataService = fishDataService;
             _mapsService = mapsService;
+            _mapListViewService = mapListViewService;
 
             // Инициализация ViewModel для навигации и прикормок
             NavigationVM = navigationVM;

@@ -112,6 +112,9 @@ public static class ServiceContainer
         });
         _log.Verbose("Зарегистрирован CatchPointsService");
 
+        services.AddSingleton<MapListViewService>();
+        _log.Verbose("Зарегистрирован MapListViewService");
+
         // MapsService требует фабрику из-за параметров Action
         services.AddTransient<MapsService>(provider =>
         {
@@ -159,6 +162,7 @@ public static class ServiceContainer
             var lureBindingService = provider.GetRequiredService<LureBindingService>();
             var fishDataService = provider.GetRequiredService<FishDataService>();
             var mapsService = provider.GetRequiredService<MapsService>();
+            var mapListViewService = provider.GetRequiredService<MapListViewService>();
             var navigationVM = provider.GetRequiredService<NavigationViewModel>();
             var baitsVM = provider.GetRequiredService<BaitsViewModel>();
             var baitRecipesVM = provider.GetRequiredService<BaitRecipesViewModel>();
@@ -169,6 +173,7 @@ public static class ServiceContainer
                 lureBindingService,
                 fishDataService,
                 mapsService,
+                mapListViewService,
                 navigationVM,
                 baitsVM,
                 baitRecipesVM,
