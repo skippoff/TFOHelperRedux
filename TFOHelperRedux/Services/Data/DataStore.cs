@@ -80,19 +80,19 @@ public static class DataStore
     public static void LoadAll()
     {
         _log.Information("Начало загрузки данных...");
-        
+
         if (_loadSaveService == null)
         {
             _log.Debug("Создание DataLoadSaveService...");
             _loadSaveService = new DataLoadSaveService();
         }
-        
+
         if (_saveDebouncer == null)
         {
             _log.Debug("Создание SaveDebouncer...");
             _saveDebouncer = new SaveDebouncer(_loadSaveService);
         }
-        
+
         if (_selection == null)
         {
             _log.Debug("Создание SelectionState...");
@@ -101,22 +101,22 @@ public static class DataStore
 
         _log.Debug("Загрузка карт...");
         _maps = _loadSaveService.LoadMaps();
-        
+
         _log.Debug("Загрузка рыб...");
         _fishes = _loadSaveService.LoadFishes();
-        
+
         _log.Debug("Загрузка прикормок...");
         _feeds = _loadSaveService.LoadFeeds();
-        
+
         _log.Debug("Загрузка компонентов прикормок...");
         _feedComponents = _loadSaveService.LoadFeedComponents();
-        
+
         _log.Debug("Загрузка рецептов...");
         _baitRecipes = _loadSaveService.LoadBaitRecipes();
-        
+
         _log.Debug("Загрузка дипов...");
         _dips = _loadSaveService.LoadDips();
-        
+
         _log.Debug("Загрузка воблеров...");
         _lures = _loadSaveService.LoadLures();
 
@@ -131,16 +131,118 @@ public static class DataStore
         }
 
         _log.Debug("Загрузка точек лова из {Path}", localCatchFile);
-        var loaded = JsonService.Load<ObservableCollection<CatchPointModel>>(localCatchFile);
-        _catchPoints = loaded ?? new ObservableCollection<CatchPointModel>();
+        var loadedList = JsonService.Load<List<CatchPointModel>>(localCatchFile);
+        _catchPoints = loadedList != null ? new ObservableCollection<CatchPointModel>(loadedList) : new ObservableCollection<CatchPointModel>();
         _filteredPoints = new ObservableCollection<CatchPointModel>(_catchPoints);
 
         AddToRecipe = null;
         _InitDerivedCollections();
         _InitSelectionSaveHandlers();
-        
+
         _log.Information("Данные загруены: рыбы={Fishes}, карты={Maps}, прикормки={Feeds}, дипы={Dips}, воблеры={Lures}, рецепты={Recipes}, компоненты={Components}, точки лова={CatchPoints}",
             _fishes.Count, _maps.Count, _feeds.Count, _dips.Count, _lures.Count, _baitRecipes.Count, _feedComponents.Count, _catchPoints.Count);
+    }
+
+    /// <summary>
+    /// Асинхронная загрузка всех данных
+    /// </summary>
+    public static async Task LoadAllAsync()
+    {
+        _log.Information("Начало асинхронной загрузки данных...");
+
+        if (_loadSaveService == null)
+        {
+            _log.Debug("Создание DataLoadSaveService...");
+            _loadSaveService = new DataLoadSaveService();
+        }
+
+        if (_saveDebouncer == null)
+        {
+            _log.Debug("Создание SaveDebouncer...");
+            _saveDebouncer = new SaveDebouncer(_loadSaveService);
+        }
+
+        if (_selection == null)
+        {
+            _log.Debug("Создание SelectionState...");
+            _selection = new SelectionState();
+        }
+
+        // Инициализируем коллекции (чтобы биндинги работали)
+        _fishes = new ObservableCollection<FishModel>();
+        _maps = new ObservableCollection<MapModel>();
+        _feeds = new ObservableCollection<BaitModel>();
+        _feedComponents = new ObservableCollection<FeedComponentModel>();
+        _baitRecipes = new ObservableCollection<BaitRecipeModel>();
+        _dips = new ObservableCollection<DipModel>();
+        _lures = new ObservableCollection<LureModel>();
+        _catchPoints = new ObservableCollection<CatchPointModel>();
+        _filteredPoints = new ObservableCollection<CatchPointModel>();
+
+        // Загружаем все данные параллельно
+        _log.Debug("Параллельная загрузка данных...");
+        
+        var fishesTask = _loadSaveService.LoadFishesAsync();
+        var mapsTask = _loadSaveService.LoadMapsAsync();
+        var feedsTask = _loadSaveService.LoadFeedsAsync();
+        var feedComponentsTask = _loadSaveService.LoadFeedComponentsAsync();
+        var baitRecipesTask = _loadSaveService.LoadBaitRecipesAsync();
+        var dipsTask = _loadSaveService.LoadDipsAsync();
+        var luresTask = _loadSaveService.LoadLuresAsync();
+        
+        // Загружаем точки лова отдельно (локальный файл)
+        var localDataDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Maps");
+        var localCatchFile = Path.Combine(localDataDir, "CatchPoints_Local.json");
+
+        if (!Directory.Exists(localDataDir))
+        {
+            Directory.CreateDirectory(localDataDir);
+        }
+
+        var catchPointsTask = JsonService.LoadAsync<List<CatchPointModel>>(localCatchFile);
+
+        await Task.WhenAll(fishesTask, mapsTask, feedsTask, feedComponentsTask, baitRecipesTask, dipsTask, luresTask, catchPointsTask);
+
+        // Обновляем существующие коллекции (не переприсваиваем!)
+        var fishesList = await fishesTask;
+        var mapsList = await mapsTask;
+        var feedsList = await feedsTask;
+        var feedComponentsList = await feedComponentsTask;
+        var baitRecipesList = await baitRecipesTask;
+        var dipsList = await dipsTask;
+        var luresList = await luresTask;
+        var catchPointsListData = await catchPointsTask;
+
+        UpdateCollection(_fishes, fishesList != null ? new ObservableCollection<FishModel>(fishesList) : new ObservableCollection<FishModel>());
+        UpdateCollection(_maps, mapsList != null ? new ObservableCollection<MapModel>(mapsList) : new ObservableCollection<MapModel>());
+        UpdateCollection(_feeds, feedsList != null ? new ObservableCollection<BaitModel>(feedsList) : new ObservableCollection<BaitModel>());
+        UpdateCollection(_feedComponents, feedComponentsList != null ? new ObservableCollection<FeedComponentModel>(feedComponentsList) : new ObservableCollection<FeedComponentModel>());
+        UpdateCollection(_baitRecipes, baitRecipesList != null ? new ObservableCollection<BaitRecipeModel>(baitRecipesList) : new ObservableCollection<BaitRecipeModel>());
+        UpdateCollection(_dips, dipsList != null ? new ObservableCollection<DipModel>(dipsList) : new ObservableCollection<DipModel>());
+        UpdateCollection(_lures, luresList != null ? new ObservableCollection<LureModel>(luresList) : new ObservableCollection<LureModel>());
+
+        var loadedCatchPoints = catchPointsListData != null ? new ObservableCollection<CatchPointModel>(catchPointsListData) : new ObservableCollection<CatchPointModel>();
+        UpdateCollection(_catchPoints, loadedCatchPoints);
+        UpdateCollection(_filteredPoints, _catchPoints);
+
+        AddToRecipe = null;
+        _InitDerivedCollections();
+        _InitSelectionSaveHandlers();
+
+        _log.Information("Данные загруены: рыбы={Fishes}, карты={Maps}, прикормки={Feeds}, дипы={Dips}, воблеры={Lures}, рецепты={Recipes}, компоненты={Components}, точки лова={CatchPoints}",
+            _fishes.Count, _maps.Count, _feeds.Count, _dips.Count, _lures.Count, _baitRecipes.Count, _feedComponents.Count, _catchPoints.Count);
+    }
+
+    /// <summary>
+    /// Обновляет существующую коллекцию новыми данными
+    /// </summary>
+    private static void UpdateCollection<T>(ObservableCollection<T> target, ObservableCollection<T> source)
+    {
+        target.Clear();
+        foreach (var item in source)
+        {
+            target.Add(item);
+        }
     }
 
     /// <summary>

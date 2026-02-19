@@ -1,7 +1,7 @@
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Media.Imaging;
 using TFOHelperRedux.Models;
-using TFOHelperRedux.Services.Business;
 using TFOHelperRedux.Services.Data;
 
 namespace TFOHelperRedux.ViewModels
@@ -57,12 +57,12 @@ namespace TFOHelperRedux.ViewModels
 
         private void ApplyFilter()
         {
+            FilteredMaps.Clear();
+            
             var filtered = string.IsNullOrWhiteSpace(SearchText)
                 ? Maps
-                : new ObservableCollection<MapModel>(
-                    Maps.Where(m => m.Name.Contains(SearchText, System.StringComparison.OrdinalIgnoreCase)));
+                : Maps.Where(m => m.Name.Contains(SearchText, System.StringComparison.OrdinalIgnoreCase));
 
-            FilteredMaps.Clear();
             foreach (var m in filtered)
                 FilteredMaps.Add(m);
         }

@@ -26,7 +26,7 @@ namespace TFOHelperRedux
         {
             // Настройка Serilog
             var logPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "logs", "app-.log");
-            
+
             Log = new LoggerConfiguration()
                 .MinimumLevel.Debug()
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
@@ -68,13 +68,13 @@ namespace TFOHelperRedux
                     DataContext = MainViewModel
                 };
                 window.Show();
-                
+
                 Log.Information("Приложение успешно запущено");
             }
             catch (Exception ex)
             {
                 Log.Fatal(ex, "Критическая ошибка при запуске приложения");
-                
+
                 string message =
                     $"Ошибка при запуске приложения:\n\n" +
                     $"{ex.GetType().FullName}\n{ex.Message}\n\n" +

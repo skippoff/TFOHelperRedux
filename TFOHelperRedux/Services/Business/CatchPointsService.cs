@@ -39,8 +39,8 @@ public class CatchPointsService
     /// </summary>
     public ObservableCollection<CatchPointModel> LoadCatchPoints()
     {
-        var loaded = JsonService.Load<ObservableCollection<CatchPointModel>>(_localCatchFile);
-        return loaded ?? new ObservableCollection<CatchPointModel>();
+        var loadedList = JsonService.Load<List<CatchPointModel>>(_localCatchFile);
+        return loadedList != null ? new ObservableCollection<CatchPointModel>(loadedList) : new ObservableCollection<CatchPointModel>();
     }
 
     /// <summary>

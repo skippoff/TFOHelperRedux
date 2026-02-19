@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Text.Json;
+using System.Threading.Tasks;
 using Serilog;
 using TFOHelperRedux.Models;
 
@@ -34,25 +37,87 @@ public class DataLoadSaveService : IDataLoadSaveService
     public string BaitRecipesJson => Path.Combine(RecipesDir, "BaitRecipes.json");
 
     /// <summary>
-    /// Generic-метод загрузки данных с опциональным пост-процессингом
+    /// Generic-метод загрузки данных в ObservableCollection с опциональным пост-процессингом.
+    /// Десериализует в List{T} для корректной работы с System.Text.Json, затем создаёт ObservableCollection{T}.
     /// </summary>
-    protected T LoadData<T>(string path, string entityName, Action<T>? postProcess = null) where T : System.Collections.ICollection, new()
+    protected ObservableCollection<TItem> LoadData<TItem>(string path, string entityName, Action<ObservableCollection<TItem>>? postProcess = null)
     {
         _log.Debug("Загрузка {EntityName} из {Path}", entityName, path);
 
-        var list = JsonService.Load<T>(path);
-        
-        if (list == null)
+        ObservableCollection<TItem> collection;
+
+        try
         {
-            _log.Debug("{EntityName} не найдены, создан пустой список", entityName);
-            list = new T();
+            // Десериализуем в List<T> для надёжности, затем создаём ObservableCollection
+            var list = JsonService.Load<List<TItem>>(path);
+
+            if (list == null)
+            {
+                _log.Debug("{EntityName} не найдены, создана пустая коллекция", entityName);
+                collection = new ObservableCollection<TItem>();
+            }
+            else
+            {
+                collection = new ObservableCollection<TItem>(list);
+                _log.Debug("Загружено {Count} {EntityName}", collection.Count, entityName);
+            }
+        }
+        catch (JsonException ex)
+        {
+            _log.Error(ex, "Ошибка десериализации {EntityName} из {Path}", entityName, path);
+            collection = new ObservableCollection<TItem>();
+        }
+        catch (IOException ex)
+        {
+            _log.Error(ex, "Ошибка чтения файла {Path} для {EntityName}", path, entityName);
+            collection = new ObservableCollection<TItem>();
         }
 
-        _log.Debug("Загружено {Count} {EntityName}", list.Count, entityName);
+        postProcess?.Invoke(collection);
 
-        postProcess?.Invoke(list);
+        return collection;
+    }
 
-        return list;
+    /// <summary>
+    /// Generic-метод асинхронной загрузки данных в ObservableCollection с опциональным пост-процессингом.
+    /// Десериализует в List{T} для корректной работы с System.Text.Json, затем создаёт ObservableCollection{T}.
+    /// </summary>
+    protected async Task<ObservableCollection<TItem>> LoadDataAsync<TItem>(string path, string entityName, Action<ObservableCollection<TItem>>? postProcess = null)
+    {
+        _log.Debug("Загрузка {EntityName} из {Path}", entityName, path);
+
+        ObservableCollection<TItem> collection;
+
+        try
+        {
+            // Десериализуем в List<T> для надёжности, затем создаём ObservableCollection
+            var list = await JsonService.LoadAsync<List<TItem>>(path);
+
+            if (list == null)
+            {
+                _log.Debug("{EntityName} не найдены, создана пустая коллекция", entityName);
+                collection = new ObservableCollection<TItem>();
+            }
+            else
+            {
+                collection = new ObservableCollection<TItem>(list);
+                _log.Debug("Загружено {Count} {EntityName}", collection.Count, entityName);
+            }
+        }
+        catch (JsonException ex)
+        {
+            _log.Error(ex, "Ошибка десериализации {EntityName} из {Path}", entityName, path);
+            collection = new ObservableCollection<TItem>();
+        }
+        catch (IOException ex)
+        {
+            _log.Error(ex, "Ошибка чтения файла {Path} для {EntityName}", path, entityName);
+            collection = new ObservableCollection<TItem>();
+        }
+
+        postProcess?.Invoke(collection);
+
+        return collection;
     }
 
     /// <summary>
@@ -62,7 +127,45 @@ public class DataLoadSaveService : IDataLoadSaveService
     {
         var count = (data as System.Collections.ICollection)?.Count ?? 0;
         _log.Debug("Сохранение {Count} {EntityName} в {Path}", count, entityName, path);
-        JsonService.Save(path, data);
+
+        try
+        {
+            JsonService.Save(path, data);
+        }
+        catch (JsonException ex)
+        {
+            _log.Error(ex, "Ошибка сериализации {EntityName} в {Path}", entityName, path);
+            throw;
+        }
+        catch (IOException ex)
+        {
+            _log.Error(ex, "Ошибка записи файла {Path} для {EntityName}", path, entityName);
+            throw;
+        }
+    }
+
+    /// <summary>
+    /// Generic-метод асинхронного сохранения данных
+    /// </summary>
+    protected async Task SaveDataAsync<T>(string path, T data, string entityName)
+    {
+        var count = (data as System.Collections.ICollection)?.Count ?? 0;
+        _log.Debug("Сохранение {Count} {EntityName} в {Path}", count, entityName, path);
+
+        try
+        {
+            await JsonService.SaveAsync(path, data);
+        }
+        catch (JsonException ex)
+        {
+            _log.Error(ex, "Ошибка сериализации {EntityName} в {Path}", entityName, path);
+            throw;
+        }
+        catch (IOException ex)
+        {
+            _log.Error(ex, "Ошибка записи файла {Path} для {EntityName}", path, entityName);
+            throw;
+        }
     }
 
     public void LoadAll()
@@ -77,14 +180,55 @@ public class DataLoadSaveService : IDataLoadSaveService
         // Используется при выходе из приложения
     }
 
+    /// <summary>
+    /// Асинхронная загрузка всех данных
+    /// </summary>
+    public async Task LoadAllAsync()
+    {
+        _log.Information("Асинхронная загрузка всех данных...");
+        
+        // Загружаем все данные параллельно
+        await Task.WhenAll(
+            LoadFishesAsync(),
+            LoadMapsAsync(),
+            LoadFeedsAsync(),
+            LoadFeedComponentsAsync(),
+            LoadBaitRecipesAsync(),
+            LoadDipsAsync(),
+            LoadLuresAsync()
+        );
+        
+        _log.Information("Все данные загружены");
+    }
+
+    /// <summary>
+    /// Асинхронное сохранение всех данных
+    /// </summary>
+    public async Task SaveAllAsync()
+    {
+        _log.Information("Асинхронное сохранение всех данных...");
+        
+        // Сохраняем все данные параллельно
+        var localDataDir = Path.Combine(BaseDir, "Maps");
+        var localCatchFile = Path.Combine(localDataDir, "CatchPoints_Local.json");
+        
+        await Task.WhenAll(
+            SaveFeedComponentsAsync(FeedComponentsJson, DataStore.FeedComponents, "компонентов"),
+            SaveBaitRecipesAsync(BaitRecipesJson, DataStore.BaitRecipes, "рецептов"),
+            SaveCatchPointsAsync(localCatchFile, DataStore.CatchPoints, "точек лова")
+        );
+        
+        _log.Information("Все данные сохранены");
+    }
+
     public ObservableCollection<FishModel> LoadFishes()
     {
-        return LoadData<ObservableCollection<FishModel>>(FishesJson, "рыб", list =>
+        return LoadData<FishModel>(FishesJson, "рыб", list =>
         {
             // Автоматическая привязка картинок по ID + починка битых путей
             foreach (var fish in list)
             {
-                if (fish.ID <= 0)
+                if (fish.ID < 0)
                     continue;
 
                 // Проверяем существование файла: сначала как абсолютный, потом как относительный
@@ -111,32 +255,103 @@ public class DataLoadSaveService : IDataLoadSaveService
         });
     }
 
+    public async Task<ObservableCollection<FishModel>> LoadFishesAsync()
+    {
+        return await LoadDataAsync<FishModel>(FishesJson, "рыб", list =>
+        {
+            // Автоматическая привязка картинок по ID + починка битых путей
+            foreach (var fish in list)
+            {
+                if (fish.ID < 0)
+                    continue;
+
+                var hasValidImage = !string.IsNullOrWhiteSpace(fish.ImagePath) &&
+                    (File.Exists(fish.ImagePath) || File.Exists(Path.Combine(BaseDir, fish.ImagePath)));
+
+                if (hasValidImage)
+                {
+                    if (!Path.IsPathRooted(fish.ImagePath))
+                        fish.ImagePath = Path.Combine(BaseDir, fish.ImagePath);
+                    continue;
+                }
+
+                var imgPath = GetFishImagePath(fish.ID);
+                if (File.Exists(imgPath))
+                {
+                    fish.ImagePath = imgPath;
+                    _log.Verbose("Восстановлен путь к изображению для рыбы {FishId}: {Path}", fish.ID, imgPath);
+                }
+                else
+                    fish.ImagePath = string.Empty;
+            }
+        });
+    }
+
     public ObservableCollection<MapModel> LoadMaps()
     {
-        return LoadData<ObservableCollection<MapModel>>(MapsJson, "карт");
+        return LoadData<MapModel>(MapsJson, "карт");
+    }
+
+    public async Task<ObservableCollection<MapModel>> LoadMapsAsync()
+    {
+        return await LoadDataAsync<MapModel>(MapsJson, "карт");
     }
 
     public ObservableCollection<BaitModel> LoadFeeds()
     {
-        return LoadData<ObservableCollection<BaitModel>>(FeedsJson, "прикормок");
+        return LoadData<BaitModel>(FeedsJson, "прикормок");
+    }
+
+    public async Task<ObservableCollection<BaitModel>> LoadFeedsAsync()
+    {
+        return await LoadDataAsync<BaitModel>(FeedsJson, "прикормок");
     }
 
     public ObservableCollection<FeedComponentModel> LoadFeedComponents()
     {
-        return LoadData<ObservableCollection<FeedComponentModel>>(FeedComponentsJson, "компонентов", list =>
+        return LoadData<FeedComponentModel>(FeedComponentsJson, "компонентов", list =>
         {
             foreach (var comp in list)
             {
                 if (comp.ID < 0)
                     continue;
 
-                // Проверяем существование файла: сначала как абсолютный, потом как относительный
                 var hasValidImage = !string.IsNullOrWhiteSpace(comp.ImagePath) &&
                     (File.Exists(comp.ImagePath) || File.Exists(Path.Combine(BaseDir, comp.ImagePath)));
 
                 if (hasValidImage)
                 {
-                    // Нормализуем путь к абсолютному
+                    if (!Path.IsPathRooted(comp.ImagePath))
+                        comp.ImagePath = Path.Combine(BaseDir, comp.ImagePath);
+                    continue;
+                }
+
+                var imgPath = Path.Combine(FeedComponentsDir, $"{comp.ID}.png");
+                if (File.Exists(imgPath))
+                {
+                    comp.ImagePath = imgPath;
+                    _log.Verbose("Восстановлен путь к изображению для компонента {ComponentId}: {Path}", comp.ID, imgPath);
+                }
+                else
+                    comp.ImagePath = string.Empty;
+            }
+        });
+    }
+
+    public async Task<ObservableCollection<FeedComponentModel>> LoadFeedComponentsAsync()
+    {
+        return await LoadDataAsync<FeedComponentModel>(FeedComponentsJson, "компонентов", list =>
+        {
+            foreach (var comp in list)
+            {
+                if (comp.ID < 0)
+                    continue;
+
+                var hasValidImage = !string.IsNullOrWhiteSpace(comp.ImagePath) &&
+                    (File.Exists(comp.ImagePath) || File.Exists(Path.Combine(BaseDir, comp.ImagePath)));
+
+                if (hasValidImage)
+                {
                     if (!Path.IsPathRooted(comp.ImagePath))
                         comp.ImagePath = Path.Combine(BaseDir, comp.ImagePath);
                     continue;
@@ -162,17 +377,38 @@ public class DataLoadSaveService : IDataLoadSaveService
             Directory.CreateDirectory(RecipesDir);
         }
 
-        return LoadData<ObservableCollection<BaitRecipeModel>>(BaitRecipesJson, "рецептов");
+        return LoadData<BaitRecipeModel>(BaitRecipesJson, "рецептов");
+    }
+
+    public async Task<ObservableCollection<BaitRecipeModel>> LoadBaitRecipesAsync()
+    {
+        if (!Directory.Exists(RecipesDir))
+        {
+            _log.Debug("Создание папки рецептов: {Path}", RecipesDir);
+            Directory.CreateDirectory(RecipesDir);
+        }
+
+        return await LoadDataAsync<BaitRecipeModel>(BaitRecipesJson, "рецептов");
     }
 
     public ObservableCollection<DipModel> LoadDips()
     {
-        return LoadData<ObservableCollection<DipModel>>(DipsJson, "дипов");
+        return LoadData<DipModel>(DipsJson, "дипов");
+    }
+
+    public async Task<ObservableCollection<DipModel>> LoadDipsAsync()
+    {
+        return await LoadDataAsync<DipModel>(DipsJson, "дипов");
     }
 
     public ObservableCollection<LureModel> LoadLures()
     {
-        return LoadData<ObservableCollection<LureModel>>(LuresJson, "воблеров");
+        return LoadData<LureModel>(LuresJson, "воблеров");
+    }
+
+    public async Task<ObservableCollection<LureModel>> LoadLuresAsync()
+    {
+        return await LoadDataAsync<LureModel>(LuresJson, "воблеров");
     }
 
     public void SaveFishes(ObservableCollection<FishModel> fishes)
@@ -219,6 +455,27 @@ public class DataLoadSaveService : IDataLoadSaveService
     public void SaveCatchPoints(string path, ObservableCollection<CatchPointModel> catchPoints)
     {
         SaveData(path, catchPoints, "точек лова");
+    }
+
+    // Async версии методов сохранения
+    public async Task SaveFeedComponentsAsync(string path, ObservableCollection<FeedComponentModel> components, string entityName)
+    {
+        await SaveDataAsync(path, components, entityName);
+    }
+
+    public async Task SaveBaitRecipesAsync(string path, ObservableCollection<BaitRecipeModel> recipes, string entityName)
+    {
+        if (!Directory.Exists(RecipesDir))
+        {
+            _log.Debug("Создание папки рецептов: {Path}", RecipesDir);
+            Directory.CreateDirectory(RecipesDir);
+        }
+        await SaveDataAsync(path, recipes, entityName);
+    }
+
+    public async Task SaveCatchPointsAsync(string path, ObservableCollection<CatchPointModel> catchPoints, string entityName)
+    {
+        await SaveDataAsync(path, catchPoints, entityName);
     }
 
     // Пути к изображениям

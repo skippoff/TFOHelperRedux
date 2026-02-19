@@ -57,7 +57,7 @@ namespace TFOHelperRedux.ViewModels
         #region Коллекции данных
 
         public ObservableCollection<FishModel> Fishes => DataStore.Fishes;
-        public ObservableCollection<FishModel> FilteredFishes { get; }
+        public ObservableCollection<FishModel> FilteredFishes => _filterService.FilteredFishes;
 
         // Карты для панели локаций (обычные + DLC) и фильтр по уровню
         public ObservableCollection<MapModel> MapsForFish => _mapsService.MapsForFish;
@@ -100,7 +100,7 @@ namespace TFOHelperRedux.ViewModels
             get => DataStore.Selection.SelectedMap;
             set
             {
-                DataStore.Selection.SetSelectedMap(value, DataStore.Fishes, FilteredFishes, DataStore.Lures);
+                DataStore.Selection.SetSelectedMap(value, DataStore.Fishes, _filterService.GetFilteredFishes(), DataStore.Lures);
                 OnPropertyChanged(nameof(SelectedMap));
                 OnPropertyChanged(nameof(SelectedFish));
                 OnPropertyChanged(nameof(RecommendedLures));
@@ -230,9 +230,6 @@ namespace TFOHelperRedux.ViewModels
             _fishDataService = fishDataService;
             _mapsService = mapsService;
 
-            // Инициализация коллекций
-            FilteredFishes = new ObservableCollection<FishModel>(DataStore.Fishes);
-
             // Инициализация ViewModel для навигации и прикормок
             NavigationVM = navigationVM;
             BaitsVM = baitsVM;
@@ -309,8 +306,8 @@ namespace TFOHelperRedux.ViewModels
             _mapsService.NavigateToMaps(
                 () =>
                 {
-                    if (FilteredFishes.Any())
-                        SelectedFish = FilteredFishes.First();
+                    if (FilteredFishes.Cast<FishModel>().Any())
+                        SelectedFish = FilteredFishes.Cast<FishModel>().First();
                 },
                 CatchPointsVM,
                 SelectedFish

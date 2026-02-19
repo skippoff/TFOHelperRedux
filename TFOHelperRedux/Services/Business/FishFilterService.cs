@@ -14,13 +14,19 @@ public class FishFilterService
     private readonly ObservableCollection<FishModel> _allFishes;
     private readonly ObservableCollection<FishModel> _filteredFishes;
     private string _searchText;
+    private MapModel? _selectedMap;
 
     public FishFilterService()
     {
         _allFishes = DataStore.Fishes;
-        _filteredFishes = new ObservableCollection<FishModel>();
+        _filteredFishes = new ObservableCollection<FishModel>(_allFishes);
         _searchText = string.Empty;
     }
+
+    /// <summary>
+    /// Отфильтрованная коллекция рыб
+    /// </summary>
+    public ObservableCollection<FishModel> FilteredFishes => _filteredFishes;
 
     /// <summary>
     /// Текст поиска
@@ -43,6 +49,34 @@ public class FishFilterService
     /// </summary>
     public void ApplyFilter()
     {
+        UpdateFilteredCollection();
+    }
+
+    /// <summary>
+    /// Фильтрует по карте
+    /// </summary>
+    public void FilterByMap(MapModel? selectedMap)
+    {
+        _selectedMap = selectedMap;
+        UpdateFilteredCollection();
+    }
+
+    /// <summary>
+    /// Сбрасывает текст поиска
+    /// </summary>
+    public void ResetSearch()
+    {
+        _searchText = string.Empty;
+        UpdateFilteredCollection();
+    }
+
+    /// <summary>
+    /// Обновляет отфильтрованную коллекцию
+    /// </summary>
+    private void UpdateFilteredCollection()
+    {
+        _filteredFishes.Clear();
+
         var filtered = _allFishes.AsEnumerable();
 
         // Фильтр по поиску
@@ -52,41 +86,12 @@ public class FishFilterService
                 f.Name.Contains(_searchText, StringComparison.OrdinalIgnoreCase));
         }
 
-        // Обновляем коллекцию
-        UpdateFilteredCollection(filtered.ToList());
-    }
-
-    /// <summary>
-    /// Фильтрует по карте
-    /// </summary>
-    public void FilterByMap(MapModel? selectedMap)
-    {
-        if (selectedMap == null)
+        // Фильтр по карте
+        if (_selectedMap != null && _selectedMap.FishIDs != null)
         {
-            // Без фильтра — все рыбы
-            UpdateFilteredCollection(_allFishes.ToList());
-            return;
+            filtered = filtered.Where(f => _selectedMap.FishIDs.Contains(f.ID));
         }
 
-        var fishOnMap = _allFishes
-            .Where(f => selectedMap.FishIDs != null && selectedMap.FishIDs.Contains(f.ID))
-            .ToList();
-
-        UpdateFilteredCollection(fishOnMap);
-    }
-
-    /// <summary>
-    /// Сбрасывает текст поиска
-    /// </summary>
-    public void ResetSearch()
-    {
-        _searchText = string.Empty;
-        ApplyFilter();
-    }
-
-    private void UpdateFilteredCollection(System.Collections.Generic.List<FishModel> filtered)
-    {
-        _filteredFishes.Clear();
         foreach (var fish in filtered)
         {
             _filteredFishes.Add(fish);
