@@ -35,20 +35,32 @@
                      ScrollViewer.IsDeferredScrollingEnabled="True"
                      VirtualizingPanel.IsVirtualizing="True"
                      VirtualizingPanel.VirtualizationMode="Recycling"
+                     VirtualizingPanel.CacheLength="2"
+                     VirtualizingPanel.CacheLengthUnit="Item"
                      MouseDoubleClick="Ingredient_MouseDoubleClick">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <WrapPanel Orientation="Horizontal"/>
+                        <!-- UniformGrid поддерживает виртуализацию в отличие от WrapPanel -->
+                        <!-- 3 колонки: 380px ширина / ~120px на карточку = 3 колонки -->
+                        <UniformGrid Columns="3" IsItemsHost="True" />
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
                 <ListBox.ItemTemplate>
                     <DataTemplate>
+                        <!-- Фиксированный размер для корректной виртуализации -->
                         <Border Width="100" Height="100" Margin="4"
                                 BorderBrush="#DDD" BorderThickness="1"
                                 CornerRadius="6" Padding="4">
                             <StackPanel>
-                                <Image Source="{Binding ImagePath, Converter={StaticResource ImgConverter}}" Height="50" Stretch="Uniform"/>
-                                <TextBlock Text="{Binding Name}" FontSize="13" TextAlignment="Center" Margin="0,4,0,0" TextTrimming="CharacterEllipsis"/>
+                                <Image Source="{Binding ImagePath, Converter={StaticResource ImgConverter}}" 
+                                       Height="50" 
+                                       Stretch="Uniform"
+                                       RenderOptions.BitmapScalingMode="LowQuality"/>
+                                <TextBlock Text="{Binding Name}" 
+                                           FontSize="13" 
+                                           TextAlignment="Center" 
+                                           Margin="0,4,0,0" 
+                                           TextTrimming="CharacterEllipsis"/>
                             </StackPanel>
                         </Border>
                     </DataTemplate>

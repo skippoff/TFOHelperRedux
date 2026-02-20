@@ -70,6 +70,10 @@
                         <ListBox ItemsSource="{Binding PreviewItems}"
                           FontSize="13"
                           ScrollViewer.VerticalScrollBarVisibility="Auto"
+                          ScrollViewer.CanContentScroll="True"
+                          ScrollViewer.IsDeferredScrollingEnabled="True"
+                          VirtualizingPanel.IsVirtualizing="True"
+                          VirtualizingPanel.VirtualizationMode="Recycling"
                           BorderThickness="0"
                           Height="250"/>
                     </Border>
@@ -94,8 +98,10 @@
                  SelectedItem="{Binding CurrentRecipe}"
                  ScrollViewer.VerticalScrollBarVisibility="Auto"
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                 ScrollViewer.CanContentScroll="False"
-                 VirtualizingStackPanel.IsVirtualizing="False"
+                 ScrollViewer.CanContentScroll="True"
+                 ScrollViewer.IsDeferredScrollingEnabled="True"
+                 VirtualizingPanel.IsVirtualizing="True"
+                 VirtualizingPanel.VirtualizationMode="Recycling"
                  BorderThickness="0"
                  Background="Transparent"
                  HorizontalContentAlignment="Stretch">
@@ -103,7 +109,7 @@
                             <!-- 🔹 2 карточки в ряд -->
                             <ListBox.ItemsPanel>
                                 <ItemsPanelTemplate>
-                                    <UniformGrid Columns="2"/>
+                                    <UniformGrid Columns="2" IsItemsHost="True"/>
                                 </ItemsPanelTemplate>
                             </ListBox.ItemsPanel>
 
