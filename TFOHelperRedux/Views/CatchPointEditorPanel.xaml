@@ -8,22 +8,20 @@
              d:DesignHeight="600" d:DesignWidth="400">
 
     <Border Margin="2"
-            Background="AliceBlue"
-            CornerRadius="6" 
-            BorderBrush="#DDDDDD"
+            Background="{DynamicResource PanelBackground}"
+            CornerRadius="6"
+            BorderBrush="{DynamicResource BorderBrushLight}"
             Padding="16">
         <ScrollViewer VerticalScrollBarVisibility="Auto">
         <StackPanel Margin="0,0,10,0">
-            <Separator Margin="0,10,0,10" Background="#DDD"/>
+            <Separator Margin="0,10,0,10" Background="{DynamicResource BorderBrushLight}"/>
             <!-- Водоём -->
-            <TextBlock Text="Водоём:" FontWeight="Bold" Margin="0,0,0,4"/>
+            <TextBlock Text="Водоём:" FontWeight="Bold" Margin="0,0,0,4" Foreground="{DynamicResource TextPrimary}"/>
             <ComboBox x:Name="cmbMap"
                       Height="30"
-                      Background="#FAFAFA"
-                      BorderBrush="#CCC"
                       DisplayMemberPath="Name"/>
             <!-- Координаты -->
-            <TextBlock Text="Координаты:" FontWeight="Bold" Margin="0,10,0,4"/>
+            <TextBlock Text="Координаты:" FontWeight="Bold" Margin="0,10,0,4" Foreground="{DynamicResource TextPrimary}"/>
             <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
                 <TextBox x:Name="tbX" Width="70" HorizontalContentAlignment="Center" Margin="0,0,8,0"/>
                 <TextBox x:Name="tbY" Width="70" HorizontalContentAlignment="Center"/>
@@ -47,7 +45,7 @@
                 </StackPanel>
 
             <!-- Глубина + клипса -->
-            <TextBlock Text="Глубина:" FontWeight="Bold" Margin="0,10,0,4"/>
+            <TextBlock Text="Глубина:" FontWeight="Bold" Margin="0,10,0,4" Foreground="{DynamicResource TextPrimary}"/>
             <StackPanel Orientation="Horizontal" Margin="0,0,8,0">
                 <!-- глубина -->
                 <TextBox x:Name="tbDepth"
@@ -57,22 +55,23 @@
                 <!-- клипса -->
                 <TextBlock Text="Клипса:" FontWeight="Bold"
                            Margin="10,0,4,0"
-                           VerticalAlignment="Center"/>
+                           VerticalAlignment="Center"
+                           Foreground="{DynamicResource TextPrimary}"/>
                 <TextBox x:Name="tbClip"
                          Width="80"
                          HorizontalContentAlignment="Center"/>
             </StackPanel>
 
             <!-- Особенности -->
-            <TextBlock Text="Особенности:" FontWeight="Bold" Margin="0,10,0,4"/>
+            <TextBlock Text="Особенности:" FontWeight="Bold" Margin="0,10,0,4" Foreground="{DynamicResource TextPrimary}"/>
             <StackPanel Orientation="Vertical">
                 <CheckBox x:Name="cbTrophy" Content="Трофейная"/>
                 <CheckBox x:Name="cbTournament" Content="Турнирная"/>
                 <CheckBox x:Name="cbCautious" Content="Осторожная"/>
             </StackPanel>
             <!-- Время лова -->
-            <TextBlock Text="Время лова:" FontWeight="Bold" Margin="0,10,0,4"/>
-            <Border BorderThickness="1" HorizontalAlignment="Left">
+            <TextBlock Text="Время лова:" FontWeight="Bold" Margin="0,10,0,4" Foreground="{DynamicResource TextPrimary}"/>
+            <Border BorderThickness="1" HorizontalAlignment="Left" BorderBrush="{DynamicResource BorderBrushLight}">
                 <StackPanel Width="100" Orientation="Vertical">
                     <CheckBox x:Name="cbMorning" Content="Утро 🌅"/>
                     <CheckBox x:Name="cbDay" Content="День ☀️"/>
@@ -81,7 +80,7 @@
                 </StackPanel>
             </Border>
             <!-- Тип удилища -->
-            <TextBlock Text="Тип удилища:" FontWeight="Bold" Margin="0,10,0,4"/>
+            <TextBlock Text="Тип удилища:" FontWeight="Bold" Margin="0,10,0,4" Foreground="{DynamicResource TextPrimary}"/>
             <StackPanel>
                 <CheckBox x:Name="cbRodSpinning" Content="Спиннинг"/>
                 <CheckBox x:Name="cbRodFeeder" Content="Фидер"/>
@@ -90,8 +89,8 @@
                 <CheckBox x:Name="cbRodSea" Content="Морское"/>
             </StackPanel>
             <!-- Комментарий -->
-            <TextBlock Text="Комментарий:" FontWeight="Bold" Margin="0,10,0,4"/>
-            <Border Background="#FAFAFA" BorderBrush="#DDD" BorderThickness="1" CornerRadius="4">
+            <TextBlock Text="Комментарий:" FontWeight="Bold" Margin="0,10,0,4" Foreground="{DynamicResource TextPrimary}"/>
+            <Border Background="{DynamicResource PanelBackground}" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1" CornerRadius="4">
                 <TextBox x:Name="tbComment"
                          AcceptsReturn="True"
                          TextWrapping="Wrap"

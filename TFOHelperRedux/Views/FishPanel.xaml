@@ -69,14 +69,14 @@
                                     Foreground="White"
                                     BorderBrush="Black"
                                     Style="{StaticResource IconButton}"/>
-                            <TextBlock Grid.Row="1" 
-                               Text="{Binding Name}" 
-                               FontSize="15" 
+                            <TextBlock Grid.Row="1"
+                               Text="{Binding Name}"
+                               FontSize="15"
                                FontWeight="Medium"
-                               TextAlignment="Center" 
+                               TextAlignment="Center"
                                Margin="2,6,2,0"
                                TextTrimming="CharacterEllipsis"
-                               Foreground="#333"/>
+                               Foreground="{DynamicResource TextPrimary}"/>
                         </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>

@@ -19,7 +19,7 @@
             <!-- имя текущей рыбы -->
             <TextBlock Text="{Binding CurrentFish.Name, FallbackValue='(все)'}"
                    FontSize="16"
-                   Foreground="#2196F3"
+                   Foreground="{DynamicResource PrimaryColor}"
                    FontWeight="SemiBold"
                    Margin="10,0,0,0"
                    VerticalAlignment="Center"/>
@@ -45,40 +45,40 @@
                                 <!-- 🗺 Карта -->
                                 <TextBlock Text="{Binding MapName}"
                                            FontWeight="SemiBold"
-                                           Foreground="#212529"
+                                           Foreground="{DynamicResource TextPrimary}"
                                            FontSize="16"/>
 
                                 <!-- 📍 Координаты -->
                                 <StackPanel Orientation="Horizontal" Margin="0,2,0,2">
-                                    <TextBlock Text="X:" Foreground="#6C757D" FontSize="14" Margin="0,0,2,0"/>
-                                    <TextBlock Text="{Binding Coords.X}" Foreground="#343A40" FontSize="14"/>
-                                    <TextBlock Text="   Y:" Foreground="#6C757D" FontSize="14" Margin="8,0,2,0"/>
-                                    <TextBlock Text="{Binding Coords.Y}" Foreground="#343A40" FontSize="14"/>
+                                    <TextBlock Text="X:" Foreground="{DynamicResource TextSecondary}" FontSize="14" Margin="0,0,2,0"/>
+                                    <TextBlock Text="{Binding Coords.X}" Foreground="{DynamicResource TextPrimary}" FontSize="14"/>
+                                    <TextBlock Text="   Y:" Foreground="{DynamicResource TextSecondary}" FontSize="14" Margin="8,0,2,0"/>
+                                    <TextBlock Text="{Binding Coords.Y}" Foreground="{DynamicResource TextPrimary}" FontSize="14"/>
                                 </StackPanel>
 
                                 <!-- 💬 Комментарий -->
                                 <TextBlock Text="{Binding Comment}"
                                            FontSize="16"
-                                           Foreground="#495057"
+                                           Foreground="{DynamicResource TextSecondary}"
                                            TextWrapping="Wrap"
                                            Margin="0,2,0,0"/>
                                 <!-- Особенности -->
                                 <TextBlock Text="{Binding FeaturesInfo}"
                                            FontSize="15"
-                                           Foreground="DarkSlateGray"
+                                           Foreground="{DynamicResource TextSecondary}"
                                            TextWrapping="Wrap"
                                            Margin="0,4,0,0"/>
 
                                 <!-- Время лова -->
                                 <TextBlock Text="{Binding TimeInfo}"
                                            FontSize="15"
-                                           Foreground="DarkSlateGray"
+                                           Foreground="{DynamicResource TextSecondary}"
                                            TextWrapping="Wrap"/>
 
                                 <!-- Тип удилища -->
                                 <TextBlock Text="{Binding RodTypeInfo}"
                                            FontSize="15"
-                                           Foreground="DarkSlateGray"
+                                           Foreground="{DynamicResource TextSecondary}"
                                            TextWrapping="Wrap"/>
 
                                 <!-- Глубина -->

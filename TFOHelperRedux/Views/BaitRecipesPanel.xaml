@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006">
-    <Border Background="AliceBlue"
+    <Border Background="{DynamicResource PanelBackground}"
             Margin="2"
             CornerRadius="6">
         <Grid Margin="2">
@@ -15,8 +15,8 @@
             <!-- Заголовок и кнопки -->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,10">
                 <TextBlock Text="Название:" VerticalAlignment="Center" Margin="0,0,6,0" Style="{StaticResource HeaderTextStyle}"/>
-                <Border Background="AliceBlue"
-                 BorderBrush="#CCCCCC"
+                <Border Background="{DynamicResource PanelBackground}"
+                 BorderBrush="{DynamicResource BorderBrushLight}"
                  BorderThickness="1"
                  CornerRadius="4"
                  Margin="0,0,6,0">
@@ -92,8 +92,8 @@
                 </StackPanel>
                 <!-- Правая часть -->
                 <StackPanel Grid.Column="1" Margin="0, 0, 1, 0">
-                    <TextBlock Text="Сохранённые рецепты" FontWeight="Bold" Margin="0,0,0,4"/>
-                    <Border BorderThickness="1" CornerRadius="6" Padding="1">
+                    <TextBlock Text="Сохранённые рецепты" FontWeight="Bold" Margin="0,0,0,4" Foreground="{DynamicResource TextPrimary}"/>
+                    <Border BorderThickness="1" CornerRadius="6" Padding="1" BorderBrush="{DynamicResource BorderBrushLight}">
                         <ListBox ItemsSource="{Binding Recipes}"
                  SelectedItem="{Binding CurrentRecipe}"
                  ScrollViewer.VerticalScrollBarVisibility="Auto"
@@ -176,7 +176,7 @@
                                                 <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
                                                 <TextBlock Text="{Binding DateEdited, StringFormat='dd.MM.yyyy HH:mm'}"
                                                            FontSize="10"
-                                                           Foreground="#777"/>
+                                                           Foreground="{DynamicResource TextSecondary}"/>
                                             </StackPanel>
                                         </Border>
                                     </Border>

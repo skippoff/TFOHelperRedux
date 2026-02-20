@@ -37,7 +37,8 @@
                    FontWeight="Heavy"
                    Margin="6"
                    VerticalAlignment="Center"
-                   FontSize="14" Foreground="#FF090A0A"/>
+                   FontSize="14" 
+                   Foreground="{DynamicResource TextPrimary}"/>
         <Button Content="➕/✏"
                 Command="{Binding CatchPointsVM.EditCatchPointWindowCommand}"
                 Style="{StaticResource IconButton}"

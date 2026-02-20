@@ -41,7 +41,7 @@
                     <DataTemplate>
                         <!-- Фиксированный размер для корректной виртуализации -->
                         <Border Width="108" Height="100" Margin="4"
-                                BorderBrush="#DDD" BorderThickness="1"
+                                BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1"
                                 CornerRadius="6" Padding="4">
                             <StackPanel>
                                 <Image Source="{Binding ImagePath, Converter={StaticResource ImgConverter}}" 
@@ -52,7 +52,8 @@
                                            FontSize="13" 
                                            TextAlignment="Center" 
                                            Margin="0,4,0,0" 
-                                           TextTrimming="CharacterEllipsis"/>
+                                           TextTrimming="CharacterEllipsis"
+                                           Foreground="{DynamicResource TextPrimary}"/>
                             </StackPanel>
                         </Border>
                     </DataTemplate>

@@ -167,7 +167,7 @@
                                                TextAlignment="Center"
                                                Margin="2,6,2,0"
                                                TextTrimming="CharacterEllipsis"
-                                               Foreground="#333"/>
+                                               Foreground="{DynamicResource TextPrimary}"/>
                                 </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>

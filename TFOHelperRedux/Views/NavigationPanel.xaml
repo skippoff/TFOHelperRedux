@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="TFOHelperRedux.Views.NavigationPanel"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
 
     <StackPanel Orientation="Horizontal"
                 Margin="0,6,0,0"
@@ -19,5 +20,17 @@
                 Foreground="White"
                 BorderBrush="Black"
                 Margin="0,0,6,0"/>
+        
+        <!-- 🌓 Переключатель темы -->
+        <Button Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                ToolTip="Переключить тему"
+                Command="{Binding NavigationVM.ToggleThemeCmd}"
+                Margin="12,0,0,0"
+                VerticalAlignment="Center">
+            <materialDesign:PackIcon Kind="ThemeLightDark"
+                                     Width="20"
+                                     Height="20"
+                                     Foreground="White"/>
+        </Button>
     </StackPanel>
 </UserControl>

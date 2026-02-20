@@ -38,45 +38,45 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <Border Width="140" Height="90" 
-                     Background="#F8F9FA" 
-                     CornerRadius="6" 
-                     BorderBrush="#DEE2E6" 
+                        <Border Width="140" Height="90"
+                     Background="{DynamicResource PanelBackground}"
+                     CornerRadius="6"
+                     BorderBrush="{DynamicResource BorderBrushLight}"
                      BorderThickness="1"
                      Padding="8">
-                            <Image Source="{Binding SelectedFish.ImagePath, Converter={StaticResource ImgConverter}}" 
+                            <Image Source="{Binding SelectedFish.ImagePath, Converter={StaticResource ImgConverter}}"
                         Stretch="Uniform"/>
                         </Border>
 
                         <StackPanel Grid.Column="1" Margin="16,0,0,0" VerticalAlignment="Top">
-                            <TextBlock Text="{Binding SelectedFish.Name}" 
-                            FontSize="18" 
-                            FontWeight="Bold" 
-                            Foreground="#212529"
+                            <TextBlock Text="{Binding SelectedFish.Name}"
+                            FontSize="18"
+                            FontWeight="Bold"
+                            Foreground="{DynamicResource TextPrimary}"
                             TextWrapping="Wrap"/>
-                            <TextBlock Text="{Binding SelectedFish.Comment}" 
-                            FontSize="16" 
+                            <TextBlock Text="{Binding SelectedFish.Comment}"
+                            FontSize="16"
                             FontStyle="Italic"
-                            Foreground="DarkSlateGray" 
+                            Foreground="DarkSlateGray"
                             Margin="0,4,0,0"
                             TextWrapping="Wrap"/>
                         </StackPanel>
                     </Grid>
                     <!-- Краткая информация -->
                     <StackPanel Margin="0,0,0,16">
-                        <TextBlock Text="Краткая информация" 
-                        FontWeight="SemiBold" 
+                        <TextBlock Text="Краткая информация"
+                        FontWeight="SemiBold"
                         FontSize="14"
-                        Foreground="#495057" 
+                        Foreground="{DynamicResource TextSecondary}"
                         Margin="0,0,0,8"/>
-                        <TextBlock Text="{Binding SelectedFish.Name, FallbackValue='Нет информации'}" 
-                        Foreground="#555"
+                        <TextBlock Text="{Binding SelectedFish.Name, FallbackValue='Нет информации'}"
+                        Foreground="{DynamicResource TextSecondary}"
                         TextWrapping="Wrap"/>
                         <!-- Трофей от ... (г), просто информация -->
                         <TextBlock Text="{Binding SelectedFish.WeightTrophy,
                               StringFormat='Трофей от {0} г',
                               FallbackValue='Трофей: нет данных'}"
-                                   Foreground="#555"
+                                   Foreground="{DynamicResource TextSecondary}"
                                    FontSize="15"
                                    FontWeight="Bold"
                                    Margin="0,4,0,0"
@@ -89,7 +89,7 @@
                     <StackPanel Margin="0,0,0,16">
                         <TextBlock Text="Лучшие наживки"
                Style="{StaticResource SubHeaderTextStyle}"
-               Foreground="#495057"
+               Foreground="{DynamicResource TextSecondary}"
                Margin="0,0,0,8"/>
                         <ScrollViewer HorizontalScrollBarVisibility="Auto"
                            VerticalScrollBarVisibility="Disabled"
@@ -104,9 +104,9 @@
                                     <DataTemplate>
                                         <StackPanel Width="70" Margin="0,0,8,0">
                                             <Border Width="56" Height="56"
-                            Background="#F8F9FA"
+                            Background="{DynamicResource PanelBackground}"
                             CornerRadius="6"
-                            BorderBrush="#DEE2E6"
+                            BorderBrush="{DynamicResource BorderBrushLight}"
                             BorderThickness="1"
                             Padding="4">
                                                 <Image Source="{Binding ImagePath, Converter={StaticResource ImgConverter}}"
@@ -117,7 +117,7 @@
                                TextAlignment="Center"
                                TextTrimming="CharacterEllipsis"
                                Margin="0,4,0,0"
-                               Foreground="#495057"/>
+                               Foreground="{DynamicResource TextSecondary}"/>
                                         </StackPanel>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
@@ -127,10 +127,10 @@
                     <StackPanel Margin="0,0,0,16">
                         <TextBlock Text="Может клевать"
                                    Style="{StaticResource SubHeaderTextStyle}"
-                        Foreground="#495057" 
+                        Foreground="{DynamicResource TextSecondary}"
                         Margin="0,0,0,8"/>
-                        <ScrollViewer HorizontalScrollBarVisibility="Auto" 
-                           VerticalScrollBarVisibility="Disabled" 
+                        <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                           VerticalScrollBarVisibility="Disabled"
                            Height="100">
                             <ItemsControl ItemsSource="{Binding MaybeCatchLures}">
                                 <ItemsControl.ItemsPanel>
@@ -141,21 +141,21 @@
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Width="70" Margin="0,0,8,0">
-                                            <Border Width="56" Height="56" 
-                                         Background="#F8F9FA" 
-                                         CornerRadius="6" 
-                                         BorderBrush="#DEE2E6" 
+                                            <Border Width="56" Height="56"
+                                         Background="{DynamicResource PanelBackground}"
+                                         CornerRadius="6"
+                                         BorderBrush="{DynamicResource BorderBrushLight}"
                                          BorderThickness="1"
                                          Padding="4">
-                                                <Image Source="{Binding ImagePath, Converter={StaticResource ImgConverter}}" 
+                                                <Image Source="{Binding ImagePath, Converter={StaticResource ImgConverter}}"
                                             Stretch="Uniform"/>
                                             </Border>
-                                            <TextBlock Text="{Binding Name}" 
-                                            FontSize="13" 
-                                            TextAlignment="Center" 
+                                            <TextBlock Text="{Binding Name}"
+                                            FontSize="13"
+                                            TextAlignment="Center"
                                             TextTrimming="CharacterEllipsis"
                                             Margin="0,4,0,0"
-                                            Foreground="#495057"/>
+                                            Foreground="{DynamicResource TextSecondary}"/>
                                         </StackPanel>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
@@ -167,7 +167,7 @@
                         <TextBlock Text="Прикормки (рыба)"
                                    FontWeight="SemiBold"
                                    FontSize="16"
-                                   Foreground="#495057"
+                                   Foreground="{DynamicResource TextSecondary}"
                                    Margin="0,0,0,4"/>
                         <ScrollViewer HorizontalScrollBarVisibility="Auto"
                                       VerticalScrollBarVisibility="Disabled"
@@ -182,9 +182,9 @@
                                     <DataTemplate>
                                         <StackPanel Width="70" Margin="0,0,8,0">
                                             <Border Width="56" Height="56"
-                                                    Background="#F8F9FA"
+                                                    Background="{DynamicResource PanelBackground}"
                                                     CornerRadius="6"
-                                                    BorderBrush="#DEE2E6"
+                                                    BorderBrush="{DynamicResource BorderBrushLight}"
                                                     BorderThickness="1"
                                                     Padding="4">
                                                 <Image Source="{Binding ImagePath, Converter={StaticResource ImgConverter}}"
@@ -195,7 +195,7 @@
                                                        TextAlignment="Center"
                                                        TextTrimming="CharacterEllipsis"
                                                        Margin="0,4,0,0"
-                                                       Foreground="#495057"/>
+                                                       Foreground="{DynamicResource TextSecondary}"/>
                                         </StackPanel>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
@@ -207,7 +207,7 @@
                         <TextBlock Text="Рецепты прикормки (рыба)"
                                    FontWeight="SemiBold"
                                    FontSize="16"
-                                   Foreground="#495057"
+                                   Foreground="{DynamicResource TextSecondary}"
                                    Margin="0,0,0,4"/>
                         <ItemsControl ItemsSource="{Binding RecipesForSelectedFish}">
                             <ItemsControl.ItemsPanel>
@@ -233,7 +233,7 @@
                                                            FontWeight="Bold"/>
                                                 <TextBlock Text="{Binding DateEdited, StringFormat='dd.MM.yyyy HH:mm'}"
                                                            FontSize="10"
-                                                           Foreground="#777"/>
+                                                           Foreground="{DynamicResource TextSecondary}"/>
 
                                                 <!-- Состав рецепта (список строк через RecipeCompositionConverter) -->
                                                 <ItemsControl Margin="0,4,0,0"
@@ -241,7 +241,7 @@
                                                     <ItemsControl.ItemTemplate>
                                                         <DataTemplate>
                                                             <TextBlock FontSize="16"
-                                                                       Foreground="#555">
+                                                                       Foreground="{DynamicResource TextSecondary}">
                                                                 <Run Text="• "/>
                                                                 <Run Text="{Binding Path=., Mode=OneWay}"/>
                                                             </TextBlock>
@@ -270,17 +270,17 @@
                     </StackPanel>
                     <!-- Заметки -->
                     <StackPanel>
-                        <TextBlock Text="Заметки" 
-                        FontWeight="SemiBold" 
+                        <TextBlock Text="Заметки"
+                        FontWeight="SemiBold"
                         FontSize="14"
-                        Foreground="#495057" 
+                        Foreground="{DynamicResource TextSecondary}"
                         Margin="0,0,0,8"/>
-                        <Border Background="#F8F9FA" 
-                     BorderBrush="#DEE2E6" 
-                     BorderThickness="1" 
+                        <Border Background="{DynamicResource PanelBackground}"
+                     BorderBrush="{DynamicResource BorderBrushLight}"
+                     BorderThickness="1"
                      CornerRadius="6">
-                            <TextBox Text="{Binding SelectedFish.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                          AcceptsReturn="True" 
+                            <TextBox Text="{Binding SelectedFish.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          AcceptsReturn="True"
                           MinHeight="100"
                           TextWrapping="Wrap"
                           BorderThickness="0"
@@ -292,8 +292,8 @@
                     </StackPanel>
                     <!-- 🎯 Точки лова -->
                     <StackPanel Margin="0,16,0,0">
-                        <Border Background="#F8F9FA"
-                                BorderBrush="#DEE2E6"
+                        <Border Background="{DynamicResource PanelBackground}"
+                                BorderBrush="{DynamicResource BorderBrushLight}"
                                 BorderThickness="1"
                                 CornerRadius="6"
                                 Padding="6"
@@ -322,10 +322,10 @@
                         <TextBlock Text="График интенсивности клева"
                         FontWeight="SemiBold"
                         FontSize="18"
-                        Foreground="#495057"
+                        Foreground="{DynamicResource TextSecondary}"
                         Margin="0,0,0,8"/>
-                        <Border Background="#F8F9FA"
-                     BorderBrush="#DEE2E6"
+                        <Border Background="{DynamicResource PanelBackground}"
+                     BorderBrush="{DynamicResource BorderBrushLight}"
                      BorderThickness="1"
                      CornerRadius="6"
                      Padding="6"
@@ -333,9 +333,9 @@
                             <Grid>
                                 <!-- Горизонтальные линии шкалы -->
                                 <Canvas>
-                                    <Line X1="0" Y1="20" X2="780" Y2="20" Stroke="#E0E0E0" StrokeThickness="1"/>
-                                    <Line X1="0" Y1="60" X2="780" Y2="60" Stroke="#E0E0E0" StrokeThickness="1"/>
-                                    <Line X1="0" Y1="100" X2="780" Y2="100" Stroke="#E0E0E0" StrokeThickness="1"/>
+                                    <Line X1="0" Y1="20" X2="780" Y2="20" Stroke="{DynamicResource BorderBrushLight}" StrokeThickness="1"/>
+                                    <Line X1="0" Y1="60" X2="780" Y2="60" Stroke="{DynamicResource BorderBrushLight}" StrokeThickness="1"/>
+                                    <Line X1="0" Y1="100" X2="780" Y2="100" Stroke="{DynamicResource BorderBrushLight}" StrokeThickness="1"/>
                                 </Canvas>
                                 <!-- Столбцы -->
                                 <ItemsControl ItemsSource="{Binding SelectedFish.BiteIntensity}" AlternationCount="24" Panel.ZIndex="1">
@@ -358,7 +358,7 @@
                                                 <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=ContentPresenter},
                                                 Path=(ItemsControl.AlternationIndex)}"
                                                 FontSize="13"
-                                                Foreground="#777"
+                                                Foreground="{DynamicResource TextSecondary}"
                                                 HorizontalAlignment="Center"
                                                 Margin="0,2,0,0"/>
                                             </StackPanel>
@@ -373,19 +373,19 @@
                 </StackPanel>
                 <!-- Placeholder когда ничего не выбрано -->
                 <StackPanel x:Name="FishPlaceholder"
-                            VerticalAlignment="Center" 
-                            HorizontalAlignment="Center" 
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
                             Margin="0,100,0,0"
                             Visibility="Collapsed">
                     <TextBlock Text="🐟" FontSize="64" HorizontalAlignment="Center" Opacity="0.2"/>
                     <TextBlock Text="Выберите рыбу"
                                FontSize="18"
-                               Foreground="{StaticResource TextSecondary}"
+                               Foreground="{DynamicResource TextSecondary}"
                                HorizontalAlignment="Center"
                                Margin="0,12,0,4"/>
                     <TextBlock Text="для просмотра подробной информации"
                                FontSize="12"
-                               Foreground="#CED4DA"
+                               Foreground="{DynamicResource TextSecondary}"
                                HorizontalAlignment="Center"/>
                 </StackPanel>
             </Grid>

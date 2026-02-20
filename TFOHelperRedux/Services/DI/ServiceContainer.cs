@@ -67,9 +67,10 @@ public static class ServiceContainer
 
     private static void RegisterServices(ServiceCollection services)
     {
-        // UI сервис
+        // UI сервисы
         services.AddSingleton<IUIService, UIService>();
-        _log.Verbose("Зарегистрирован IUIService");
+        services.AddSingleton<ThemeService>();
+        _log.Verbose("Зарегистрирован IUIService и ThemeService");
 
         // Сервис загрузки/сохранения данных
         services.AddSingleton<IDataLoadSaveService, DataLoadSaveService>();

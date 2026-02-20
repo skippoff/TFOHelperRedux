@@ -6,11 +6,11 @@
         Height="900"
         ResizeMode="NoResize"
         WindowStartupLocation="Manual"
-        Background="Black">
+        Background="#1A1A1A">
 
     <DockPanel>
         <!-- Меню -->
-        <Menu DockPanel.Dock="Top" Background="#222" Foreground="White" FontSize="13">
+        <Menu DockPanel.Dock="Top" Background="#2D2D2D" Foreground="White" FontSize="13">
             <MenuItem Header="_Меню">
                 <MenuItem Header="О программе"
                           Click="About_Click"/>

@@ -5,7 +5,7 @@
         Width="520"
         Height="700"
         WindowStartupLocation="CenterOwner"
-        Background="#FAFAFA">
+        Background="{DynamicResource AppBackground}">
 
     <Grid Margin="10">
         <Grid.RowDefinitions>
@@ -18,14 +18,15 @@
         <TextBlock x:Name="txtHeader"
                    FontSize="16"
                    FontWeight="Bold"
-                   Margin="0,0,0,8"/>
+                   Margin="0,0,0,8"
+                   Foreground="{DynamicResource TextPrimary}"/>
 
         <!-- Список всех рыб с галочками -->
         <Border Grid.Row="1"
-                BorderBrush="#DDDDDD"
+                BorderBrush="{DynamicResource BorderBrushLight}"
                 BorderThickness="1"
                 CornerRadius="6"
-                Background="White">
+                Background="{DynamicResource PanelBackground}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>

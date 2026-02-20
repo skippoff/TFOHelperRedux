@@ -6,10 +6,10 @@
         Title="Добавление / Редактирование точки лова"
         Height="790" Width="1200"
         WindowStartupLocation="CenterOwner"
-        Background="#F4F5F7"
+        Background="{DynamicResource AppBackground}"
         FontFamily="Segoe UI" FontSize="14">
 
-    <Border BorderBrush="#D0D0D0" BorderThickness="1" CornerRadius="6" Padding="10" Background="White">
+    <Border BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1" CornerRadius="6" Padding="10" Background="{DynamicResource PanelBackground}">
         <Grid Margin="10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="4*"/>
@@ -30,17 +30,15 @@
                     <Button Content="❌ Отмена"
                             Width="120" Height="34"
                             Margin="0,0,10,0"
-                            Background="RosyBrown"
+                            Background="{StaticResource ButtonDeleteBrush}"
                             Foreground="White"
-                            BorderBrush="DarkRed"
                             Cursor="Hand"
                             Click="Cancel_Click"/>
                     <Button Content="✅ Сохранить"
                             Width="130" Height="34"
-                            Background="#4CAF50"
+                            Background="{StaticResource SuccessColor}"
                             Foreground="White"
                             FontWeight="Bold"
-                            BorderBrush="#388E3C"
                             Cursor="Hand"
                             Click="Ok_Click"/>
                 </StackPanel>

@@ -3,6 +3,8 @@ using System.Windows.Input;
 using TFOHelperRedux.Helpers;
 using TFOHelperRedux.Services.Business;
 using TFOHelperRedux.Services.Data;
+using TFOHelperRedux.Services.DI;
+using TFOHelperRedux.Services.UI;
 
 namespace TFOHelperRedux.ViewModels
 {
@@ -11,6 +13,7 @@ namespace TFOHelperRedux.ViewModels
     /// </summary>
     public class NavigationViewModel : BaseViewModel
     {
+        private readonly ThemeService _themeService;
         #region Константы режимов
 
         public static class Modes
@@ -113,6 +116,7 @@ namespace TFOHelperRedux.ViewModels
         public ICommand ShowComponentsCmd { get; }
         public ICommand ShowDipsCmd { get; }
         public ICommand ShowLuresCmd { get; }
+        public ICommand ToggleThemeCmd { get; }
 
         #endregion
 
@@ -120,6 +124,8 @@ namespace TFOHelperRedux.ViewModels
 
         public NavigationViewModel()
         {
+            _themeService = ServiceContainer.GetService<ThemeService>();
+            
             ShowFishCmd = new RelayCommand(() => CurrentMode = Modes.Fish);
             ShowMapsCmd = new RelayCommand(() => CurrentMode = Modes.Maps);
             ShowBaitsCmd = new RelayCommand(() => CurrentMode = Modes.Baits);
@@ -129,6 +135,7 @@ namespace TFOHelperRedux.ViewModels
             ShowComponentsCmd = new RelayCommand(() => BaitsSubMode = BaitsSubModes.FeedComponents);
             ShowDipsCmd = new RelayCommand(() => BaitsSubMode = BaitsSubModes.Dips);
             ShowLuresCmd = new RelayCommand(() => BaitsSubMode = BaitsSubModes.Lures);
+            ToggleThemeCmd = new RelayCommand(() => _themeService.ToggleTheme());
         }
 
         #endregion
