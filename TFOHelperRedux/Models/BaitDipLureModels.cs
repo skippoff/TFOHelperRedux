@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using TFOHelperRedux.Services.Data;
@@ -15,6 +16,8 @@ public interface IItemModel
 
 public class BaitModel : ValidatableModel, IItemModel
 {
+    private static readonly Dictionary<int, string> _imagePathCache = new();
+    
     private bool _isSelected;
     private int _id;
     private string _name = string.Empty;
@@ -46,8 +49,20 @@ public class BaitModel : ValidatableModel, IItemModel
             if (!string.IsNullOrWhiteSpace(_imagePath) && File.Exists(_imagePath))
                 return _imagePath;
 
+            // Проверяем кэш
+            if (_imagePathCache.TryGetValue(ID, out var cachedPath))
+                return cachedPath;
+
+            // Загружаем и кэшируем
             var p = DataService.GetFeedImagePath(ID);
-            return File.Exists(p) ? p : string.Empty;
+            if (File.Exists(p))
+            {
+                _imagePathCache[ID] = p;
+                return p;
+            }
+
+            _imagePathCache[ID] = string.Empty;
+            return string.Empty;
         }
         set => SetProperty(ref _imagePath, value ?? string.Empty);
     }
@@ -86,6 +101,8 @@ public class BaitModel : ValidatableModel, IItemModel
 
 public class DipModel : ValidatableModel, IItemModel
 {
+    private static readonly Dictionary<int, string> _imagePathCache = new();
+    
     private bool _isSelected;
     private int _id;
     private string _name = string.Empty;
@@ -117,8 +134,20 @@ public class DipModel : ValidatableModel, IItemModel
             if (!string.IsNullOrWhiteSpace(_imagePath) && File.Exists(_imagePath))
                 return _imagePath;
 
+            // Проверяем кэш
+            if (_imagePathCache.TryGetValue(ID, out var cachedPath))
+                return cachedPath;
+
+            // Загружаем и кэшируем
             var p = DataService.GetDipImagePath(ID);
-            return File.Exists(p) ? p : string.Empty;
+            if (File.Exists(p))
+            {
+                _imagePathCache[ID] = p;
+                return p;
+            }
+
+            _imagePathCache[ID] = string.Empty;
+            return string.Empty;
         }
         set => SetProperty(ref _imagePath, value ?? string.Empty);
     }
@@ -155,6 +184,8 @@ public class DipModel : ValidatableModel, IItemModel
 
 public class LureModel : ValidatableModel, IItemModel
 {
+    private static readonly Dictionary<int, string> _imagePathCache = new();
+    
     private bool _isSelected;
     private bool _isBestSelected;
     private int _id;
@@ -206,8 +237,20 @@ public class LureModel : ValidatableModel, IItemModel
             if (!string.IsNullOrWhiteSpace(_imagePath) && File.Exists(_imagePath))
                 return _imagePath;
 
+            // Проверяем кэш
+            if (_imagePathCache.TryGetValue(ID, out var cachedPath))
+                return cachedPath;
+
+            // Загружаем и кэшируем
             var p = DataService.GetLureImagePath(ID);
-            return File.Exists(p) ? p : string.Empty;
+            if (File.Exists(p))
+            {
+                _imagePathCache[ID] = p;
+                return p;
+            }
+
+            _imagePathCache[ID] = string.Empty;
+            return string.Empty;
         }
         set => SetProperty(ref _imagePath, value ?? string.Empty);
     }
