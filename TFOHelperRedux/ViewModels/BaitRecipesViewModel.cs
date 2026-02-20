@@ -58,6 +58,18 @@ namespace TFOHelperRedux.ViewModels
             _recipeService.NormalizeRecipeIds(DataStore.BaitRecipes);
             RebuildRecipesList();
 
+            // Подписка на изменения DataStore.BaitRecipes для автоматического обновления
+            DataStore.BaitRecipes.CollectionChanged += (s, e) =>
+            {
+                // Перестраиваем список только при добавлении/удалении элементов
+                if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add ||
+                    e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Remove ||
+                    e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Reset)
+                {
+                    RebuildRecipesList();
+                }
+            };
+
             SaveRecipeCmd = new RelayCommand(SaveRecipe);
             NewRecipeCmd = new RelayCommand(NewRecipe);
             DeleteRecipeCmd = new RelayCommand(DeleteRecipe);
@@ -123,7 +135,8 @@ namespace TFOHelperRedux.ViewModels
             CurrentRecipe.Name = RecipeName;
 
             _recipeService.SaveRecipe(CurrentRecipe, DataStore.BaitRecipes);
-            RebuildRecipesList();
+            // RebuildRecipesList() не нужен — DataStore.BaitRecipes уже обновлён,
+            // и FishFeedsViewModel получит CollectionChanged
 
             _uiService.ShowInfo("Рецепт сохранён.", "Успех");
         }
@@ -161,7 +174,7 @@ namespace TFOHelperRedux.ViewModels
                 return;
 
             _recipeService.HideRecipe(CurrentRecipe);
-            RebuildRecipesList();
+            // RebuildRecipesList() вызывается автоматически через подписку на DataStore.BaitRecipes.CollectionChanged
             NewRecipe();
         }
     }

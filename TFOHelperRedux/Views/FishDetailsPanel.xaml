@@ -162,9 +162,49 @@
                             </ItemsControl>
                         </ScrollViewer>
                     </StackPanel>
-                    <!-- Рецепты прикормки, привязанные к выбранной рыбе -->
+                    <!-- Обычные прикормки (из выбранной рыбы) -->
                     <StackPanel Margin="0,4,0,8">
-                        <TextBlock Text="Рецепты прикормки"
+                        <TextBlock Text="Прикормки (рыба)"
+                                   FontWeight="SemiBold"
+                                   FontSize="16"
+                                   Foreground="#495057"
+                                   Margin="0,0,0,4"/>
+                        <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                                      VerticalScrollBarVisibility="Disabled"
+                                      Height="100">
+                            <ItemsControl ItemsSource="{Binding SelectedFeeds}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Horizontal"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Width="70" Margin="0,0,8,0">
+                                            <Border Width="56" Height="56"
+                                                    Background="#F8F9FA"
+                                                    CornerRadius="6"
+                                                    BorderBrush="#DEE2E6"
+                                                    BorderThickness="1"
+                                                    Padding="4">
+                                                <Image Source="{Binding ImagePath, Converter={StaticResource ImgConverter}}"
+                                                       Stretch="Uniform"/>
+                                            </Border>
+                                            <TextBlock Text="{Binding Name}"
+                                                       FontSize="13"
+                                                       TextAlignment="Center"
+                                                       TextTrimming="CharacterEllipsis"
+                                                       Margin="0,4,0,0"
+                                                       Foreground="#495057"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </StackPanel>
+                    <!-- Рецепты прикормки (из выбранной рыбы) -->
+                    <StackPanel Margin="0,4,0,8">
+                        <TextBlock Text="Рецепты прикормки (рыба)"
                                    FontWeight="SemiBold"
                                    FontSize="16"
                                    Foreground="#495057"

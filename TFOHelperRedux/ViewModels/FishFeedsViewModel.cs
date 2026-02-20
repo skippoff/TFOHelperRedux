@@ -24,6 +24,16 @@ public class FishFeedsViewModel : BaseViewModel
     public ObservableCollection<BaitModel> Feeds => DataStore.Feeds;
     public ObservableCollection<BaitRecipeModel> Recipes => DataStore.BaitRecipes;
 
+    /// <summary>
+    /// Событие для уведомления об изменении рецепта (для обновления FishViewModel)
+    /// </summary>
+    public event Action? RecipeChanged;
+    
+    /// <summary>
+    /// Событие для уведомления об изменении прикормки (для обновления FishViewModel)
+    /// </summary>
+    public event Action? FeedChanged;
+
     public string SearchText
     {
         get => _searchText;
@@ -117,6 +127,10 @@ public class FishFeedsViewModel : BaseViewModel
 
             // Обновляем IsSelected для всех рецептов при изменении коллекции
             UpdateRecipesIsSelected();
+            // Обновляем представление для отображения новых рецептов
+            RecipesView.Refresh();
+            // Уведомляем UI об изменении свойства
+            OnPropertyChanged(nameof(RecipesView));
         };
 
         // Подписка на изменения коллекции прикормок
@@ -134,6 +148,10 @@ public class FishFeedsViewModel : BaseViewModel
 
             // Обновляем IsSelected для всех прикормок при изменении коллекции
             UpdateFeedsIsSelected();
+            // Обновляем представление для отображения новых прикормок
+            FeedsView.Refresh();
+            // Уведомляем UI об изменении свойства
+            OnPropertyChanged(nameof(FeedsView));
         };
 
         // Подписка на изменения выбранной рыбы
@@ -144,13 +162,16 @@ public class FishFeedsViewModel : BaseViewModel
 
     private void Recipe_PropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
-        // При изменении IsSelected сохраняем изменения
+        // При изменении IsSelected сохраняем изменения и обновляем UI
         if (e.PropertyName == nameof(BaitRecipeModel.IsSelected) && sender is BaitRecipeModel recipe && !_isUpdating)
         {
             _isUpdating = true;
             try
             {
-                ToggleFeedSelection(recipe.ID, recipe.IsSelected);
+                // Передаём isRecipe=true для рецептов
+                ToggleFeedSelection(recipe.ID, recipe.IsSelected, isRecipe: true);
+                // Мгновенное обновление UI
+                RecipesView.Refresh();
             }
             finally
             {
@@ -161,13 +182,15 @@ public class FishFeedsViewModel : BaseViewModel
 
     private void Feed_PropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
-        // При изменении IsSelected сохраняем изменения
+        // При изменении IsSelected сохраняем изменения и обновляем UI
         if (e.PropertyName == nameof(BaitModel.IsSelected) && sender is BaitModel feed && !_isUpdating)
         {
             _isUpdating = true;
             try
             {
                 ToggleFeedSelection(feed.ID, feed.IsSelected, isRecipe: false);
+                // Мгновенное обновление UI
+                FeedsView.Refresh();
             }
             finally
             {
@@ -193,9 +216,14 @@ public class FishFeedsViewModel : BaseViewModel
     {
         _catchPoint = catchPoint;
         _isCatchPointMode = catchPoint != null;
-        
+
         if (_isCatchPointMode)
         {
+            // Проверяем, что RecipeIDs инициализирован
+            if (_catchPoint.RecipeIDs == null)
+                _catchPoint.RecipeIDs = Array.Empty<int>();
+            
+            // Обновляем состояние чекбоксов
             UpdateFeedsIsSelectedForCatchPoint();
             UpdateRecipesIsSelectedForCatchPoint();
         }
@@ -203,6 +231,26 @@ public class FishFeedsViewModel : BaseViewModel
         {
             UpdateRecipesIsSelected();
             UpdateFeedsIsSelected();
+        }
+    }
+    
+    /// <summary>
+    /// Синхронизирует чекбоксы с данными рыбы
+    /// </summary>
+    public void SyncWithFish(FishModel fish)
+    {
+        if (fish == null) return;
+        
+        // Обновляем IsSelected для всех прикормок
+        foreach (var feed in Feeds)
+        {
+            feed.IsSelected = fish.FeedIDs?.Contains(feed.ID) ?? false;
+        }
+        
+        // Обновляем IsSelected для всех рецептов
+        foreach (var recipe in Recipes)
+        {
+            recipe.IsSelected = fish.RecipeIDs?.Contains(recipe.ID) ?? false;
         }
     }
 
@@ -272,7 +320,7 @@ public class FishFeedsViewModel : BaseViewModel
                     feedIds.Remove(id);
                 _catchPoint.FeedIDs = feedIds.Distinct().ToArray();
             }
-            
+
             // Сохраняем точки лова
             DataStore.SaveAll();
         }
@@ -303,9 +351,12 @@ public class FishFeedsViewModel : BaseViewModel
             }
 
             DataService.SaveFishes(DataStore.Fishes);
-        }
 
-        OnPropertyChanged(nameof(FeedsView));
-        OnPropertyChanged(nameof(RecipesView));
+            // Уведомляем об изменении
+            if (isRecipe)
+                RecipeChanged?.Invoke();
+            else
+                FeedChanged?.Invoke();
+        }
     }
 }

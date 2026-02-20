@@ -85,14 +85,62 @@ namespace TFOHelperRedux.Models
             set => SetProperty(ref _temperatureMax, value);
         }
 
-        public int[] FeedIDs { get; set; } = Array.Empty<int>();
-        public int[] DipIDs { get; set; } = Array.Empty<int>();
-        public int[] LureIDs { get; set; } = Array.Empty<int>();
-        public int[] ActiveTimes { get; set; } = Array.Empty<int>();
-        public int[] RecipeIDs { get; set; } = Array.Empty<int>();
-        public int[] BestLureIDs { get; set; } = Array.Empty<int>();
-        public int[] BestRecipeIDs { get; set; } = Array.Empty<int>();
-        public int[] BiteIntensity { get; set; } = Enumerable.Repeat(0, 24).ToArray();
+        private int[] _feedIDs = Array.Empty<int>();
+        private int[] _dipIDs = Array.Empty<int>();
+        private int[] _lureIDs = Array.Empty<int>();
+        private int[] _activeTimes = Array.Empty<int>();
+        private int[] _recipeIDs = Array.Empty<int>();
+        private int[] _bestLureIDs = Array.Empty<int>();
+        private int[] _bestRecipeIDs = Array.Empty<int>();
+        private int[] _biteIntensity = Enumerable.Repeat(0, 24).ToArray();
+
+        public int[] FeedIDs
+        {
+            get => _feedIDs;
+            set => SetProperty(ref _feedIDs, value ?? Array.Empty<int>());
+        }
+
+        public int[] DipIDs
+        {
+            get => _dipIDs;
+            set => SetProperty(ref _dipIDs, value ?? Array.Empty<int>());
+        }
+
+        public int[] LureIDs
+        {
+            get => _lureIDs;
+            set => SetProperty(ref _lureIDs, value ?? Array.Empty<int>());
+        }
+
+        public int[] ActiveTimes
+        {
+            get => _activeTimes;
+            set => SetProperty(ref _activeTimes, value ?? Array.Empty<int>());
+        }
+
+        public int[] RecipeIDs
+        {
+            get => _recipeIDs;
+            set => SetProperty(ref _recipeIDs, value ?? Array.Empty<int>());
+        }
+
+        public int[] BestLureIDs
+        {
+            get => _bestLureIDs;
+            set => SetProperty(ref _bestLureIDs, value ?? Array.Empty<int>());
+        }
+
+        public int[] BestRecipeIDs
+        {
+            get => _bestRecipeIDs;
+            set => SetProperty(ref _bestRecipeIDs, value ?? Array.Empty<int>());
+        }
+
+        public int[] BiteIntensity
+        {
+            get => _biteIntensity;
+            set => SetProperty(ref _biteIntensity, value ?? Enumerable.Repeat(0, 24).ToArray());
+        }
 
         protected override void Validate(string? propertyName = null)
         {

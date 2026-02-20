@@ -2,10 +2,8 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
-using System.Windows.Media.Imaging;
 using TFOHelperRedux.Helpers;
 using TFOHelperRedux.Models;
 using TFOHelperRedux.Services.Business;
@@ -17,25 +15,27 @@ using TFOHelperRedux.Views;
 namespace TFOHelperRedux.ViewModels
 {
     /// <summary>
-    /// ViewModel для управления рыбами, навигации и отображения данных.
+    /// ViewModel для управления режимом Fish.
+    /// Координирует работу сервисов и предоставляет данные для View.
     /// Бизнес-логика делегирована сервисам:
-    /// - DataStore.Selection: выбор рыбы и синхронизация чекбоксов
-    /// - FishFilterService: фильтрация и поиск
-    /// - LureBindingService: привязка наживок к рыбам
-    /// - FishDataService: CRUD операции с рыбами
-    /// - NavigationService: навигация между режимами
-    /// - MapsService: управление картами (фильтрация, обновление данных)
-    /// - CatchPointsService: управление точками лова (фильтрация, CRUD, импорт/экспорт)
+    /// - FishSelectionService: выбор рыбы/карты
+    /// - FishDetailsService: данные о рыбе (наживки, прикормки, рецепты)
+    /// - FishLuresService: привязка наживок
+    /// - FishNavigationService: навигация между режимами
+    /// - MapsService: управление картами
     /// </summary>
     public class FishViewModel : BaseViewModel
     {
         #region Сервисы
 
-        private readonly FishFilterService _filterService;
-        private readonly LureBindingService _lureBindingService;
-        private readonly FishDataService _fishDataService;
+        private readonly FishSelectionService _selectionService;
+        private readonly FishDetailsService _detailsService;
+        private readonly FishLuresService _luresService;
+        private readonly FishNavigationService _navigationService;
+        private readonly FishLuresCommandsService _commandsService;
         private readonly MapsService _mapsService;
         private readonly MapListViewService _mapListViewService;
+        private readonly FishFilterService _filterService;
 
         #endregion
 
@@ -49,11 +49,11 @@ namespace TFOHelperRedux.ViewModels
 
         #endregion
 
-        #region Команды привязки наживок
+        #region Команды
 
-        public ICommand AttachLureToFishCmd { get; }
-        public ICommand DetachLureFromFishCmd { get; }
-        public ICommand DeleteRecipeForeverCmd { get; }
+        public ICommand AttachLureToFishCmd => _commandsService.AttachLureToFishCmd;
+        public ICommand DetachLureFromFishCmd => _commandsService.DetachLureFromFishCmd;
+        public ICommand DeleteRecipeForeverCmd => _commandsService.DeleteRecipeForeverCmd;
         public ICommand EditMapFishesCmd { get; }
 
         #endregion
@@ -70,25 +70,17 @@ namespace TFOHelperRedux.ViewModels
         public ObservableCollection<MapModel> DlcMaps => _mapsService.DlcMaps;
         public ObservableCollection<int> MapLevels => _mapsService.MapLevels;
 
-        // Единый список карт с группировкой для ListBox (делегировано в MapListViewService)
+        // Единый список карт с группировкой для ListBox
         public System.ComponentModel.ICollectionView AllMaps =>
             _mapListViewService.GetAllMapsView(Maps, SelectedLevelFilter);
 
         #endregion
 
-        #region Свойства навигации и режимов (делегированы в NavigationViewModel)
+        #region Свойства навигации и режимов
 
-        public string CurrentMode
-        {
-            get => NavigationVM.CurrentMode;
-            set => NavigationVM.CurrentMode = value;
-        }
+        public string CurrentMode => _navigationService.CurrentMode;
 
-        public string BaitsSubMode
-        {
-            get => NavigationVM.BaitsSubMode;
-            set => NavigationVM.BaitsSubMode = value;
-        }
+        public string BaitsSubMode => _navigationService.BaitsSubMode;
 
         public int SelectedLevelFilter
         {
@@ -99,7 +91,6 @@ namespace TFOHelperRedux.ViewModels
                 {
                     _mapsService.SelectedLevelFilter = value;
                     OnPropertyChanged(nameof(SelectedLevelFilter));
-                    // Обновляем фильтр через сервис
                     _mapListViewService.RefreshFilter(value);
                 }
             }
@@ -109,164 +100,69 @@ namespace TFOHelperRedux.ViewModels
 
         #region Свойства выбора рыбы и карты
 
-        /// <summary>
-        /// Выбранная карта
-        /// </summary>
         public MapModel? SelectedMap
         {
-            get => DataStore.Selection.SelectedMap;
-            set
-            {
-                // Игнорируем установку null при переключении между ListBox
-                if (value == null)
-                    return;
-
-                // Проверяем, что карта действительно изменилась
-                if (DataStore.Selection.SelectedMap == value)
-                    return;
-
-                DataStore.Selection.SetSelectedMap(value, DataStore.Fishes, _filterService.GetFilteredFishes(), DataStore.Lures);
-                OnPropertyChanged(nameof(SelectedMap));
-                OnPropertyChanged(nameof(SelectedFish));
-                OnPropertyChanged(nameof(MaybeCatchLures));
-                OnPropertyChanged(nameof(BestLures));
-                OnPropertyChanged(nameof(SelectedFeeds));
-                OnPropertyChanged(nameof(SelectedRecipes));
-                OnPropertyChanged(nameof(BiteDescription));
-                OnPropertyChanged(nameof(RecipeCountForSelectedFish));
-                OnPropertyChanged(nameof(RecipesForSelectedFish));
-                _mapsService.UpdateMapsForFish(SelectedFish);
-                CatchPointsVM.RefreshFilteredPoints(SelectedFish);
-                UpdateFishDetails();
-            }
+            get => _selectionService.SelectedMap;
+            set => _selectionService.SetSelectedMap(value);
         }
 
-        /// <summary>
-        /// Выбранная рыба
-        /// </summary>
         public FishModel? SelectedFish
         {
-            get => DataStore.Selection.SelectedFish;
-            set
-            {
-                DataStore.Selection.SetSelectedFish(value, DataStore.Lures);
-                OnPropertyChanged(nameof(SelectedFish));
-                OnPropertyChanged(nameof(MaybeCatchLures));
-                OnPropertyChanged(nameof(BestLures));
-                OnPropertyChanged(nameof(SelectedFeeds));
-                OnPropertyChanged(nameof(SelectedRecipes));
-                OnPropertyChanged(nameof(BiteDescription));
-                OnPropertyChanged(nameof(RecipeCountForSelectedFish));
-                OnPropertyChanged(nameof(RecipesForSelectedFish));
-                _mapsService.UpdateMapsForFish(value);
-                CatchPointsVM.RefreshFilteredPoints(value);
-                UpdateFishDetails();
-            }
+            get => _selectionService.SelectedFish;
+            set => _selectionService.SetSelectedFish(value);
         }
+
+        public CatchPointModel? SelectedCatchPoint => _selectionService.SelectedCatchPoint;
 
         #endregion
 
-        #region Свойства для отображения данных
+        #region Свойства для отображения данных (делегирование в DetailsService)
 
-        public BitmapImage? FishImage { get; set; }
+        public System.Windows.Media.Imaging.BitmapImage? FishImage => _detailsService.FishImage;
 
         public ObservableCollection<BaitModel> Feeds => DataStore.Feeds;
         public ObservableCollection<FeedComponentModel> Components => DataStore.FeedComponents;
         public ObservableCollection<DipModel> Dips => DataStore.Dips;
         public ObservableCollection<LureModel> Lures => DataStore.Lures;
 
-        public int RecipeCountForSelectedFish =>
-            SelectedFish == null || SelectedFish.RecipeIDs == null
-                ? 0
-                : DataStore.BaitRecipes.Count(r => SelectedFish.RecipeIDs.Contains(r.ID));
+        public ObservableCollection<BaitModel> SelectedFeeds => _detailsService.SelectedFeeds;
+        public ObservableCollection<BaitRecipeModel> SelectedRecipes => _detailsService.SelectedRecipes;
 
-        public IEnumerable<BaitRecipeModel> RecipesForSelectedFish =>
-            SelectedFish == null || SelectedFish.RecipeIDs == null
-                ? Enumerable.Empty<BaitRecipeModel>()
-                : DataStore.BaitRecipes.Where(r => SelectedFish.RecipeIDs.Contains(r.ID));
+        public IEnumerable<LureModel> MaybeCatchLures => _detailsService.MaybeCatchLures;
+        public IEnumerable<LureModel> BestLures => _detailsService.BestLures;
 
-        public IEnumerable<LureModel> MaybeCatchLures
+        public IEnumerable<BaitRecipeModel> RecipesForSelectedFish => _detailsService.RecipesForSelectedFish;
+        public int RecipeCountForSelectedFish => _detailsService.RecipeCountForSelectedFish;
+
+        public string BiteDescription => _detailsService.BiteDescription;
+
+        public IEnumerable<BaitModel> SelectedCatchPointFeeds
         {
             get
             {
-                if (SelectedFish?.LureIDs == null || SelectedFish.LureIDs.Length == 0)
-                    return Enumerable.Empty<LureModel>();
-
-                if (DataStore.Lures == null || DataStore.Lures.Count == 0)
-                    return Enumerable.Empty<LureModel>();
-
-                return DataStore.Lures.Where(l => SelectedFish.LureIDs.Contains(l.ID));
-            }
-        }
-
-        public IEnumerable<LureModel> BestLures
-        {
-            get
-            {
-                if (SelectedFish?.BestLureIDs == null || SelectedFish.BestLureIDs.Length == 0)
-                    return Enumerable.Empty<LureModel>();
-
-                if (DataStore.Lures == null || DataStore.Lures.Count == 0)
-                    return Enumerable.Empty<LureModel>();
-
-                return DataStore.Lures.Where(l => SelectedFish.BestLureIDs.Contains(l.ID));
-            }
-        }
-
-        public IEnumerable<BaitModel> SelectedFeeds
-        {
-            get
-            {
-                if (SelectedFish?.FeedIDs == null || SelectedFish.FeedIDs.Length == 0)
+                var catchPoint = _selectionService.SelectedCatchPoint;
+                if (catchPoint?.FeedIDs == null || catchPoint.FeedIDs.Length == 0)
                     return Enumerable.Empty<BaitModel>();
 
                 if (DataStore.Feeds == null || DataStore.Feeds.Count == 0)
                     return Enumerable.Empty<BaitModel>();
 
-                return DataStore.Feeds.Where(f => SelectedFish.FeedIDs.Contains(f.ID));
+                return DataStore.Feeds.Where(f => catchPoint.FeedIDs.Contains(f.ID));
             }
         }
 
-        public IEnumerable<BaitRecipeModel> SelectedRecipes
+        public IEnumerable<BaitRecipeModel> SelectedCatchPointRecipes
         {
             get
             {
-                if (SelectedFish?.RecipeIDs == null || SelectedFish.RecipeIDs.Length == 0)
+                var catchPoint = _selectionService.SelectedCatchPoint;
+                if (catchPoint?.RecipeIDs == null || catchPoint.RecipeIDs.Length == 0)
                     return Enumerable.Empty<BaitRecipeModel>();
 
                 if (DataStore.BaitRecipes == null || DataStore.BaitRecipes.Count == 0)
                     return Enumerable.Empty<BaitRecipeModel>();
 
-                return DataStore.BaitRecipes.Where(r => SelectedFish.RecipeIDs.Contains(r.ID));
-            }
-        }
-
-        public string BiteDescription
-        {
-            get
-            {
-                var fish = SelectedFish;
-                if (fish?.BiteIntensity == null || fish.BiteIntensity.All(v => v == 0))
-                    return "Активность: нет данных";
-
-                var activeRanges = new List<string>();
-                int start = -1;
-
-                for (int i = 0; i < fish.BiteIntensity.Length; i++)
-                {
-                    bool isActive = fish.BiteIntensity[i] > 0;
-                    bool nextInactive = i == fish.BiteIntensity.Length - 1 || fish.BiteIntensity[i + 1] == 0;
-
-                    if (isActive && start == -1)
-                        start = i;
-                    if (isActive && nextInactive && start != -1)
-                    {
-                        activeRanges.Add(i == start ? $"{i}" : $"{start}–{i}");
-                        start = -1;
-                    }
-                }
-
-                return "Активность: " + string.Join(", ", activeRanges) + " ч";
+                return DataStore.BaitRecipes.Where(r => catchPoint.RecipeIDs.Contains(r.ID));
             }
         }
 
@@ -304,8 +200,6 @@ namespace TFOHelperRedux.ViewModels
             FishFeedsViewModel fishFeedsVM)
         {
             _filterService = filterService;
-            _lureBindingService = lureBindingService;
-            _fishDataService = fishDataService;
             _mapsService = mapsService;
             _mapListViewService = mapListViewService;
 
@@ -316,35 +210,23 @@ namespace TFOHelperRedux.ViewModels
             CatchPointsVM = catchPointsVM;
             FishFeedsVM = fishFeedsVM;
 
-            // Подписка на изменения режимов навигации
-            NavigationVM.OnModeChanged += OnModeChanged;
-            NavigationVM.OnBaitsSubModeChanged += OnBaitsSubModeChanged;
+            // Создание сервисов
+            _selectionService = new FishSelectionService();
+            _detailsService = new FishDetailsService(_selectionService, mapsService, fishFeedsVM);
+            _luresService = new FishLuresService(lureBindingService);
+            _navigationService = new FishNavigationService(navigationVM, _selectionService, mapsService, catchPointsVM, filterService, baitsVM);
+            _commandsService = new FishLuresCommandsService(_selectionService, lureBindingService);
 
-            // Подписка на изменения выбора в DataStore.Selection
-            DataStore.Selection.SelectionChanged += () =>
-            {
-                OnPropertyChanged(nameof(SelectedFish));
-                OnPropertyChanged(nameof(SelectedMap));
-            };
-            DataStore.Selection.LuresSynced += () =>
-            {
-                OnPropertyChanged(nameof(MaybeCatchLures));
-                OnPropertyChanged(nameof(BestLures));
-            };
+            // Подписка на уведомления от сервисов
+            SubscribeToServices();
 
-            // Инициализация команд привязки
-            AttachLureToFishCmd = new RelayCommand(AttachLureToFish);
-            DetachLureFromFishCmd = new RelayCommand(DetachLureFromFish);
-            DeleteRecipeForeverCmd = new RelayCommand(DeleteRecipeForever);
+            // Инициализация команд
             EditMapFishesCmd = new RelayCommand(EditMapFishes);
-
-            // Подписка на изменения IsSelected у наживок
-            SubscribeToLureChanges();
 
             // Инициализация фильтров карт
             _mapsService.InitializeMapFilters();
 
-            // Выбор первой локации при старте и фильтрация рыб
+            // Выбор первой локации при старте
             if (_mapsService.SelectedMap == null)
             {
                 _mapsService.SelectFirstDlcMapIfNull();
@@ -357,146 +239,57 @@ namespace TFOHelperRedux.ViewModels
 
         #endregion
 
-        #region Обработчики изменений режимов
+        #region Подписка на уведомления от сервисов
 
-        private void OnModeChanged()
+        private void SubscribeToServices()
         {
-            Requery();
-
-            if (CurrentMode == NavigationViewModel.Modes.Fish)
+            // От FishSelectionService
+            _selectionService.FishChanged += () =>
             {
-                DataStore.Selection.SelectedMap = null;
-                CatchPointsVM.RefreshFilteredPoints(SelectedFish);
-            }
-            else if (CurrentMode == NavigationViewModel.Modes.Maps)
-            {
-                NavigateToMaps();
-            }
-        }
-
-        private void OnBaitsSubModeChanged()
-        {
-            BaitsVM.SetCategory(NavigationVM.BaitsSubMode);
-            Requery();
-        }
-
-        #endregion
-
-        #region Методы навигации
-
-        private void Requery() => CommandManager.InvalidateRequerySuggested();
-
-        private void NavigateToMaps()
-        {
-            _mapsService.NavigateToMaps(
-                () =>
-                {
-                    if (FilteredFishes.Cast<FishModel>().Any())
-                        SelectedFish = FilteredFishes.Cast<FishModel>().First();
-                },
-                CatchPointsVM,
-                SelectedFish
-            );
-        }
-
-        #endregion
-
-        #region Методы привязки наживок
-
-        private void AttachLureToFish(object? parameter)
-        {
-            if (parameter is not LureModel lure)
-                return;
-
-            var result = _lureBindingService.AttachLureToFish(lure, SelectedFish);
-            result.ShowMessageBox(ServiceContainer.GetService<IUIService>());
-        }
-
-        private void DetachLureFromFish(object? parameter)
-        {
-            if (parameter is not LureModel lure)
-                return;
-
-            var result = _lureBindingService.DetachLureFromFish(lure, SelectedFish);
-            result.ShowMessageBox(ServiceContainer.GetService<IUIService>());
-        }
-
-        private void DeleteRecipeForever(object? parameter)
-        {
-            if (parameter is not BaitRecipeModel recipe)
-                return;
-
-            var uiService = ServiceContainer.GetService<IUIService>();
-            var result = uiService.ShowMessageBox(
-                $"Удалить рецепт \"{recipe.Name}\" только для текущей рыбы?",
-                "Удаление рецепта для рыбы",
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Warning);
-
-            if (result != MessageBoxResult.Yes)
-                return;
-
-            var bindResult = _lureBindingService.RemoveRecipeFromFish(recipe, SelectedFish);
-            bindResult.ShowMessageBox(uiService);
-
-            if (bindResult.IsSuccess)
-            {
-                OnPropertyChanged(nameof(RecipesForSelectedFish));
-                OnPropertyChanged(nameof(RecipeCountForSelectedFish));
                 OnPropertyChanged(nameof(SelectedFish));
-            }
+                OnPropertyChanged(nameof(SelectedMap));
+                OnPropertyChanged(nameof(SelectedCatchPoint));
+                OnPropertyChanged(nameof(SelectedCatchPointFeeds));
+                OnPropertyChanged(nameof(SelectedCatchPointRecipes));
+                OnPropertyChanged(nameof(FishImage));
+            };
+
+            _selectionService.MapChanged += () =>
+            {
+                OnPropertyChanged(nameof(SelectedMap));
+                OnPropertyChanged(nameof(SelectedFish));
+                _mapsService.UpdateMapsForFish(SelectedFish);
+                CatchPointsVM.RefreshFilteredPoints(SelectedFish);
+            };
+
+            // От FishDetailsService
+            _detailsService.PropertyChanged += (s, e) =>
+            {
+                OnPropertyChanged(e.PropertyName);
+            };
+
+            // От FishLuresService
+            _luresService.LuresChanged += () =>
+            {
+                OnPropertyChanged(nameof(MaybeCatchLures));
+                OnPropertyChanged(nameof(BestLures));
+            };
+
+            // От FishNavigationService
+            _navigationService.ModeChanged += () =>
+            {
+                CommandManager.InvalidateRequerySuggested();
+
+                if (CurrentMode == NavigationViewModel.Modes.Fish)
+                {
+                    CatchPointsVM.RefreshFilteredPoints(SelectedFish);
+                }
+            };
         }
 
         #endregion
 
         #region Вспомогательные методы
-
-        private void SubscribeToLureChanges()
-        {
-            if (DataStore.Lures == null)
-                return;
-
-            foreach (var lure in DataStore.Lures)
-            {
-                if (lure is INotifyPropertyChanged npc)
-                    npc.PropertyChanged += LureModel_PropertyChanged;
-            }
-
-            DataStore.Lures.CollectionChanged += (s, e) =>
-            {
-                if (e.NewItems != null)
-                    foreach (var it in e.NewItems)
-                        if (it is INotifyPropertyChanged npc)
-                            npc.PropertyChanged += LureModel_PropertyChanged;
-
-                if (e.OldItems != null)
-                    foreach (var it in e.OldItems)
-                        if (it is INotifyPropertyChanged npc)
-                            npc.PropertyChanged -= LureModel_PropertyChanged;
-            };
-        }
-
-        private void LureModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName != nameof(LureModel.IsSelected))
-                return;
-
-            if (DataStore.Selection.IsSyncingLures)
-                return;
-
-            if (sender is not LureModel lure)
-                return;
-
-            DataStore.Selection.HandleLureSelectionChanged(lure);
-            OnPropertyChanged(nameof(MaybeCatchLures));
-            OnPropertyChanged(nameof(BestLures));
-        }
-
-        private void UpdateFishDetails()
-        {
-            FishImage = _mapsService.GetFishImage(SelectedFish?.ID);
-            OnPropertyChanged(nameof(FishImage));
-        }
 
         private void EditMapFishes()
         {
