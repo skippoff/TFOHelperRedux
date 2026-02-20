@@ -54,7 +54,7 @@ public class CatchPointsService
     /// <summary>
     /// Фильтрация точек лова на основе выбранной рыбы, карты и текущего режима
     /// </summary>
-    public ObservableCollection<CatchPointModel> FilterCatchPoints(
+    public IEnumerable<CatchPointModel> FilterCatchPoints(
         FishModel? selectedFish,
         MapModel? selectedMap,
         string currentMode,
@@ -80,7 +80,7 @@ public class CatchPointsService
                 break;
         }
 
-        return new ObservableCollection<CatchPointModel>(points.ToList());
+        return points;
     }
 
     /// <summary>

@@ -78,9 +78,8 @@ public class FishSelectionService
         if (_selection.SelectedMap == map)
             return;
 
+        // SelectionChanged вызовет FishChanged и MapChanged автоматически
         _selection.SetSelectedMap(map, DataStore.Fishes, _filterService.GetFilteredFishes(), DataStore.Lures);
-        MapChanged?.Invoke();
-        FishChanged?.Invoke();
     }
 
     /// <summary>

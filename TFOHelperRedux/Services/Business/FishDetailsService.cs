@@ -37,14 +37,18 @@ public class FishDetailsService : INotifyPropertyChanged
         // Подписка на изменения выбора рыбы
         _selectionService.FishChanged += () =>
         {
-            UpdateSelectedFeeds();
-            UpdateSelectedRecipes();
+            // Обновляем только изменившиеся данные
+            UpdateSelectedFeedsEfficient();
+            UpdateSelectedRecipesEfficient();
             UpdateFishImage();
+            // Одно уведомление для всех свойств
             OnPropertyChanged(nameof(MaybeCatchLures));
             OnPropertyChanged(nameof(BestLures));
             OnPropertyChanged(nameof(BiteDescription));
             OnPropertyChanged(nameof(RecipeCountForSelectedFish));
             OnPropertyChanged(nameof(RecipesForSelectedFish));
+            OnPropertyChanged(nameof(SelectedFeeds));
+            OnPropertyChanged(nameof(SelectedRecipes));
         };
 
         // Подписка на изменения прикормок и рецептов из FishFeedsViewModel
@@ -206,6 +210,40 @@ public class FishDetailsService : INotifyPropertyChanged
     }
 
     /// <summary>
+    /// Эффективное обновление коллекции прикормок (без Clear + foreach)
+    /// </summary>
+    private void UpdateSelectedFeedsEfficient()
+    {
+        if (_selectedFeeds == null) return;
+
+        var fish = _selectionService.SelectedFish;
+        var newFeedIds = fish?.FeedIDs ?? Array.Empty<int>();
+        var newSet = new HashSet<int>(newFeedIds);
+        var existingSet = new HashSet<int>(_selectedFeeds.Select(f => f.ID));
+
+        // Удаляем прикормки, которых больше нет
+        for (int i = _selectedFeeds.Count - 1; i >= 0; i--)
+        {
+            if (!newSet.Contains(_selectedFeeds[i].ID))
+                _selectedFeeds.RemoveAt(i);
+        }
+
+        // Добавляем новые прикормки
+        if (fish?.FeedIDs != null)
+        {
+            foreach (var feedId in fish.FeedIDs)
+            {
+                if (!existingSet.Contains(feedId))
+                {
+                    var feed = DataStore.Feeds.FirstOrDefault(f => f.ID == feedId);
+                    if (feed != null)
+                        _selectedFeeds.Add(feed);
+                }
+            }
+        }
+    }
+
+    /// <summary>
     /// Обновить коллекцию выбранных рецептов
     /// </summary>
     private void UpdateSelectedRecipes()
@@ -218,6 +256,40 @@ public class FishDetailsService : INotifyPropertyChanged
         {
             foreach (var recipe in DataStore.BaitRecipes.Where(r => fish.RecipeIDs.Contains(r.ID)))
                 _selectedRecipes.Add(recipe);
+        }
+    }
+
+    /// <summary>
+    /// Эффективное обновление коллекции рецептов (без Clear + foreach)
+    /// </summary>
+    private void UpdateSelectedRecipesEfficient()
+    {
+        if (_selectedRecipes == null) return;
+
+        var fish = _selectionService.SelectedFish;
+        var newRecipeIds = fish?.RecipeIDs ?? Array.Empty<int>();
+        var newSet = new HashSet<int>(newRecipeIds);
+        var existingSet = new HashSet<int>(_selectedRecipes.Select(r => r.ID));
+
+        // Удаляем рецепты, которых больше нет
+        for (int i = _selectedRecipes.Count - 1; i >= 0; i--)
+        {
+            if (!newSet.Contains(_selectedRecipes[i].ID))
+                _selectedRecipes.RemoveAt(i);
+        }
+
+        // Добавляем новые рецепты
+        if (fish?.RecipeIDs != null)
+        {
+            foreach (var recipeId in fish.RecipeIDs)
+            {
+                if (!existingSet.Contains(recipeId))
+                {
+                    var recipe = DataStore.BaitRecipes.FirstOrDefault(r => r.ID == recipeId);
+                    if (recipe != null)
+                        _selectedRecipes.Add(recipe);
+                }
+            }
         }
     }
 

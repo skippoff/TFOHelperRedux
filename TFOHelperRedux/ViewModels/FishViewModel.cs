@@ -241,26 +241,13 @@ namespace TFOHelperRedux.ViewModels
 
         #region Подписка на уведомления от сервисов
 
+        private bool _isUpdating;
+
         private void SubscribeToServices()
         {
-            // От FishSelectionService
-            _selectionService.FishChanged += () =>
-            {
-                OnPropertyChanged(nameof(SelectedFish));
-                OnPropertyChanged(nameof(SelectedMap));
-                OnPropertyChanged(nameof(SelectedCatchPoint));
-                OnPropertyChanged(nameof(SelectedCatchPointFeeds));
-                OnPropertyChanged(nameof(SelectedCatchPointRecipes));
-                OnPropertyChanged(nameof(FishImage));
-            };
-
-            _selectionService.MapChanged += () =>
-            {
-                OnPropertyChanged(nameof(SelectedMap));
-                OnPropertyChanged(nameof(SelectedFish));
-                _mapsService.UpdateMapsForFish(SelectedFish);
-                CatchPointsVM.RefreshFilteredPoints(SelectedFish);
-            };
+            // От FishSelectionService — группируем FishChanged и MapChanged
+            _selectionService.FishChanged += OnSelectionChanged;
+            _selectionService.MapChanged += OnSelectionChanged;
 
             // От FishDetailsService
             _detailsService.PropertyChanged += (s, e) =>
@@ -285,6 +272,35 @@ namespace TFOHelperRedux.ViewModels
                     CatchPointsVM.RefreshFilteredPoints(SelectedFish);
                 }
             };
+        }
+
+        private void OnSelectionChanged()
+        {
+            // Защита от рекурсивных вызовов и группировка обновлений
+            if (_isUpdating)
+                return;
+
+            _isUpdating = true;
+            try
+            {
+                // Обновляем все зависимые свойства одним блоком
+                OnPropertyChanged(nameof(SelectedFish));
+                OnPropertyChanged(nameof(SelectedMap));
+                OnPropertyChanged(nameof(SelectedCatchPoint));
+                OnPropertyChanged(nameof(SelectedCatchPointFeeds));
+                OnPropertyChanged(nameof(SelectedCatchPointRecipes));
+                OnPropertyChanged(nameof(FishImage));
+
+                // Обновляем карты для рыбы
+                _mapsService.UpdateMapsForFish(SelectedFish);
+
+                // Обновляем точки лова
+                CatchPointsVM.RefreshFilteredPoints(SelectedFish);
+            }
+            finally
+            {
+                _isUpdating = false;
+            }
         }
 
         #endregion

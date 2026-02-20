@@ -155,7 +155,7 @@ namespace TFOHelperRedux.ViewModels
         /// </summary>
         public void SetCategory(string categoryName)
         {
-            _currentCategory = categoryName switch
+            var newCategory = categoryName switch
             {
                 "Feeds" => CategoryType.Feeds,
                 "FeedComponents" => CategoryType.FeedComponents,
@@ -163,9 +163,65 @@ namespace TFOHelperRedux.ViewModels
                 "Lures" => CategoryType.Lures,
                 _ => _currentCategory
             };
-            
-            LoadCurrentCategory();
-            ApplyFilter();
+
+            if (_currentCategory == newCategory)
+                return;
+
+            _currentCategory = newCategory;
+
+            // Эффективное обновление коллекции без двойной загрузки
+            ApplyFilterEfficient();
+        }
+
+        private void ApplyFilterEfficient()
+        {
+            var newItems = _currentCategory switch
+            {
+                CategoryType.Feeds => DataStore.Feeds
+                    .Where(i => i.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
+                    .Cast<IItemModel>(),
+
+                CategoryType.FeedComponents => DataStore.FeedComponents
+                    .Where(i => i.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
+                    .Cast<IItemModel>(),
+
+                CategoryType.Dips => DataStore.Dips
+                    .Where(i => i.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
+                    .Cast<IItemModel>(),
+
+                CategoryType.Lures => DataStore.Lures
+                    .Where(i => i.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
+                    .Cast<IItemModel>(),
+
+                _ => Enumerable.Empty<IItemModel>()
+            };
+
+            // Эффективное обновление коллекции
+            UpdateCollectionEfficient(newItems, CurrentItems);
+
+            OnPropertyChanged(nameof(CurrentItems));
+            SelectedItem = null;
+        }
+
+        private static void UpdateCollectionEfficient(IEnumerable<IItemModel> newItems, ObservableCollection<IItemModel> collection)
+        {
+            var newList = newItems.ToList();
+            var newSet = new HashSet<IItemModel>(newList);
+            var existingSet = new HashSet<IItemModel>(collection);
+
+            // Удаляем элементы, которых больше нет
+            for (int i = collection.Count - 1; i >= 0; i--)
+            {
+                if (!newSet.Contains(collection[i]))
+                    collection.RemoveAt(i);
+            }
+
+            // Добавляем новые элементы
+            foreach (var item in newList)
+            {
+                if (!existingSet.Contains(item))
+                    collection.Add(item);
+            }
         }
 
         private void ApplyFilter()

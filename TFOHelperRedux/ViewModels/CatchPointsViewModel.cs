@@ -73,9 +73,6 @@ public class CatchPointsViewModel : BaseViewModel
         _isRefreshing = true;
         try
         {
-            // Очищаем и загружаем заново
-            FilteredPoints.Clear();
-
             CurrentFish = selectedFish;
 
             var points = _catchPointsService.FilterCatchPoints(
@@ -84,8 +81,8 @@ public class CatchPointsViewModel : BaseViewModel
                 DataStore.CurrentMode,
                 CatchPoints);
 
-            foreach (var p in points)
-                FilteredPoints.Add(p);
+            // Эффективное обновление коллекции
+            UpdateCollection(points, FilteredPoints);
 
             // Явно триггерим обновление UI
             OnPropertyChanged(nameof(FilteredPoints));
@@ -94,6 +91,30 @@ public class CatchPointsViewModel : BaseViewModel
         finally
         {
             _isRefreshing = false;
+        }
+    }
+
+    /// <summary>
+    /// Эффективное обновление коллекции с минимальными уведомленияциями
+    /// </summary>
+    private static void UpdateCollection(IEnumerable<CatchPointModel> newItems, ObservableCollection<CatchPointModel> collection)
+    {
+        var newList = newItems as IList<CatchPointModel> ?? newItems.ToList();
+        var existingSet = new HashSet<CatchPointModel>(collection);
+        var newSet = new HashSet<CatchPointModel>(newList);
+
+        // Удаляем элементы, которых больше нет
+        for (int i = collection.Count - 1; i >= 0; i--)
+        {
+            if (!newSet.Contains(collection[i]))
+                collection.RemoveAt(i);
+        }
+
+        // Добавляем новые элементы
+        foreach (var item in newList)
+        {
+            if (!existingSet.Contains(item))
+                collection.Add(item);
         }
     }
 

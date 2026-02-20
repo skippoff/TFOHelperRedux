@@ -100,28 +100,60 @@ public class SelectionState
         if (SelectedMap == map)
             return;
 
-        SelectedMap = map;
+        // Не вызываем SelectionChanged здесь — вызовем в конце один раз
+        _selectedMap = map;
 
-        // Фильтруем рыб по карте
-        filteredFishes.Clear();
+        // Фильтруем рыб по карте (эффективное обновление)
+        UpdateFishCollection(map, allFishes, filteredFishes);
+
+        // Выбираем первую рыбу из отфильтрованных (без лишнего уведомления)
+        var firstFish = filteredFishes.Any() ? filteredFishes.First() : null;
+        if (SelectedFish != firstFish)
+        {
+            _selectedFish = firstFish;
+            SyncLuresWithFish(firstFish, lures);
+        }
+
+        // Одно уведомление об изменении выбора
+        SelectionChanged?.Invoke();
+    }
+
+    /// <summary>
+    /// Эффективное обновление коллекции рыб
+    /// </summary>
+    private static void UpdateFishCollection(
+        MapModel? map,
+        ObservableCollection<FishModel> allFishes,
+        ObservableCollection<FishModel> filteredFishes)
+    {
+        IEnumerable<FishModel> fishOnMap;
 
         if (map == null)
         {
-            foreach (var f in allFishes)
-                filteredFishes.Add(f);
+            fishOnMap = allFishes;
         }
         else
         {
-            var fishOnMap = allFishes
-                .Where(f => map.FishIDs != null && map.FishIDs.Contains(f.ID))
-                .ToList();
-
-            foreach (var fish in fishOnMap)
-                filteredFishes.Add(fish);
+            fishOnMap = allFishes
+                .Where(f => map.FishIDs != null && map.FishIDs.Contains(f.ID));
         }
 
-        // Выбираем первую рыбу из отфильтрованных
-        SetSelectedFish(filteredFishes.Any() ? filteredFishes.First() : null, lures);
+        var newSet = new HashSet<FishModel>(fishOnMap);
+        var existingSet = new HashSet<FishModel>(filteredFishes);
+
+        // Удаляем рыб, которых нет на карте
+        for (int i = filteredFishes.Count - 1; i >= 0; i--)
+        {
+            if (!newSet.Contains(filteredFishes[i]))
+                filteredFishes.RemoveAt(i);
+        }
+
+        // Добавляем новых рыб
+        foreach (var fish in fishOnMap)
+        {
+            if (!existingSet.Contains(fish))
+                filteredFishes.Add(fish);
+        }
     }
 
     /// <summary>
@@ -135,13 +167,27 @@ public class SelectionState
         _isSyncingLures = true;
         try
         {
-            var lureIds = fish?.LureIDs ?? Array.Empty<int>();
-            var bestLureIds = fish?.BestLureIDs ?? Array.Empty<int>();
-            
+            // Используем HashSet для O(1) поиска вместо O(n) Contains
+            var lureIdsSet = fish?.LureIDs != null && fish.LureIDs.Length > 0 
+                ? new HashSet<int>(fish.LureIDs) 
+                : null;
+                
+            var bestLureIdsSet = fish?.BestLureIDs != null && fish.BestLureIDs.Length > 0 
+                ? new HashSet<int>(fish.BestLureIDs) 
+                : null;
+
             foreach (var lure in lures)
             {
-                lure.IsSelected = lureIds.Contains(lure.ID);
-                lure.IsBestSelected = bestLureIds.Contains(lure.ID);
+                // Быстрая проверка через HashSet.ContainsKey вместо Array.Contains
+                var shouldBeSelected = lureIdsSet?.Contains(lure.ID) ?? false;
+                var shouldBeBestSelected = bestLureIdsSet?.Contains(lure.ID) ?? false;
+
+                // Устанавливаем только если значение изменилось (избегаем лишних уведомлений)
+                if (lure.IsSelected != shouldBeSelected)
+                    lure.IsSelected = shouldBeSelected;
+                    
+                if (lure.IsBestSelected != shouldBeBestSelected)
+                    lure.IsBestSelected = shouldBeBestSelected;
             }
         }
         finally

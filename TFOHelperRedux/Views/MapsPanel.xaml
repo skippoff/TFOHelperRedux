@@ -60,7 +60,10 @@
                                      DisplayMemberPath="Name"
                                      Background="Transparent"
                                      BorderThickness="0"
-                                     ScrollViewer.CanContentScroll="False">
+                                     ScrollViewer.CanContentScroll="True"
+                                     ScrollViewer.IsDeferredScrollingEnabled="True"
+                                     VirtualizingPanel.IsVirtualizing="True"
+                                     VirtualizingPanel.VirtualizationMode="Recycling">
                                 <ListBox.GroupStyle>
                                     <GroupStyle>
                                         <GroupStyle.HeaderTemplate>

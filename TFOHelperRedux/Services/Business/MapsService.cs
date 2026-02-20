@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -79,6 +80,8 @@ namespace TFOHelperRedux.Services.Business
 
         #region Методы обновления карт для рыбы
 
+        private readonly Dictionary<int, BitmapImage?> _fishImageCache = new();
+
         public void UpdateMapsForFish(FishModel? selectedFish)
         {
             MapsForFish.Clear();
@@ -99,10 +102,22 @@ namespace TFOHelperRedux.Services.Business
             if (fishId == null)
                 return null;
 
+            // Проверяем кэш
+            if (_fishImageCache.TryGetValue(fishId.Value, out var cachedImage))
+                return cachedImage;
+
+            // Загружаем изображение
             var imgPath = _loadSaveService.GetFishImagePath(fishId.Value);
             if (File.Exists(imgPath))
-                return new BitmapImage(new Uri(imgPath));
+            {
+                var bitmap = new BitmapImage(new Uri(imgPath));
+                bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                bitmap.DecodePixelWidth = 144; // Оптимизация памяти
+                _fishImageCache[fishId.Value] = bitmap;
+                return bitmap;
+            }
 
+            _fishImageCache[fishId.Value] = null;
             return null;
         }
 

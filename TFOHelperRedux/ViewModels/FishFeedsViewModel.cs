@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Data;
@@ -257,34 +258,60 @@ public class FishFeedsViewModel : BaseViewModel
     private void UpdateRecipesIsSelected()
     {
         var fish = DataStore.Selection.SelectedFish;
+        var recipeIdsSet = fish?.RecipeIDs != null && fish.RecipeIDs.Length > 0
+            ? new HashSet<int>(fish.RecipeIDs)
+            : null;
+
         foreach (var recipe in Recipes)
         {
-            recipe.IsSelected = fish?.RecipeIDs?.Contains(recipe.ID) ?? false;
+            var shouldBeSelected = recipeIdsSet?.Contains(recipe.ID) ?? false;
+            // Устанавливаем только если значение изменилось
+            if (recipe.IsSelected != shouldBeSelected)
+                recipe.IsSelected = shouldBeSelected;
         }
     }
 
     private void UpdateRecipesIsSelectedForCatchPoint()
     {
+        var recipeIdsSet = _catchPoint?.RecipeIDs != null && _catchPoint.RecipeIDs.Length > 0
+            ? new HashSet<int>(_catchPoint.RecipeIDs)
+            : null;
+
         foreach (var recipe in Recipes)
         {
-            recipe.IsSelected = _catchPoint?.RecipeIDs?.Contains(recipe.ID) ?? false;
+            var shouldBeSelected = recipeIdsSet?.Contains(recipe.ID) ?? false;
+            if (recipe.IsSelected != shouldBeSelected)
+                recipe.IsSelected = shouldBeSelected;
         }
     }
 
     private void UpdateFeedsIsSelected()
     {
         var fish = DataStore.Selection.SelectedFish;
+        var feedIdsSet = fish?.FeedIDs != null && fish.FeedIDs.Length > 0
+            ? new HashSet<int>(fish.FeedIDs)
+            : null;
+
         foreach (var feed in Feeds)
         {
-            feed.IsSelected = fish?.FeedIDs?.Contains(feed.ID) ?? false;
+            var shouldBeSelected = feedIdsSet?.Contains(feed.ID) ?? false;
+            // Устанавливаем только если значение изменилось
+            if (feed.IsSelected != shouldBeSelected)
+                feed.IsSelected = shouldBeSelected;
         }
     }
 
     private void UpdateFeedsIsSelectedForCatchPoint()
     {
+        var feedIdsSet = _catchPoint?.FeedIDs != null && _catchPoint.FeedIDs.Length > 0
+            ? new HashSet<int>(_catchPoint.FeedIDs)
+            : null;
+
         foreach (var feed in Feeds)
         {
-            feed.IsSelected = _catchPoint?.FeedIDs?.Contains(feed.ID) ?? false;
+            var shouldBeSelected = feedIdsSet?.Contains(feed.ID) ?? false;
+            if (feed.IsSelected != shouldBeSelected)
+                feed.IsSelected = shouldBeSelected;
         }
     }
 

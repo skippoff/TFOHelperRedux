@@ -31,6 +31,10 @@
                      ItemContainerStyle="{StaticResource RoundedCardStyle}"
                      ScrollViewer.VerticalScrollBarVisibility="Auto"
                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                     ScrollViewer.CanContentScroll="True"
+                     ScrollViewer.IsDeferredScrollingEnabled="True"
+                     VirtualizingPanel.IsVirtualizing="True"
+                     VirtualizingPanel.VirtualizationMode="Recycling"
                      MouseDoubleClick="Ingredient_MouseDoubleClick">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>

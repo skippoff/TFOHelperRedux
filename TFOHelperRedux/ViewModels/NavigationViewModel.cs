@@ -71,11 +71,10 @@ namespace TFOHelperRedux.ViewModels
                 if (_baitsSubMode != value)
                 {
                     _baitsSubMode = value;
+                    // Уведомляем только об изменении под-режима
                     OnPropertyChanged(nameof(BaitsSubMode));
-                    OnPropertyChanged(nameof(IsFeedsMode));
-                    OnPropertyChanged(nameof(IsComponentsMode));
-                    OnPropertyChanged(nameof(IsDipsMode));
-                    OnPropertyChanged(nameof(IsLuresMode));
+                    // Не уведомляем все Is*Mode свойства — они используются редко
+                    // Вызываем событие для обновления UI
                     OnBaitsSubModeChanged?.Invoke();
                 }
             }
