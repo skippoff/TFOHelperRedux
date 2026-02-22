@@ -369,3 +369,8 @@ FodyWeavers.xsd
 # VS Code
 .vscode/
 
+.continue/prompts/new-prompt.md
+.continue/agents/new-config.yaml
+.continue/agents/new-config-1.yaml
+.ai/mcp/mcp.json
+.continueignore
