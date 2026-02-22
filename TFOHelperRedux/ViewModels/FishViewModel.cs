@@ -4,6 +4,10 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Data;
 using System.Windows.Input;
+using LiveChartsCore;
+using LiveChartsCore.SkiaSharpView;
+using LiveChartsCore.SkiaSharpView.Painting;
+using SkiaSharp;
 using TFOHelperRedux.Helpers;
 using TFOHelperRedux.Models;
 using TFOHelperRedux.Services.Business;
@@ -291,6 +295,9 @@ namespace TFOHelperRedux.ViewModels
                 OnPropertyChanged(nameof(SelectedCatchPointRecipes));
                 OnPropertyChanged(nameof(FishImage));
 
+                // Обновляем график
+                UpdateChart();
+
                 // Обновляем карты для рыбы
                 _mapsService.UpdateMapsForFish(SelectedFish);
 
@@ -335,6 +342,84 @@ namespace TFOHelperRedux.ViewModels
         public void RefreshSelectedFish() => OnPropertyChanged(nameof(SelectedFish));
         public void RefreshMaybeCatchLures() => OnPropertyChanged(nameof(MaybeCatchLures));
         public void RefreshBestLures() => OnPropertyChanged(nameof(BestLures));
+
+        #endregion
+
+        #region График LiveCharts2
+
+        private ISeries[]? _biteChartSeries;
+        private Axis[]? _biteChartXAxes;
+        private Axis[]? _biteChartYAxes;
+
+        public ISeries[]? BiteChartSeries
+        {
+            get => _biteChartSeries;
+            set => SetProperty(ref _biteChartSeries, value);
+        }
+
+        public Axis[]? BiteChartXAxes
+        {
+            get => _biteChartXAxes;
+            set => SetProperty(ref _biteChartXAxes, value);
+        }
+
+        public Axis[]? BiteChartYAxes
+        {
+            get => _biteChartYAxes;
+            set => SetProperty(ref _biteChartYAxes, value);
+        }
+
+        public void UpdateChart()
+        {
+            if (SelectedFish?.BiteIntensity == null)
+            {
+                BiteChartSeries = null;
+                BiteChartXAxes = null;
+                BiteChartYAxes = null;
+                return;
+            }
+
+            BiteChartSeries = new ISeries[]
+            {
+                new ColumnSeries<int>
+                {
+                    Values = SelectedFish.BiteIntensity,
+                    Fill = new SolidColorPaint(SKColor.Parse("#4CAF50")),
+                    MaxBarWidth = 18,
+                    IsHoverable = true,
+                }
+            };
+
+            // Ось X — часы 0..23
+            BiteChartXAxes = new Axis[]
+            {
+                new Axis
+                {
+                    Labels = Enumerable.Range(0, 24).Select(i => i.ToString()).ToArray(),
+                    LabelsPaint = new SolidColorPaint(SKColor.Parse("#888888")),
+                    TicksPaint = null,
+                    SeparatorsPaint = null,
+                    TextSize = 13,
+                }
+            };
+
+            // Ось Y — от 0 до 10
+            BiteChartYAxes = new Axis[]
+            {
+                new Axis
+                {
+                    MinLimit = 0,
+                    MaxLimit = 10,
+                    LabelsPaint = null,
+                    SeparatorsPaint = new SolidColorPaint(SKColor.Parse("#2A2A2A"))
+                    {
+                        StrokeThickness = 1
+                    },
+                    TicksPaint = null,
+                    TextSize = 0,
+                }
+            };
+        }
 
         #endregion
     }

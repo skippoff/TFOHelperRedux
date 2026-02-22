@@ -2,7 +2,7 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:views="clr-namespace:TFOHelperRedux.Views"
-             xmlns:controls="clr-namespace:TFOHelperRedux.Views.Controls"
+             xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
@@ -325,10 +325,23 @@
                                    FontSize="18"
                                    Foreground="{DynamicResource TextSecondary}"
                                    Margin="0,0,0,8"/>
-                        <controls:BiteIntensityChart x:Name="BiteChart"
-                                                     BiteIntensity="{Binding SelectedFish.BiteIntensity}"
-                                                     HourChanged="BiteChart_HourChanged"
-                                                     Height="240"/>
+                        <Border Background="{DynamicResource PanelBackground}"
+                                BorderBrush="{DynamicResource BorderBrushLight}"
+                                BorderThickness="1"
+                                CornerRadius="6"
+                                Padding="6"
+                                Height="240">
+                            <lvc:CartesianChart x:Name="BiteChart"
+                                                Series="{Binding BiteChartSeries}"
+                                                XAxes="{Binding BiteChartXAxes}"
+                                                YAxes="{Binding BiteChartYAxes}"
+                                                TooltipPosition="Top"
+                                                AnimationsSpeed="0:0:0.4"
+                                                MouseDown="BiteChart_MouseDown"
+                                                MouseMove="BiteChart_MouseMove"
+                                                MouseUp="BiteChart_MouseUp"
+                                                MouseLeave="BiteChart_MouseLeave"/>
+                        </Border>
                         <TextBlock Text="{Binding BiteDescription}" Margin="4,6,0,0"/>
                     </StackPanel>
                 </StackPanel>

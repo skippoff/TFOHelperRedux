@@ -1,17 +1,22 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Linq;
 
 namespace TFOHelperRedux.Views.Controls
 {
     public partial class BiteIntensityChart : UserControl
     {
-        // 🟢 Поля для перетаскивания графика
-        private bool _isDragging = false;
-        private Point _dragStartPoint;
-        private double _scrollStartOffset;
+        // 🟢 Поля для перетаскивания столбца
+        private bool _isDraggingBar = false;
+        private int _draggingIndex = -1;
+        private Border? _draggingBar;
+        private const double ChartHeight = 100.0;
+
+        // 🟢 Поля для рисования графика
+        private bool _isPainting = false;
+        private const double BarWidth = 20.0;
 
         // 🟢 DependencyProperty для массива интенсивности клёва
         public static readonly DependencyProperty BiteIntensityProperty =
@@ -35,69 +40,118 @@ namespace TFOHelperRedux.Views.Controls
             InitializeComponent();
         }
 
-        // 🟢 Обработчик кликов по столбцам графика
-        private void BiteBar_Click(object sender, MouseButtonEventArgs e)
+        // 🟢 Обработчики перетаскивания столбца
+        private void Bar_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (sender is Border b && b.Tag is int hour && BiteIntensity != null)
-            {
-                // создаём копию массива, чтобы триггерить PropertyChanged
-                var arr = BiteIntensity.ToArray();
-                arr[hour] = (arr[hour] + 1) % 11; // увеличиваем уровень (0..10)
-                BiteIntensity = arr;
+            if (e.LeftButton != MouseButtonState.Pressed) return;
 
-                // вызываем событие для внешней обработки
-                HourChanged?.Invoke(this, new HourChangedEventArgs(hour, arr[hour]));
+            _draggingBar = (Border)sender;
+            if (_draggingBar.Tag is not int index) return;
+            
+            _draggingIndex = index;
+            _isDraggingBar = true;
+
+            _draggingBar.CaptureMouse();
+            _draggingBar.Cursor = Cursors.SizeNS;
+            e.Handled = true;
+        }
+
+        private void UpdateBarFromMousePosition(Point pos)
+        {
+            if (_draggingIndex < 0 || BiteIntensity == null) return;
+
+            double rawValue = ChartHeight - pos.Y;
+            double clamped = Math.Clamp(rawValue, 0, ChartHeight);
+            double normalized = clamped / ChartHeight; // 0.0 — 1.0
+
+            // Создаём копию массива для триггера PropertyChanged
+            var arr = BiteIntensity.ToArray();
+            arr[_draggingIndex] = (int)Math.Round(normalized * 10);
+            BiteIntensity = arr;
+
+            // Вызываем событие для внешней обработки
+            HourChanged?.Invoke(this, new HourChangedEventArgs(_draggingIndex, arr[_draggingIndex]));
+        }
+
+        private void StopBarDrag()
+        {
+            if (_isDraggingBar && _draggingBar != null)
+            {
+                _draggingBar.ReleaseMouseCapture();
+                _draggingBar = null;
+                _draggingIndex = -1;
+                _isDraggingBar = false;
             }
         }
 
-        // 🟢 Обработчики перетаскивания графика
+        // 🟢 Обработчики рисования графика (фон)
         private void Chart_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (e.LeftButton == MouseButtonState.Pressed)
+            if (e.LeftButton == MouseButtonState.Pressed && !_isDraggingBar)
             {
-                _isDragging = true;
-                _dragStartPoint = e.GetPosition(ChartScrollViewer);
-                _scrollStartOffset = ChartScrollViewer.HorizontalOffset;
-                ChartScrollViewer.CaptureMouse();
-                ChartScrollViewer.Cursor = Cursors.SizeWE;
+                _isPainting = true;
+                ChartBorder.CaptureMouse();
+                ChartBorder.Cursor = Cursors.Pen;
+                PaintAtPosition(e.GetPosition(ChartGrid));
                 e.Handled = true;
             }
         }
 
         private void Chart_MouseMove(object sender, MouseEventArgs e)
         {
-            if (_isDragging && ChartScrollViewer.IsMouseCaptured)
+            // Если перетаскиваем столбец — обновляем его высоту
+            if (_isDraggingBar)
             {
-                var currentPoint = e.GetPosition(ChartScrollViewer);
-                var delta = _dragStartPoint.X - currentPoint.X;
-                ChartScrollViewer.ScrollToHorizontalOffset(_scrollStartOffset + delta);
+                UpdateBarFromMousePosition(e.GetPosition(ChartGrid));
+                return;
             }
+            
+            // Если рисуем — обновляем значения
+            if (_isPainting)
+                PaintAtPosition(e.GetPosition(ChartGrid));
         }
 
         private void Chart_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            StopDragging();
+            StopPainting();
+            StopBarDrag();
         }
 
         private void Chart_MouseLeave(object sender, MouseEventArgs e)
         {
-            StopDragging();
+            StopPainting();
+            StopBarDrag();
         }
 
-        private void Chart_LostMouseCapture(object? sender, MouseEventArgs e)
+        private void StopPainting()
         {
-            StopDragging();
-        }
-
-        private void StopDragging()
-        {
-            if (_isDragging)
+            if (_isPainting)
             {
-                _isDragging = false;
-                if (ChartScrollViewer.IsMouseCaptured)
-                    ChartScrollViewer.ReleaseMouseCapture();
-                ChartScrollViewer.Cursor = Cursors.Hand;
+                _isPainting = false;
+                if (ChartBorder.IsMouseCaptured)
+                    ChartBorder.ReleaseMouseCapture();
+                ChartBorder.Cursor = Cursors.Arrow;
             }
+        }
+
+        private void PaintAtPosition(Point pos)
+        {
+            if (BiteIntensity == null) return;
+
+            int index = (int)(pos.X / BarWidth);
+            if (index < 0 || index >= BiteIntensity.Length) return;
+
+            double chartBottom = ChartGrid.ActualHeight;
+            double rawValue = chartBottom - pos.Y;
+            double clamped = Math.Clamp(rawValue, 0, ChartHeight);
+            double normalized = clamped / ChartHeight;
+            int newValue = (int)Math.Round(normalized * 10);
+
+            var arr = BiteIntensity.ToArray();
+            arr[index] = newValue;
+            BiteIntensity = arr;
+
+            HourChanged?.Invoke(this, new HourChangedEventArgs(index, newValue));
         }
     }
 
