@@ -161,7 +161,7 @@
                                                     <DataTrigger Value="True"
                                                                  Binding="{Binding IsSelected,
                                                        RelativeSource={RelativeSource AncestorType=ListBoxItem}}">
-                                                        <Setter Property="BorderBrush" Value="DeepSkyBlue"/>
+                                                        <Setter Property="BorderBrush" Value="{DynamicResource PrimaryColor}"/>
                                                     </DataTrigger>
                                                 </Style.Triggers>
                                             </Style>

@@ -6,11 +6,11 @@
         Height="900"
         ResizeMode="NoResize"
         WindowStartupLocation="Manual"
-        Background="#1A1A1A">
+        Background="{DynamicResource AppBackground}">
 
     <DockPanel>
         <!-- Меню -->
-        <Menu DockPanel.Dock="Top" Background="#2D2D2D" Foreground="White" FontSize="13">
+        <Menu DockPanel.Dock="Top" Background="{DynamicResource PanelBackground}" Foreground="{DynamicResource TextPrimary}" FontSize="13">
             <MenuItem Header="_Меню">
                 <MenuItem Header="О программе"
                           Click="About_Click"/>
@@ -75,15 +75,15 @@
                             </Ellipse.Triggers>
 
                             <Ellipse.ToolTip>
-                                <ToolTip Background="#333"
-                                 Foreground="White"
+                                <ToolTip Background="{DynamicResource PanelBackground}"
+                                 Foreground="{DynamicResource TextPrimary}"
                                  FontSize="13"
                                  Padding="6"
                                  Placement="Mouse"
                                  HasDropShadow="True">
                                     <StackPanel>
-                                        <TextBlock Text="{Binding CoordsInfo}" FontWeight="Bold" Foreground="SteelBlue"/>
-                                        <TextBlock Text="{Binding FishName}" FontSize="12" Foreground="#CCC"/>
+                                        <TextBlock Text="{Binding CoordsInfo}" FontWeight="Bold" Foreground="{DynamicResource PrimaryColor}"/>
+                                        <TextBlock Text="{Binding FishName}" FontSize="12" Foreground="{DynamicResource TextSecondary}"/>
                                     </StackPanel>
                                 </ToolTip>
                             </Ellipse.ToolTip>

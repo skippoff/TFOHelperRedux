@@ -78,7 +78,7 @@
                                                             <Setter Property="Foreground" Value="{StaticResource TextSecondary}"/>
                                                             <Style.Triggers>
                                                                 <DataTrigger Binding="{Binding Name, Converter={StaticResource MapGroupConverter}}" Value="Локации DLC">
-                                                                    <Setter Property="Foreground" Value="DarkGoldenrod"/>
+                                                                    <Setter Property="Foreground" Value="{DynamicResource AccentFeed}"/>
                                                                 </DataTrigger>
                                                             </Style.Triggers>
                                                         </Style>

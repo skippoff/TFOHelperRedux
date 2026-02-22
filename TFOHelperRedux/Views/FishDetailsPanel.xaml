@@ -58,7 +58,7 @@
                             <TextBlock Text="{Binding SelectedFish.Comment}"
                             FontSize="16"
                             FontStyle="Italic"
-                            Foreground="DarkSlateGray"
+                            Foreground="{DynamicResource TextSecondary}"
                             Margin="0,4,0,0"
                             TextWrapping="Wrap"/>
                         </StackPanel>
