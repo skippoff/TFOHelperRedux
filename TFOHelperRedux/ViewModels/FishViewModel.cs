@@ -387,6 +387,7 @@ namespace TFOHelperRedux.ViewModels
                     Fill = new SolidColorPaint(SKColor.Parse("#4CAF50")),
                     MaxBarWidth = 18,
                     IsHoverable = true,
+                    AnimationsSpeed = TimeSpan.Zero, // Отключаем анимацию для плавного обновления
                 }
             };
 
