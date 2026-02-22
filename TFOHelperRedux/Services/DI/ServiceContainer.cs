@@ -78,7 +78,6 @@ public static class ServiceContainer
 
         // Debouncer для отложенного сохранения
         services.AddSingleton<SaveDebouncer>();
-        _log.Verbose("Зарегистрирован SaveDebouncer");
 
         // Сервисы
         services.AddSingleton<FishDataService>(provider =>

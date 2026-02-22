@@ -27,6 +27,7 @@ namespace TFOHelperRedux.ViewModels
     /// - FishLuresService: привязка наживок
     /// - FishNavigationService: навигация между режимами
     /// - MapsService: управление картами
+    /// - BiteIntensityService: расчёт интенсивности клёва
     /// </summary>
     public class FishViewModel : BaseViewModel
     {
@@ -350,7 +351,6 @@ namespace TFOHelperRedux.ViewModels
         private ISeries[]? _biteChartSeries;
         private Axis[]? _biteChartXAxes;
         private Axis[]? _biteChartYAxes;
-        private ColumnSeries<int>? _cachedSeries; // Кэш серии для обновления без пересоздания
 
         public ISeries[]? BiteChartSeries
         {
@@ -370,30 +370,32 @@ namespace TFOHelperRedux.ViewModels
             set => SetProperty(ref _biteChartYAxes, value);
         }
 
-        public void UpdateChart()
+        private void UpdateChart()
         {
             if (SelectedFish?.BiteIntensity == null)
             {
                 BiteChartSeries = null;
                 BiteChartXAxes = null;
                 BiteChartYAxes = null;
-                _cachedSeries = null;
                 return;
             }
 
             // Создаём серию только один раз, потом обновляем значения
-            if (_cachedSeries == null)
+            if (_biteChartSeries == null)
             {
-                _cachedSeries = new ColumnSeries<int>
+                _biteChartSeries = new ISeries[]
                 {
-                    Values = SelectedFish.BiteIntensity,
-                    Fill = new SolidColorPaint(new SKColor(102, 186, 102)),
-                    MaxBarWidth = 24,
-                    IsHoverable = true,
-                    AnimationsSpeed = TimeSpan.FromMilliseconds(500),
+                    new ColumnSeries<int>
+                    {
+                        Values = SelectedFish.BiteIntensity,
+                        Fill = new SolidColorPaint(new SKColor(102, 186, 102)),
+                        MaxBarWidth = 24,
+                        IsHoverable = true,
+                        AnimationsSpeed = TimeSpan.FromMilliseconds(500),
+                    }
                 };
 
-                BiteChartSeries = new ISeries[] { _cachedSeries };
+                BiteChartSeries = _biteChartSeries;
 
                 // Ось X — часы 0..23
                 BiteChartXAxes = new Axis[]
@@ -423,7 +425,8 @@ namespace TFOHelperRedux.ViewModels
             else
             {
                 // Обновляем значения без пересоздания серии
-                _cachedSeries.Values = SelectedFish.BiteIntensity;
+                var series = (ColumnSeries<int>)_biteChartSeries[0];
+                series.Values = SelectedFish.BiteIntensity;
             }
         }
 

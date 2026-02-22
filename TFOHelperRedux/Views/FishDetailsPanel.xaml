@@ -336,7 +336,7 @@
                                                 XAxes="{Binding BiteChartXAxes}"
                                                 YAxes="{Binding BiteChartYAxes}"
                                                 TooltipPosition="Top"
-                                                AnimationsSpeed="0:0:0.4"
+                                                AnimationsSpeed="0:0:0.5"
                                                 MouseDown="BiteChart_MouseDown"
                                                 MouseMove="BiteChart_MouseMove"
                                                 MouseUp="BiteChart_MouseUp"

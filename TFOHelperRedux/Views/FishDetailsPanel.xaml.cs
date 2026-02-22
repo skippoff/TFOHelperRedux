@@ -1,10 +1,7 @@
 ﻿using System.ComponentModel;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using LiveChartsCore;
-using LiveChartsCore.SkiaSharpView;
 using TFOHelperRedux.Services.Data;
 using TFOHelperRedux.Services.State;
 using TFOHelperRedux.ViewModels;
@@ -20,9 +17,6 @@ namespace TFOHelperRedux.Views
         {
             InitializeComponent();
             Loaded += FishDetailsPanel_Loaded;
-            
-            // Устанавливаем анимацию графика
-            BiteChart.EasingFunction = EasingFunctions.BounceOut;
         }
 
         private void FishDetailsPanel_Loaded(object sender, RoutedEventArgs e)
@@ -78,12 +72,12 @@ namespace TFOHelperRedux.Views
             ((UIElement)sender).ReleaseMouseCapture();
         }
 
-        private void UpdateBarFromMouse(object sender, System.Windows.Point pos)
+        private void UpdateBarFromMouse(object sender, Point pos)
         {
             if (DataContext is not FishViewModel vm || vm.SelectedFish == null) return;
 
             var chart = (LiveChartsCore.SkiaSharpView.WPF.CartesianChart)sender;
-            var series = vm.BiteChartSeries?.FirstOrDefault() as ColumnSeries<int>;
+            var series = vm.BiteChartSeries?.FirstOrDefault() as LiveChartsCore.SkiaSharpView.ColumnSeries<int>;
             if (series?.Values == null) return;
 
             // Переводим пиксели в координаты графика
@@ -103,8 +97,8 @@ namespace TFOHelperRedux.Views
                 arr[index] = (int)Math.Round(value);
                 vm.SelectedFish.BiteIntensity = arr;
 
-                // Пересоздаём серию для обновления UI
-                vm.UpdateChart();
+                // Обновляем серию для LiveCharts
+                series.Values = vm.SelectedFish.BiteIntensity;
 
                 vm.RefreshSelectedFish();
                 vm.OnPropertyChanged(nameof(vm.BiteDescription));
