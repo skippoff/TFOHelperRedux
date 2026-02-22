@@ -350,6 +350,7 @@ namespace TFOHelperRedux.ViewModels
         private ISeries[]? _biteChartSeries;
         private Axis[]? _biteChartXAxes;
         private Axis[]? _biteChartYAxes;
+        private ColumnSeries<int>? _cachedSeries; // Кэш серии для обновления без пересоздания
 
         public ISeries[]? BiteChartSeries
         {
@@ -376,49 +377,54 @@ namespace TFOHelperRedux.ViewModels
                 BiteChartSeries = null;
                 BiteChartXAxes = null;
                 BiteChartYAxes = null;
+                _cachedSeries = null;
                 return;
             }
 
-            BiteChartSeries = new ISeries[]
+            // Создаём серию только один раз, потом обновляем значения
+            if (_cachedSeries == null)
             {
-                new ColumnSeries<int>
+                _cachedSeries = new ColumnSeries<int>
                 {
                     Values = SelectedFish.BiteIntensity,
-                    Fill = new SolidColorPaint(SKColor.Parse("#4CAF50")),
-                    MaxBarWidth = 18,
+                    Fill = new SolidColorPaint(new SKColor(102, 186, 102)),
+                    MaxBarWidth = 24,
                     IsHoverable = true,
-                }
-            };
+                    AnimationsSpeed = TimeSpan.FromMilliseconds(500),
+                };
 
-            // Ось X — часы 0..23
-            BiteChartXAxes = new Axis[]
-            {
-                new Axis
-                {
-                    Labels = Enumerable.Range(0, 24).Select(i => i.ToString()).ToArray(),
-                    LabelsPaint = new SolidColorPaint(SKColor.Parse("#888888")),
-                    TicksPaint = null,
-                    SeparatorsPaint = null,
-                    TextSize = 13,
-                }
-            };
+                BiteChartSeries = new ISeries[] { _cachedSeries };
 
-            // Ось Y — от 0 до 10
-            BiteChartYAxes = new Axis[]
-            {
-                new Axis
+                // Ось X — часы 0..23
+                BiteChartXAxes = new Axis[]
                 {
-                    MinLimit = 0,
-                    MaxLimit = 10,
-                    LabelsPaint = null,
-                    SeparatorsPaint = new SolidColorPaint(SKColor.Parse("#2A2A2A"))
+                    new Axis
                     {
-                        StrokeThickness = 1
-                    },
-                    TicksPaint = null,
-                    TextSize = 0,
-                }
-            };
+                        Labels = Enumerable.Range(0, 24).Select(i => i.ToString()).ToArray(),
+                        LabelsPaint = new SolidColorPaint(SKColor.Parse("#9CA3AF")),
+                        TicksPaint = null,
+                        SeparatorsPaint = new SolidColorPaint(SKColor.Parse("#374151")),
+                    }
+                };
+
+                // Ось Y — от 0 до 10
+                BiteChartYAxes = new Axis[]
+                {
+                    new Axis
+                    {
+                        MinLimit = 0,
+                        MaxLimit = 10,
+                        LabelsPaint = null,
+                        SeparatorsPaint = new SolidColorPaint(SKColor.Parse("#4B5563")),
+                        TicksPaint = null,
+                    }
+                };
+            }
+            else
+            {
+                // Обновляем значения без пересоздания серии
+                _cachedSeries.Values = SelectedFish.BiteIntensity;
+            }
         }
 
         #endregion
