@@ -31,13 +31,13 @@
                             Width="120" Height="34"
                             Margin="0,0,10,0"
                             Background="{StaticResource ButtonDeleteBrush}"
-                            Foreground="White"
+                            Foreground="{DynamicResource TextPrimary}"
                             Cursor="Hand"
                             Click="Cancel_Click"/>
                     <Button Content="✅ Сохранить"
                             Width="130" Height="34"
                             Background="{StaticResource SuccessColor}"
-                            Foreground="White"
+                            Foreground="{DynamicResource TextPrimary}"
                             FontWeight="Bold"
                             Cursor="Hand"
                             Click="Ok_Click"/>

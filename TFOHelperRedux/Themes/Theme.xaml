@@ -168,7 +168,7 @@
         <Style.Triggers>
             <Trigger Property="IsSelected" Value="True">
                 <Setter Property="Background" Value="{DynamicResource PrimaryColor}"/>
-                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Foreground" Value="{DynamicResource TextPrimary}"/>
             </Trigger>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="{DynamicResource BorderBrushLight}"/>

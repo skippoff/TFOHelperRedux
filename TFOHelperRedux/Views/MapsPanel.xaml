@@ -10,7 +10,7 @@
              mc:Ignorable="d"
              d:DesignHeight="600" d:DesignWidth="800">
 
-    <Border BorderBrush="{StaticResource BorderBrushLight}"
+    <Border BorderBrush="{DynamicResource BorderBrushLight}"
             Margin="0">
         <Grid>
             <Grid.RowDefinitions>
@@ -25,7 +25,7 @@
 
             <!-- LEFT: список локаций -->
             <Border Grid.Column="0"
-                    Background="{StaticResource PanelBackground}"
+                    Background="{DynamicResource PanelBackground}"
                     CornerRadius="6"
                     Margin="2"
                     Padding="12"
@@ -35,7 +35,7 @@
                                FontWeight="Bold"
                                FontSize="14"
                                Margin="2"
-                               Foreground="{StaticResource TextSecondary}"
+                               Foreground="{DynamicResource TextSecondary}"
                                Padding="12"
                                DockPanel.Dock="Top"/>
                     <ScrollViewer VerticalScrollBarVisibility="Auto"
@@ -48,7 +48,7 @@
                                 <TextBlock Text="Уровень водоёма ≤"
                                            VerticalAlignment="Center"
                                            FontSize="13"
-                                           Foreground="{StaticResource TextSecondary}"/>
+                                           Foreground="{DynamicResource TextSecondary}"/>
                                 <ComboBox ItemsSource="{Binding MapLevels}"
                                           SelectedItem="{Binding SelectedLevelFilter, Mode=TwoWay}"
                                           Width="80"
@@ -75,7 +75,7 @@
                                                            Padding="4,2">
                                                     <TextBlock.Style>
                                                         <Style TargetType="TextBlock">
-                                                            <Setter Property="Foreground" Value="{StaticResource TextSecondary}"/>
+                                                            <Setter Property="Foreground" Value="{DynamicResource TextSecondary}"/>
                                                             <Style.Triggers>
                                                                 <DataTrigger Binding="{Binding Name, Converter={StaticResource MapGroupConverter}}" Value="Локации DLC">
                                                                     <Setter Property="Foreground" Value="{DynamicResource AccentFeed}"/>
@@ -101,11 +101,11 @@
 
             <!-- CENTER: Рыбы по локации -->
             <Border Grid.Column="1"
-                    Background="{StaticResource PanelBackground}"
+                    Background="{DynamicResource PanelBackground}"
                     CornerRadius="6"
                     Margin="2"
                     Padding="12"
-                    BorderBrush="{StaticResource BorderBrushLight}"
+                    BorderBrush="{DynamicResource BorderBrushLight}"
                     BorderThickness="1"
                     Visibility="{Binding CurrentMode, Converter={StaticResource EqualityToVisibilityConverter}, ConverterParameter={x:Static helpers:NavigationModes.Maps}}" Grid.RowSpan="2">
                 <Grid>
@@ -121,7 +121,7 @@
                                    FontWeight="Bold"
                                    FontSize="14"
                                    VerticalAlignment="Center"
-                                   Foreground="{StaticResource TextPrimary}"/>
+                                   Foreground="{DynamicResource TextPrimary}"/>
 
                         <!-- 🔧 Кнопка только в Debug -->
                         <Button Content="DEV: редактировать список"

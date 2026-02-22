@@ -11,16 +11,26 @@
                 <!-- 🎨 MaterialDesignThemes -->
                 <materialDesign:BundledTheme BaseTheme="Light" PrimaryColor="Blue" SecondaryColor="LightBlue"/>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml"/>
-                
-                <!-- 🎨 Базовые цвета для совместимости (светлая тема по умолчанию) -->
+
+                <!-- 🎨 Светлая тема (по умолчанию) -->
+                <ResourceDictionary Source="Themes/LightColors.xaml"/>
+
+                <!-- 🎨 Преобразование Color → Brush для совместимости -->
                 <ResourceDictionary>
-                    <SolidColorBrush x:Key="AppBackground" Color="#708090"/>
-                    <SolidColorBrush x:Key="PanelBackground" Color="#F0F8FF"/>
-                    <SolidColorBrush x:Key="TextPrimary" Color="#212121"/>
-                    <SolidColorBrush x:Key="TextSecondary" Color="#757575"/>
-                    <SolidColorBrush x:Key="BorderBrushLight" Color="#E0E0E0"/>
+                    <SolidColorBrush x:Key="AppBackground" Color="{StaticResource AppBackgroundColor}"/>
+                    <SolidColorBrush x:Key="PanelBackground" Color="{StaticResource PanelBackgroundColor}"/>
+                    <SolidColorBrush x:Key="TextPrimary" Color="{StaticResource TextPrimaryColor}"/>
+                    <SolidColorBrush x:Key="TextSecondary" Color="{StaticResource TextSecondaryColor}"/>
+                    <SolidColorBrush x:Key="BorderBrushLight" Color="{StaticResource BorderBrushLightColor}"/>
+                    <SolidColorBrush x:Key="PrimaryColor" Color="{StaticResource PrimaryColorValue}"/>
+                    <SolidColorBrush x:Key="SuccessColor" Color="{StaticResource SuccessColorValue}"/>
+                    <SolidColorBrush x:Key="DangerColor" Color="{StaticResource DangerColorValue}"/>
+                    <SolidColorBrush x:Key="AccentLocation" Color="{StaticResource AccentLocationColor}"/>
+                    <SolidColorBrush x:Key="AccentFeed" Color="{StaticResource AccentFeedColor}"/>
+                    <SolidColorBrush x:Key="ButtonNavLocationBrush" Color="{StaticResource ButtonNavLocationColor}"/>
+                    <SolidColorBrush x:Key="ButtonNavBaitBrush" Color="{StaticResource ButtonNavBaitColor}"/>
                 </ResourceDictionary>
-                
+
                 <!-- 🎨 Локальная тема -->
                 <ResourceDictionary Source="Themes/Theme.xaml"/>
             </ResourceDictionary.MergedDictionaries>

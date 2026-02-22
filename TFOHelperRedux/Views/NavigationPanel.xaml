@@ -11,16 +11,16 @@
                 Style="{StaticResource IconButton}"
                 Margin="0,0,6,0"
                 Background="{StaticResource ButtonNavLocationBrush}"
-                Foreground="White"
-                BorderBrush="Black"/>
+                Foreground="{DynamicResource TextPrimary}"
+                BorderBrush="{DynamicResource BorderBrushLight}"/>
         <Button Content="Прикорм и дипы"
                 Command="{Binding NavigationVM.ShowBaitsCmd}"
                 Style="{StaticResource IconButton}"
                 Background="{StaticResource ButtonNavBaitBrush}"
-                Foreground="White"
-                BorderBrush="Black"
+                Foreground="{DynamicResource TextPrimary}"
+                BorderBrush="{DynamicResource BorderBrushLight}"
                 Margin="0,0,6,0"/>
-        
+
         <!-- 🌓 Переключатель темы -->
         <Button Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
                 ToolTip="Переключить тему"
@@ -30,7 +30,7 @@
             <materialDesign:PackIcon Kind="ThemeLightDark"
                                      Width="20"
                                      Height="20"
-                                     Foreground="White"/>
+                                     Foreground="{DynamicResource TextPrimary}"/>
         </Button>
     </StackPanel>
 </UserControl>

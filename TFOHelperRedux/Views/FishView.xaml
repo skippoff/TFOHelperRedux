@@ -15,7 +15,7 @@
         <DropShadowEffect x:Key="DropShadow" BlurRadius="10" ShadowDepth="2" Opacity="0.25" />
     </UserControl.Resources>
     <Grid x:Name="MainGrid"
-        Background="{StaticResource AppBackground}"
+        Background="{DynamicResource AppBackground}"
         HorizontalAlignment="Stretch"
         VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
@@ -24,13 +24,13 @@
         </Grid.RowDefinitions>
         <!-- Header / Toolbar -->
         <Border Grid.Row="0"
-                Background="{StaticResource PanelBackground}"
-                BorderBrush="{StaticResource BorderBrushLight}"
+                Background="{DynamicResource PanelBackground}"
+                BorderBrush="{DynamicResource BorderBrushLight}"
                 BorderThickness="0,0,0,0"
                 Padding="0,0">
             <Border Grid.Row="0"
-                    Background="{StaticResource AppBackground}"
-                    BorderBrush="{StaticResource BorderBrushLight}"
+                    Background="{DynamicResource AppBackground}"
+                    BorderBrush="{DynamicResource BorderBrushLight}"
                     BorderThickness="0,0,0,1"
                     Padding="8,6">
                 <Grid>
@@ -62,9 +62,9 @@
             <!-- Прикорм и дипы -->
             <Border Grid.Column="0"
                     Margin="2"
-                    Background="{StaticResource PanelBackground}"
+                    Background="{DynamicResource PanelBackground}"
                     CornerRadius="6"
-                    BorderBrush="{StaticResource BorderBrushLight}"
+                    BorderBrush="{DynamicResource BorderBrushLight}"
                     BorderThickness="1"
                     Padding="12"
                     Visibility="{Binding NavigationVM.CurrentMode, Converter={StaticResource EqualityToVisibilityConverter}, ConverterParameter={x:Static helpers:NavigationModes.Baits}}">
@@ -74,7 +74,7 @@
                                    FontWeight="Bold"
                                    FontSize="12"
                                    Margin="4,0,0,8"
-                                   Foreground="{StaticResource TextSecondary}"/>
+                                   Foreground="{DynamicResource TextSecondary}"/>
                         <ListBox SelectedValue="{Binding NavigationVM.BaitsSubMode, Mode=TwoWay}"
                                  Background="Transparent"
                                  BorderThickness="0"

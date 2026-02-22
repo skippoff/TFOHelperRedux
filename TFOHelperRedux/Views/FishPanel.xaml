@@ -66,8 +66,8 @@
                                     Visibility="{Binding Source={x:Static app:DebugFlags.IsDebug},
                                          Converter={StaticResource BoolToVisibilityConverter}}"
                                     Background="{StaticResource ButtonDeleteBrush}"
-                                    Foreground="White"
-                                    BorderBrush="Black"
+                                    Foreground="{DynamicResource TextPrimary}"
+                                    BorderBrush="{DynamicResource BorderBrushLight}"
                                     Style="{StaticResource IconButton}"/>
                             <TextBlock Grid.Row="1"
                                Text="{Binding Name}"

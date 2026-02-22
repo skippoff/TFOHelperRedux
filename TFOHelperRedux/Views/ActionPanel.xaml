@@ -11,8 +11,8 @@
                 Command="{Binding CatchPointsVM.ImportPointsCmd}"
                 Style="{StaticResource IconButton}"
                 Background="{StaticResource ButtonImportBrush}"
-                Foreground="White"
-                BorderBrush="Black"
+                Foreground="{DynamicResource TextPrimary}"
+                BorderBrush="{DynamicResource BorderBrushLight}"
                 Padding="10,4"
                 Margin="0,0,6,0"
                 ToolTip="импортировать точки"/>
@@ -20,8 +20,8 @@
                 Command="{Binding CatchPointsVM.ExportPointsCmd}"
                 Style="{StaticResource IconButton}"
                 Background="{StaticResource ButtonExportBrush}"
-                Foreground="White"
-                BorderBrush="Black"
+                Foreground="{DynamicResource TextPrimary}"
+                BorderBrush="{DynamicResource BorderBrushLight}"
                 Padding="10,4"
                 Margin="0,0,6,0" Cursor="Hand"
                 ToolTip="Экспортировать точки"/>
@@ -29,22 +29,22 @@
                 Command="{Binding CatchPointsVM.ClearPointsCmd}"
                 Style="{StaticResource IconButton}"
                 Background="{StaticResource ButtonDeleteBrush}"
-                Foreground="White"
-                BorderBrush="Black"
+                Foreground="{DynamicResource TextPrimary}"
+                BorderBrush="{DynamicResource BorderBrushLight}"
                 Padding="10,4"
                 ToolTip="Очистить точки"/>
         <TextBlock Text="Операции с точками"
                    FontWeight="Heavy"
                    Margin="6"
                    VerticalAlignment="Center"
-                   FontSize="14" 
+                   FontSize="14"
                    Foreground="{DynamicResource TextPrimary}"/>
         <Button Content="➕/✏"
                 Command="{Binding CatchPointsVM.EditCatchPointWindowCommand}"
                 Style="{StaticResource IconButton}"
                 Background="{StaticResource ButtonEditBrush}"
-                Foreground="White"
-                BorderBrush="Black"
+                Foreground="{DynamicResource TextPrimary}"
+                BorderBrush="{DynamicResource BorderBrushLight}"
                 ToolTip="Добавить/Редактировать"/>
     </StackPanel>
 </UserControl>

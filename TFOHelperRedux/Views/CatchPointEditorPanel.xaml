@@ -23,8 +23,8 @@
             <!-- Координаты -->
             <TextBlock Text="Координаты:" FontWeight="Bold" Margin="0,10,0,4" Foreground="{DynamicResource TextPrimary}"/>
             <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
-                <TextBox x:Name="tbX" Width="70" HorizontalContentAlignment="Center" Margin="0,0,8,0"/>
-                <TextBox x:Name="tbY" Width="70" HorizontalContentAlignment="Center"/>
+                <TextBox x:Name="tbX" Width="70" HorizontalContentAlignment="Center" Margin="0,0,8,0" Foreground="{DynamicResource TextPrimary}"/>
+                <TextBox x:Name="tbY" Width="70" HorizontalContentAlignment="Center" Foreground="{DynamicResource TextPrimary}"/>
             </StackPanel>
 
                 <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
@@ -33,33 +33,43 @@
                             Margin="0,0,0,4"
                             FontWeight="Bold"
                             Text="Крупная от (г)" />
-                        <TextBox Text="{Binding SelectedLargeText, RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="26" />
+                        <TextBox Text="{Binding SelectedLargeText, RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="35" HorizontalContentAlignment="Center" Margin="0, 0, 0, 0" Width="80" Foreground="{DynamicResource TextPrimary}"/>
                     </StackPanel>
                     <StackPanel Width="120" Margin="16,0,0,0">
                         <TextBlock
                             Margin="0,0,0,4"
                             FontWeight="Bold"
                             Text="Трофей от (г)" />
-                        <TextBox Text="{Binding SelectedTrophyText, RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="26" />
+                        <TextBox Text="{Binding SelectedTrophyText, RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="35" HorizontalContentAlignment="Center" Margin="0, 0, 0, 0" Width="80" Foreground="{DynamicResource TextPrimary}"/>
                     </StackPanel>
                 </StackPanel>
 
             <!-- Глубина + клипса -->
-            <TextBlock Text="Глубина:" FontWeight="Bold" Margin="0,10,0,4" Foreground="{DynamicResource TextPrimary}"/>
-            <StackPanel Orientation="Horizontal" Margin="0,0,8,0">
-                <!-- глубина -->
-                <TextBox x:Name="tbDepth"
-                         Width="80"
-                         HorizontalContentAlignment="Center"/>
-
-                <!-- клипса -->
-                <TextBlock Text="Клипса:" FontWeight="Bold"
-                           Margin="10,0,4,0"
-                           VerticalAlignment="Center"
-                           Foreground="{DynamicResource TextPrimary}"/>
-                <TextBox x:Name="tbClip"
-                         Width="80"
-                         HorizontalContentAlignment="Center"/>
+            <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                <StackPanel Width="120">
+                    <TextBlock
+                        Margin="0,0,0,4"
+                        FontWeight="Bold"
+                        Text="Глубина:"
+                        Foreground="{DynamicResource TextPrimary}"/>
+                    <TextBox x:Name="tbDepth"
+                             Width="80"
+                             HorizontalContentAlignment="Center"
+                             Margin="0, 0, 0, 4"
+                             Foreground="{DynamicResource TextPrimary}"/>
+                </StackPanel>
+                <StackPanel Width="120" Margin="16,0,0,0">
+                    <TextBlock
+                        Margin="0,0,0,4"
+                        FontWeight="Bold"
+                        Text="Клипса:"
+                        Foreground="{DynamicResource TextPrimary}"/>
+                    <TextBox x:Name="tbClip"
+                             Width="80"
+                             HorizontalContentAlignment="Center"
+                             Margin="0, 0, 0, 4"
+                             Foreground="{DynamicResource TextPrimary}"/>
+                </StackPanel>
             </StackPanel>
 
             <!-- Особенности -->
@@ -97,7 +107,8 @@
                          Padding="6"
                          Background="Transparent"
                          VerticalScrollBarVisibility="Auto"
-                         Height="140"/>
+                         Height="140"
+                         Foreground="{DynamicResource TextPrimary}"/>
             </Border>
         </StackPanel>
     </ScrollViewer>

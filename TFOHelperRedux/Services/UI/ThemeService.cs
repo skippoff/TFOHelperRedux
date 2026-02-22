@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Media;
 using MaterialDesignColors;
 using MaterialDesignThemes.Wpf;
 
@@ -45,83 +46,78 @@ public class ThemeService
     {
         var resources = Application.Current.Resources;
         var theme = resources.GetTheme();
-        
+
         theme.SetBaseTheme(isDark ? BaseTheme.Dark : BaseTheme.Light);
         resources.SetTheme(theme);
 
-        // Обновляем кастомные цвета
+        // Динамически загружаем файл темы
         Application.Current.Dispatcher.Invoke(() =>
         {
-            UpdateCustomColors(isDark);
+            LoadThemeFile(isDark);
+            UpdateCustomColors();
         });
+    }
+
+    /// <summary>
+    /// Загрузить файл темы (Light/Dark)
+    /// </summary>
+    private void LoadThemeFile(bool isDark)
+    {
+        var resources = Application.Current.Resources;
+        var themePath = isDark ? "Themes/DarkColors.xaml" : "Themes/LightColors.xaml";
+
+        // Находим существующий словарь с темой и заменяем его
+        ResourceDictionary? themeDict = null;
+        foreach (var dict in resources.MergedDictionaries)
+        {
+            if (dict.Source?.OriginalString.Contains("Themes/LightColors.xaml") == true ||
+                dict.Source?.OriginalString.Contains("Themes/DarkColors.xaml") == true)
+            {
+                themeDict = dict;
+                break;
+            }
+        }
+
+        if (themeDict != null)
+        {
+            var index = resources.MergedDictionaries.IndexOf(themeDict);
+            resources.MergedDictionaries[index] = new ResourceDictionary
+            {
+                Source = new Uri(themePath, UriKind.Relative)
+            };
+        }
     }
 
     /// <summary>
     /// Обновить кастомные цвета для темы
     /// </summary>
-    private void UpdateCustomColors(bool isDark)
+    private void UpdateCustomColors()
     {
         var resources = Application.Current.Resources;
 
-        if (isDark)
+        // Обновляем Brush из Color ресурсов, которые загрузились из файла темы
+        UpdateBrushFromColor(resources, "AppBackground", "AppBackgroundColor");
+        UpdateBrushFromColor(resources, "PanelBackground", "PanelBackgroundColor");
+        UpdateBrushFromColor(resources, "TextPrimary", "TextPrimaryColor");
+        UpdateBrushFromColor(resources, "TextSecondary", "TextSecondaryColor");
+        UpdateBrushFromColor(resources, "BorderBrushLight", "BorderBrushLightColor");
+        UpdateBrushFromColor(resources, "PrimaryColor", "PrimaryColorValue");
+        UpdateBrushFromColor(resources, "SuccessColor", "SuccessColorValue");
+        UpdateBrushFromColor(resources, "DangerColor", "DangerColorValue");
+        UpdateBrushFromColor(resources, "AccentLocation", "AccentLocationColor");
+        UpdateBrushFromColor(resources, "AccentFeed", "AccentFeedColor");
+        UpdateBrushFromColor(resources, "ButtonNavLocationBrush", "ButtonNavLocationColor");
+        UpdateBrushFromColor(resources, "ButtonNavBaitBrush", "ButtonNavBaitColor");
+    }
+
+    /// <summary>
+    /// Обновить Brush из Color ресурса
+    /// </summary>
+    private void UpdateBrushFromColor(ResourceDictionary resources, string brushKey, string colorKey)
+    {
+        if (resources[colorKey] is Color color)
         {
-            // Тёмная тема
-            resources["AppBackground"] = new System.Windows.Media.SolidColorBrush(
-                System.Windows.Media.Color.FromRgb(30, 30, 30));
-            resources["PanelBackground"] = new System.Windows.Media.SolidColorBrush(
-                System.Windows.Media.Color.FromRgb(45, 45, 45));
-            resources["TextPrimary"] = new System.Windows.Media.SolidColorBrush(
-                System.Windows.Media.Color.FromRgb(255, 255, 255));
-            resources["TextSecondary"] = new System.Windows.Media.SolidColorBrush(
-                System.Windows.Media.Color.FromRgb(180, 180, 180));
-            resources["BorderBrushLight"] = new System.Windows.Media.SolidColorBrush(
-                System.Windows.Media.Color.FromRgb(60, 60, 60));
-            
-            // Адаптация акцентных цветов для тёмной темы (более яркие)
-            resources["PrimaryColor"] = new System.Windows.Media.SolidColorBrush(
-                System.Windows.Media.Color.FromRgb(66, 165, 245));
-            resources["SuccessColor"] = new System.Windows.Media.SolidColorBrush(
-                System.Windows.Media.Color.FromRgb(102, 187, 106));
-            resources["DangerColor"] = new System.Windows.Media.SolidColorBrush(
-                System.Windows.Media.Color.FromRgb(239, 83, 80));
-            resources["AccentLocation"] = new System.Windows.Media.SolidColorBrush(
-                System.Windows.Media.Color.FromRgb(0, 188, 212));
-            resources["AccentFeed"] = new System.Windows.Media.SolidColorBrush(
-                System.Windows.Media.Color.FromRgb(255, 167, 77));
-            resources["ButtonNavLocationBrush"] = new System.Windows.Media.SolidColorBrush(
-                System.Windows.Media.Color.FromRgb(0, 188, 212));
-            resources["ButtonNavBaitBrush"] = new System.Windows.Media.SolidColorBrush(
-                System.Windows.Media.Color.FromRgb(255, 152, 0));
-        }
-        else
-        {
-            // Светлая тема
-            resources["AppBackground"] = new System.Windows.Media.SolidColorBrush(
-                System.Windows.Media.Color.FromRgb(112, 128, 144)); // SlateGray
-            resources["PanelBackground"] = new System.Windows.Media.SolidColorBrush(
-                System.Windows.Media.Color.FromRgb(240, 248, 255)); // AliceBlue
-            resources["TextPrimary"] = new System.Windows.Media.SolidColorBrush(
-                System.Windows.Media.Color.FromRgb(33, 33, 33));
-            resources["TextSecondary"] = new System.Windows.Media.SolidColorBrush(
-                System.Windows.Media.Color.FromRgb(117, 117, 117));
-            resources["BorderBrushLight"] = new System.Windows.Media.SolidColorBrush(
-                System.Windows.Media.Color.FromRgb(224, 224, 224));
-            
-            // Оригинальные цвета для светлой темы
-            resources["PrimaryColor"] = new System.Windows.Media.SolidColorBrush(
-                System.Windows.Media.Color.FromRgb(33, 150, 243));
-            resources["SuccessColor"] = new System.Windows.Media.SolidColorBrush(
-                System.Windows.Media.Color.FromRgb(76, 175, 80));
-            resources["DangerColor"] = new System.Windows.Media.SolidColorBrush(
-                System.Windows.Media.Color.FromRgb(229, 57, 53));
-            resources["AccentLocation"] = new System.Windows.Media.SolidColorBrush(
-                System.Windows.Media.Color.FromRgb(0, 183, 179));
-            resources["AccentFeed"] = new System.Windows.Media.SolidColorBrush(
-                System.Windows.Media.Color.FromRgb(255, 165, 46));
-            resources["ButtonNavLocationBrush"] = new System.Windows.Media.SolidColorBrush(
-                System.Windows.Media.Color.FromRgb(0, 150, 136));
-            resources["ButtonNavBaitBrush"] = new System.Windows.Media.SolidColorBrush(
-                System.Windows.Media.Color.FromRgb(245, 124, 0));
+            resources[brushKey] = new System.Windows.Media.SolidColorBrush(color);
         }
     }
 }
