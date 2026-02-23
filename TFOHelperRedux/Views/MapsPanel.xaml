@@ -56,15 +56,16 @@
                                           Foreground="{DynamicResource TextPrimary}"/>
                             </StackPanel>
                             <!-- Единый список локаций с группировкой -->
-                            <ListBox ItemsSource="{Binding AllMaps}"
+                            <ListBox x:Name="MapsListBox"
+                                     ItemsSource="{Binding AllMaps}"
                                      SelectedItem="{Binding SelectedMap, Mode=TwoWay}"
                                      DisplayMemberPath="Name"
                                      Background="Transparent"
                                      BorderThickness="0"
-                                     ScrollViewer.CanContentScroll="True"
-                                     ScrollViewer.IsDeferredScrollingEnabled="True"
-                                     VirtualizingPanel.IsVirtualizing="True"
-                                     VirtualizingPanel.VirtualizationMode="Recycling">
+                                     ScrollViewer.CanContentScroll="False"
+                                     VirtualizingPanel.IsVirtualizing="False"
+                                     ScrollViewer.ScrollChanged="MapsScrollViewer_ScrollChanged"
+                                     SelectionChanged="MapsListBox_SelectionChanged">
                                 <ListBox.GroupStyle>
                                     <GroupStyle>
                                         <GroupStyle.HeaderTemplate>

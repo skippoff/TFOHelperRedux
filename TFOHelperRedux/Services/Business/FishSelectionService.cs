@@ -49,11 +49,16 @@ public class FishSelectionService
         _filterService = ServiceContainer.GetService<FishFilterService>()!;
 
         // Подписка на изменения выбора в DataStore.Selection
-        _selection.SelectionChanged += () =>
-        {
-            FishChanged?.Invoke();
-            MapChanged?.Invoke();
-        };
+        // Вызываем только одно событие SelectionChanged вместо двух
+        _selection.SelectionChanged += OnSelectionChanged;
+    }
+
+    private void OnSelectionChanged()
+    {
+        // Вызываем оба события, но в одном контексте выполнения
+        // Это предотвращает двойные обновления в FishViewModel
+        FishChanged?.Invoke();
+        MapChanged?.Invoke();
     }
 
     /// <summary>

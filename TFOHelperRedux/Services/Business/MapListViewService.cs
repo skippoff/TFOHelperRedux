@@ -15,15 +15,23 @@ public class MapListViewService
     private ICollectionView? _allMapsView;
     private Predicate<object>? _currentFilter;
     private int _currentLevelFilter;
+    private ObservableCollection<MapModel>? _cachedMaps;
 
     /// <summary>
     /// Получение представления для списка карт с группировкой
     /// </summary>
     public ICollectionView GetAllMapsView(ObservableCollection<MapModel> maps, int selectedLevelFilter)
     {
+        // Кэшируем коллекцию, чтобы избежать пересоздания view
+        if (_cachedMaps == null)
+        {
+            _cachedMaps = new ObservableCollection<MapModel>(maps);
+            SortMaps(_cachedMaps, selectedLevelFilter);
+        }
+
         if (_allMapsView == null)
         {
-            _allMapsView = CollectionViewSource.GetDefaultView(maps);
+            _allMapsView = CollectionViewSource.GetDefaultView(_cachedMaps);
             _currentLevelFilter = selectedLevelFilter;
 
             // Настраиваем группировку только один раз
@@ -32,15 +40,7 @@ public class MapListViewService
                 _allMapsView.GroupDescriptions?.Add(new PropertyGroupDescription("DLC"));
             }
 
-            // Настраиваем сортировку только один раз
-            if (_allMapsView.SortDescriptions?.Count == 0)
-            {
-                _allMapsView.SortDescriptions?.Add(new SortDescription("DLC", ListSortDirection.Ascending));
-                _allMapsView.SortDescriptions?.Add(new SortDescription("Level", ListSortDirection.Ascending));
-                _allMapsView.SortDescriptions?.Add(new SortDescription("Name", ListSortDirection.Ascending));
-            }
-
-            // Создаём фильтр один раз
+            // Создаём и применяем фильтр один раз
             _currentFilter = CreateFilter(selectedLevelFilter);
             _allMapsView.Filter = _currentFilter;
         }
@@ -53,23 +53,40 @@ public class MapListViewService
     /// </summary>
     public void RefreshFilter(int selectedLevelFilter)
     {
-        // Не обновляем, если фильтр не изменился
+        // Не обновляем, если фильтр не изменился или view ещё не создан
         if (_allMapsView == null || _currentLevelFilter == selectedLevelFilter)
             return;
 
         _currentLevelFilter = selectedLevelFilter;
 
-        // Создаём новый фильтр только если изменился уровень
-        if (_currentFilter == null)
+        // Пересоздаём фильтр с новым значением
+        _currentFilter = CreateFilter(selectedLevelFilter);
+        _allMapsView.Filter = _currentFilter;
+
+        // Сортируем заново
+        if (_cachedMaps != null)
         {
-            _currentFilter = CreateFilter(selectedLevelFilter);
-            _allMapsView.Filter = _currentFilter;
+            SortMaps(_cachedMaps, selectedLevelFilter);
         }
-        else
-        {
-            // Переиспользуем существующий делегат, просто обновляем замыкание
-            _allMapsView.Refresh();
-        }
+
+        // Не вызываем Refresh() явно — это приводит к сбросу скролла
+        // ICollectionView применит фильтр автоматически
+    }
+
+    /// <summary>
+    /// Сортировка карт
+    /// </summary>
+    private static void SortMaps(ObservableCollection<MapModel> maps, int selectedLevelFilter)
+    {
+        var sorted = maps
+            .OrderBy(m => m.DLC)
+            .ThenBy(m => m.Level)
+            .ThenBy(m => m.Name)
+            .ToList();
+
+        maps.Clear();
+        foreach (var map in sorted)
+            maps.Add(map);
     }
 
     /// <summary>

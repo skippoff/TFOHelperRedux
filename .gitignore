@@ -374,3 +374,7 @@ FodyWeavers.xsd
 .continue/agents/new-config-1.yaml
 .ai/mcp/mcp.json
 .continueignore
+
+# Markdown documentation files
+*.md
+!README.md

@@ -74,9 +74,19 @@ namespace TFOHelperRedux.ViewModels
         public ObservableCollection<MapModel> DlcMaps => _mapsService.DlcMaps;
         public ObservableCollection<int> MapLevels => _mapsService.MapLevels;
 
-        // Единый список карт с группировкой для ListBox
-        public System.ComponentModel.ICollectionView AllMaps =>
-            _mapListViewService.GetAllMapsView(Maps, SelectedLevelFilter);
+        // Единый список карт с группировкой для ListBox (ленивая инициализация)
+        private System.ComponentModel.ICollectionView? _allMapsView;
+        public System.ComponentModel.ICollectionView AllMaps
+        {
+            get
+            {
+                if (_allMapsView == null)
+                {
+                    _allMapsView = _mapListViewService.GetAllMapsView(Maps, SelectedLevelFilter);
+                }
+                return _allMapsView;
+            }
+        }
 
         #endregion
 
@@ -95,6 +105,7 @@ namespace TFOHelperRedux.ViewModels
                 {
                     _mapsService.SelectedLevelFilter = value;
                     OnPropertyChanged(nameof(SelectedLevelFilter));
+                    // RefreshFilter уже вызывает _allMapsView.Refresh() внутри
                     _mapListViewService.RefreshFilter(value);
                 }
             }
@@ -249,9 +260,11 @@ namespace TFOHelperRedux.ViewModels
 
         private void SubscribeToServices()
         {
-            // От FishSelectionService — группируем FishChanged и MapChanged
+            // От FishSelectionService — подписываемся только на MapChanged
+            // (он вызывается вместе с FishChanged в одном контексте)
+            // Используем флаг для предотвращения двойного обновления
             _selectionService.FishChanged += OnSelectionChanged;
-            _selectionService.MapChanged += OnSelectionChanged;
+            // MapChanged не подписываем — он вызывается в том же контексте, что и FishChanged
 
             // От FishDetailsService
             _detailsService.PropertyChanged += (s, e) =>
