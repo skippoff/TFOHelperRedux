@@ -10,15 +10,15 @@
                 Command="{Binding NavigationVM.ShowMapsCmd}"
                 Style="{StaticResource IconButton}"
                 Margin="0,0,6,0"
-                Background="{StaticResource ButtonNavLocationBrush}"
-                Foreground="White"
-                BorderBrush="Black"/>
+                Background="{DynamicResource ButtonNavLocationBrush}"
+                Foreground="{DynamicResource TextPrimary}"
+                BorderBrush="{DynamicResource BorderBrushLight}"/>
         <Button Content="Прикорм и дипы"
                 Command="{Binding NavigationVM.ShowBaitsCmd}"
                 Style="{StaticResource IconButton}"
-                Background="{StaticResource ButtonNavBaitBrush}"
-                Foreground="White"
-                BorderBrush="Black"
+                Background="{DynamicResource ButtonNavBaitBrush}"
+                Foreground="{DynamicResource TextPrimary}"
+                BorderBrush="{DynamicResource BorderBrushLight}"
                 Margin="0,0,6,0"/>
         
         <!-- 🌓 Переключатель темы -->

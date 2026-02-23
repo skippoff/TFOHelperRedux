@@ -84,13 +84,13 @@
                                 <!-- Глубина -->
                                 <TextBlock Text="{Binding DepthInfo}"
                                            FontSize="15"
-                                           Foreground="DarkSlateGray"
+                                           Foreground="{DynamicResource TextSecondary}"
                                            TextWrapping="Wrap"
                                            Margin="0,0,0,4"/>
                                 <!-- Клипса -->
                                 <TextBlock Text="{Binding ClipInfo}"
                                            FontSize="15"
-                                           Foreground="DarkSlateGray"
+                                           Foreground="{DynamicResource TextSecondary}"
                                            TextWrapping="Wrap"
                                            Margin="0,0,0,4"/>
 
@@ -102,9 +102,9 @@
                                     VerticalAlignment="Top"
                                     Margin="0"
                                     Style="{StaticResource IconButton}"
-                                    Background="{StaticResource ButtonDeleteBrush}"
-                                    Foreground="White"
-                                    BorderBrush="Black"
+                                    Background="{DynamicResource ButtonDeleteBrush}"
+                                    Foreground="{DynamicResource TextPrimary}"
+                                    BorderBrush="{DynamicResource BorderBrushLight}"
                                     Command="{Binding DataContext.DeletePointCmd,
                                                       RelativeSource={RelativeSource AncestorType=UserControl}}"
                                     CommandParameter="{Binding}"
@@ -117,9 +117,9 @@
                                     VerticalAlignment="Bottom"
                                     Margin="0,0,0,4"
                                     Style="{StaticResource IconButton}"
-                                    Background="{StaticResource ButtonEditBrush}"
-                                    Foreground="White"
-                                    BorderBrush="Black"
+                                    Background="{DynamicResource ButtonEditBrush}"
+                                    Foreground="{DynamicResource TextPrimary}"
+                                    BorderBrush="{DynamicResource BorderBrushLight}"
                                     Command="{Binding DataContext.EditPointCmd,
                                                       RelativeSource={RelativeSource AncestorType=UserControl}}"
                                     CommandParameter="{Binding}"

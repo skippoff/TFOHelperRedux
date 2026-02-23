@@ -33,16 +33,16 @@
                     </Grid>
                 </Border>
                 <Button Content="💾" Command="{Binding SaveRecipeCmd}"
-                 Background="{StaticResource PrimaryColor}"
-                 Foreground="White"
-                 BorderBrush="Black"
+                 Background="{DynamicResource PrimaryColor}"
+                 Foreground="{DynamicResource TextPrimary}"
+                 BorderBrush="{DynamicResource BorderBrushLight}"
                  Margin="0,0,6,0"
                  ToolTip="Сохранить"
                  Style="{StaticResource IconButton}"/>
                 <Button Content="🆕" Command="{Binding NewRecipeCmd}"
-                 Background="{StaticResource SuccessColor}"
-                 Foreground="White"
-                 BorderBrush="Black"
+                 Background="{DynamicResource SuccessColor}"
+                 Foreground="{DynamicResource TextPrimary}"
+                 BorderBrush="{DynamicResource BorderBrushLight}"
                  Margin="0,0,6,0"
                  ToolTip="Новый"
                  Style="{StaticResource IconButton}"/>
@@ -52,9 +52,9 @@
                  Style="{StaticResource IconButton}"/>
                 <Button Content="❌" Command="{Binding DeleteRecipeCmd}"
                  ToolTip="Удалить рецепт"
-                 Background="{StaticResource ButtonDeleteBrush}"
-                 Foreground="White"
-                 BorderBrush="Black"
+                 Background="{DynamicResource ButtonDeleteBrush}"
+                 Foreground="{DynamicResource TextPrimary}"
+                 BorderBrush="{DynamicResource BorderBrushLight}"
                  Style="{StaticResource IconButton}"/>
             </StackPanel>
             <!-- Содержимое -->

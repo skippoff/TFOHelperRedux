@@ -18,8 +18,8 @@
 
         <!-- ====================== CONTENT PANEL ====================== -->
         <Border Grid.Column="0"
-                Background="{StaticResource PanelBackground}"
-                BorderBrush="{StaticResource BorderBrushLight}"
+                Background="{DynamicResource PanelBackground}"
+                BorderBrush="{DynamicResource BorderBrushLight}"
                 BorderThickness="1"
                 CornerRadius="6"
                 Padding="12"
@@ -63,8 +63,8 @@
 
         <!-- ====================== RECIPE / CRAFT PANEL ====================== -->
         <Border Grid.Column="1"
-                Background="{StaticResource PanelBackground}"
-                BorderBrush="{StaticResource BorderBrushLight}"
+                Background="{DynamicResource PanelBackground}"
+                BorderBrush="{DynamicResource BorderBrushLight}"
                 BorderThickness="1"
                 CornerRadius="6"
                 Padding="2"

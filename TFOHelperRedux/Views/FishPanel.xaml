@@ -15,9 +15,9 @@
         </Grid.ColumnDefinitions>
         <Border Grid.Column="0"
             Margin="2"
-            Background="{StaticResource PanelBackground}"
+            Background="{DynamicResource PanelBackground}"
             CornerRadius="6"
-            BorderBrush="{StaticResource BorderBrushLight}"
+            BorderBrush="{DynamicResource BorderBrushLight}"
             BorderThickness="1"
             Padding="12"
             Visibility="{Binding CurrentMode, Converter={StaticResource EqualityToVisibilityConverter}, ConverterParameter={x:Static helpers:NavigationModes.Fish}}">
@@ -65,9 +65,9 @@
                                     CommandParameter="{Binding}"
                                     Visibility="{Binding Source={x:Static app:DebugFlags.IsDebug},
                                          Converter={StaticResource BoolToVisibilityConverter}}"
-                                    Background="{StaticResource ButtonDeleteBrush}"
-                                    Foreground="White"
-                                    BorderBrush="Black"
+                                    Background="{DynamicResource ButtonDeleteBrush}"
+                                    Foreground="{DynamicResource TextPrimary}"
+                                    BorderBrush="{DynamicResource BorderBrushLight}"
                                     Style="{StaticResource IconButton}"/>
                             <TextBlock Grid.Row="1"
                                Text="{Binding Name}"

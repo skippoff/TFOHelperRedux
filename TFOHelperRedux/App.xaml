@@ -11,16 +11,19 @@
                 <!-- 🎨 MaterialDesignThemes -->
                 <materialDesign:BundledTheme BaseTheme="Light" PrimaryColor="Blue" SecondaryColor="LightBlue"/>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml"/>
-                
+
+                <!-- 🎨 Цвета светлой темы (по умолчанию) -->
+                <ResourceDictionary Source="Themes/LightColors.xaml"/>
+
                 <!-- 🎨 Базовые цвета для совместимости (светлая тема по умолчанию) -->
                 <ResourceDictionary>
-                    <SolidColorBrush x:Key="AppBackground" Color="#708090"/>
-                    <SolidColorBrush x:Key="PanelBackground" Color="#F0F8FF"/>
-                    <SolidColorBrush x:Key="TextPrimary" Color="#212121"/>
-                    <SolidColorBrush x:Key="TextSecondary" Color="#757575"/>
-                    <SolidColorBrush x:Key="BorderBrushLight" Color="#E0E0E0"/>
+                    <SolidColorBrush x:Key="AppBackground" Color="{DynamicResource AppBackgroundColor}"/>
+                    <SolidColorBrush x:Key="PanelBackground" Color="{DynamicResource PanelBackgroundColor}"/>
+                    <SolidColorBrush x:Key="TextPrimary" Color="{DynamicResource TextPrimaryColor}"/>
+                    <SolidColorBrush x:Key="TextSecondary" Color="{DynamicResource TextSecondaryColor}"/>
+                    <SolidColorBrush x:Key="BorderBrushLight" Color="{DynamicResource BorderBrushLightColor}"/>
                 </ResourceDictionary>
-                
+
                 <!-- 🎨 Локальная тема -->
                 <ResourceDictionary Source="Themes/Theme.xaml"/>
             </ResourceDictionary.MergedDictionaries>

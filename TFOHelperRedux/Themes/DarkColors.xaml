@@ -6,6 +6,7 @@
     <Color x:Key="PrimaryColorValue">#64B5F6</Color>
     <Color x:Key="AccentLocationColor">#4DD0E1</Color>
     <Color x:Key="AccentFeedColor">#FFB74D</Color>
+    <Color x:Key="AccentExperimentalColor">#FFB74D</Color>
     <Color x:Key="SuccessColorValue">#66BB6A</Color>
     <Color x:Key="DangerColorValue">#EF5350</Color>
     <Color x:Key="TextPrimaryColor">#E0E0E0</Color>

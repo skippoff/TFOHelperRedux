@@ -43,7 +43,7 @@
                             <Border x:Name="BarBorder"
                                     Width="18" Margin="2,0"
                                     Height="{Binding ., Converter={StaticResource BiteToHeightConverter}}"
-                                    Background="{StaticResource SuccessColor}"
+                                    Background="{DynamicResource SuccessColor}"
                                     Cursor="SizeNS"
                                     Tag="{Binding RelativeSource={RelativeSource AncestorType=ContentPresenter},
                                           Path=(ItemsControl.AlternationIndex)}"

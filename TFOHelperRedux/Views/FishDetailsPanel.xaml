@@ -13,9 +13,9 @@
     <!-- RIGHT: Детальная информация -->
     <Border
         Margin="2"
-        Background="{StaticResource PanelBackground}"
+        Background="{DynamicResource PanelBackground}"
         CornerRadius="6"
-        BorderBrush="{StaticResource BorderBrushLight}"
+        BorderBrush="{DynamicResource BorderBrushLight}"
         BorderThickness="1"
         Padding="16">
         <ScrollViewer VerticalScrollBarVisibility="Auto">
@@ -256,9 +256,9 @@
                                                     VerticalAlignment="Top"
                                                     Margin="0"
                                                     Style="{StaticResource IconButton}"
-                                                    Background="{StaticResource ButtonDeleteBrush}"
-                                                    Foreground="White"
-                                                    BorderBrush="Black"
+                                                    Background="{DynamicResource ButtonDeleteBrush}"
+                                                    Foreground="{DynamicResource TextPrimary}"
+                                                    BorderBrush="{DynamicResource BorderBrushLight}"
                                                     Command="{Binding DataContext.DeleteRecipeForeverCmd,
                                       RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                     CommandParameter="{Binding}"
