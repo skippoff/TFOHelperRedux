@@ -99,7 +99,7 @@ public class FishFeedsViewModel : BaseViewModel
             return ShowFeeds && feed.Name.Contains(SearchText, System.StringComparison.OrdinalIgnoreCase);
         };
 
-        // Представление для рецептов (показываем все, включая скрытые, т.к. они могут быть привязаны к рыбам)
+        // Представление для рецептов
         RecipesView = CollectionViewSource.GetDefaultView(Recipes);
         RecipesView.Filter = r =>
         {
@@ -164,7 +164,10 @@ public class FishFeedsViewModel : BaseViewModel
     private void Recipe_PropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
         // При изменении IsSelected сохраняем изменения и обновляем UI
-        if (e.PropertyName == nameof(BaitRecipeModel.IsSelected) && sender is BaitRecipeModel recipe && !_isUpdating)
+        if (sender is not BaitRecipeModel recipe || _isUpdating)
+            return;
+
+        if (e.PropertyName == nameof(BaitRecipeModel.IsSelected))
         {
             _isUpdating = true;
             try
@@ -173,6 +176,7 @@ public class FishFeedsViewModel : BaseViewModel
                 ToggleFeedSelection(recipe.ID, recipe.IsSelected, isRecipe: true);
                 // Мгновенное обновление UI
                 RecipesView.Refresh();
+                OnPropertyChanged(nameof(RecipesView));
             }
             finally
             {

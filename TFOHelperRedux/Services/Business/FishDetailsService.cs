@@ -54,7 +54,7 @@ public class FishDetailsService : INotifyPropertyChanged
         // Подписка на изменения прикормок и рецептов из FishFeedsViewModel
         _fishFeedsVM.RecipeChanged += () =>
         {
-            UpdateSelectedRecipes();
+            UpdateSelectedRecipesEfficient();
             OnPropertyChanged(nameof(SelectedRecipes));
             OnPropertyChanged(nameof(RecipesForSelectedFish));
             OnPropertyChanged(nameof(RecipeCountForSelectedFish));

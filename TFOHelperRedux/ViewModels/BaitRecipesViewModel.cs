@@ -164,8 +164,8 @@ namespace TFOHelperRedux.ViewModels
             if (CurrentRecipe == null) return;
 
             var result = _uiService.ShowMessageBox(
-                $"Удалить рецепт '{CurrentRecipe.Name}' только из крафтового списка?\n" +
-                "Привязки к рыбе сохранятся.",
+                $"Удалить рецепт '{CurrentRecipe.Name}'?\n" +
+                "Привязки к рыбе сохранятся, но рецепт исчезнет из списка крафтовых.",
                 "Удаление",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Question);
@@ -173,8 +173,9 @@ namespace TFOHelperRedux.ViewModels
             if (result != MessageBoxResult.Yes)
                 return;
 
-            _recipeService.HideRecipe(CurrentRecipe);
-            // RebuildRecipesList() вызывается автоматически через подписку на DataStore.BaitRecipes.CollectionChanged
+            _recipeService.DeleteRecipe(CurrentRecipe);
+            // Явно перестраиваем список, т.к. удаление вызывает CollectionChanged
+            RebuildRecipesList();
             NewRecipe();
         }
     }

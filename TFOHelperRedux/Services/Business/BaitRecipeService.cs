@@ -101,14 +101,14 @@ public class BaitRecipeService
     }
 
     /// <summary>
-    /// Скрывает рецепт (помечает как IsHidden)
+    /// Удаляет рецепт из коллекции
     /// </summary>
-    public void HideRecipe(BaitRecipeModel recipe)
+    public void DeleteRecipe(BaitRecipeModel recipe)
     {
-        if (recipe == null)
+        if (recipe == null || DataStore.BaitRecipes == null)
             return;
 
-        recipe.IsHidden = true;
+        DataStore.BaitRecipes.Remove(recipe);
         _loadSaveService.SaveBaitRecipes(DataStore.BaitRecipes);
     }
 
