@@ -45,4 +45,9 @@
     <Color x:Key="RecipeTopBorderColor">#4CAF50</Color>
     <Color x:Key="RecipeExperimentalBorderColor">#FF9800</Color>
     <Color x:Key="RecipeDeprecatedBorderColor">#E53935</Color>
+
+    <!-- ToolTip цвета для светлой темы -->
+    <Color x:Key="ToolTipBackgroundColor">#FFFFFF</Color>
+    <Color x:Key="ToolTipTextColor">#212121</Color>
+    <Color x:Key="ToolTipBorderColor">#CCCCCC</Color>
 </ResourceDictionary>

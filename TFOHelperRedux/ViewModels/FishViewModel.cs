@@ -371,11 +371,12 @@ namespace TFOHelperRedux.ViewModels
 
         private void UpdateChart()
         {
-            if (SelectedFish?.BiteIntensity == null)
+            if (SelectedFish?.BiteIntensity == null || SelectedFish.BiteIntensity.Length == 0)
             {
                 BiteChartSeries = null;
                 BiteChartXAxes = null;
                 BiteChartYAxes = null;
+                _biteChartSeries = null;
                 return;
             }
 
@@ -426,6 +427,8 @@ namespace TFOHelperRedux.ViewModels
                 // Обновляем значения без пересоздания серии
                 var series = (ColumnSeries<int>)_biteChartSeries[0];
                 series.Values = SelectedFish.BiteIntensity;
+                // Уведомляем UI об изменении серии
+                OnPropertyChanged(nameof(BiteChartSeries));
             }
         }
 
