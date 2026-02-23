@@ -80,37 +80,6 @@ public class LureBindingService
     }
 
     /// <summary>
-    /// Удаляет рецепт из списка для рыбы
-    /// </summary>
-    public ServiceResult RemoveRecipeFromFish(BaitRecipeModel recipe, FishModel? selectedFish)
-    {
-        if (selectedFish == null)
-        {
-            return ServiceResult.Failure("Сначала выберите рыбу.");
-        }
-
-        if (selectedFish.RecipeIDs == null || selectedFish.RecipeIDs.Length == 0)
-        {
-            return ServiceResult.Failure($"У рыбы «{selectedFish.Name}» ещё нет рецептов.");
-        }
-
-        if (!selectedFish.RecipeIDs.Contains(recipe.ID))
-        {
-            return ServiceResult.Failure(
-                $"Рецепта «{recipe.Name}» нет в списке для рыбы «{selectedFish.Name}».");
-        }
-
-        selectedFish.RecipeIDs = selectedFish.RecipeIDs
-            .Where(id => id != recipe.ID)
-            .ToArray();
-
-        _loadSaveService.SaveFishes(DataStore.Fishes);
-
-        return ServiceResult.Success(
-            $"Рецепт «{recipe.Name}» убран из списка для рыбы «{selectedFish.Name}».");
-    }
-
-    /// <summary>
     /// Получает лучшие магазинные наживки для рыбы
     /// </summary>
     public IEnumerable<LureModel> GetTopLuresForFish(FishModel? fish)

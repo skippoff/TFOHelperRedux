@@ -58,7 +58,6 @@ namespace TFOHelperRedux.ViewModels
 
         public ICommand AttachLureToFishCmd => _commandsService.AttachLureToFishCmd;
         public ICommand DetachLureFromFishCmd => _commandsService.DetachLureFromFishCmd;
-        public ICommand DeleteRecipeForeverCmd => _commandsService.DeleteRecipeForeverCmd;
         public ICommand EditMapFishesCmd { get; }
 
         #endregion

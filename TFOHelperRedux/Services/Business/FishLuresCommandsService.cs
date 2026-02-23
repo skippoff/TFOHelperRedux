@@ -34,11 +34,6 @@ public class FishLuresCommandsService
     /// </summary>
     public ICommand DetachLureFromFishCmd => new RelayCommand(DetachLureFromFish);
 
-    /// <summary>
-    /// Команда удаления рецепта навсегда
-    /// </summary>
-    public ICommand DeleteRecipeForeverCmd => new RelayCommand(DeleteRecipeForever);
-
     private void AttachLureToFish(object? parameter)
     {
         if (parameter is not LureModel lure)
@@ -55,24 +50,5 @@ public class FishLuresCommandsService
 
         var result = _lureBindingService.DetachLureFromFish(lure, _selectionService.SelectedFish);
         result.ShowMessageBox(ServiceContainer.GetService<IUIService>());
-    }
-
-    private void DeleteRecipeForever(object? parameter)
-    {
-        if (parameter is not BaitRecipeModel recipe)
-            return;
-
-        var uiService = ServiceContainer.GetService<IUIService>();
-        var result = uiService.ShowMessageBox(
-            $"Удалить рецепт \"{recipe.Name}\" только для текущей рыбы?",
-            "Удаление рецепта для рыбы",
-            MessageBoxButton.YesNo,
-            MessageBoxImage.Warning);
-
-        if (result != MessageBoxResult.Yes)
-            return;
-
-        var bindResult = _lureBindingService.RemoveRecipeFromFish(recipe, _selectionService.SelectedFish);
-        bindResult.ShowMessageBox(uiService);
     }
 }

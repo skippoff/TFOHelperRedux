@@ -226,44 +226,29 @@
                                             Width="280"
                                             HorizontalAlignment="Left"
                                             Style="{Binding Rank, Converter={StaticResource RecipeRankToStyleConverter}}">
-                                        <Grid>
-                                            <StackPanel>
-                                                <!-- Название и дата -->
-                                                <TextBlock Text="{Binding Name}"
-                                                           FontSize="17"
-                                                           FontWeight="Bold"/>
-                                                <TextBlock Text="{Binding DateEdited, StringFormat='dd.MM.yyyy HH:mm'}"
-                                                           FontSize="10"
-                                                           Foreground="{DynamicResource TextSecondary}"/>
+                                        <StackPanel>
+                                            <!-- Название и дата -->
+                                            <TextBlock Text="{Binding Name}"
+                                                       FontSize="17"
+                                                       FontWeight="Bold"/>
+                                            <TextBlock Text="{Binding DateEdited, StringFormat='dd.MM.yyyy HH:mm'}"
+                                                       FontSize="10"
+                                                       Foreground="{DynamicResource TextSecondary}"/>
 
-                                                <!-- Состав рецепта (список строк через RecipeCompositionConverter) -->
-                                                <ItemsControl Margin="0,4,0,0"
-                                                              ItemsSource="{Binding Path=., Mode=OneWay, Converter={StaticResource RecipeCompositionConverter}}">
-                                                    <ItemsControl.ItemTemplate>
-                                                        <DataTemplate>
-                                                            <TextBlock FontSize="16"
-                                                                       Foreground="{DynamicResource TextSecondary}">
-                                                                <Run Text="• "/>
-                                                                <Run Text="{Binding Path=., Mode=OneWay}"/>
-                                                            </TextBlock>
-                                                        </DataTemplate>
-                                                    </ItemsControl.ItemTemplate>
-                                                </ItemsControl>
-                                            </StackPanel>
-                                            <Button Content="✖"
-                                                    Width="34" Height="34"
-                                                    HorizontalAlignment="Right"
-                                                    VerticalAlignment="Top"
-                                                    Margin="0"
-                                                    Style="{StaticResource IconButton}"
-                                                    Background="{DynamicResource ButtonDeleteBrush}"
-                                                    Foreground="{DynamicResource TextPrimary}"
-                                                    BorderBrush="{DynamicResource BorderBrushLight}"
-                                                    Command="{Binding DataContext.DeleteRecipeForeverCmd,
-                                      RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                                    CommandParameter="{Binding}"
-                                                    ToolTip="Удалить рецепт полностью"/>
-                                        </Grid>
+                                            <!-- Состав рецепта (список строк через RecipeCompositionConverter) -->
+                                            <ItemsControl Margin="0,4,0,0"
+                                                          ItemsSource="{Binding Path=., Mode=OneWay, Converter={StaticResource RecipeCompositionConverter}}">
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock FontSize="16"
+                                                                   Foreground="{DynamicResource TextSecondary}">
+                                                            <Run Text="• "/>
+                                                            <Run Text="{Binding Path=., Mode=OneWay}"/>
+                                                        </TextBlock>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                        </StackPanel>
                                     </Border>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
