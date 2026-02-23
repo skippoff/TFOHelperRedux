@@ -52,7 +52,8 @@
                                 <ComboBox ItemsSource="{Binding MapLevels}"
                                           SelectedItem="{Binding SelectedLevelFilter, Mode=TwoWay}"
                                           Width="80"
-                                          Margin="6,0,0,0"/>
+                                          Margin="6,0,0,0"
+                                          Foreground="{DynamicResource TextPrimary}"/>
                             </StackPanel>
                             <!-- Единый список локаций с группировкой -->
                             <ListBox ItemsSource="{Binding AllMaps}"

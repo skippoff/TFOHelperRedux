@@ -16,7 +16,8 @@
                      Padding="4"
                      TextChanged="TbFishSearch_TextChanged"
                      ToolTip="Поиск по названию рыбы"
-                     Foreground="{DynamicResource TextPrimary}"/>
+                     Foreground="{DynamicResource TextPrimary}"
+                     CaretBrush="{DynamicResource TextPrimary}"/>
             <Border BorderThickness="1" CornerRadius="3" BorderBrush="{DynamicResource BorderBrushLight}">
                 <ScrollViewer Height="250" VerticalScrollBarVisibility="Auto">
                     <ItemsControl ItemsSource="{Binding FishView, RelativeSource={RelativeSource AncestorType=UserControl}}">
@@ -46,7 +47,8 @@
                      Padding="4"
                      TextChanged="TbLureSearch_TextChanged"
                      ToolTip="Поиск по названию наживки"
-                     Foreground="{DynamicResource TextPrimary}"/>
+                     Foreground="{DynamicResource TextPrimary}"
+                     CaretBrush="{DynamicResource TextPrimary}"/>
             <Border BorderThickness="1" CornerRadius="3" BorderBrush="{DynamicResource BorderBrushLight}">
                 <ScrollViewer Height="220" VerticalScrollBarVisibility="Auto">
                     <ItemsControl ItemsSource="{Binding LuresView, RelativeSource={RelativeSource AncestorType=UserControl}}">
@@ -74,7 +76,8 @@
                      Padding="4"
                      TextChanged="TbBestLureSearch_TextChanged"
                      ToolTip="Поиск по названию лучшей наживки"
-                     Foreground="{DynamicResource TextPrimary}"/>
+                     Foreground="{DynamicResource TextPrimary}"
+                     CaretBrush="{DynamicResource TextPrimary}"/>
             <Border BorderThickness="1" CornerRadius="3" BorderBrush="{DynamicResource BorderBrushLight}">
                 <ScrollViewer Height="220" VerticalScrollBarVisibility="Auto">
                     <ItemsControl ItemsSource="{Binding LuresView, RelativeSource={RelativeSource AncestorType=UserControl}}">

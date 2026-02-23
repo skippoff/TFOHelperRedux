@@ -288,6 +288,8 @@
                           Background="Transparent"
                           Padding="8"
                           FontSize="16"
+                          Foreground="{DynamicResource TextPrimary}"
+                          CaretBrush="{DynamicResource TextPrimary}"
                           VerticalScrollBarVisibility="Auto"/>
                         </Border>
                     </StackPanel>

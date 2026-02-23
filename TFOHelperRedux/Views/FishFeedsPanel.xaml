@@ -16,7 +16,8 @@
                      Padding="4"
                      TextChanged="TbSearch_TextChanged"
                      ToolTip="Поиск по названию прикормки или рецепта"
-                     Foreground="{DynamicResource TextPrimary}"/>
+                     Foreground="{DynamicResource TextPrimary}"
+                     CaretBrush="{DynamicResource TextPrimary}"/>
 
             <!-- Фильтры -->
             <StackPanel Orientation="Horizontal" Margin="0,0,0,8">

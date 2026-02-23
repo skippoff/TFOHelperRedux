@@ -40,7 +40,8 @@
                          Height="26"
                          TextChanged="tbSearch_TextChanged"
                          ToolTip="Поиск по названию рыбы"
-                         Foreground="{DynamicResource TextPrimary}"/>
+                         Foreground="{DynamicResource TextPrimary}"
+                         CaretBrush="{DynamicResource TextPrimary}"/>
 
                 <!-- Список рыб с галочками -->
                 <ScrollViewer Grid.Row="1"

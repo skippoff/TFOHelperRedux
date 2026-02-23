@@ -29,7 +29,9 @@
                           BorderThickness="0"
                           Background="Transparent"
                           Width="200"
-                          Margin="0,0,6,0"/>
+                          Margin="0,0,6,0"
+                          Foreground="{DynamicResource TextPrimary}"
+                          CaretBrush="{DynamicResource TextPrimary}"/>
                     </Grid>
                 </Border>
                 <Button Content="💾" Command="{Binding SaveRecipeCmd}"
@@ -79,12 +81,13 @@
                     </Border>
                     <ComboBox Width="180"
                               SelectedValue="{Binding CurrentRecipe.Rank, Mode=TwoWay}"
-                              SelectedValuePath="Tag">
+                              SelectedValuePath="Tag"
+                              Foreground="{DynamicResource TextPrimary}">
 
-                        <ComboBoxItem Content="Обычный" Tag="Normal"/>
-                        <ComboBoxItem Content="Топ" Tag="Top"/>
-                        <ComboBoxItem Content="Устаревший" Tag="Deprecated"/>
-                        <ComboBoxItem Content="Экспериментальный" Tag="Experimental"/>
+                        <ComboBoxItem Content="Обычный" Tag="Normal" Foreground="{DynamicResource TextPrimary}"/>
+                        <ComboBoxItem Content="Топ" Tag="Top" Foreground="{DynamicResource TextPrimary}"/>
+                        <ComboBoxItem Content="Устаревший" Tag="Deprecated" Foreground="{DynamicResource TextPrimary}"/>
+                        <ComboBoxItem Content="Экспериментальный" Tag="Experimental" Foreground="{DynamicResource TextPrimary}"/>
 
                     </ComboBox>
 
