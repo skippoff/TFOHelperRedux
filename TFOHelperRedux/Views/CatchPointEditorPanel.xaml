@@ -45,21 +45,29 @@
                 </StackPanel>
 
             <!-- Глубина + клипса -->
-            <TextBlock Text="Глубина:" FontWeight="Bold" Margin="0,10,0,4" Foreground="{DynamicResource TextPrimary}"/>
-            <StackPanel Orientation="Horizontal" Margin="0,0,8,0">
-                <!-- глубина -->
-                <TextBox x:Name="tbDepth"
-                         Width="80"
-                         HorizontalContentAlignment="Center"/>
-
-                <!-- клипса -->
-                <TextBlock Text="Клипса:" FontWeight="Bold"
-                           Margin="10,0,4,0"
-                           VerticalAlignment="Center"
-                           Foreground="{DynamicResource TextPrimary}"/>
-                <TextBox x:Name="tbClip"
-                         Width="80"
-                         HorizontalContentAlignment="Center"/>
+            <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                <StackPanel Width="120">
+                    <TextBlock
+                        Margin="0,0,0,4"
+                        FontWeight="Bold"
+                        Text="Глубина (м)"
+                        Foreground="{DynamicResource TextPrimary}"/>
+                    <TextBox x:Name="tbDepth"
+                             Height="35"
+                             HorizontalContentAlignment="Center"
+                             Width="120"/>
+                </StackPanel>
+                <StackPanel Width="120" Margin="16,0,0,0">
+                    <TextBlock
+                        Margin="0,0,0,4"
+                        FontWeight="Bold"
+                        Text="Клипса (м)"
+                        Foreground="{DynamicResource TextPrimary}"/>
+                    <TextBox x:Name="tbClip"
+                             Height="35"
+                             HorizontalContentAlignment="Center"
+                             Width="120"/>
+                </StackPanel>
             </StackPanel>
 
             <!-- Особенности -->
