@@ -11,7 +11,7 @@
             <!-- Рыбы -->
             <TextBlock Text="Рыбы:" FontWeight="Bold" Margin="0,0,0,4" Foreground="{DynamicResource TextPrimary}"/>
             <TextBox x:Name="tbFishSearch"
-                     Height="26"
+                     Height="35"
                      Margin="0,0,0,4"
                      Padding="4"
                      TextChanged="TbFishSearch_TextChanged"
@@ -42,7 +42,7 @@
 
             <TextBlock Text="Может клевать:" FontWeight="Bold" Margin="0,10,0,4" Foreground="{DynamicResource TextPrimary}"/>
             <TextBox x:Name="tbLureSearch"
-                     Height="26"
+                     Height="35"
                      Margin="0,0,0,4"
                      Padding="4"
                      TextChanged="TbLureSearch_TextChanged"

@@ -11,7 +11,7 @@
             <!-- Поиск -->
             <TextBlock Text="Поиск прикормки:" FontWeight="Bold" Margin="0,0,0,4" Foreground="{DynamicResource TextPrimary}"/>
             <TextBox x:Name="tbSearch"
-                     Height="26"
+                     Height="35"
                      Margin="0,0,0,8"
                      Padding="4"
                      TextChanged="TbSearch_TextChanged"
