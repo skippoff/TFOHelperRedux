@@ -61,6 +61,10 @@ namespace TFOHelperRedux.Views
                 feedsVM.SyncWithFish(selectedFish);
             }
 
+            // Синхронизируем чекбоксы наживок с данными рыбы
+            if (selectedFish != null)
+                SyncLuresWithFish(selectedFish);
+
             // Инициализация левой панели (она сама заполнит cmbMap)
             LeftPanel.PointSaved += (s, savedPoint) =>
             {
@@ -156,6 +160,35 @@ namespace TFOHelperRedux.Views
             catch (Exception ex)
             {
                 MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        /// <summary>
+        /// Синхронизирует чекбоксы наживок с LureIDs и BestLureIDs выбранной рыбы
+        /// </summary>
+        private void SyncLuresWithFish(FishModel fish)
+        {
+            if (DataStore.Lures == null)
+                return;
+
+            var lureIdsSet = fish.LureIDs != null && fish.LureIDs.Length > 0
+                ? new HashSet<int>(fish.LureIDs)
+                : null;
+
+            var bestLureIdsSet = fish.BestLureIDs != null && fish.BestLureIDs.Length > 0
+                ? new HashSet<int>(fish.BestLureIDs)
+                : null;
+
+            foreach (var lure in DataStore.Lures)
+            {
+                var shouldBeSelected = lureIdsSet?.Contains(lure.ID) ?? false;
+                var shouldBeBestSelected = bestLureIdsSet?.Contains(lure.ID) ?? false;
+
+                if (lure.IsSelected != shouldBeSelected)
+                    lure.IsSelected = shouldBeSelected;
+
+                if (lure.IsBestSelected != shouldBeBestSelected)
+                    lure.IsBestSelected = shouldBeBestSelected;
             }
         }
     }
