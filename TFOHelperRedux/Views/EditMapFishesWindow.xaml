@@ -39,7 +39,8 @@
                          Padding="4"
                          Height="26"
                          TextChanged="tbSearch_TextChanged"
-                         ToolTip="Поиск по названию рыбы"/>
+                         ToolTip="Поиск по названию рыбы"
+                         Foreground="{DynamicResource TextPrimary}"/>
 
                 <!-- Список рыб с галочками -->
                 <ScrollViewer Grid.Row="1"

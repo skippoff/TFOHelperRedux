@@ -48,7 +48,7 @@
                                 <TextBlock Text="Уровень водоёма ≤"
                                            VerticalAlignment="Center"
                                            FontSize="13"
-                                           Foreground="{StaticResource TextSecondary}"/>
+                                           Foreground="{DynamicResource TextSecondary}"/>
                                 <ComboBox ItemsSource="{Binding MapLevels}"
                                           SelectedItem="{Binding SelectedLevelFilter, Mode=TwoWay}"
                                           Width="80"
@@ -75,7 +75,7 @@
                                                            Padding="4,2">
                                                     <TextBlock.Style>
                                                         <Style TargetType="TextBlock">
-                                                            <Setter Property="Foreground" Value="{StaticResource TextSecondary}"/>
+                                                            <Setter Property="Foreground" Value="{DynamicResource TextSecondary}"/>
                                                             <Style.Triggers>
                                                                 <DataTrigger Binding="{Binding Name, Converter={StaticResource MapGroupConverter}}" Value="Локации DLC">
                                                                     <Setter Property="Foreground" Value="{DynamicResource AccentFeed}"/>
