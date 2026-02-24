@@ -37,7 +37,7 @@
                 <TextBox x:Name="tbSearch"
                          Margin="6,6,6,4"
                          Padding="4"
-                         Height="26"
+                         Height="35"
                          TextChanged="tbSearch_TextChanged"
                          ToolTip="Поиск по названию рыбы"
                          Foreground="{DynamicResource TextPrimary}"

@@ -2378,5 +2378,166 @@
     "Name": "Живец бельдюги",
     "BaitType": "",
     "Comment": ""
+  },
+  {
+    "IsSelected": false,
+    "ID": 2892,
+    "Name": "Крабовая наживка",
+    "BaitType": "",
+    "Comment": ""
+  },
+  {
+    "IsSelected": false,
+    "ID": 2841,
+    "Name": "Таракан",
+    "BaitType": "",
+    "Comment": ""
+  },
+  {
+    "IsSelected": false,
+    "ID": 2842,
+    "Name": "Мокрица",
+    "BaitType": "",
+    "Comment": ""
+  },
+  {
+    "IsSelected": false,
+    "ID": 2843,
+    "Name": "Улитка",
+    "BaitType": "",
+    "Comment": ""
+  },
+  {
+    "IsSelected": false,
+    "ID": 2836,
+    "Name": "Коготь 18",
+    "BaitType": "",
+    "Comment": ""
+  },
+  {
+    "IsSelected": false,
+    "ID": 2845,
+    "Name": "Коготь 26",
+    "BaitType": "",
+    "Comment": ""
+  },
+  {
+    "IsSelected": false,
+    "ID": 2846,
+    "Name": "Коготь 34",
+    "BaitType": "",
+    "Comment": ""
+  },
+  {
+    "IsSelected": false,
+    "ID": 2833,
+    "Name": "Убой 7,62",
+    "BaitType": "",
+    "Comment": ""
+  },
+  {
+    "IsSelected": false,
+    "ID": 2834,
+    "Name": "Убой 12,7",
+    "BaitType": "",
+    "Comment": ""
+  },
+  {
+    "IsSelected": false,
+    "ID": 2838,
+    "Name": "Дорн",
+    "BaitType": "",
+    "Comment": ""
+  },
+  {
+    "IsSelected": false,
+    "ID": 2840,
+    "Name": "Вихрь Колорадо",
+    "BaitType": "",
+    "Comment": ""
+  },
+  {
+    "IsSelected": false,
+    "ID": 2760,
+    "Name": "Вэки Rapid MR - 1",
+    "BaitType": "",
+    "Comment": ""
+  },
+  {
+    "IsSelected": false,
+    "ID": 2767,
+    "Name": "Вэки Rapid MR - 2",
+    "BaitType": "",
+    "Comment": ""
+  },
+  {
+    "IsSelected": false,
+    "ID": 2768,
+    "Name": "Вэки Rapid MR - 3",
+    "BaitType": "",
+    "Comment": ""
+  },
+  {
+    "IsSelected": false,
+    "ID": 2769,
+    "Name": "Вэки Rapid MR - 4",
+    "BaitType": "",
+    "Comment": ""
+  },
+  {
+    "IsSelected": false,
+    "ID": 2770,
+    "Name": "Вэки Rapid MR - 5",
+    "BaitType": "",
+    "Comment": ""
+  },
+  {
+    "IsSelected": false,
+    "ID": 2756,
+    "Name": "Savage TBA Copper",
+    "BaitType": "",
+    "Comment": ""
+  },
+  {
+    "IsSelected": false,
+    "ID": 2755,
+    "Name": "Savage TBA Lime",
+    "BaitType": "",
+    "Comment": ""
+  },
+  {
+    "IsSelected": false,
+    "ID": 2757,
+    "Name": "Savage TBA Scarlet",
+    "BaitType": "",
+    "Comment": ""
+  },
+  {
+    "IsSelected": false,
+    "ID": 2749,
+    "Name": "Swimmer KF D1",
+    "BaitType": "",
+    "Comment": ""
+  },
+  {
+    "IsSelected": false,
+    "ID": 2750,
+    "Name": "Swimmer KF D2",
+    "BaitType": "",
+    "Comment": ""
+  },
+  {
+    "IsSelected": false,
+    "ID": 2751,
+    "Name": "Swimmer KF D3",
+    "BaitType": "",
+    "Comment": ""
+  },
+  {
+    "IsSelected": false,
+    "ID": 2752,
+    "Name": "Swimmer KF FINDER",
+    "BaitType": "",
+    "Comment": ""
   }
 ]
