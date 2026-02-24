@@ -2371,5 +2371,12 @@
     "Name": "Кусочки бельдюги",
     "BaitType": "live",
     "Comment": ""
+  },
+  {
+    "IsSelected": false,
+    "ID": 2622,
+    "Name": "Живец бельдюги",
+    "BaitType": "",
+    "Comment": ""
   }
 ]

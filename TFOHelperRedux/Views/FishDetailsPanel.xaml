@@ -165,7 +165,7 @@
                     </StackPanel>
                     <!-- Обычные прикормки (из выбранной рыбы) -->
                     <StackPanel Margin="0,4,0,8">
-                        <TextBlock Text="Прикормки (рыба)"
+                        <TextBlock Text="Прикормки"
                                    FontWeight="SemiBold"
                                    FontSize="16"
                                    Foreground="{DynamicResource TextSecondary}"
@@ -205,7 +205,7 @@
                     </StackPanel>
                     <!-- Рецепты прикормки (из выбранной рыбы) -->
                     <StackPanel Margin="0,4,0,8">
-                        <TextBlock Text="Рецепты прикормки (рыба)"
+                        <TextBlock Text="Рецепты прикормки"
                                    FontWeight="SemiBold"
                                    FontSize="16"
                                    Foreground="{DynamicResource TextSecondary}"

@@ -39,12 +39,12 @@
                    VerticalAlignment="Center"
                    FontSize="14"
                    Foreground="{DynamicResource TextPrimary}"/>
-        <Button Content="➕/✏"
+        <Button Content="Добавить точку лова"
                 Command="{Binding CatchPointsVM.EditCatchPointWindowCommand}"
                 Style="{StaticResource IconButton}"
                 Background="{DynamicResource ButtonEditBrush}"
                 Foreground="{DynamicResource TextPrimary}"
                 BorderBrush="{DynamicResource BorderBrushLight}"
-                ToolTip="Добавить/Редактировать"/>
+                ToolTip="Добавить точку лова"/>
     </StackPanel>
 </UserControl>
