@@ -120,12 +120,21 @@ namespace TFOHelperRedux.ViewModels
 
         #endregion
 
+        #region Свойства темы
+
+        /// <summary>
+        /// Тёмная тема включена
+        /// </summary>
+        public bool IsDarkTheme => _themeService?.IsDarkTheme ?? false;
+
+        #endregion
+
         #region Конструктор
 
         public NavigationViewModel()
         {
             _themeService = ServiceContainer.GetService<ThemeService>();
-            
+
             ShowFishCmd = new RelayCommand(() => CurrentMode = Modes.Fish);
             ShowMapsCmd = new RelayCommand(() => CurrentMode = Modes.Maps);
             ShowBaitsCmd = new RelayCommand(() => CurrentMode = Modes.Baits);
@@ -135,7 +144,7 @@ namespace TFOHelperRedux.ViewModels
             ShowComponentsCmd = new RelayCommand(() => BaitsSubMode = BaitsSubModes.FeedComponents);
             ShowDipsCmd = new RelayCommand(() => BaitsSubMode = BaitsSubModes.Dips);
             ShowLuresCmd = new RelayCommand(() => BaitsSubMode = BaitsSubModes.Lures);
-            ToggleThemeCmd = new RelayCommand(() => _themeService.ToggleTheme());
+            ToggleThemeCmd = new RelayCommand(ToggleTheme);
         }
 
         #endregion
@@ -156,6 +165,15 @@ namespace TFOHelperRedux.ViewModels
         /// Переключает режим на Baits
         /// </summary>
         public void NavigateToBaits() => CurrentMode = Modes.Baits;
+
+        /// <summary>
+        /// Переключает тему (тёмная/светлая)
+        /// </summary>
+        private void ToggleTheme()
+        {
+            _themeService?.ToggleTheme();
+            OnPropertyChanged(nameof(IsDarkTheme));
+        }
 
         #endregion
     }
