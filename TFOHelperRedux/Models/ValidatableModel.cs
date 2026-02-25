@@ -36,10 +36,18 @@ public abstract class ValidatableModel : INotifyPropertyChanged, IDataErrorInfo
     protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        
+
         // Также уведомляем IDataErrorInfo
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Error)));
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(HasErrors)));
+    }
+
+    /// <summary>
+    /// Публичный метод для уведомления об изменении свойства (для использования вне класса)
+    /// </summary>
+    public void NotifyPropertyChanged([CallerMemberName] string? propertyName = null)
+    {
+        OnPropertyChanged(propertyName);
     }
 
     /// <summary>

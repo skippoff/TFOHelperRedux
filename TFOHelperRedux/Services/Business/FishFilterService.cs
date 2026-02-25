@@ -21,6 +21,15 @@ public class FishFilterService
         _allFishes = DataStore.Fishes;
         _filteredFishes = new ObservableCollection<FishModel>(_allFishes);
         _searchText = string.Empty;
+        // Не применяем фильтр в конструкторе — данные ещё не загружены
+    }
+
+    /// <summary>
+    /// Инициализация после загрузки данных
+    /// </summary>
+    public void InitializeAfterLoad()
+    {
+        ApplyFilter();
     }
 
     /// <summary>

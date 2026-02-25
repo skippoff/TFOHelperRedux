@@ -78,15 +78,31 @@ public class FishLuresService
 
     private void LureModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
-        if (e.PropertyName != nameof(LureModel.IsSelected))
-            return;
-
         if (_selection.IsSyncingLures)
             return;
 
         if (sender is not LureModel lure)
             return;
 
-        HandleLureSelectionChanged(lure);
+        if (e.PropertyName == nameof(LureModel.IsSelected))
+        {
+            HandleLureSelectionChanged(lure);
+        }
+        else if (e.PropertyName == nameof(LureModel.IsBestSelected))
+        {
+            HandleBestLureSelectionChanged(lure);
+        }
+    }
+
+    /// <summary>
+    /// Обработать изменение выбора лучшей наживки (вызов из UI)
+    /// </summary>
+    public void HandleBestLureSelectionChanged(LureModel lure)
+    {
+        if (_selection.IsSyncingLures)
+            return;
+
+        _selection.HandleBestLureSelectionChanged(lure);
+        LuresChanged?.Invoke();
     }
 }

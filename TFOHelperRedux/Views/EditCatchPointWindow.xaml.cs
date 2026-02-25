@@ -61,9 +61,8 @@ namespace TFOHelperRedux.Views
                 feedsVM.SyncWithFish(selectedFish);
             }
 
-            // Синхронизируем чекбоксы наживок с данными рыбы
-            if (selectedFish != null)
-                SyncLuresWithFish(selectedFish);
+            // Синхронизируем чекбоксы наживок с данными ТОЧКИ ЛОВА, а не рыбы
+            SyncLuresWithCatchPoint(_point);
 
             // Инициализация левой панели (она сама заполнит cmbMap)
             LeftPanel.PointSaved += (s, savedPoint) =>
@@ -189,6 +188,27 @@ namespace TFOHelperRedux.Views
 
                 if (lure.IsBestSelected != shouldBeBestSelected)
                     lure.IsBestSelected = shouldBeBestSelected;
+            }
+        }
+
+        /// <summary>
+        /// Синхронизирует чекбоксы наживок с LureIDs и BestLureIDs точки лова
+        /// </summary>
+        private void SyncLuresWithCatchPoint(CatchPointModel point)
+        {
+            if (DataStore.Lures == null)
+                return;
+
+            var lureIdsSet = point.LureIDs != null && point.LureIDs.Length > 0
+                ? new HashSet<int>(point.LureIDs)
+                : null;
+
+            foreach (var lure in DataStore.Lures)
+            {
+                var shouldBeSelected = lureIdsSet?.Contains(lure.ID) ?? false;
+
+                if (lure.IsSelected != shouldBeSelected)
+                    lure.IsSelected = shouldBeSelected;
             }
         }
     }

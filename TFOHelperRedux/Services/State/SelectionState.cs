@@ -220,6 +220,8 @@ public class SelectionState
                 SelectedFish.LureIDs = ids.Concat(new[] { lure.ID }).Distinct().ToArray();
                 if (saveChanges)
                     DataService.SaveFishes(DataStore.Fishes);
+                // Уведомляем об изменении свойства для обновления UI
+                SelectedFish.NotifyPropertyChanged(nameof(SelectedFish.LureIDs));
             }
         }
         else
@@ -229,6 +231,8 @@ public class SelectionState
                 SelectedFish.LureIDs = ids.Where(id => id != lure.ID).ToArray();
                 if (saveChanges)
                     DataService.SaveFishes(DataStore.Fishes);
+                // Уведомляем об изменении свойства для обновления UI
+                SelectedFish.NotifyPropertyChanged(nameof(SelectedFish.LureIDs));
             }
         }
     }
@@ -250,6 +254,8 @@ public class SelectionState
                 SelectedFish.BestLureIDs = ids.Concat(new[] { lure.ID }).Distinct().ToArray();
                 if (saveChanges)
                     DataService.SaveFishes(DataStore.Fishes);
+                // Уведомляем об изменении свойства для обновления UI
+                SelectedFish.NotifyPropertyChanged(nameof(SelectedFish.BestLureIDs));
             }
         }
         else
@@ -259,6 +265,8 @@ public class SelectionState
                 SelectedFish.BestLureIDs = ids.Where(id => id != lure.ID).ToArray();
                 if (saveChanges)
                     DataService.SaveFishes(DataStore.Fishes);
+                // Уведомляем об изменении свойства для обновления UI
+                SelectedFish.NotifyPropertyChanged(nameof(SelectedFish.BestLureIDs));
             }
         }
     }

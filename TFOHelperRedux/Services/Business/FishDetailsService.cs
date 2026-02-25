@@ -51,6 +51,12 @@ public class FishDetailsService : INotifyPropertyChanged
             OnPropertyChanged(nameof(SelectedRecipes));
         };
 
+        // Подписка на изменения точки лова (для обновления MaybeCatchLures)
+        DataStore.Selection.SelectionChanged += () =>
+        {
+            OnPropertyChanged(nameof(MaybeCatchLures));
+        };
+
         // Подписка на изменения прикормок и рецептов из FishFeedsViewModel
         _fishFeedsVM.RecipeChanged += () =>
         {
@@ -102,6 +108,17 @@ public class FishDetailsService : INotifyPropertyChanged
     {
         get
         {
+            // Если выбрана точка лова — берём наживки из точки
+            var catchPoint = _selectionService.SelectedCatchPoint;
+            if (catchPoint != null && catchPoint.LureIDs != null && catchPoint.LureIDs.Length > 0)
+            {
+                if (DataStore.Lures == null || DataStore.Lures.Count == 0)
+                    return Enumerable.Empty<LureModel>();
+
+                return DataStore.Lures.Where(l => catchPoint.LureIDs.Contains(l.ID));
+            }
+
+            // Иначе берём из рыбы
             var fish = _selectionService.SelectedFish;
             if (fish?.LureIDs == null || fish.LureIDs.Length == 0)
                 return Enumerable.Empty<LureModel>();
@@ -120,6 +137,7 @@ public class FishDetailsService : INotifyPropertyChanged
     {
         get
         {
+            // Лучшие наживки только у рыбы (у точки лова их нет)
             var fish = _selectionService.SelectedFish;
             if (fish?.BestLureIDs == null || fish.BestLureIDs.Length == 0)
                 return Enumerable.Empty<LureModel>();

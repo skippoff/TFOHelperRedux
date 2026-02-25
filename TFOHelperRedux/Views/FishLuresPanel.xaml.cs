@@ -86,66 +86,46 @@ namespace TFOHelperRedux.Views
 
         private void Lure_Checked(object sender, RoutedEventArgs e)
         {
-            if (sender is CheckBox cb && cb.Tag is int id)
-            {
-                var fish = DataStore.Selection.SelectedFish;
-                if (fish == null) return;
+            // SelectionState уже обработал изменение через привязку IsSelected
+            // Просто сохраняем изменения
+            DataService.SaveFishes(DataStore.Fishes);
 
-                fish.LureIDs = (fish.LureIDs ?? Array.Empty<int>()).Concat(new[] { id }).Distinct().ToArray();
-                DataService.SaveFishes(DataStore.Fishes);
-
-                // Обновляем UI рекомендованных наживок
-                if (this.DataContext is ViewModels.FishViewModel fishVm)
-                    fishVm.OnPropertyChanged(nameof(ViewModels.FishViewModel.MaybeCatchLures));
-            }
+            // Обновляем UI рекомендованных наживок
+            if (this.DataContext is ViewModels.FishViewModel fishVm)
+                fishVm.OnPropertyChanged(nameof(ViewModels.FishViewModel.MaybeCatchLures));
         }
 
         private void Lure_Unchecked(object sender, RoutedEventArgs e)
         {
-            if (sender is CheckBox cb && cb.Tag is int id)
-            {
-                var fish = DataStore.Selection.SelectedFish;
-                if (fish == null) return;
+            // SelectionState уже обработал изменение через привязку IsSelected
+            // Просто сохраняем изменения
+            DataService.SaveFishes(DataStore.Fishes);
 
-                fish.LureIDs = (fish.LureIDs ?? Array.Empty<int>()).Where(x => x != id).ToArray();
-                DataService.SaveFishes(DataStore.Fishes);
-
-                // Обновляем UI рекомендованных наживок
-                if (this.DataContext is ViewModels.FishViewModel fishVm)
-                    fishVm.OnPropertyChanged(nameof(ViewModels.FishViewModel.MaybeCatchLures));
-            }
+            // Обновляем UI рекомендованных наживок
+            if (this.DataContext is ViewModels.FishViewModel fishVm)
+                fishVm.OnPropertyChanged(nameof(ViewModels.FishViewModel.MaybeCatchLures));
         }
 
         private void BestLure_Checked(object sender, RoutedEventArgs e)
         {
-            if (sender is CheckBox cb && cb.Tag is int id)
-            {
-                var fish = DataStore.Selection.SelectedFish;
-                if (fish == null) return;
+            // SelectionState уже обработал изменение через привязку IsBestSelected
+            // Просто сохраняем изменения
+            DataService.SaveFishes(DataStore.Fishes);
 
-                fish.BestLureIDs = (fish.BestLureIDs ?? Array.Empty<int>()).Concat(new[] { id }).Distinct().ToArray();
-                DataService.SaveFishes(DataStore.Fishes);
-
-                // Обновляем UI лучших наживок
-                if (this.DataContext is ViewModels.FishViewModel fishVm)
-                    fishVm.OnPropertyChanged(nameof(ViewModels.FishViewModel.BestLures));
-            }
+            // Обновляем UI лучших наживок
+            if (this.DataContext is ViewModels.FishViewModel fishVm)
+                fishVm.OnPropertyChanged(nameof(ViewModels.FishViewModel.BestLures));
         }
 
         private void BestLure_Unchecked(object sender, RoutedEventArgs e)
         {
-            if (sender is CheckBox cb && cb.Tag is int id)
-            {
-                var fish = DataStore.Selection.SelectedFish;
-                if (fish == null) return;
+            // SelectionState уже обработал изменение через привязку IsBestSelected
+            // Просто сохраняем изменения
+            DataService.SaveFishes(DataStore.Fishes);
 
-                fish.BestLureIDs = (fish.BestLureIDs ?? Array.Empty<int>()).Where(x => x != id).ToArray();
-                DataService.SaveFishes(DataStore.Fishes);
-
-                // Обновляем UI лучших наживок
-                if (this.DataContext is ViewModels.FishViewModel fishVm)
-                    fishVm.OnPropertyChanged(nameof(ViewModels.FishViewModel.BestLures));
-            }
+            // Обновляем UI лучших наживок
+            if (this.DataContext is ViewModels.FishViewModel fishVm)
+                fishVm.OnPropertyChanged(nameof(ViewModels.FishViewModel.BestLures));
         }
     }
 }
