@@ -3,10 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:helpers="clr-namespace:TFOHelperRedux.Helpers"
              mc:Ignorable="d"
              d:DesignHeight="600" d:DesignWidth="600">
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" helpers:ScrollViewerHelper.EnableMouseWheelScroll="True">
         <StackPanel Margin="6">
             <!-- Рыбы -->
             <TextBlock Text="Рыбы:" FontWeight="Bold" Margin="0,0,0,4" Foreground="{DynamicResource TextPrimary}"/>
@@ -40,68 +41,81 @@
                 </ScrollViewer>
             </Border>
 
-            <TextBlock Text="Может клевать:" FontWeight="Bold" Margin="0,10,0,4" Foreground="{DynamicResource TextPrimary}"/>
-            <TextBox x:Name="tbLureSearch"
-                     Height="35"
-                     Margin="0,0,0,4"
-                     Padding="4"
-                     TextChanged="TbLureSearch_TextChanged"
-                     ToolTip="Поиск по названию наживки"
-                     Foreground="{DynamicResource TextPrimary}"
-                     CaretBrush="{DynamicResource TextPrimary}"/>
-            <Border BorderThickness="1" CornerRadius="3" BorderBrush="{DynamicResource BorderBrushLight}">
-                <ScrollViewer Height="220" VerticalScrollBarVisibility="Auto">
-                    <ItemsControl ItemsSource="{Binding LuresView, RelativeSource={RelativeSource AncestorType=UserControl}}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel Orientation="Horizontal"/>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <CheckBox Content="{Binding Name}"
-                                          IsChecked="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                          Tag="{Binding ID}"
-                                          Checked="Lure_Checked"
-                                          Unchecked="Lure_Unchecked"
-                                          Margin="2"/>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </ScrollViewer>
-            </Border>
+            <!-- Горизонтальное размещение: Может клевать + Лучшие наживки -->
+            <Grid Margin="0,10,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-            <!-- Лучшие наживки (по водоёмам) -->
-            <TextBlock Text="Лучшие наживки:" FontWeight="Bold" Margin="0,10,0,4" Foreground="{DynamicResource TextPrimary}"/>
-            <TextBox x:Name="tbBestLureSearch"
-                     Height="35"
-                     Margin="0,0,0,4"
-                     Padding="4"
-                     TextChanged="TbBestLureSearch_TextChanged"
-                     ToolTip="Поиск по названию лучшей наживки"
-                     Foreground="{DynamicResource TextPrimary}"
-                     CaretBrush="{DynamicResource TextPrimary}"/>
-            <Border BorderThickness="1" CornerRadius="3" BorderBrush="{DynamicResource BorderBrushLight}">
-                <ScrollViewer Height="220" VerticalScrollBarVisibility="Auto">
-                    <ItemsControl ItemsSource="{Binding LuresView, RelativeSource={RelativeSource AncestorType=UserControl}}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel Orientation="Horizontal"/>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <CheckBox Content="{Binding Name}"
-                                          IsChecked="{Binding IsBestSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                          Tag="{Binding ID}"
-                                          Checked="BestLure_Checked"
-                                          Unchecked="BestLure_Unchecked"
-                                          Margin="2"/>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </ScrollViewer>
-            </Border>
+                <!-- Может клевать -->
+                <StackPanel Grid.Column="0" Margin="0,0,6,0">
+                    <TextBlock Text="Может клевать:" FontWeight="Bold" Margin="0,0,0,4" Foreground="{DynamicResource TextPrimary}"/>
+                    <TextBox x:Name="tbLureSearch"
+                             Height="35"
+                             Margin="0,0,0,4"
+                             Padding="4"
+                             TextChanged="TbLureSearch_TextChanged"
+                             ToolTip="Поиск по названию наживки"
+                             Foreground="{DynamicResource TextPrimary}"
+                             CaretBrush="{DynamicResource TextPrimary}"/>
+                    <Border BorderThickness="1" CornerRadius="3" BorderBrush="{DynamicResource BorderBrushLight}">
+                        <ScrollViewer Height="220" VerticalScrollBarVisibility="Auto">
+                            <ItemsControl ItemsSource="{Binding LuresView, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Horizontal"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <CheckBox Content="{Binding Name}"
+                                                  IsChecked="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                  Tag="{Binding ID}"
+                                                  Checked="Lure_Checked"
+                                                  Unchecked="Lure_Unchecked"
+                                                  Margin="2"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </Border>
+                </StackPanel>
+
+                <!-- Лучшие наживки -->
+                <StackPanel Grid.Column="1" Margin="6,0,0,0">
+                    <TextBlock Text="Лучшие наживки:" FontWeight="Bold" Margin="0,0,0,4" Foreground="{DynamicResource TextPrimary}"/>
+                    <TextBox x:Name="tbBestLureSearch"
+                             Height="35"
+                             Margin="0,0,0,4"
+                             Padding="4"
+                             TextChanged="TbBestLureSearch_TextChanged"
+                             ToolTip="Поиск по названию лучшей наживки"
+                             Foreground="{DynamicResource TextPrimary}"
+                             CaretBrush="{DynamicResource TextPrimary}"/>
+                    <Border BorderThickness="1" CornerRadius="3" BorderBrush="{DynamicResource BorderBrushLight}">
+                        <ScrollViewer Height="220" VerticalScrollBarVisibility="Auto">
+                            <ItemsControl ItemsSource="{Binding LuresView, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Horizontal"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <CheckBox Content="{Binding Name}"
+                                                  IsChecked="{Binding IsBestSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                  Tag="{Binding ID}"
+                                                  Checked="BestLure_Checked"
+                                                  Unchecked="BestLure_Unchecked"
+                                                  Margin="2"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </Border>
+                </StackPanel>
+            </Grid>
         </StackPanel>
     </ScrollViewer>
 

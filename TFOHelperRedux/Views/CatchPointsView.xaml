@@ -38,8 +38,7 @@
                 <DataTemplate>
                     <Border Style="{StaticResource CatchPointCardStyle}"
                             Margin="3"
-                            SnapsToDevicePixels="True"
-                            MouseLeftButtonDown="CatchPoint_MouseLeftButtonDown">
+                            SnapsToDevicePixels="True">
                         <Grid>
                             <!-- 🗺 Кнопка открытия карты в левом верхнем углу -->
                             <Button Style="{StaticResource SmallIconButton}"

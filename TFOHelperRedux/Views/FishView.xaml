@@ -68,7 +68,7 @@
                     BorderThickness="1"
                     Padding="12"
                     Visibility="{Binding NavigationVM.CurrentMode, Converter={StaticResource EqualityToVisibilityConverter}, ConverterParameter={x:Static helpers:NavigationModes.Baits}}">
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" helpers:ScrollViewerHelper.EnableMouseWheelScroll="True">
                     <StackPanel>
                         <TextBlock Text="ОСНАСТКА"
                                    FontWeight="Bold"

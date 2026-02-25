@@ -5,6 +5,7 @@
              xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:helpers="clr-namespace:TFOHelperRedux.Helpers"
              mc:Ignorable="d"
              d:DesignHeight="400"
              d:DesignWidth="350">
@@ -18,7 +19,7 @@
         BorderBrush="{DynamicResource BorderBrushLight}"
         BorderThickness="1"
         Padding="16">
-        <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" helpers:ScrollViewerHelper.EnableMouseWheelScroll="True">
             <Grid>
                 <!-- Контент для выбранной рыбы -->
                 <StackPanel x:Name="FishDetailsContent">
@@ -86,174 +87,198 @@
                     <!-- Separator -->
                     <Separator Margin="0,0,0,16"/>
                     <!-- наживки -->
-                    <!-- ⭐ Лучшие наживки (магазинные + крафтовые) -->
-                    <StackPanel Margin="0,0,0,16">
-                        <TextBlock Text="Лучшие наживки"
-               Style="{StaticResource SubHeaderTextStyle}"
-               Foreground="{DynamicResource TextSecondary}"
-               Margin="0,0,0,8"/>
-                        <ScrollViewer HorizontalScrollBarVisibility="Auto"
-                           VerticalScrollBarVisibility="Disabled"
-                           Height="100">
-                            <ItemsControl ItemsSource="{Binding BestLures}">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <StackPanel Orientation="Horizontal"/>
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Width="70" Margin="0,0,8,0">
-                                            <Border Width="56" Height="56"
-                            Background="{DynamicResource PanelBackground}"
-                            CornerRadius="6"
-                            BorderBrush="{DynamicResource BorderBrushLight}"
-                            BorderThickness="1"
-                            Padding="4">
-                                                <Image Source="{Binding ImagePath, Converter={StaticResource ImgConverter}}"
-                               Stretch="Uniform"/>
-                                            </Border>
-                                            <TextBlock Text="{Binding Name}"
-                               FontSize="13"
-                               TextAlignment="Center"
-                               TextTrimming="CharacterEllipsis"
-                               Margin="0,4,0,0"
-                               Foreground="{DynamicResource TextSecondary}"/>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </ScrollViewer>
-                    </StackPanel>
-                    <StackPanel Margin="0,0,0,16">
-                        <TextBlock Text="Может клевать"
-                                   Style="{StaticResource SubHeaderTextStyle}"
-                        Foreground="{DynamicResource TextSecondary}"
-                        Margin="0,0,0,8"/>
-                        <ScrollViewer HorizontalScrollBarVisibility="Auto"
-                           VerticalScrollBarVisibility="Disabled"
-                           Height="100">
-                            <ItemsControl ItemsSource="{Binding MaybeCatchLures}">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <StackPanel Orientation="Horizontal"/>
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Width="70" Margin="0,0,8,0">
-                                            <Border Width="56" Height="56"
-                                         Background="{DynamicResource PanelBackground}"
-                                         CornerRadius="6"
-                                         BorderBrush="{DynamicResource BorderBrushLight}"
-                                         BorderThickness="1"
-                                         Padding="4">
-                                                <Image Source="{Binding ImagePath, Converter={StaticResource ImgConverter}}"
-                                            Stretch="Uniform"/>
-                                            </Border>
-                                            <TextBlock Text="{Binding Name}"
-                                            FontSize="13"
-                                            TextAlignment="Center"
-                                            TextTrimming="CharacterEllipsis"
-                                            Margin="0,4,0,0"
-                                            Foreground="{DynamicResource TextSecondary}"/>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </ScrollViewer>
-                    </StackPanel>
-                    <!-- Обычные прикормки (из выбранной рыбы) -->
-                    <StackPanel Margin="0,4,0,8">
-                        <TextBlock Text="Прикормки"
-                                   FontWeight="SemiBold"
-                                   FontSize="16"
-                                   Foreground="{DynamicResource TextSecondary}"
-                                   Margin="0,0,0,4"/>
-                        <ScrollViewer HorizontalScrollBarVisibility="Auto"
-                                      VerticalScrollBarVisibility="Disabled"
-                                      Height="100">
-                            <ItemsControl ItemsSource="{Binding SelectedFeeds}">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <StackPanel Orientation="Horizontal"/>
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Width="70" Margin="0,0,8,0">
-                                            <Border Width="56" Height="56"
-                                                    Background="{DynamicResource PanelBackground}"
-                                                    CornerRadius="6"
-                                                    BorderBrush="{DynamicResource BorderBrushLight}"
-                                                    BorderThickness="1"
-                                                    Padding="4">
-                                                <Image Source="{Binding ImagePath, Converter={StaticResource ImgConverter}}"
-                                                       Stretch="Uniform"/>
-                                            </Border>
-                                            <TextBlock Text="{Binding Name}"
-                                                       FontSize="13"
-                                                       TextAlignment="Center"
-                                                       TextTrimming="CharacterEllipsis"
-                                                       Margin="0,4,0,0"
-                                                       Foreground="{DynamicResource TextSecondary}"/>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </ScrollViewer>
-                    </StackPanel>
-                    <!-- Рецепты прикормки (из выбранной рыбы) -->
-                    <StackPanel Margin="0,4,0,8">
-                        <TextBlock Text="Рецепты прикормки"
-                                   FontWeight="SemiBold"
-                                   FontSize="16"
-                                   Foreground="{DynamicResource TextSecondary}"
-                                   Margin="0,0,0,4"/>
-                        <ItemsControl ItemsSource="{Binding RecipesForSelectedFish}">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <UniformGrid Columns="2"/>
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <!-- Цветная рамка по Rank -->
-                                    <Border Margin="0,0,0,6"
-                                            Padding="4"
-                                            CornerRadius="4"
-                                            BorderThickness="8"
-                                            Width="280"
-                                            HorizontalAlignment="Left"
-                                            Style="{Binding Rank, Converter={StaticResource RecipeRankToStyleConverter}}">
-                                        <StackPanel>
-                                            <!-- Название и дата -->
-                                            <TextBlock Text="{Binding Name}"
-                                                       FontSize="17"
-                                                       FontWeight="Bold"/>
-                                            <TextBlock Text="{Binding DateEdited, StringFormat='dd.MM.yyyy HH:mm'}"
-                                                       FontSize="10"
-                                                       Foreground="{DynamicResource TextSecondary}"/>
+                    <!-- ⭐ Лучшие наживки и Может клевать (горизонтально) -->
+                    <Grid Margin="0,0,0,16">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
 
-                                            <!-- Состав рецепта (список строк через RecipeCompositionConverter) -->
-                                            <ItemsControl Margin="0,4,0,0"
-                                                          ItemsSource="{Binding Path=., Mode=OneWay, Converter={StaticResource RecipeCompositionConverter}}">
-                                                <ItemsControl.ItemTemplate>
-                                                    <DataTemplate>
-                                                        <TextBlock FontSize="16"
-                                                                   Foreground="{DynamicResource TextSecondary}">
-                                                            <Run Text="• "/>
-                                                            <Run Text="{Binding Path=., Mode=OneWay}"/>
-                                                        </TextBlock>
-                                                    </DataTemplate>
-                                                </ItemsControl.ItemTemplate>
-                                            </ItemsControl>
-                                        </StackPanel>
-                                    </Border>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </StackPanel>
+                        <!-- Лучшие наживки -->
+                        <StackPanel Grid.Column="0" Margin="0,0,8,0">
+                            <TextBlock Text="Лучшие наживки"
+                                       Style="{StaticResource SubHeaderTextStyle}"
+                                       Foreground="{DynamicResource TextSecondary}"
+                                       Margin="0,0,0,8"/>
+                            <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                                          VerticalScrollBarVisibility="Disabled"
+                                          Height="100"
+                                          helpers:ScrollViewerHelper.EnableMouseWheelScroll="True">
+                                <ItemsControl ItemsSource="{Binding BestLures}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel Orientation="Horizontal"/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Width="70" Margin="0,0,8,0">
+                                                <Border Width="56" Height="56"
+                                                        Background="{DynamicResource PanelBackground}"
+                                                        CornerRadius="6"
+                                                        BorderBrush="{DynamicResource BorderBrushLight}"
+                                                        BorderThickness="1"
+                                                        Padding="4">
+                                                    <Image Source="{Binding ImagePath, Converter={StaticResource ImgConverter}}"
+                                                           Stretch="Uniform"/>
+                                                </Border>
+                                                <TextBlock Text="{Binding Name}"
+                                                           FontSize="13"
+                                                           TextAlignment="Center"
+                                                           TextTrimming="CharacterEllipsis"
+                                                           Margin="0,4,0,0"
+                                                           Foreground="{DynamicResource TextSecondary}"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
+                        </StackPanel>
+
+                        <!-- Может клевать -->
+                        <StackPanel Grid.Column="1" Margin="8,0,0,0">
+                            <TextBlock Text="Может клевать"
+                                       Style="{StaticResource SubHeaderTextStyle}"
+                                       Foreground="{DynamicResource TextSecondary}"
+                                       Margin="0,0,0,8"/>
+                            <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                                          VerticalScrollBarVisibility="Disabled"
+                                          Height="100"
+                                          helpers:ScrollViewerHelper.EnableMouseWheelScroll="True">
+                                <ItemsControl ItemsSource="{Binding MaybeCatchLures}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel Orientation="Horizontal"/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Width="70" Margin="0,0,8,0">
+                                                <Border Width="56" Height="56"
+                                                        Background="{DynamicResource PanelBackground}"
+                                                        CornerRadius="6"
+                                                        BorderBrush="{DynamicResource BorderBrushLight}"
+                                                        BorderThickness="1"
+                                                        Padding="4">
+                                                    <Image Source="{Binding ImagePath, Converter={StaticResource ImgConverter}}"
+                                                           Stretch="Uniform"/>
+                                                </Border>
+                                                <TextBlock Text="{Binding Name}"
+                                                           FontSize="13"
+                                                           TextAlignment="Center"
+                                                           TextTrimming="CharacterEllipsis"
+                                                           Margin="0,4,0,0"
+                                                           Foreground="{DynamicResource TextSecondary}"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
+                        </StackPanel>
+                    </Grid>
+                    <!-- Прикормки и Рецепты (горизонтально) -->
+                    <Grid Margin="0,4,0,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Прикормки -->
+                        <StackPanel Grid.Column="0" Margin="0,0,8,0">
+                            <TextBlock Text="Прикормки"
+                                       FontWeight="SemiBold"
+                                       FontSize="16"
+                                       Foreground="{DynamicResource TextSecondary}"
+                                       Margin="0,0,0,4"/>
+                            <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                                          VerticalScrollBarVisibility="Disabled"
+                                          Height="100"
+                                          helpers:ScrollViewerHelper.EnableMouseWheelScroll="True">
+                                <ItemsControl ItemsSource="{Binding SelectedFeeds}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel Orientation="Horizontal"/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Width="70" Margin="0,0,8,0">
+                                                <Border Width="56" Height="56"
+                                                        Background="{DynamicResource PanelBackground}"
+                                                        CornerRadius="6"
+                                                        BorderBrush="{DynamicResource BorderBrushLight}"
+                                                        BorderThickness="1"
+                                                        Padding="4">
+                                                    <Image Source="{Binding ImagePath, Converter={StaticResource ImgConverter}}"
+                                                           Stretch="Uniform"/>
+                                                </Border>
+                                                <TextBlock Text="{Binding Name}"
+                                                           FontSize="13"
+                                                           TextAlignment="Center"
+                                                           TextTrimming="CharacterEllipsis"
+                                                           Margin="0,4,0,0"
+                                                           Foreground="{DynamicResource TextSecondary}"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
+                        </StackPanel>
+
+                        <!-- Рецепты прикормки -->
+                        <StackPanel Grid.Column="1" Margin="8,0,0,0">
+                            <TextBlock Text="Рецепты прикормки"
+                                       FontWeight="SemiBold"
+                                       FontSize="16"
+                                       Foreground="{DynamicResource TextSecondary}"
+                                       Margin="0,0,0,4"/>
+                            <ScrollViewer VerticalScrollBarVisibility="Auto" Height="140">
+                                <ItemsControl ItemsSource="{Binding RecipesForSelectedFish}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <!-- Цветная рамка по Rank -->
+                                            <Border Margin="0,0,0,6"
+                                                    Padding="4"
+                                                    CornerRadius="4"
+                                                    BorderThickness="8"
+                                                    Width="280"
+                                                    HorizontalAlignment="Left"
+                                                    Style="{Binding Rank, Converter={StaticResource RecipeRankToStyleConverter}}">
+                                                <StackPanel>
+                                                    <!-- Название и дата -->
+                                                    <TextBlock Text="{Binding Name}"
+                                                               FontSize="17"
+                                                               FontWeight="Bold"/>
+                                                    <TextBlock Text="{Binding DateEdited, StringFormat='dd.MM.yyyy HH:mm'}"
+                                                               FontSize="10"
+                                                               Foreground="{DynamicResource TextSecondary}"/>
+
+                                                    <!-- Состав рецепта (список строк через RecipeCompositionConverter) -->
+                                                    <ItemsControl Margin="0,4,0,0"
+                                                                  ItemsSource="{Binding Path=., Mode=OneWay, Converter={StaticResource RecipeCompositionConverter}}">
+                                                        <ItemsControl.ItemTemplate>
+                                                            <DataTemplate>
+                                                                <TextBlock FontSize="16"
+                                                                           Foreground="{DynamicResource TextSecondary}">
+                                                                    <Run Text="• "/>
+                                                                    <Run Text="{Binding Path=., Mode=OneWay}"/>
+                                                                </TextBlock>
+                                                            </DataTemplate>
+                                                        </ItemsControl.ItemTemplate>
+                                                    </ItemsControl>
+                                                </StackPanel>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
+                        </StackPanel>
+                    </Grid>
                     <!-- Заметки -->
                     <StackPanel>
                         <TextBlock Text="Заметки"
@@ -287,7 +312,8 @@
                                 Padding="6"
                                 MaxHeight="260">
                             <ScrollViewer VerticalScrollBarVisibility="Auto"
-                                          HorizontalScrollBarVisibility="Disabled">
+                                          HorizontalScrollBarVisibility="Disabled"
+                                          helpers:ScrollViewerHelper.EnableMouseWheelScroll="True">
                                 <views:CatchPointsView DataContext="{Binding CatchPointsVM}" Margin="6">
                                     <views:CatchPointsView.Style>
                                         <Style TargetType="views:CatchPointsView">

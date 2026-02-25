@@ -40,7 +40,8 @@
                                DockPanel.Dock="Top"/>
                     <ScrollViewer VerticalScrollBarVisibility="Auto"
                                   PanningMode="VerticalOnly"
-                                  Focusable="False">
+                                  Focusable="False"
+                                  helpers:ScrollViewerHelper.EnableMouseWheelScroll="True">
                         <StackPanel>
                             <!-- Фильтр по уровню водоёма -->
                             <StackPanel Orientation="Horizontal"
