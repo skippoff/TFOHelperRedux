@@ -26,6 +26,9 @@
 
                 <!-- 🎨 Локальная тема -->
                 <ResourceDictionary Source="Themes/Theme.xaml"/>
+
+                <!-- 🎨 Иконки (векторные Geometry) -->
+                <ResourceDictionary Source="Themes/Icons.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
             <!-- 🔄 Конвертеры -->

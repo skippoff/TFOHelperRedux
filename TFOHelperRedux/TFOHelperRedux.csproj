@@ -62,16 +62,19 @@
     <None Remove="**\*.jpeg" />
     <None Remove="**\*.bmp" />
     <None Remove="**\*.gif" />
+    <None Remove="**\*.svg" />
     <None Remove="bin\**\*.png" />
     <None Remove="bin\**\*.jpg" />
     <None Remove="bin\**\*.jpeg" />
     <None Remove="bin\**\*.gif" />
     <None Remove="bin\**\*.bmp" />
+    <None Remove="bin\**\*.svg" />
     <None Remove="obj\**\*.png" />
     <None Remove="obj\**\*.jpg" />
     <None Remove="obj\**\*.jpeg" />
     <None Remove="obj\**\*.gif" />
     <None Remove="obj\**\*.bmp" />
+    <None Remove="obj\**\*.svg" />
     <Content Include="**\*.png" Exclude="bin\**\*.png;obj\**\*.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -85,6 +88,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="**\*.gif" Exclude="bin\**\*.gif;obj\**\*.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="**\*.svg" Exclude="bin\**\*.svg;obj\**\*.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -108,5 +114,6 @@
     <PackageReference Include="Serilog.Extensions.Hosting" Version="8.0.0" />
     <PackageReference Include="Serilog.Sinks.Debug" Version="2.0.0" />
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+    <PackageReference Include="SharpVectors" Version="1.8.5" />
   </ItemGroup>
 </Project>
