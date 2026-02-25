@@ -46,7 +46,7 @@
     <None Remove="**\*.json" />
     <None Remove="bin\**\*.json" />
     <None Remove="obj\**\*.json" />
-    <!-- CatchPoints_Local.json не копируется в Release -->>
+    <!-- CatchPoints_Local.json не копируется в Release -->
     <Content Include="**\*.json" Exclude="bin\**\*.json;obj\**\*.json;Maps\CatchPoints_Local.json" Condition="'$(Configuration)' == 'Release'">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
