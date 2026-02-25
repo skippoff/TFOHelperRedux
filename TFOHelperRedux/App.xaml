@@ -24,11 +24,11 @@
                     <SolidColorBrush x:Key="BorderBrushLight" Color="{DynamicResource BorderBrushLightColor}"/>
                 </ResourceDictionary>
 
+                <!-- 🎨 Иконки (векторные Geometry) - ДОЛЖНЫ БЫТЬ ДО Theme.xaml -->
+                <ResourceDictionary Source="Themes/Icons.xaml"/>
+
                 <!-- 🎨 Локальная тема -->
                 <ResourceDictionary Source="Themes/Theme.xaml"/>
-
-                <!-- 🎨 Иконки (векторные Geometry) -->
-                <ResourceDictionary Source="Themes/Icons.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
             <!-- 🔄 Конвертеры -->
