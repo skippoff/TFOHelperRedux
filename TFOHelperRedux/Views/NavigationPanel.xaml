@@ -17,6 +17,13 @@
                 Tag="{StaticResource IconFish}"
                 Margin="0,0,6,0"/>
 
+        <!-- ℹ️ Кнопка "О программе" -->
+        <Button Style="{StaticResource AboutButton}"
+                ToolTip="О программе"
+                Click="About_Click"
+                Margin="12,0,0,0"
+                VerticalAlignment="Center"/>
+
         <!-- 🌓 Переключатель темы -->
         <ToggleButton Style="{StaticResource ThemeToggleButton}"
                       ToolTip="Переключить тему"

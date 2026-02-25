@@ -150,13 +150,8 @@ namespace TFOHelperRedux.Views
         // 🧩 "О программе"
         private void About_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(
-                "TFOHelperRedux\n\nПрограмма для работы с картами водоёмов, точками лова и рыбой." +
-                "Переиздание сделано на основе TFOHelper автор которой PilGrim." +
-                "Сделано под свой вкус. \n\n© Skipoff, 2025",
-                "О программе",
-                MessageBoxButton.OK,
-                MessageBoxImage.Information);
+            var aboutWindow = new AboutWindow(this);
+            aboutWindow.ShowDialog();
         }
 
         // 🧭 Режим калибровки карт

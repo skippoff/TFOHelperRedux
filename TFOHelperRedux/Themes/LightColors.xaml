@@ -1,54 +1,54 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <!-- Светлая палитра -->
-    <Color x:Key="AppBackgroundColor">SlateGray</Color>
-    <Color x:Key="PanelBackgroundColor">AliceBlue</Color>
-    <Color x:Key="PrimaryColorValue">#2196F3</Color>
-    <Color x:Key="AccentLocationColor">#00B7B3</Color>
-    <Color x:Key="AccentFeedColor">#FFA52E</Color>
-    <Color x:Key="AccentExperimentalColor">#FF9800</Color>
-    <Color x:Key="SuccessColorValue">#4CAF50</Color>
-    <Color x:Key="DangerColorValue">#E53935</Color>
-    <Color x:Key="TextPrimaryColor">#212121</Color>
-    <Color x:Key="TextSecondaryColor">#666666</Color>
-    <Color x:Key="BorderBrushLightColor">#DDDDDD</Color>
+    <!-- Светлая палитра (приглушённая, комфортная для глаз) -->
+    <Color x:Key="AppBackgroundColor">#B0BEC5</Color>
+    <Color x:Key="PanelBackgroundColor">#ECEFF1</Color>
+    <Color x:Key="PrimaryColorValue">#1976D2</Color>
+    <Color x:Key="AccentLocationColor">#00838F</Color>
+    <Color x:Key="AccentFeedColor">#F57C00</Color>
+    <Color x:Key="AccentExperimentalColor">#E65100</Color>
+    <Color x:Key="SuccessColorValue">#388E3C</Color>
+    <Color x:Key="DangerColorValue">#C62828</Color>
+    <Color x:Key="TextPrimaryColor">#263238</Color>
+    <Color x:Key="TextSecondaryColor">#546E7A</Color>
+    <Color x:Key="BorderBrushLightColor">#CFD8DC</Color>
 
     <Color x:Key="CardBackgroundColor">#FAFAFA</Color>
     <Color x:Key="CardBackgroundHoverColor">#F5F5F5</Color>
     <Color x:Key="CardBackgroundSelectedColor">#E3F2FD</Color>
     <Color x:Key="InputBackgroundColor">#FFFFFF</Color>
-    <Color x:Key="InputBorderColor">#CCCCCC</Color>
-    <Color x:Key="TextMutedColor">#999999</Color>
-    <Color x:Key="TextSubtleColor">#777777</Color>
-    <Color x:Key="SeparatorColor">#DDDDDD</Color>
-    <Color x:Key="ImageBorderColor">#DEE2E6</Color>
-    <Color x:Key="SelectionBorderColor">#2196F3</Color>
+    <Color x:Key="InputBorderColor">#B0BEC5</Color>
+    <Color x:Key="TextMutedColor">#90A4AE</Color>
+    <Color x:Key="TextSubtleColor">#78909C</Color>
+    <Color x:Key="SeparatorColor">#CFD8DC</Color>
+    <Color x:Key="ImageBorderColor">#CFD8DC</Color>
+    <Color x:Key="SelectionBorderColor">#1976D2</Color>
     <Color x:Key="SelectionHoverColor">#BBDEFB</Color>
 
-    <Color x:Key="ButtonImportColor">#4CAF50</Color>
-    <Color x:Key="ButtonExportColor">#2196F3</Color>
+    <Color x:Key="ButtonImportColor">#43A047</Color>
+    <Color x:Key="ButtonExportColor">#1E88E5</Color>
     <Color x:Key="ButtonDeleteColor">#E57373</Color>
-    <Color x:Key="ButtonEditColor">#ADBB2A</Color>
-    <Color x:Key="ButtonPrimaryColor">#2196F3</Color>
-    <Color x:Key="ButtonNavLocationColor">#7FFFD4</Color>
-    <Color x:Key="ButtonNavBaitColor">#FF8C00</Color>
+    <Color x:Key="ButtonEditColor">#9FA828</Color>
+    <Color x:Key="ButtonPrimaryColor">#1976D2</Color>
+    <Color x:Key="ButtonNavLocationColor">#4DB6AC</Color>
+    <Color x:Key="ButtonNavBaitColor">#FB8C00</Color>
     <Color x:Key="ButtonHoverColor">#E0E0E0</Color>
     <Color x:Key="ButtonPressedColor">#BDBDBD</Color>
 
-    <Color x:Key="CategorySelectedColor">#2196F3</Color>
+    <Color x:Key="CategorySelectedColor">#1976D2</Color>
     <Color x:Key="CardHoverBorderColor">#A5D6A7</Color>
     <Color x:Key="CardSelectedBgColor">#E8F5E9</Color>
     <Color x:Key="CardSelectedBorderColor">#4CAF50</Color>
     <Color x:Key="FishCardSelectedBgColor">#E3F2FD</Color>
     <Color x:Key="CatchPointHoverBgColor">#F9FFF9</Color>
 
-    <Color x:Key="RecipeNormalBorderColor">#2196F3</Color>
-    <Color x:Key="RecipeTopBorderColor">#4CAF50</Color>
-    <Color x:Key="RecipeExperimentalBorderColor">#FF9800</Color>
-    <Color x:Key="RecipeDeprecatedBorderColor">#E53935</Color>
+    <Color x:Key="RecipeNormalBorderColor">#1976D2</Color>
+    <Color x:Key="RecipeTopBorderColor">#388E3C</Color>
+    <Color x:Key="RecipeExperimentalBorderColor">#F57C00</Color>
+    <Color x:Key="RecipeDeprecatedBorderColor">#C62828</Color>
 
     <!-- ToolTip цвета для светлой темы -->
-    <Color x:Key="ToolTipBackgroundColor">#FFFFFF</Color>
-    <Color x:Key="ToolTipTextColor">#212121</Color>
-    <Color x:Key="ToolTipBorderColor">#CCCCCC</Color>
+    <Color x:Key="ToolTipBackgroundColor">#F5F5F5</Color>
+    <Color x:Key="ToolTipTextColor">#263238</Color>
+    <Color x:Key="ToolTipBorderColor">#CFD8DC</Color>
 </ResourceDictionary>

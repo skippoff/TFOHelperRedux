@@ -604,6 +604,14 @@
         <Setter Property="Background" Value="#00BCD4"/>
     </Style>
 
+    <!-- Кнопка "О программе" (фиолетовая) -->
+    <Style x:Key="AboutButton" TargetType="Button" BasedOn="{StaticResource ModernIconButton}">
+        <Setter Property="Tag" Value="{StaticResource IconInfo}"/>
+        <Setter Property="Background" Value="#9C27B0"/>
+        <Setter Property="Width" Value="48"/>
+        <Setter Property="Height" Value="48"/>
+    </Style>
+
     <!-- Кнопка "Рыбы" (акцентная) -->
     <Style x:Key="FishButton" TargetType="Button" BasedOn="{StaticResource ModernIconButton}">
         <Setter Property="Tag" Value="{StaticResource IconFish}"/>
