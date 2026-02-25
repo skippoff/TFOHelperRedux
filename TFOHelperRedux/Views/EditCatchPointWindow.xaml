@@ -27,21 +27,14 @@
             <!-- Нижние кнопки -->
             <DockPanel Grid.ColumnSpan="3" VerticalAlignment="Bottom" Margin="0,10,0,0">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button Content="❌ Отмена"
-                            Width="120" Height="34"
+                    <Button Content="Отмена"
+                            Style="{StaticResource CancelButton}"
+                            Width="130" Height="44"
                             Margin="0,0,10,0"
-                            Background="{DynamicResource ButtonDeleteBrush}"
-                            Foreground="{DynamicResource TextPrimary}"
-                            BorderBrush="{DynamicResource BorderBrushLight}"
-                            Cursor="Hand"
                             Click="Cancel_Click"/>
-                    <Button Content="✅ Сохранить"
-                            Width="130" Height="34"
-                            Background="{DynamicResource SuccessColor}"
-                            Foreground="{DynamicResource TextPrimary}"
-                            BorderBrush="{DynamicResource BorderBrushLight}"
-                            FontWeight="Bold"
-                            Cursor="Hand"
+                    <Button Content="Сохранить"
+                            Style="{StaticResource SaveButton}"
+                            Width="150" Height="44"
                             Click="Ok_Click"/>
                 </StackPanel>
             </DockPanel>

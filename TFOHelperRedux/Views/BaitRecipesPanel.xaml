@@ -34,30 +34,28 @@
                           CaretBrush="{DynamicResource TextPrimary}"/>
                     </Grid>
                 </Border>
-                <Button Content="💾" Command="{Binding SaveRecipeCmd}"
-                 Background="{DynamicResource PrimaryColor}"
-                 Foreground="{DynamicResource TextPrimary}"
-                 BorderBrush="{DynamicResource BorderBrushLight}"
-                 Margin="0,0,6,0"
-                 ToolTip="Сохранить"
-                 Style="{StaticResource IconButton}"/>
-                <Button Content="🆕" Command="{Binding NewRecipeCmd}"
-                 Background="{DynamicResource SuccessColor}"
-                 Foreground="{DynamicResource TextPrimary}"
-                 BorderBrush="{DynamicResource BorderBrushLight}"
-                 Margin="0,0,6,0"
-                 ToolTip="Новый"
-                 Style="{StaticResource IconButton}"/>
-                <Button Content="🧹" Command="{Binding ClearRecipeCmd}"
-                 Margin="0,0,6,0"
-                 ToolTip="Очистить состав"
-                 Style="{StaticResource IconButton}"/>
-                <Button Content="❌" Command="{Binding DeleteRecipeCmd}"
-                 ToolTip="Удалить рецепт"
-                 Background="{DynamicResource ButtonDeleteBrush}"
-                 Foreground="{DynamicResource TextPrimary}"
-                 BorderBrush="{DynamicResource BorderBrushLight}"
-                 Style="{StaticResource IconButton}"/>
+                <Button Style="{StaticResource SmallIconButton}"
+                        Tag="{StaticResource IconSave}"
+                        Command="{Binding SaveRecipeCmd}"
+                        Background="{DynamicResource PrimaryColor}"
+                        Margin="0,0,4,0"
+                        ToolTip="Сохранить"/>
+                <Button Style="{StaticResource SmallIconButton}"
+                        Tag="{StaticResource IconAdd}"
+                        Command="{Binding NewRecipeCmd}"
+                        Background="{DynamicResource SuccessColor}"
+                        Margin="0,0,4,0"
+                        ToolTip="Новый рецепт"/>
+                <Button Style="{StaticResource SmallIconButton}"
+                        Tag="{StaticResource IconRefresh}"
+                        Command="{Binding ClearRecipeCmd}"
+                        Margin="0,0,4,0"
+                        ToolTip="Очистить состав"/>
+                <Button Style="{StaticResource SmallIconButton}"
+                        Tag="{StaticResource IconDelete}"
+                        Command="{Binding DeleteRecipeCmd}"
+                        Background="{DynamicResource DangerColor}"
+                        ToolTip="Удалить рецепт"/>
             </StackPanel>
             <!-- Содержимое -->
             <Grid Grid.Row="1">

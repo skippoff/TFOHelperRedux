@@ -42,22 +42,19 @@
                             MouseLeftButtonDown="CatchPoint_MouseLeftButtonDown">
                         <Grid>
                             <!-- 🗺 Кнопка открытия карты в левом верхнем углу -->
-                            <Button Content="🗺"
-                                    Width="34" Height="34"
+                            <Button Style="{StaticResource SmallIconButton}"
+                                    Tag="{StaticResource IconMap}"
+                                    Width="36" Height="36"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Top"
-                                    Margin="0"
-                                    Style="{StaticResource IconButton}"
                                     Background="{DynamicResource ButtonPrimaryBrush}"
-                                    Foreground="{DynamicResource TextPrimary}"
-                                    BorderBrush="{DynamicResource BorderBrushLight}"
                                     Command="{Binding DataContext.OpenMapCmd,
                                                       RelativeSource={RelativeSource AncestorType=UserControl}}"
                                     CommandParameter="{Binding}"
                                     ToolTip="Открыть карту"/>
 
                             <!-- Контент карточки с отступами для кнопок -->
-                            <StackPanel Margin="40,0,75,0">
+                            <StackPanel Margin="42,0,42,0">
                                 <!-- 🗺 Карта -->
                                 <TextBlock Text="{Binding MapName}"
                                            FontWeight="SemiBold"
@@ -113,30 +110,25 @@
 
                             </StackPanel>
                             <!-- ❌ Крестик (удалить точку) в правом верхнем углу -->
-                            <Button Content="✖"
-                                    Width="34" Height="34"
+                            <Button Style="{StaticResource SmallIconButton}"
+                                    Tag="{StaticResource IconDelete}"
+                                    Width="36" Height="36"
                                     HorizontalAlignment="Right"
                                     VerticalAlignment="Top"
-                                    Margin="0"
-                                    Style="{StaticResource IconButton}"
-                                    Background="{DynamicResource ButtonDeleteBrush}"
-                                    Foreground="{DynamicResource TextPrimary}"
-                                    BorderBrush="{DynamicResource BorderBrushLight}"
+                                    Background="{DynamicResource DangerColor}"
                                     Command="{Binding DataContext.DeletePointCmd,
                                                       RelativeSource={RelativeSource AncestorType=UserControl}}"
                                     CommandParameter="{Binding}"
                                     ToolTip="Удалить точку"/>
 
                             <!-- ✏ Карандаш (редактировать точку) в правом нижнем углу -->
-                            <Button Content="✏"
-                                    Width="34" Height="34"
+                            <Button Style="{StaticResource SmallIconButton}"
+                                    Tag="{StaticResource IconEdit}"
+                                    Width="36" Height="36"
                                     HorizontalAlignment="Right"
                                     VerticalAlignment="Bottom"
                                     Margin="0,0,0,4"
-                                    Style="{StaticResource IconButton}"
                                     Background="{DynamicResource ButtonEditBrush}"
-                                    Foreground="{DynamicResource TextPrimary}"
-                                    BorderBrush="{DynamicResource BorderBrushLight}"
                                     Command="{Binding DataContext.EditPointCmd,
                                                       RelativeSource={RelativeSource AncestorType=UserControl}}"
                                     CommandParameter="{Binding}"
