@@ -2,7 +2,6 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Threading;
 using TFOHelperRedux.Models;
 using TFOHelperRedux.Services.Business;
 using TFOHelperRedux.Services.Data;
@@ -12,45 +11,12 @@ namespace TFOHelperRedux.Views;
 
 public partial class CatchPointsView : UserControl
 {
-    private MapPreviewWindow? _mapWindow;
-    private readonly DispatcherTimer _clickTimer;
-    private CatchPointModel? _pendingPoint;   // точка, ожидающая «одиночного» действия
-
     public CatchPointsView()
     {
         InitializeComponent();
         // DataContext устанавливается из родителя (FishDetailsPanel → FishViewModel → CatchPointsVM)
-
-        _clickTimer = new DispatcherTimer
-        {
-            Interval = TimeSpan.FromMilliseconds(220)
-        };
-        _clickTimer.Tick += (s, e) =>
-        {
-            _clickTimer.Stop();
-            if (_pendingPoint == null) return;
-
-            // показываем карту (одинарный клик)
-            var map = DataStore.Maps.FirstOrDefault(m => m.ID == _pendingPoint.MapID);
-            if (map != null)
-            {
-                if (_mapWindow == null || !_mapWindow.IsLoaded)
-                {
-                    _mapWindow = new Views.MapPreviewWindow(map, _pendingPoint);
-                    _mapWindow.Show();
-                }
-                else
-                {
-                    _mapWindow.UpdatePoint(map, _pendingPoint);
-                    if (!_mapWindow.IsVisible)
-                        _mapWindow.Show();
-
-                    _mapWindow.Activate();
-                }
-            }
-            _pendingPoint = null;
-        };
     }
+
     private void CatchPoint_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
     {
         if (sender is not Border border || border.DataContext is not CatchPointModel point)
@@ -70,34 +36,11 @@ public partial class CatchPointsView : UserControl
             }
         }
 
-        // 🟢 Один клик → показать карту
+        // 🟢 Один клик → пока без действия (резерв для будущего функционала)
         if (e.ClickCount == 1)
         {
-            _pendingPoint = point;
-            _clickTimer.Stop();
-            _clickTimer.Start();
-            var map = DataStore.Maps
-                .FirstOrDefault(m => m.ID == point.MapID);
-
-            if (map == null)
-            {
-                MessageBox.Show("Карта не найдена для этой точки.");
-                return;
-            }
-
-            if (_mapWindow == null || !_mapWindow.IsLoaded)
-            {
-                _mapWindow = new TFOHelperRedux.Views.MapPreviewWindow(map, point);
-                _mapWindow.Show();
-            }
-            else
-            {
-                _mapWindow.UpdatePoint(map, point);
-                if (!_mapWindow.IsVisible)
-                    _mapWindow.Show();
-
-                _mapWindow.Activate();
-            }
+            // Клик по карточке больше не открывает карту
+            // Для открытия карты используйте кнопку 🗺 в левом верхнем углу карточки
         }
         // 🔵 Двойной клик → редактирование точки
         else if (e.ClickCount == 2)
@@ -109,18 +52,8 @@ public partial class CatchPointsView : UserControl
                 var fish = DataStore.Selection.SelectedFish ?? vm.CurrentFish;
                 vm.RefreshFilteredPoints(fish);
             }
-
-            // Если окно карты открыто — обновим маркер
-            if (_mapWindow is { IsLoaded: true })
-            {
-                var map = DataStore.Maps
-                    .FirstOrDefault(m => m.ID == point.MapID);
-                if (map != null)
-                    _mapWindow.UpdatePoint(map, point);
-            }
         }
 
         e.Handled = true;
     }
-
 }

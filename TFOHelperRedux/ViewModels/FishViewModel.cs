@@ -143,10 +143,10 @@ namespace TFOHelperRedux.ViewModels
         public ObservableCollection<BaitModel> SelectedFeeds => _detailsService.SelectedFeeds;
         public ObservableCollection<BaitRecipeModel> SelectedRecipes => _detailsService.SelectedRecipes;
 
-        public IEnumerable<LureModel> MaybeCatchLures => _detailsService.MaybeCatchLures;
-        public IEnumerable<LureModel> BestLures => _detailsService.BestLures;
+        public ObservableCollection<LureModel> MaybeCatchLures => _detailsService.MaybeCatchLures;
+        public ObservableCollection<LureModel> BestLures => _detailsService.BestLures;
 
-        public IEnumerable<BaitRecipeModel> RecipesForSelectedFish => _detailsService.RecipesForSelectedFish;
+        public ObservableCollection<BaitRecipeModel> RecipesForSelectedFish => _detailsService.RecipesForSelectedFish;
         public int RecipeCountForSelectedFish => _detailsService.RecipeCountForSelectedFish;
 
         public string BiteDescription => _detailsService.BiteDescription;

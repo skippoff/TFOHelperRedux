@@ -191,7 +191,11 @@ namespace TFOHelperRedux.Views
 
             // Сброс состояний
             foreach (var f in DataStore.Fishes) f.IsSelected = _point.FishIDs?.Contains(f.ID) == true;
-            foreach (var l in DataStore.Lures) l.IsSelected = _point.LureIDs?.Contains(l.ID) == true;
+            foreach (var l in DataStore.Lures)
+            {
+                l.IsSelected = _point.LureIDs?.Contains(l.ID) == true;
+                l.IsBestSelected = _point.BestLureIDs?.Contains(l.ID) == true;
+            }
             foreach (var b in DataStore.Feeds) b.IsSelected = _point.FeedIDs?.Contains(b.ID) == true;
             foreach (var d in DataStore.Dips) d.IsSelected = _point.DipsIDs?.Contains(d.ID) == true;
 
@@ -251,6 +255,7 @@ namespace TFOHelperRedux.Views
 
             var fish = DataStore.Fishes.Where(f => f.IsSelected).Select(f => f.ID).ToArray();
             var lures = DataStore.Lures.Where(l => l.IsSelected).Select(l => l.ID).ToArray();
+            var bestLures = DataStore.Lures.Where(l => l.IsBestSelected).Select(l => l.ID).ToArray();
             var feeds = DataStore.Feeds.Where(f => f.IsSelected).Select(f => f.ID).ToArray();
             var dips = DataStore.Dips.Where(d => d.IsSelected).Select(d => d.ID).ToArray();
 
@@ -281,6 +286,7 @@ namespace TFOHelperRedux.Views
             point.LureIDs = lures;
             point.FeedIDs = feeds;
             point.DipsIDs = dips;
+            point.BestLureIDs = bestLures;
             point.Times = times.ToArray();
             point.Rods = rods.ToArray();
 

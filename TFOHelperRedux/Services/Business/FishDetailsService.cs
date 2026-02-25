@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -33,6 +33,9 @@ public class FishDetailsService : INotifyPropertyChanged
 
         _selectedFeeds = new ObservableCollection<BaitModel>();
         _selectedRecipes = new ObservableCollection<BaitRecipeModel>();
+        RecipesForSelectedFish = new ObservableCollection<BaitRecipeModel>();
+        MaybeCatchLures = new ObservableCollection<LureModel>();
+        BestLures = new ObservableCollection<LureModel>();
 
         // Подписка на изменения выбора рыбы
         _selectionService.FishChanged += () =>
@@ -40,27 +43,31 @@ public class FishDetailsService : INotifyPropertyChanged
             // Обновляем только изменившиеся данные
             UpdateSelectedFeedsEfficient();
             UpdateSelectedRecipesEfficient();
+            UpdateRecipesForSelectedFish();
+            UpdateMaybeCatchLures();
+            UpdateBestLures();
             UpdateFishImage();
             // Одно уведомление для всех свойств
             OnPropertyChanged(nameof(MaybeCatchLures));
             OnPropertyChanged(nameof(BestLures));
             OnPropertyChanged(nameof(BiteDescription));
             OnPropertyChanged(nameof(RecipeCountForSelectedFish));
-            OnPropertyChanged(nameof(RecipesForSelectedFish));
             OnPropertyChanged(nameof(SelectedFeeds));
             OnPropertyChanged(nameof(SelectedRecipes));
         };
 
-        // Подписка на изменения точки лова (для обновления MaybeCatchLures)
+        // Подписка на изменения точки лова (для обновления BestLures)
         DataStore.Selection.SelectionChanged += () =>
         {
-            OnPropertyChanged(nameof(MaybeCatchLures));
+            UpdateBestLures();
+            OnPropertyChanged(nameof(BestLures));
         };
 
         // Подписка на изменения прикормок и рецептов из FishFeedsViewModel
         _fishFeedsVM.RecipeChanged += () =>
         {
             UpdateSelectedRecipesEfficient();
+            UpdateRecipesForSelectedFish();
             OnPropertyChanged(nameof(SelectedRecipes));
             OnPropertyChanged(nameof(RecipesForSelectedFish));
             OnPropertyChanged(nameof(RecipeCountForSelectedFish));
@@ -68,7 +75,7 @@ public class FishDetailsService : INotifyPropertyChanged
 
         _fishFeedsVM.FeedChanged += () =>
         {
-            UpdateSelectedFeeds();
+            UpdateSelectedFeedsEfficient();
             OnPropertyChanged(nameof(SelectedFeeds));
         };
     }
@@ -102,82 +109,137 @@ public class FishDetailsService : INotifyPropertyChanged
     public ObservableCollection<BaitRecipeModel> SelectedRecipes => _selectedRecipes!;
 
     /// <summary>
-    /// Наживки, которые могут клевать
+    /// Наживки, которые могут клевать (из данных рыбы)
     /// </summary>
-    public IEnumerable<LureModel> MaybeCatchLures
+    public ObservableCollection<LureModel> MaybeCatchLures { get; }
+
+    /// <summary>
+    /// Лучшие наживки (из точки лова)
+    /// </summary>
+    public ObservableCollection<LureModel> BestLures { get; }
+
+    /// <summary>
+    /// Эффективное обновление коллекции наживок "Может клевать"
+    /// </summary>
+    private void UpdateMaybeCatchLures()
     {
-        get
+        if (MaybeCatchLures == null) return;
+
+        var fish = _selectionService.SelectedFish;
+        var newLureIds = fish?.LureIDs ?? Array.Empty<int>();
+        var newSet = new HashSet<int>(newLureIds);
+        var existingSet = new HashSet<int>(MaybeCatchLures.Select(l => l.ID));
+
+        // Удаляем наживки, которых больше нет
+        for (int i = MaybeCatchLures.Count - 1; i >= 0; i--)
         {
-            // Если выбрана точка лова — берём наживки из точки
-            var catchPoint = _selectionService.SelectedCatchPoint;
-            if (catchPoint != null && catchPoint.LureIDs != null && catchPoint.LureIDs.Length > 0)
+            if (!newSet.Contains(MaybeCatchLures[i].ID))
+                MaybeCatchLures.RemoveAt(i);
+        }
+
+        // Добавляем новые наживки
+        if (fish?.LureIDs != null)
+        {
+            foreach (var lureId in fish.LureIDs)
             {
-                if (DataStore.Lures == null || DataStore.Lures.Count == 0)
-                    return Enumerable.Empty<LureModel>();
-
-                return DataStore.Lures.Where(l => catchPoint.LureIDs.Contains(l.ID));
+                if (!existingSet.Contains(lureId))
+                {
+                    var lure = DataStore.Lures.FirstOrDefault(l => l.ID == lureId);
+                    if (lure != null)
+                        MaybeCatchLures.Add(lure);
+                }
             }
-
-            // Иначе берём из рыбы
-            var fish = _selectionService.SelectedFish;
-            if (fish?.LureIDs == null || fish.LureIDs.Length == 0)
-                return Enumerable.Empty<LureModel>();
-
-            if (DataStore.Lures == null || DataStore.Lures.Count == 0)
-                return Enumerable.Empty<LureModel>();
-
-            return DataStore.Lures.Where(l => fish.LureIDs.Contains(l.ID));
         }
     }
 
     /// <summary>
-    /// Лучшие наживки
+    /// Эффективное обновление коллекции лучших наживок
     /// </summary>
-    public IEnumerable<LureModel> BestLures
+    private void UpdateBestLures()
     {
-        get
+        if (BestLures == null) return;
+
+        var newLureIds = Enumerable.Empty<int>();
+        
+        // 1) Если выбрана точка лова — используем её BestLureIDs
+        var catchPoint = _selectionService.SelectedCatchPoint;
+        if (catchPoint != null && catchPoint.BestLureIDs is { Length: > 0 })
         {
-            // Лучшие наживки только у рыбы (у точки лова их нет)
+            newLureIds = catchPoint.BestLureIDs;
+        }
+        else
+        {
+            // 2) Если точки лова нет, но выбрана рыба — показываем лучшие наживки рыбы
             var fish = _selectionService.SelectedFish;
-            if (fish?.BestLureIDs == null || fish.BestLureIDs.Length == 0)
-                return Enumerable.Empty<LureModel>();
+            if (fish?.BestLureIDs != null)
+                newLureIds = fish.BestLureIDs;
+        }
 
-            if (DataStore.Lures == null || DataStore.Lures.Count == 0)
-                return Enumerable.Empty<LureModel>();
+        var newSet = new HashSet<int>(newLureIds);
+        var existingSet = new HashSet<int>(BestLures.Select(l => l.ID));
 
-            return DataStore.Lures.Where(l => fish.BestLureIDs.Contains(l.ID));
+        // Удаляем наживки, которых больше нет
+        for (int i = BestLures.Count - 1; i >= 0; i--)
+        {
+            if (!newSet.Contains(BestLures[i].ID))
+                BestLures.RemoveAt(i);
+        }
+
+        // Добавляем новые наживки
+        foreach (var lureId in newLureIds)
+        {
+            if (!existingSet.Contains(lureId))
+            {
+                var lure = DataStore.Lures.FirstOrDefault(l => l.ID == lureId);
+                if (lure != null)
+                    BestLures.Add(lure);
+            }
         }
     }
 
     /// <summary>
     /// Рецепты для выбранной рыбы
     /// </summary>
-    public IEnumerable<BaitRecipeModel> RecipesForSelectedFish
-    {
-        get
-        {
-            var fish = _selectionService.SelectedFish;
-            if (fish?.RecipeIDs == null)
-                return Enumerable.Empty<BaitRecipeModel>();
+    public ObservableCollection<BaitRecipeModel> RecipesForSelectedFish { get; }
 
-            return DataStore.BaitRecipes.Where(r => fish.RecipeIDs.Contains(r.ID));
+    /// <summary>
+    /// Эффективное обновление коллекции рецептов для выбранной рыбы
+    /// </summary>
+    private void UpdateRecipesForSelectedFish()
+    {
+        if (RecipesForSelectedFish == null) return;
+
+        var fish = _selectionService.SelectedFish;
+        var newRecipeIds = fish?.RecipeIDs ?? Array.Empty<int>();
+        var newSet = new HashSet<int>(newRecipeIds);
+        var existingSet = new HashSet<int>(RecipesForSelectedFish.Select(r => r.ID));
+
+        // Удаляем рецепты, которых больше нет
+        for (int i = RecipesForSelectedFish.Count - 1; i >= 0; i--)
+        {
+            if (!newSet.Contains(RecipesForSelectedFish[i].ID))
+                RecipesForSelectedFish.RemoveAt(i);
+        }
+
+        // Добавляем новые рецепты
+        if (fish?.RecipeIDs != null)
+        {
+            foreach (var recipeId in fish.RecipeIDs)
+            {
+                if (!existingSet.Contains(recipeId))
+                {
+                    var recipe = DataStore.BaitRecipes.FirstOrDefault(r => r.ID == recipeId);
+                    if (recipe != null)
+                        RecipesForSelectedFish.Add(recipe);
+                }
+            }
         }
     }
 
     /// <summary>
     /// Количество рецептов для выбранной рыбы
     /// </summary>
-    public int RecipeCountForSelectedFish
-    {
-        get
-        {
-            var fish = _selectionService.SelectedFish;
-            if (fish?.RecipeIDs == null)
-                return 0;
-
-            return DataStore.BaitRecipes.Count(r => fish.RecipeIDs.Contains(r.ID));
-        }
-    }
+    public int RecipeCountForSelectedFish => RecipesForSelectedFish.Count;
 
     /// <summary>
     /// Описание активности клёва
@@ -212,22 +274,6 @@ public class FishDetailsService : INotifyPropertyChanged
     }
 
     /// <summary>
-    /// Обновить коллекцию выбранных прикормок
-    /// </summary>
-    private void UpdateSelectedFeeds()
-    {
-        if (_selectedFeeds == null) return;
-
-        _selectedFeeds.Clear();
-        var fish = _selectionService.SelectedFish;
-        if (fish?.FeedIDs != null && fish.FeedIDs.Length > 0)
-        {
-            foreach (var feed in DataStore.Feeds.Where(f => fish.FeedIDs.Contains(f.ID)))
-                _selectedFeeds.Add(feed);
-        }
-    }
-
-    /// <summary>
     /// Эффективное обновление коллекции прикормок (без Clear + foreach)
     /// </summary>
     private void UpdateSelectedFeedsEfficient()
@@ -258,22 +304,6 @@ public class FishDetailsService : INotifyPropertyChanged
                         _selectedFeeds.Add(feed);
                 }
             }
-        }
-    }
-
-    /// <summary>
-    /// Обновить коллекцию выбранных рецептов
-    /// </summary>
-    private void UpdateSelectedRecipes()
-    {
-        if (_selectedRecipes == null) return;
-
-        _selectedRecipes.Clear();
-        var fish = _selectionService.SelectedFish;
-        if (fish?.RecipeIDs != null && fish.RecipeIDs.Length > 0)
-        {
-            foreach (var recipe in DataStore.BaitRecipes.Where(r => fish.RecipeIDs.Contains(r.ID)))
-                _selectedRecipes.Add(recipe);
         }
     }
 

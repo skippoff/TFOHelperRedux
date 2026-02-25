@@ -19,6 +19,7 @@
     <SolidColorBrush x:Key="ButtonExportBrush" Color="{DynamicResource ButtonExportColor}"/>
     <SolidColorBrush x:Key="ButtonDeleteBrush" Color="{DynamicResource ButtonDeleteColor}"/>
     <SolidColorBrush x:Key="ButtonEditBrush" Color="{DynamicResource ButtonEditColor}"/>
+    <SolidColorBrush x:Key="ButtonPrimaryBrush" Color="{DynamicResource ButtonPrimaryColor}"/>
 
     <!-- Кнопки навигации (яркие для контраста) -->
     <SolidColorBrush x:Key="ButtonNavLocationBrush" Color="{DynamicResource ButtonNavLocationColor}"/>

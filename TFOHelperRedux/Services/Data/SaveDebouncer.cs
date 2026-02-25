@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -36,6 +37,16 @@ namespace TFOHelperRedux.Services.Data
         public void ScheduleSaveLures()
         {
             Schedule(() => _loadSaveService.SaveLures(DataStore.Lures));
+        }
+
+        public void ScheduleSaveCatchPoints()
+        {
+            Schedule(() =>
+            {
+                var localDataDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Maps");
+                var localCatchFile = Path.Combine(localDataDir, "CatchPoints_Local.json");
+                JsonService.Save(localCatchFile, DataStore.CatchPoints);
+            });
         }
 
         private void Schedule(Action saveAction)

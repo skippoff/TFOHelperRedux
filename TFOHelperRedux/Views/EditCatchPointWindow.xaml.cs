@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Windows;
 using TFOHelperRedux.Models;
@@ -41,6 +41,7 @@ namespace TFOHelperRedux.Views
             {
                 RightPanel.DataContext = mainVM.FishFeedsVM;
                 RightPanel.CatchPoint = _point;
+                CenterPanel.CatchPoint = _point;
             }
             else
             {
@@ -50,6 +51,7 @@ namespace TFOHelperRedux.Views
                 {
                     RightPanel.DataContext = fishFeedsVM;
                     RightPanel.CatchPoint = _point;
+                    CenterPanel.CatchPoint = _point;
                 }
             }
             
@@ -102,8 +104,8 @@ namespace TFOHelperRedux.Views
                 var feedIds = RightPanel.SelectedFeedIds;
                 
                 var point = LeftPanel.SavePoint();
-                
-                // Сохраняем прикормки в первую выбранную рыбу
+
+                // Сохраняем прикормки в первую выбранную рыбу (глобальные связи по рыбе)
                 var selectedFish = DataStore.Fishes.FirstOrDefault(f => f.IsSelected);
                 if (selectedFish != null)
                 {
@@ -203,12 +205,20 @@ namespace TFOHelperRedux.Views
                 ? new HashSet<int>(point.LureIDs)
                 : null;
 
+            var bestLureIdsSet = point.BestLureIDs != null && point.BestLureIDs.Length > 0
+                ? new HashSet<int>(point.BestLureIDs)
+                : null;
+
             foreach (var lure in DataStore.Lures)
             {
                 var shouldBeSelected = lureIdsSet?.Contains(lure.ID) ?? false;
+                var shouldBeBestSelected = bestLureIdsSet?.Contains(lure.ID) ?? false;
 
                 if (lure.IsSelected != shouldBeSelected)
                     lure.IsSelected = shouldBeSelected;
+
+                if (lure.IsBestSelected != shouldBeBestSelected)
+                    lure.IsBestSelected = shouldBeBestSelected;
             }
         }
     }

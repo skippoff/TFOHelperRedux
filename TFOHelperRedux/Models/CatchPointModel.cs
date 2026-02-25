@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization;
 
@@ -11,6 +11,7 @@ public class CatchPointModel : INotifyPropertyChanged
     private int[] _fishIds = Array.Empty<int>();
     private int[] _lureIds = Array.Empty<int>();
     private int[] _feedIds = Array.Empty<int>();
+    private int[] _bestLureIds = Array.Empty<int>();
     private int[] _dipsIds = Array.Empty<int>();
     private int[] _recipeIds = Array.Empty<int>();
     private int[] _times = Array.Empty<int>();
@@ -79,6 +80,12 @@ public class CatchPointModel : INotifyPropertyChanged
     {
         get => _feedIds;
         set { _feedIds = value; OnPropertyChanged(); }
+    }
+
+    public int[] BestLureIDs
+    {
+        get => _bestLureIds;
+        set { _bestLureIds = value; OnPropertyChanged(); }
     }
 
     public int[] DipsIDs

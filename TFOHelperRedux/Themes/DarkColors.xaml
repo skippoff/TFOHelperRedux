@@ -29,6 +29,7 @@
     <Color x:Key="ButtonExportColor">#64B5F6</Color>
     <Color x:Key="ButtonDeleteColor">#EF5350</Color>
     <Color x:Key="ButtonEditColor">#C6D82E</Color>
+    <Color x:Key="ButtonPrimaryColor">#64B5F6</Color>
     <Color x:Key="ButtonNavLocationColor">#26A69A</Color>
     <Color x:Key="ButtonNavBaitColor">#FF8C00</Color>
     <Color x:Key="ButtonHoverColor">#404060</Color>

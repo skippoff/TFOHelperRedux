@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using TFOHelperRedux.Helpers;
@@ -6,6 +7,7 @@ using TFOHelperRedux.Models;
 using TFOHelperRedux.Services.Business;
 using TFOHelperRedux.Services.Data;
 using TFOHelperRedux.Services.UI;
+using TFOHelperRedux.Views;
 
 namespace TFOHelperRedux.ViewModels;
 
@@ -37,6 +39,7 @@ public class CatchPointsViewModel : BaseViewModel
     public ICommand SavePointsCmd { get; }
     public ICommand DeletePointCmd { get; }
     public ICommand EditPointCmd { get; }
+    public ICommand OpenMapCmd { get; }
 
     // Используем единую коллекцию из DataStore
     public ObservableCollection<CatchPointModel> CatchPoints => DataStore.CatchPoints;
@@ -57,6 +60,7 @@ public class CatchPointsViewModel : BaseViewModel
         SavePointsCmd = new RelayCommand(SavePoints);
         DeletePointCmd = new RelayCommand(p => DeletePoint(p as CatchPointModel));
         EditPointCmd = new RelayCommand(p => EditPoint(p as CatchPointModel));
+        OpenMapCmd = new RelayCommand(p => OpenMap(p as CatchPointModel));
     }
 
     public void RefreshFilteredPoints(FishModel? selectedFish)
@@ -172,5 +176,37 @@ public class CatchPointsViewModel : BaseViewModel
     {
         _catchPointsService.SaveCatchPoints(CatchPoints);
         _uiService.ShowInfo("Изменения сохранены 💾", "Сохранение");
+    }
+
+    private void OpenMap(CatchPointModel? point)
+    {
+        if (point == null)
+            return;
+
+        var map = DataStore.Maps.FirstOrDefault(m => m.ID == point.MapID);
+        if (map == null)
+        {
+            _uiService.ShowError("Карта не найдена для этой точки.", "Ошибка");
+            return;
+        }
+
+        // Проверяем, есть ли уже открытое окно карты
+        var mapWindow = Application.Current.Windows
+            .OfType<MapPreviewWindow>()
+            .FirstOrDefault(w => w.IsLoaded);
+
+        if (mapWindow == null || !mapWindow.IsLoaded)
+        {
+            mapWindow = new MapPreviewWindow(map, point);
+            mapWindow.Show();
+        }
+        else
+        {
+            mapWindow.UpdatePoint(map, point);
+            if (!mapWindow.IsVisible)
+                mapWindow.Show();
+
+            mapWindow.Activate();
+        }
     }
 }

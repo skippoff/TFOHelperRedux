@@ -11,8 +11,8 @@
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-            <TextBlock Text="🎯 Точки лова" 
-                   FontSize="18" 
+            <TextBlock Text="🎯 Точки лова"
+                   FontSize="18"
                    FontWeight="Bold"
                    VerticalAlignment="Center"/>
 
@@ -41,12 +41,29 @@
                             SnapsToDevicePixels="True"
                             MouseLeftButtonDown="CatchPoint_MouseLeftButtonDown">
                         <Grid>
-                            <StackPanel>
+                            <!-- 🗺 Кнопка открытия карты в левом верхнем углу -->
+                            <Button Content="🗺"
+                                    Width="34" Height="34"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Margin="0"
+                                    Style="{StaticResource IconButton}"
+                                    Background="{DynamicResource ButtonPrimaryBrush}"
+                                    Foreground="{DynamicResource TextPrimary}"
+                                    BorderBrush="{DynamicResource BorderBrushLight}"
+                                    Command="{Binding DataContext.OpenMapCmd,
+                                                      RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                    CommandParameter="{Binding}"
+                                    ToolTip="Открыть карту"/>
+
+                            <!-- Контент карточки с отступами для кнопок -->
+                            <StackPanel Margin="40,0,75,0">
                                 <!-- 🗺 Карта -->
                                 <TextBlock Text="{Binding MapName}"
                                            FontWeight="SemiBold"
                                            Foreground="{DynamicResource TextPrimary}"
-                                           FontSize="16"/>
+                                           FontSize="16"
+                                           HorizontalAlignment="Center"/>
 
                                 <!-- 📍 Координаты -->
                                 <StackPanel Orientation="Horizontal" Margin="0,2,0,2">

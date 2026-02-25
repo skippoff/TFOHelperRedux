@@ -15,6 +15,9 @@ namespace TFOHelperRedux.Views
         public static readonly DependencyProperty LuresViewProperty = DependencyProperty.Register(
             nameof(LuresView), typeof(System.ComponentModel.ICollectionView), typeof(FishLuresPanel), new PropertyMetadata(null));
 
+        public static readonly DependencyProperty CatchPointProperty = DependencyProperty.Register(
+            nameof(CatchPoint), typeof(CatchPointModel), typeof(FishLuresPanel), new PropertyMetadata(null));
+
         public System.ComponentModel.ICollectionView? FishView
         {
             get => (System.ComponentModel.ICollectionView?)GetValue(FishViewProperty);
@@ -25,6 +28,12 @@ namespace TFOHelperRedux.Views
         {
             get => (System.ComponentModel.ICollectionView?)GetValue(LuresViewProperty);
             set => SetValue(LuresViewProperty, value);
+        }
+
+        public CatchPointModel? CatchPoint
+        {
+            get => (CatchPointModel?)GetValue(CatchPointProperty);
+            set => SetValue(CatchPointProperty, value);
         }
 
         public FishLuresPanel()
@@ -86,46 +95,62 @@ namespace TFOHelperRedux.Views
 
         private void Lure_Checked(object sender, RoutedEventArgs e)
         {
-            // SelectionState уже обработал изменение через привязку IsSelected
-            // Просто сохраняем изменения
-            DataService.SaveFishes(DataStore.Fishes);
-
-            // Обновляем UI рекомендованных наживок
-            if (this.DataContext is ViewModels.FishViewModel fishVm)
-                fishVm.OnPropertyChanged(nameof(ViewModels.FishViewModel.MaybeCatchLures));
+            // Если установлена точка лова — сохраняем в неё
+            if (CatchPoint != null)
+            {
+                var lureIds = CatchPoint.LureIDs?.ToList() ?? new List<int>();
+                if (sender is CheckBox cb && cb.Tag is int lureId && !lureIds.Contains(lureId))
+                    lureIds.Add(lureId);
+                CatchPoint.LureIDs = lureIds.Distinct().ToArray();
+                // Сохранение через SaveDebouncer
+                DataStore.SaveAll();
+            }
+            // Для рыбы сохранение работает автоматически через SaveDebouncer (PropertyChange)
         }
 
         private void Lure_Unchecked(object sender, RoutedEventArgs e)
         {
-            // SelectionState уже обработал изменение через привязку IsSelected
-            // Просто сохраняем изменения
-            DataService.SaveFishes(DataStore.Fishes);
-
-            // Обновляем UI рекомендованных наживок
-            if (this.DataContext is ViewModels.FishViewModel fishVm)
-                fishVm.OnPropertyChanged(nameof(ViewModels.FishViewModel.MaybeCatchLures));
+            // Если установлена точка лова — сохраняем в неё
+            if (CatchPoint != null)
+            {
+                var lureIds = CatchPoint.LureIDs?.ToList() ?? new List<int>();
+                if (sender is CheckBox cb && cb.Tag is int lureId && lureIds.Contains(lureId))
+                    lureIds.Remove(lureId);
+                CatchPoint.LureIDs = lureIds.Distinct().ToArray();
+                // Сохранение через SaveDebouncer
+                DataStore.SaveAll();
+            }
+            // Для рыбы сохранение работает автоматически через SaveDebouncer (PropertyChange)
         }
 
         private void BestLure_Checked(object sender, RoutedEventArgs e)
         {
-            // SelectionState уже обработал изменение через привязку IsBestSelected
-            // Просто сохраняем изменения
-            DataService.SaveFishes(DataStore.Fishes);
-
-            // Обновляем UI лучших наживок
-            if (this.DataContext is ViewModels.FishViewModel fishVm)
-                fishVm.OnPropertyChanged(nameof(ViewModels.FishViewModel.BestLures));
+            // Если установлена точка лова — сохраняем в неё
+            if (CatchPoint != null)
+            {
+                var bestLureIds = CatchPoint.BestLureIDs?.ToList() ?? new List<int>();
+                if (sender is CheckBox cb && cb.Tag is int lureId && !bestLureIds.Contains(lureId))
+                    bestLureIds.Add(lureId);
+                CatchPoint.BestLureIDs = bestLureIds.Distinct().ToArray();
+                // Сохранение через SaveDebouncer
+                DataStore.SaveAll();
+            }
+            // Для рыбы сохранение работает автоматически через SaveDebouncer (PropertyChange)
         }
 
         private void BestLure_Unchecked(object sender, RoutedEventArgs e)
         {
-            // SelectionState уже обработал изменение через привязку IsBestSelected
-            // Просто сохраняем изменения
-            DataService.SaveFishes(DataStore.Fishes);
-
-            // Обновляем UI лучших наживок
-            if (this.DataContext is ViewModels.FishViewModel fishVm)
-                fishVm.OnPropertyChanged(nameof(ViewModels.FishViewModel.BestLures));
+            // Если установлена точка лова — сохраняем в неё
+            if (CatchPoint != null)
+            {
+                var bestLureIds = CatchPoint.BestLureIDs?.ToList() ?? new List<int>();
+                if (sender is CheckBox cb && cb.Tag is int lureId && bestLureIds.Contains(lureId))
+                    bestLureIds.Remove(lureId);
+                CatchPoint.BestLureIDs = bestLureIds.Distinct().ToArray();
+                // Сохранение через SaveDebouncer
+                DataStore.SaveAll();
+            }
+            // Для рыбы сохранение работает автоматически через SaveDebouncer (PropertyChange)
         }
     }
 }

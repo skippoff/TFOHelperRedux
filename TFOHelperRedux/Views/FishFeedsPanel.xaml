@@ -41,7 +41,7 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <CheckBox Content="{Binding Name}"
-                                          IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                                          IsChecked="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                           Margin="2"/>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
@@ -62,7 +62,7 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <CheckBox Content="{Binding Name}"
-                                          IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                                          IsChecked="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                           Margin="2"/>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>

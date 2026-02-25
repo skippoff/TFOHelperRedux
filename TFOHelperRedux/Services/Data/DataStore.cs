@@ -341,12 +341,34 @@ public static class DataStore
         foreach (var l in _lures)
             if (l is INotifyPropertyChanged npcL)
                 npcL.PropertyChanged += LureItem_PropertyChanged;
+
+        // CatchPoints
+        _catchPoints.CollectionChanged += (s, e) =>
+        {
+            if (e.NewItems != null)
+                foreach (var it in e.NewItems)
+                    if (it is INotifyPropertyChanged npc)
+                        npc.PropertyChanged += CatchPointItem_PropertyChanged;
+            if (e.OldItems != null)
+                foreach (var it in e.OldItems)
+                    if (it is INotifyPropertyChanged npc)
+                        npc.PropertyChanged -= CatchPointItem_PropertyChanged;
+        };
+        foreach (var cp in _catchPoints)
+            if (cp is INotifyPropertyChanged npcCp)
+                npcCp.PropertyChanged += CatchPointItem_PropertyChanged;
     }
 
     private static void FishItem_PropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
-        if (e.PropertyName == nameof(FishModel.IsSelected))
+        if (e.PropertyName == nameof(FishModel.IsSelected) ||
+            e.PropertyName == nameof(FishModel.RecipeIDs) ||
+            e.PropertyName == nameof(FishModel.FeedIDs) ||
+            e.PropertyName == nameof(FishModel.LureIDs) ||
+            e.PropertyName == nameof(FishModel.DipIDs))
+        {
             _saveDebouncer?.ScheduleSaveFishes();
+        }
     }
 
     private static void FeedItem_PropertyChanged(object? sender, PropertyChangedEventArgs e)
@@ -365,5 +387,11 @@ public static class DataStore
     {
         if (e.PropertyName == nameof(LureModel.IsSelected))
             _saveDebouncer?.ScheduleSaveLures();
+    }
+
+    private static void CatchPointItem_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        // Сохраняем при изменении любых данных точки лова
+        _saveDebouncer?.ScheduleSaveCatchPoints();
     }
 }

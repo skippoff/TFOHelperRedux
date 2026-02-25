@@ -352,7 +352,7 @@ public class FishFeedsViewModel : BaseViewModel
                 _catchPoint.FeedIDs = feedIds.Distinct().ToArray();
             }
 
-            // Сохраняем точки лова
+            // Сохраняем точки лова через SaveDebouncer
             DataStore.SaveAll();
         }
         else
@@ -381,8 +381,7 @@ public class FishFeedsViewModel : BaseViewModel
                 fish.FeedIDs = feedIds.Distinct().ToArray();
             }
 
-            DataService.SaveFishes(DataStore.Fishes);
-
+            // Сохранение через SaveDebouncer (автоматически при изменении свойства)
             // Уведомляем об изменении
             if (isRecipe)
                 RecipeChanged?.Invoke();

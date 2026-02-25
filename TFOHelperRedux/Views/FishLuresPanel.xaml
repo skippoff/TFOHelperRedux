@@ -92,7 +92,7 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <CheckBox Content="{Binding Name}"
-                                          IsChecked="{Binding IsBestSelected, Mode=TwoWay}"
+                                          IsChecked="{Binding IsBestSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                           Tag="{Binding ID}"
                                           Checked="BestLure_Checked"
                                           Unchecked="BestLure_Unchecked"
