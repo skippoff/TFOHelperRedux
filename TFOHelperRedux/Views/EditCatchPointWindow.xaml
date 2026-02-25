@@ -29,11 +29,13 @@
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <Button Content="Отмена"
                             Style="{StaticResource CancelButton}"
+                            Tag="{StaticResource IconClose}"
                             Width="130" Height="44"
                             Margin="0,0,10,0"
                             Click="Cancel_Click"/>
                     <Button Content="Сохранить"
                             Style="{StaticResource SaveButton}"
+                            Tag="{StaticResource IconSave}"
                             Width="150" Height="44"
                             Click="Ok_Click"/>
                 </StackPanel>

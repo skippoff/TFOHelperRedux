@@ -52,23 +52,19 @@
                             </Viewbox>
                             <!-- 🔧 Кнопка удаления рыбы (видна только в DEBUG) -->
                             <Button Grid.Row="0"
-                                    Width="20"
-                                    Height="20"
+                                    Width="28"
+                                    Height="28"
                                     HorizontalAlignment="Right"
                                     VerticalAlignment="Top"
-                                    Margin="0,0,0,0"
-                                    Content="✖"
-                                    FontSize="10"
+                                    Margin="0,4,4,0"
+                                    Style="{StaticResource SmallIconButton}"
+                                    Tag="{StaticResource IconDelete}"
                                     ToolTip="Удалить рыбу (DEBUG)"
                                     Command="{Binding DataContext.DeleteFishCommand,
                                       RelativeSource={RelativeSource AncestorType=UserControl}}"
                                     CommandParameter="{Binding}"
                                     Visibility="{Binding Source={x:Static app:DebugFlags.IsDebug},
-                                         Converter={StaticResource BoolToVisibilityConverter}}"
-                                    Background="{DynamicResource ButtonDeleteBrush}"
-                                    Foreground="{DynamicResource TextPrimary}"
-                                    BorderBrush="{DynamicResource BorderBrushLight}"
-                                    Style="{StaticResource IconButton}"/>
+                                         Converter={StaticResource BoolToVisibilityConverter}}"/>
                             <TextBlock Grid.Row="1"
                                Text="{Binding Name}"
                                FontSize="15"

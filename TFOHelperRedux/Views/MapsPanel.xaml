@@ -128,8 +128,10 @@
                         <!-- 🔧 Кнопка только в Debug -->
                         <Button Content="DEV: редактировать список"
                                 Margin="12,0,0,0"
-                                Padding="6,2"
-                                FontSize="10"
+                                Padding="12,6"
+                                FontSize="12"
+                                Style="{StaticResource EditButton}"
+                                Tag="{StaticResource IconEdit}"
                                 Visibility="{Binding Source={x:Static app:DebugFlags.IsDebug},
                                                  Converter={StaticResource BoolToVisibilityConverter}}"
                                 Click="EditMapFishes_Click"/>

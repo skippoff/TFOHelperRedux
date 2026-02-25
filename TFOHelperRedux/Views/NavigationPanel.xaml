@@ -6,13 +6,15 @@
     <StackPanel Orientation="Horizontal"
                 Margin="0,6,0,0"
                 HorizontalAlignment="Left">
-        <Button Content="📍 Локации"
+        <Button Content="Локации"
                 Command="{Binding NavigationVM.ShowMapsCmd}"
                 Style="{StaticResource MapButton}"
+                Tag="{StaticResource IconMap}"
                 Margin="0,0,6,0"/>
         <Button Content="Прикорм и дипы"
                 Command="{Binding NavigationVM.ShowBaitsCmd}"
                 Style="{StaticResource FishButton}"
+                Tag="{StaticResource IconFish}"
                 Margin="0,0,6,0"/>
 
         <!-- 🌓 Переключатель темы -->
