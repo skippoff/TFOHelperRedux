@@ -375,6 +375,13 @@ FodyWeavers.xsd
 .ai/mcp/mcp.json
 .continueignore
 
+# Локальные файлы данных (не коммитить)
+TFOHelperRedux/Maps/CatchPoints_Local.json
+TFOHelperRedux/Fishes/Fishes_Local.json
+TFOHelperRedux/Feeds/Feeds_Local.json
+TFOHelperRedux/Lures/Lures_Local.json
+TFOHelperRedux/Dips/Dips_Local.json
+
 # Markdown documentation files
 *.md
 !README.md
