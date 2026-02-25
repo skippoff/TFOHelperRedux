@@ -441,4 +441,304 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <!-- 🔘 СОВРЕМЕННЫЕ КНОПКИ С ИКОНКАМИ -->
+    
+    <!-- Базовый стиль кнопки с иконкой -->
+    <Style x:Key="ModernIconButton" TargetType="Button">
+        <Setter Property="Background" Value="{DynamicResource PrimaryColor}"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Padding" Value="16,10"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="FontFamily" Value="{StaticResource PrimaryFont}"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="8"
+                            Padding="{TemplateBinding Padding}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.3" Direction="270"/>
+                        </Border.Effect>
+                        <StackPanel Orientation="Horizontal" 
+                                    HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center">
+                            <Path x:Name="icon"
+                                  Data="{TemplateBinding Tag}"
+                                  Fill="{TemplateBinding Foreground}"
+                                  Width="18" Height="18"
+                                  Margin="0,0,8,0"
+                                  Stretch="Uniform"
+                                  VerticalAlignment="Center"/>
+                            <ContentPresenter x:Name="content"
+                                              VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect BlurRadius="12" ShadowDepth="3" Opacity="0.5" Direction="270"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="RenderTransform">
+                                <Setter.Value>
+                                    <ScaleTransform ScaleX="0.97" ScaleY="0.97"/>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter TargetName="border" Property="RenderTransformOrigin" Value="0.5,0.5"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Кнопка только с иконкой (квадратная) -->
+    <Style x:Key="IconOnlyButton" TargetType="Button">
+        <Setter Property="Background" Value="{DynamicResource PrimaryColor}"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Width" Value="44"/>
+        <Setter Property="Height" Value="44"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="10"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="6" ShadowDepth="1" Opacity="0.25" Direction="270"/>
+                        </Border.Effect>
+                        <Path x:Name="icon"
+                              Data="{TemplateBinding Tag}"
+                              Fill="{TemplateBinding Foreground}"
+                              Width="20" Height="20"
+                              Stretch="Uniform"
+                              VerticalAlignment="Center"
+                              HorizontalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect BlurRadius="10" ShadowDepth="2" Opacity="0.4" Direction="270"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="RenderTransform">
+                                <Setter.Value>
+                                    <ScaleTransform ScaleX="0.92" ScaleY="0.92"/>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter TargetName="border" Property="RenderTransformOrigin" Value="0.5,0.5"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Кнопка "Добавить" (зелёная) -->
+    <Style x:Key="AddButton" TargetType="Button" BasedOn="{StaticResource ModernIconButton}">
+        <Setter Property="Tag" Value="{StaticResource IconAdd}"/>
+        <Setter Property="Background" Value="{DynamicResource SuccessColor}"/>
+    </Style>
+
+    <!-- Кнопка "Удалить" (красная) -->
+    <Style x:Key="DeleteButton" TargetType="Button" BasedOn="{StaticResource ModernIconButton}">
+        <Setter Property="Tag" Value="{StaticResource IconDelete}"/>
+        <Setter Property="Background" Value="{DynamicResource DangerColor}"/>
+    </Style>
+
+    <!-- Кнопка "Редактировать" (оранжевая) -->
+    <Style x:Key="EditButton" TargetType="Button" BasedOn="{StaticResource ModernIconButton}">
+        <Setter Property="Tag" Value="{StaticResource IconEdit}"/>
+        <Setter Property="Background" Value="#FF9800"/>
+    </Style>
+
+    <!-- Кнопка "Сохранить" (синяя) -->
+    <Style x:Key="SaveButton" TargetType="Button" BasedOn="{StaticResource ModernIconButton}">
+        <Setter Property="Tag" Value="{StaticResource IconSave}"/>
+        <Setter Property="Background" Value="{DynamicResource ButtonPrimaryBrush}"/>
+    </Style>
+
+    <!-- Кнопка "Экспорт" (голубая) -->
+    <Style x:Key="ExportButton" TargetType="Button" BasedOn="{StaticResource ModernIconButton}">
+        <Setter Property="Tag" Value="{StaticResource IconExport}"/>
+        <Setter Property="Background" Value="#03A9F4"/>
+    </Style>
+
+    <!-- Кнопка "Импорт" (фиолетовая) -->
+    <Style x:Key="ImportButton" TargetType="Button" BasedOn="{StaticResource ModernIconButton}">
+        <Setter Property="Tag" Value="{StaticResource IconImport}"/>
+        <Setter Property="Background" Value="#9C27B0"/>
+    </Style>
+
+    <!-- Кнопка "Поиск" (серая) -->
+    <Style x:Key="SearchButton" TargetType="Button" BasedOn="{StaticResource ModernIconButton}">
+        <Setter Property="Tag" Value="{StaticResource IconSearch}"/>
+        <Setter Property="Background" Value="#607D8B"/>
+    </Style>
+
+    <!-- Кнопка "Настройки" (тёмно-синяя) -->
+    <Style x:Key="SettingsButton" TargetType="Button" BasedOn="{StaticResource ModernIconButton}">
+        <Setter Property="Tag" Value="{StaticResource IconSettings}"/>
+        <Setter Property="Background" Value="#3F51B5"/>
+    </Style>
+
+    <!-- Кнопка "Инфо" (бирюзовая) -->
+    <Style x:Key="InfoButton" TargetType="Button" BasedOn="{StaticResource ModernIconButton}">
+        <Setter Property="Tag" Value="{StaticResource IconInfo}"/>
+        <Setter Property="Background" Value="#00BCD4"/>
+    </Style>
+
+    <!-- Кнопка "Рыбы" (акцентная) -->
+    <Style x:Key="FishButton" TargetType="Button" BasedOn="{StaticResource ModernIconButton}">
+        <Setter Property="Tag" Value="{StaticResource IconFish}"/>
+        <Setter Property="Background" Value="{DynamicResource AccentFeed}"/>
+    </Style>
+
+    <!-- Кнопка "Карты" (акцентная) -->
+    <Style x:Key="MapButton" TargetType="Button" BasedOn="{StaticResource ModernIconButton}">
+        <Setter Property="Tag" Value="{StaticResource IconMap}"/>
+        <Setter Property="Background" Value="{DynamicResource AccentLocation}"/>
+    </Style>
+
+    <!-- Кнопка "Обновить" (зелёная) -->
+    <Style x:Key="RefreshButton" TargetType="Button" BasedOn="{StaticResource ModernIconButton}">
+        <Setter Property="Tag" Value="{StaticResource IconRefresh}"/>
+        <Setter Property="Background" Value="#4CAF50"/>
+    </Style>
+
+    <!-- Кнопка "Закрыть" (серая) -->
+    <Style x:Key="CloseButton" TargetType="Button" BasedOn="{StaticResource ModernIconButton}">
+        <Setter Property="Tag" Value="{StaticResource IconClose}"/>
+        <Setter Property="Background" Value="#78909C"/>
+    </Style>
+
+    <!-- Кнопка "OK" (зелёная) -->
+    <Style x:Key="OkButton" TargetType="Button" BasedOn="{StaticResource ModernIconButton}">
+        <Setter Property="Tag" Value="{StaticResource IconCheck}"/>
+        <Setter Property="Background" Value="#4CAF50"/>
+    </Style>
+
+    <!-- Кнопка "Отмена" (серая) -->
+    <Style x:Key="CancelButton" TargetType="Button" BasedOn="{StaticResource ModernIconButton}">
+        <Setter Property="Tag" Value="{StaticResource IconClose}"/>
+        <Setter Property="Background" Value="#9E9E9E"/>
+    </Style>
+
+    <!-- Маленькая кнопка с иконкой (для тулбаров) -->
+    <Style x:Key="SmallIconButton" TargetType="Button" BasedOn="{StaticResource IconOnlyButton}">
+        <Setter Property="Width" Value="36"/>
+        <Setter Property="Height" Value="36"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="8"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                        <Path x:Name="icon"
+                              Data="{TemplateBinding Tag}"
+                              Fill="{TemplateBinding Foreground}"
+                              Width="16" Height="16"
+                              Stretch="Uniform"
+                              VerticalAlignment="Center"
+                              HorizontalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="#40FFFFFF"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="RenderTransform">
+                                <Setter.Value>
+                                    <ScaleTransform ScaleX="0.9" ScaleY="0.9"/>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter TargetName="border" Property="RenderTransformOrigin" Value="0.5,0.5"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Кнопка переключения темы -->
+    <Style x:Key="ThemeToggleButton" TargetType="ToggleButton">
+        <Setter Property="Width" Value="48"/>
+        <Setter Property="Height" Value="48"/>
+        <Setter Property="Background" Value="{DynamicResource PrimaryColor}"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Border x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="12"
+                            BorderThickness="0">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.3" Direction="270"/>
+                        </Border.Effect>
+                        <Grid>
+                            <!-- Иконка светлой темы -->
+                            <Path x:Name="lightIcon"
+                                  Data="{StaticResource IconLightTheme}"
+                                  Fill="{TemplateBinding Foreground}"
+                                  Width="24" Height="24"
+                                  Stretch="Uniform"
+                                  VerticalAlignment="Center"
+                                  HorizontalAlignment="Center"
+                                  Opacity="1"/>
+                            <!-- Иконка тёмной темы -->
+                            <Path x:Name="darkIcon"
+                                  Data="{StaticResource IconDarkTheme}"
+                                  Fill="{TemplateBinding Foreground}"
+                                  Width="24" Height="24"
+                                  Stretch="Uniform"
+                                  VerticalAlignment="Center"
+                                  HorizontalAlignment="Center"
+                                  Opacity="0"/>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="lightIcon" Property="Opacity" Value="0"/>
+                            <Setter TargetName="darkIcon" Property="Opacity" Value="1"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect BlurRadius="12" ShadowDepth="3" Opacity="0.5" Direction="270"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="RenderTransform">
+                                <Setter.Value>
+                                    <ScaleTransform ScaleX="0.95" ScaleY="0.95"/>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter TargetName="border" Property="RenderTransformOrigin" Value="0.5,0.5"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>
