@@ -17,13 +17,7 @@
         </Grid.ColumnDefinitions>
 
         <!-- ====================== CONTENT PANEL ====================== -->
-        <Border Grid.Column="0"
-                Background="{DynamicResource PanelBackground}"
-                BorderBrush="{DynamicResource BorderBrushLight}"
-                BorderThickness="1"
-                CornerRadius="6"
-                Padding="12"
-                Margin="2">
+        <Grid Grid.Column="0" Margin="2">
             <ListBox ItemsSource="{Binding BaitsVM.CurrentItems}"
                      SelectedItem="{Binding BaitsVM.SelectedItem, Mode=TwoWay}"
                      Background="Transparent"
@@ -49,9 +43,9 @@
                                        Stretch="Uniform"
                                        RenderOptions.BitmapScalingMode="LowQuality"/>
                                 <TextBlock Text="{Binding Name}" 
-                                           FontSize="13" 
-                                           TextAlignment="Center" 
-                                           Margin="0,4,0,0" 
+                                           FontSize="13"
+                                           TextAlignment="Center"
+                                           Margin="0,4,0,0"
                                            TextTrimming="CharacterEllipsis"
                                            Foreground="{DynamicResource TextPrimary}"/>
                             </StackPanel>
@@ -59,20 +53,11 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-        </Border>
+        </Grid>
 
         <!-- ====================== RECIPE / CRAFT PANEL ====================== -->
-        <Border Grid.Column="1"
-                Background="{DynamicResource PanelBackground}"
-                BorderBrush="{DynamicResource BorderBrushLight}"
-                BorderThickness="1"
-                CornerRadius="6"
-                Padding="2"
-                Margin="2">
-            <Grid>
-                <!-- Обычные рецепты прикорма -->
-                <local:BaitRecipesPanel DataContext="{Binding BaitRecipesVM}" />
-            </Grid>
-        </Border>
+        <Grid Grid.Column="1" Margin="2">
+            <local:BaitRecipesPanel DataContext="{Binding BaitRecipesVM}" />
+        </Grid>
     </Grid>
 </UserControl>
