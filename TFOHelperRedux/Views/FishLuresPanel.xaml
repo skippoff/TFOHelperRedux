@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:helpers="clr-namespace:TFOHelperRedux.Helpers"
+             xmlns:conv="clr-namespace:TFOHelperRedux.Converters"
+             x:Name="ThisControl"
              mc:Ignorable="d"
              d:DesignHeight="600" d:DesignWidth="600">
 
@@ -70,11 +72,17 @@
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <CheckBox Content="{Binding Name}"
-                                                  IsChecked="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                   Tag="{Binding ID}"
                                                   Checked="Lure_Checked"
                                                   Unchecked="Lure_Unchecked"
-                                                  Margin="2"/>
+                                                  Margin="2">
+                                            <CheckBox.IsChecked>
+                                                <MultiBinding Converter="{StaticResource LureCheckedConverter}" Mode="OneWay" FallbackValue="False">
+                                                    <Binding Path="CatchPoint.LureIDs" RelativeSource="{RelativeSource AncestorType=UserControl}"/>
+                                                    <Binding Path="ID"/>
+                                                </MultiBinding>
+                                            </CheckBox.IsChecked>
+                                        </CheckBox>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
@@ -104,11 +112,17 @@
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <CheckBox Content="{Binding Name}"
-                                                  IsChecked="{Binding IsBestSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                   Tag="{Binding ID}"
                                                   Checked="BestLure_Checked"
                                                   Unchecked="BestLure_Unchecked"
-                                                  Margin="2"/>
+                                                  Margin="2">
+                                            <CheckBox.IsChecked>
+                                                <MultiBinding Converter="{StaticResource BestLureCheckedConverter}" Mode="OneWay" FallbackValue="False">
+                                                    <Binding Path="CatchPoint.BestLureIDs" RelativeSource="{RelativeSource AncestorType=UserControl}"/>
+                                                    <Binding Path="ID"/>
+                                                </MultiBinding>
+                                            </CheckBox.IsChecked>
+                                        </CheckBox>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>

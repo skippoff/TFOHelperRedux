@@ -91,6 +91,25 @@ public class CatchPointsViewModel : BaseViewModel
             // Явно триггерим обновление UI
             OnPropertyChanged(nameof(FilteredPoints));
             OnPropertyChanged(nameof(IsFiltered));
+            
+            // Автоматически выбираем первую точку лова для выбранной рыбы
+            // Если текущая точка не принадлежит новой рыбе — выбираем первую из отфильтрованных
+            var newCatchPoint = FilteredPoints.FirstOrDefault(cp => 
+                cp.FishIDs != null && cp.FishIDs.Contains(selectedFish.ID));
+            
+            if (newCatchPoint != null)
+            {
+                DataStore.Selection.SelectedCatchPoint = newCatchPoint;
+            }
+            else if (FilteredPoints.Count > 0)
+            {
+                DataStore.Selection.SelectedCatchPoint = FilteredPoints[0];
+            }
+            else
+            {
+                // Если у рыбы нет точек лова — очищаем выбор
+                DataStore.Selection.SelectedCatchPoint = null;
+            }
         }
         finally
         {

@@ -20,84 +20,40 @@ public class LureBindingService
     }
 
     /// <summary>
-    /// Добавляет наживку в список лучших для рыбы
+    /// Добавляет наживку в список лучших для точки лова
     /// </summary>
     public ServiceResult AttachLureToFish(LureModel lure, FishModel? selectedFish)
     {
-        if (selectedFish == null)
-        {
-            return ServiceResult.Failure("Сначала выберите рыбу в правой панели.");
-        }
-
-        selectedFish.BestLureIDs ??= Array.Empty<int>();
-
-        if (selectedFish.BestLureIDs.Contains(lure.ID))
-        {
-            return ServiceResult.Failure(
-                $"Наживка «{lure.Name}» уже есть в списке лучших для рыбы «{selectedFish.Name}».");
-        }
-
-        selectedFish.BestLureIDs = selectedFish.BestLureIDs
-            .Concat(new[] { lure.ID })
-            .Distinct()
-            .ToArray();
-
-        _loadSaveService.SaveFishes(DataStore.Fishes);
-
-        return ServiceResult.Success(
-            $"Наживка «{lure.Name}» добавлена в лучшие для рыбы «{selectedFish.Name}».");
+        // Примечание: BestLureIDs теперь хранятся в CatchPointModel, а не в FishModel
+        // Этот метод оставлен для обратной совместимости, но не выполняет никаких действий
+        return ServiceResult.Failure("BestLureIDs теперь хранятся в CatchPointModel. Используйте редактирование точки лова.");
     }
 
     /// <summary>
-    /// Удаляет наживку из списка лучших для рыбы
+    /// Удаляет наживку из списка лучших для точки лова
     /// </summary>
     public ServiceResult DetachLureFromFish(LureModel lure, FishModel? selectedFish)
     {
-        if (selectedFish == null)
-        {
-            return ServiceResult.Failure("Сначала выберите рыбу в правой панели.");
-        }
-
-        if (selectedFish.BestLureIDs == null || selectedFish.BestLureIDs.Length == 0)
-        {
-            return ServiceResult.Failure($"У рыбы «{selectedFish.Name}» ещё нет лучших наживок.");
-        }
-
-        if (!selectedFish.BestLureIDs.Contains(lure.ID))
-        {
-            return ServiceResult.Failure(
-                $"Наживки «{lure.Name}» нет в списке лучших для рыбы «{selectedFish.Name}».");
-        }
-
-        selectedFish.BestLureIDs = selectedFish.BestLureIDs
-            .Where(id => id != lure.ID)
-            .ToArray();
-
-        _loadSaveService.SaveFishes(DataStore.Fishes);
-
-        return ServiceResult.Success(
-            $"Наживка «{lure.Name}» убрана из лучших для рыбы «{selectedFish.Name}».");
+        // Примечание: BestLureIDs теперь хранятся в CatchPointModel, а не в FishModel
+        // Этот метод оставлен для обратной совместимости, но не выполняет никаких действий
+        return ServiceResult.Failure("BestLureIDs теперь хранятся в CatchPointModel. Используйте редактирование точки лова.");
     }
 
     /// <summary>
-    /// Получает лучшие магазинные наживки для рыбы
+    /// Получает лучшие магазинные наживки для точки лова
     /// </summary>
     public IEnumerable<LureModel> GetTopLuresForFish(FishModel? fish)
     {
-        if (fish == null || fish.BestLureIDs == null)
-            return Enumerable.Empty<LureModel>();
-
-        return DataStore.Lures.Where(l => fish.BestLureIDs.Contains(l.ID));
+        // Примечание: BestLureIDs теперь хранятся в CatchPointModel, а не в FishModel
+        return Enumerable.Empty<LureModel>();
     }
 
     /// <summary>
-    /// Получает лучшие крафтовые рецепты для рыбы
+    /// Получает лучшие крафтовые рецепты для точки лова
     /// </summary>
     public IEnumerable<BaitRecipeModel> GetTopRecipesForFish(FishModel? fish)
     {
-        if (fish == null || fish.BestRecipeIDs == null)
-            return Enumerable.Empty<BaitRecipeModel>();
-
-        return DataStore.BaitRecipes.Where(r => fish.BestRecipeIDs.Contains(r.ID));
+        // Примечание: BestRecipeIDs теперь хранятся в CatchPointModel, а не в FishModel
+        return Enumerable.Empty<BaitRecipeModel>();
     }
 }

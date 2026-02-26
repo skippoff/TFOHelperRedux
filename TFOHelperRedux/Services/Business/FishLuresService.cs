@@ -26,8 +26,9 @@ public class FishLuresService
         _selection = DataStore.Selection;
         _lureBindingService = lureBindingService;
 
-        // Подписка на изменения IsSelected у наживок
-        SubscribeToLureChanges();
+        // Подписка на изменения IsSelected у наживок ОТКЛЮЧЕНА
+        // Теперь наживки работают через CatchPoint.LureIDs и CatchPoint.BestLureIDs
+        // SubscribeToLureChanges();
 
         // Подписка на событие LuresSynced из SelectionState
         _selection.LuresSynced += () =>
@@ -41,57 +42,8 @@ public class FishLuresService
     /// </summary>
     public void HandleLureSelectionChanged(LureModel lure)
     {
-        if (_selection.IsSyncingLures)
-            return;
-
-        _selection.HandleLureSelectionChanged(lure);
-        LuresChanged?.Invoke();
-    }
-
-    /// <summary>
-    /// Подписка на изменения IsSelected у наживок
-    /// </summary>
-    private void SubscribeToLureChanges()
-    {
-        if (DataStore.Lures == null)
-            return;
-
-        foreach (var lure in DataStore.Lures)
-        {
-            if (lure is INotifyPropertyChanged npc)
-                npc.PropertyChanged += LureModel_PropertyChanged;
-        }
-
-        DataStore.Lures.CollectionChanged += (s, e) =>
-        {
-            if (e.NewItems != null)
-                foreach (var it in e.NewItems)
-                    if (it is INotifyPropertyChanged npc)
-                        npc.PropertyChanged += LureModel_PropertyChanged;
-
-            if (e.OldItems != null)
-                foreach (var it in e.OldItems)
-                    if (it is INotifyPropertyChanged npc)
-                        npc.PropertyChanged -= LureModel_PropertyChanged;
-        };
-    }
-
-    private void LureModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
-    {
-        if (_selection.IsSyncingLures)
-            return;
-
-        if (sender is not LureModel lure)
-            return;
-
-        if (e.PropertyName == nameof(LureModel.IsSelected))
-        {
-            HandleLureSelectionChanged(lure);
-        }
-        else if (e.PropertyName == nameof(LureModel.IsBestSelected))
-        {
-            HandleBestLureSelectionChanged(lure);
-        }
+        // Наживки теперь работают через CatchPoint.LureIDs
+        // Этот метод оставлен для обратной совместимости
     }
 
     /// <summary>
@@ -99,10 +51,7 @@ public class FishLuresService
     /// </summary>
     public void HandleBestLureSelectionChanged(LureModel lure)
     {
-        if (_selection.IsSyncingLures)
-            return;
-
-        _selection.HandleBestLureSelectionChanged(lure);
-        LuresChanged?.Invoke();
+        // Наживки теперь работают через CatchPoint.BestLureIDs
+        // Этот метод оставлен для обратной совместимости
     }
 }

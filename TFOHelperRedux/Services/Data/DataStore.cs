@@ -361,11 +361,9 @@ public static class DataStore
 
     private static void FishItem_PropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
-        if (e.PropertyName == nameof(FishModel.IsSelected) ||
-            e.PropertyName == nameof(FishModel.RecipeIDs) ||
-            e.PropertyName == nameof(FishModel.FeedIDs) ||
-            e.PropertyName == nameof(FishModel.LureIDs) ||
-            e.PropertyName == nameof(FishModel.DipIDs))
+        // Сохраняем при изменении основных свойств рыбы
+        // Примечание: RecipeIDs, FeedIDs, LureIDs, DipIDs теперь хранятся в CatchPointModel
+        if (e.PropertyName == nameof(FishModel.IsSelected))
         {
             _saveDebouncer?.ScheduleSaveFishes();
         }

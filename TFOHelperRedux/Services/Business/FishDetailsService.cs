@@ -33,7 +33,7 @@ public class FishDetailsService : INotifyPropertyChanged
 
         _selectedFeeds = new ObservableCollection<BaitModel>();
         _selectedRecipes = new ObservableCollection<BaitRecipeModel>();
-        RecipesForSelectedFish = new ObservableCollection<BaitRecipeModel>();
+        // RecipesForSelectedFish теперь возвращает _selectedRecipes
         MaybeCatchLures = new ObservableCollection<LureModel>();
         BestLures = new ObservableCollection<LureModel>();
 
@@ -56,11 +56,20 @@ public class FishDetailsService : INotifyPropertyChanged
             OnPropertyChanged(nameof(SelectedRecipes));
         };
 
-        // Подписка на изменения точки лова (для обновления BestLures)
+        // Подписка на изменения точки лова (для обновления всех коллекций)
         DataStore.Selection.SelectionChanged += () =>
         {
+            UpdateMaybeCatchLures();
             UpdateBestLures();
+            UpdateSelectedFeedsEfficient();
+            UpdateSelectedRecipesEfficient();
+            UpdateRecipesForSelectedFish();
+            
+            OnPropertyChanged(nameof(MaybeCatchLures));
             OnPropertyChanged(nameof(BestLures));
+            OnPropertyChanged(nameof(SelectedFeeds));
+            OnPropertyChanged(nameof(SelectedRecipes));
+            OnPropertyChanged(nameof(RecipesForSelectedFish));
         };
 
         // Подписка на изменения прикормок и рецептов из FishFeedsViewModel
@@ -125,8 +134,15 @@ public class FishDetailsService : INotifyPropertyChanged
     {
         if (MaybeCatchLures == null) return;
 
-        var fish = _selectionService.SelectedFish;
-        var newLureIds = fish?.LureIDs ?? Array.Empty<int>();
+        var newLureIds = Enumerable.Empty<int>();
+
+        // Используем LureIDs из выбранной точки лова
+        var catchPoint = _selectionService.SelectedCatchPoint;
+        if (catchPoint != null && catchPoint.LureIDs is { Length: > 0 })
+        {
+            newLureIds = catchPoint.LureIDs;
+        }
+
         var newSet = new HashSet<int>(newLureIds);
         var existingSet = new HashSet<int>(MaybeCatchLures.Select(l => l.ID));
 
@@ -138,16 +154,13 @@ public class FishDetailsService : INotifyPropertyChanged
         }
 
         // Добавляем новые наживки
-        if (fish?.LureIDs != null)
+        foreach (var lureId in newLureIds)
         {
-            foreach (var lureId in fish.LureIDs)
+            if (!existingSet.Contains(lureId))
             {
-                if (!existingSet.Contains(lureId))
-                {
-                    var lure = DataStore.Lures.FirstOrDefault(l => l.ID == lureId);
-                    if (lure != null)
-                        MaybeCatchLures.Add(lure);
-                }
+                var lure = DataStore.Lures.FirstOrDefault(l => l.ID == lureId);
+                if (lure != null)
+                    MaybeCatchLures.Add(lure);
             }
         }
     }
@@ -160,19 +173,12 @@ public class FishDetailsService : INotifyPropertyChanged
         if (BestLures == null) return;
 
         var newLureIds = Enumerable.Empty<int>();
-        
-        // 1) Если выбрана точка лова — используем её BestLureIDs
+
+        // Используем BestLureIDs из выбранной точки лова
         var catchPoint = _selectionService.SelectedCatchPoint;
         if (catchPoint != null && catchPoint.BestLureIDs is { Length: > 0 })
         {
             newLureIds = catchPoint.BestLureIDs;
-        }
-        else
-        {
-            // 2) Если точки лова нет, но выбрана рыба — показываем лучшие наживки рыбы
-            var fish = _selectionService.SelectedFish;
-            if (fish?.BestLureIDs != null)
-                newLureIds = fish.BestLureIDs;
         }
 
         var newSet = new HashSet<int>(newLureIds);
@@ -200,40 +206,15 @@ public class FishDetailsService : INotifyPropertyChanged
     /// <summary>
     /// Рецепты для выбранной рыбы
     /// </summary>
-    public ObservableCollection<BaitRecipeModel> RecipesForSelectedFish { get; }
+    public ObservableCollection<BaitRecipeModel> RecipesForSelectedFish => _selectedRecipes;
 
     /// <summary>
     /// Эффективное обновление коллекции рецептов для выбранной рыбы
     /// </summary>
     private void UpdateRecipesForSelectedFish()
     {
-        if (RecipesForSelectedFish == null) return;
-
-        var fish = _selectionService.SelectedFish;
-        var newRecipeIds = fish?.RecipeIDs ?? Array.Empty<int>();
-        var newSet = new HashSet<int>(newRecipeIds);
-        var existingSet = new HashSet<int>(RecipesForSelectedFish.Select(r => r.ID));
-
-        // Удаляем рецепты, которых больше нет
-        for (int i = RecipesForSelectedFish.Count - 1; i >= 0; i--)
-        {
-            if (!newSet.Contains(RecipesForSelectedFish[i].ID))
-                RecipesForSelectedFish.RemoveAt(i);
-        }
-
-        // Добавляем новые рецепты
-        if (fish?.RecipeIDs != null)
-        {
-            foreach (var recipeId in fish.RecipeIDs)
-            {
-                if (!existingSet.Contains(recipeId))
-                {
-                    var recipe = DataStore.BaitRecipes.FirstOrDefault(r => r.ID == recipeId);
-                    if (recipe != null)
-                        RecipesForSelectedFish.Add(recipe);
-                }
-            }
-        }
+        // Используем тот же метод, что и для прикормок
+        UpdateSelectedRecipesEfficient();
     }
 
     /// <summary>
@@ -274,14 +255,21 @@ public class FishDetailsService : INotifyPropertyChanged
     }
 
     /// <summary>
-    /// Эффективное обновление коллекции прикормок (без Clear + foreach)
+    /// Эффективное обновление коллекции прикормок
     /// </summary>
     private void UpdateSelectedFeedsEfficient()
     {
         if (_selectedFeeds == null) return;
 
-        var fish = _selectionService.SelectedFish;
-        var newFeedIds = fish?.FeedIDs ?? Array.Empty<int>();
+        var newFeedIds = Enumerable.Empty<int>();
+
+        // Используем FeedIDs из выбранной точки лова
+        var catchPoint = _selectionService.SelectedCatchPoint;
+        if (catchPoint != null && catchPoint.FeedIDs is { Length: > 0 })
+        {
+            newFeedIds = catchPoint.FeedIDs;
+        }
+
         var newSet = new HashSet<int>(newFeedIds);
         var existingSet = new HashSet<int>(_selectedFeeds.Select(f => f.ID));
 
@@ -293,29 +281,33 @@ public class FishDetailsService : INotifyPropertyChanged
         }
 
         // Добавляем новые прикормки
-        if (fish?.FeedIDs != null)
+        foreach (var feedId in newFeedIds)
         {
-            foreach (var feedId in fish.FeedIDs)
+            if (!existingSet.Contains(feedId))
             {
-                if (!existingSet.Contains(feedId))
-                {
-                    var feed = DataStore.Feeds.FirstOrDefault(f => f.ID == feedId);
-                    if (feed != null)
-                        _selectedFeeds.Add(feed);
-                }
+                var feed = DataStore.Feeds.FirstOrDefault(f => f.ID == feedId);
+                if (feed != null)
+                    _selectedFeeds.Add(feed);
             }
         }
     }
 
     /// <summary>
-    /// Эффективное обновление коллекции рецептов (без Clear + foreach)
+    /// Эффективное обновление коллекции рецептов
     /// </summary>
     private void UpdateSelectedRecipesEfficient()
     {
         if (_selectedRecipes == null) return;
 
-        var fish = _selectionService.SelectedFish;
-        var newRecipeIds = fish?.RecipeIDs ?? Array.Empty<int>();
+        var newRecipeIds = Enumerable.Empty<int>();
+
+        // Используем RecipeIDs из выбранной точки лова
+        var catchPoint = _selectionService.SelectedCatchPoint;
+        if (catchPoint != null && catchPoint.RecipeIDs is { Length: > 0 })
+        {
+            newRecipeIds = catchPoint.RecipeIDs;
+        }
+
         var newSet = new HashSet<int>(newRecipeIds);
         var existingSet = new HashSet<int>(_selectedRecipes.Select(r => r.ID));
 
@@ -327,16 +319,13 @@ public class FishDetailsService : INotifyPropertyChanged
         }
 
         // Добавляем новые рецепты
-        if (fish?.RecipeIDs != null)
+        foreach (var recipeId in newRecipeIds)
         {
-            foreach (var recipeId in fish.RecipeIDs)
+            if (!existingSet.Contains(recipeId))
             {
-                if (!existingSet.Contains(recipeId))
-                {
-                    var recipe = DataStore.BaitRecipes.FirstOrDefault(r => r.ID == recipeId);
-                    if (recipe != null)
-                        _selectedRecipes.Add(recipe);
-                }
+                var recipe = DataStore.BaitRecipes.FirstOrDefault(r => r.ID == recipeId);
+                if (recipe != null)
+                    _selectedRecipes.Add(recipe);
             }
         }
     }

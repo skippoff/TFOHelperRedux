@@ -41,6 +41,12 @@
             <conv:RecipeRankToStyleConverter x:Key="RecipeRankToStyleConverter"/>
             <conv:RecipeCompositionConverter x:Key="RecipeCompositionConverter"/>
             <conv:MapGroupConverter x:Key="MapGroupConverter"/>
+            <conv:FishCheckedConverter x:Key="FishCheckedConverter"/>
+            <conv:FeedCheckedConverter x:Key="FeedCheckedConverter"/>
+            <conv:DipCheckedConverter x:Key="DipCheckedConverter"/>
+            <conv:LureCheckedConverter x:Key="LureCheckedConverter"/>
+            <conv:BestLureCheckedConverter x:Key="BestLureCheckedConverter"/>
+            <conv:RecipeCheckedConverter x:Key="RecipeCheckedConverter"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

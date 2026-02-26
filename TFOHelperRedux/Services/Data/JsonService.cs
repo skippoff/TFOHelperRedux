@@ -32,7 +32,15 @@ public static class JsonService
         try
         {
             var json = File.ReadAllText(path);
-            _log.Verbose("Прочитано {Bytes} байт из {Path}", new FileInfo(path).Length, path);
+            var fileSize = new FileInfo(path).Length;
+            _log.Verbose("Прочитано {Bytes} байт из {Path}", fileSize, path);
+
+            // Пустой файл — считаем как отсутствующий
+            if (string.IsNullOrWhiteSpace(json))
+            {
+                _log.Debug("Файл пустой: {Path}", path);
+                return default;
+            }
 
             var result = JsonSerializer.Deserialize<T>(json, _opts);
             _log.Verbose("JSON успешно десериализован в {Type}", typeof(T).Name);
@@ -64,17 +72,25 @@ public static class JsonService
         try
         {
             await using var fileStream = new FileStream(
-                path, 
-                FileMode.Open, 
-                FileAccess.Read, 
-                FileShare.Read, 
-                bufferSize: 4096, 
+                path,
+                FileMode.Open,
+                FileAccess.Read,
+                FileShare.Read,
+                bufferSize: 4096,
                 useAsync: true);
-            
+
             using var reader = new StreamReader(fileStream);
             var json = await reader.ReadToEndAsync();
-            
-            _log.Verbose("Прочитано {Bytes} байт из {Path}", new FileInfo(path).Length, path);
+
+            var fileSize = new FileInfo(path).Length;
+            _log.Verbose("Прочитано {Bytes} байт из {Path}", fileSize, path);
+
+            // Пустой файл — считаем как отсутствующий
+            if (string.IsNullOrWhiteSpace(json))
+            {
+                _log.Debug("Файл пустой: {Path}", path);
+                return default;
+            }
 
             var result = JsonSerializer.Deserialize<T>(json, _opts);
             _log.Verbose("JSON успешно десериализован в {Type}", typeof(T).Name);

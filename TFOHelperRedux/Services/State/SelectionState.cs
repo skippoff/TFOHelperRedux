@@ -157,45 +157,12 @@ public class SelectionState
     }
 
     /// <summary>
-    /// Синхронизирует чекбоксы наживок с LureIDs и BestLureIDs выбранной рыбы
+    /// Синхронизирует чекбоксы наживок с LureIDs и BestLureIDs выбранной точки лова
     /// </summary>
     private void SyncLuresWithFish(FishModel? fish, ObservableCollection<LureModel> lures)
     {
-        if (lures == null)
-            return;
-
-        _isSyncingLures = true;
-        try
-        {
-            // Используем HashSet для O(1) поиска вместо O(n) Contains
-            var lureIdsSet = fish?.LureIDs != null && fish.LureIDs.Length > 0 
-                ? new HashSet<int>(fish.LureIDs) 
-                : null;
-                
-            var bestLureIdsSet = fish?.BestLureIDs != null && fish.BestLureIDs.Length > 0 
-                ? new HashSet<int>(fish.BestLureIDs) 
-                : null;
-
-            foreach (var lure in lures)
-            {
-                // Быстрая проверка через HashSet.ContainsKey вместо Array.Contains
-                var shouldBeSelected = lureIdsSet?.Contains(lure.ID) ?? false;
-                var shouldBeBestSelected = bestLureIdsSet?.Contains(lure.ID) ?? false;
-
-                // Устанавливаем только если значение изменилось (избегаем лишних уведомлений)
-                if (lure.IsSelected != shouldBeSelected)
-                    lure.IsSelected = shouldBeSelected;
-                    
-                if (lure.IsBestSelected != shouldBeBestSelected)
-                    lure.IsBestSelected = shouldBeBestSelected;
-            }
-        }
-        finally
-        {
-            _isSyncingLures = false;
-        }
-
-        LuresSynced?.Invoke();
+        // Синхронизация наживок теперь осуществляется через CatchPointModel, а не FishModel
+        // Этот метод оставлен для обратной совместимости, но не выполняет никаких действий
     }
 
     /// <summary>
@@ -208,33 +175,8 @@ public class SelectionState
     /// </summary>
     public void HandleLureSelectionChanged(LureModel lure, bool saveChanges = true)
     {
-        if (_isSyncingLures || SelectedFish == null)
-            return;
-
-        var ids = SelectedFish.LureIDs ?? Array.Empty<int>();
-
-        if (lure.IsSelected)
-        {
-            if (!ids.Contains(lure.ID))
-            {
-                SelectedFish.LureIDs = ids.Concat(new[] { lure.ID }).Distinct().ToArray();
-                if (saveChanges)
-                    DataService.SaveFishes(DataStore.Fishes);
-                // Уведомляем об изменении свойства для обновления UI
-                SelectedFish.NotifyPropertyChanged(nameof(SelectedFish.LureIDs));
-            }
-        }
-        else
-        {
-            if (ids.Contains(lure.ID))
-            {
-                SelectedFish.LureIDs = ids.Where(id => id != lure.ID).ToArray();
-                if (saveChanges)
-                    DataService.SaveFishes(DataStore.Fishes);
-                // Уведомляем об изменении свойства для обновления UI
-                SelectedFish.NotifyPropertyChanged(nameof(SelectedFish.LureIDs));
-            }
-        }
+        // Обработка изменения наживок теперь осуществляется через CatchPointModel, а не FishModel
+        // Этот метод оставлен для обратной совместимости, но не выполняет никаких действий
     }
 
     /// <summary>
@@ -242,32 +184,7 @@ public class SelectionState
     /// </summary>
     public void HandleBestLureSelectionChanged(LureModel lure, bool saveChanges = true)
     {
-        if (_isSyncingLures || SelectedFish == null)
-            return;
-
-        var ids = SelectedFish.BestLureIDs ?? Array.Empty<int>();
-
-        if (lure.IsBestSelected)
-        {
-            if (!ids.Contains(lure.ID))
-            {
-                SelectedFish.BestLureIDs = ids.Concat(new[] { lure.ID }).Distinct().ToArray();
-                if (saveChanges)
-                    DataService.SaveFishes(DataStore.Fishes);
-                // Уведомляем об изменении свойства для обновления UI
-                SelectedFish.NotifyPropertyChanged(nameof(SelectedFish.BestLureIDs));
-            }
-        }
-        else
-        {
-            if (ids.Contains(lure.ID))
-            {
-                SelectedFish.BestLureIDs = ids.Where(id => id != lure.ID).ToArray();
-                if (saveChanges)
-                    DataService.SaveFishes(DataStore.Fishes);
-                // Уведомляем об изменении свойства для обновления UI
-                SelectedFish.NotifyPropertyChanged(nameof(SelectedFish.BestLureIDs));
-            }
-        }
+        // Обработка изменения лучших наживок теперь осуществляется через CatchPointModel, а не FishModel
+        // Этот метод оставлен для обратной совместимости, но не выполняет никаких действий
     }
 }

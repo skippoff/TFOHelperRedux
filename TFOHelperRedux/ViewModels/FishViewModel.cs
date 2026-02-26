@@ -307,6 +307,13 @@ namespace TFOHelperRedux.ViewModels
                 OnPropertyChanged(nameof(SelectedCatchPointFeeds));
                 OnPropertyChanged(nameof(SelectedCatchPointRecipes));
                 OnPropertyChanged(nameof(FishImage));
+                
+                // Обновляем наживки и прикормки из DetailsService
+                OnPropertyChanged(nameof(MaybeCatchLures));
+                OnPropertyChanged(nameof(BestLures));
+                OnPropertyChanged(nameof(SelectedFeeds));
+                OnPropertyChanged(nameof(SelectedRecipes));
+                OnPropertyChanged(nameof(RecipesForSelectedFish));
 
                 // Обновляем график
                 UpdateChart();

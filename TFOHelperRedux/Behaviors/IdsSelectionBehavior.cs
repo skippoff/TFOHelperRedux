@@ -9,7 +9,7 @@ namespace TFOHelperRedux.Behaviors
 {
     public static class IdsSelectionBehavior
     {
-        // Источник: массив ID (напр. SelectedFish.FeedIDs / DipIDs)
+        // Источник: массив ID (теперь используется только для CatchPointModel)
         public static readonly DependencyProperty SourceProperty =
             DependencyProperty.RegisterAttached(
                 "Source",
@@ -87,15 +87,6 @@ namespace TFOHelperRedux.Behaviors
             {
                 if (!ids.Contains(id)) return;
                 next = ids.Where(x => x != id).ToArray();
-            }
-
-            // Переприсваиваем массив обратно в нужное свойство у FishModel
-            // Определяем, каким именно массивом управляет данный чекбокс по ReferenceEquals
-            if (fish != null)
-            {
-                if (ReferenceEquals(ids, fish.FeedIDs)) fish.FeedIDs = next;
-                else if (ReferenceEquals(ids, fish.DipIDs)) fish.DipIDs = next;
-                else if (ReferenceEquals(ids, fish.LureIDs)) fish.LureIDs = next;
             }
 
             // Обновим Source DP у чекбокса, чтобы IsChecked пересчитался

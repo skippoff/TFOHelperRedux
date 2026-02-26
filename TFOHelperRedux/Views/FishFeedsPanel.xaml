@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:helpers="clr-namespace:TFOHelperRedux.Helpers"
+             xmlns:conv="clr-namespace:TFOHelperRedux.Converters"
+             x:Name="ThisControl"
              mc:Ignorable="d"
              d:DesignHeight="600" d:DesignWidth="600">
 
@@ -42,8 +44,21 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <CheckBox Content="{Binding Name}"
-                                          IsChecked="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                          Margin="2"/>
+                                          Tag="{Binding ID}">
+                                    <CheckBox.IsChecked>
+                                        <MultiBinding Converter="{StaticResource FeedCheckedConverter}" Mode="OneWay" FallbackValue="False">
+                                            <Binding Path="CatchPoint" RelativeSource="{RelativeSource AncestorType=UserControl}"/>
+                                            <Binding Path="ID"/>
+                                        </MultiBinding>
+                                    </CheckBox.IsChecked>
+                                    <CheckBox.Style>
+                                        <Style TargetType="CheckBox">
+                                            <EventSetter Event="Checked" Handler="Feed_Checked"/>
+                                            <EventSetter Event="Unchecked" Handler="Feed_Unchecked"/>
+                                            <Setter Property="Margin" Value="2"/>
+                                        </Style>
+                                    </CheckBox.Style>
+                                </CheckBox>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
@@ -63,8 +78,21 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <CheckBox Content="{Binding Name}"
-                                          IsChecked="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                          Margin="2"/>
+                                          Tag="{Binding ID}">
+                                    <CheckBox.IsChecked>
+                                        <MultiBinding Converter="{StaticResource RecipeCheckedConverter}" Mode="OneWay" FallbackValue="False">
+                                            <Binding Path="CatchPoint" RelativeSource="{RelativeSource AncestorType=UserControl}"/>
+                                            <Binding Path="ID"/>
+                                        </MultiBinding>
+                                    </CheckBox.IsChecked>
+                                    <CheckBox.Style>
+                                        <Style TargetType="CheckBox">
+                                            <EventSetter Event="Checked" Handler="Recipe_Checked"/>
+                                            <EventSetter Event="Unchecked" Handler="Recipe_Unchecked"/>
+                                            <Setter Property="Margin" Value="2"/>
+                                        </Style>
+                                    </CheckBox.Style>
+                                </CheckBox>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>

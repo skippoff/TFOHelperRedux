@@ -28,7 +28,7 @@ public class CatchPointModel : INotifyPropertyChanged
     public void OnPropertyChanged([CallerMemberName] string? propertyName = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        
+
         // Триггерим зависимые свойства
         if (propertyName is nameof(Trophy) or nameof(Tournament) or nameof(Cautious))
         {
@@ -72,31 +72,31 @@ public class CatchPointModel : INotifyPropertyChanged
 
     public int[] LureIDs
     {
-        get => _lureIds;
+        get => _lureIds ?? Array.Empty<int>();
         set { _lureIds = value; OnPropertyChanged(); }
     }
 
     public int[] FeedIDs
     {
-        get => _feedIds;
+        get => _feedIds ?? Array.Empty<int>();
         set { _feedIds = value; OnPropertyChanged(); }
     }
 
     public int[] BestLureIDs
     {
-        get => _bestLureIds;
+        get => _bestLureIds ?? Array.Empty<int>();
         set { _bestLureIds = value; OnPropertyChanged(); }
     }
 
     public int[] DipsIDs
     {
-        get => _dipsIds;
+        get => _dipsIds ?? Array.Empty<int>();
         set { _dipsIds = value; OnPropertyChanged(); }
     }
 
     public int[] RecipeIDs
     {
-        get => _recipeIds;
+        get => _recipeIds ?? Array.Empty<int>();
         set { _recipeIds = value; OnPropertyChanged(); }
     }
 

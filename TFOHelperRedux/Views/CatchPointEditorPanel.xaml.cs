@@ -254,8 +254,11 @@ namespace TFOHelperRedux.Views
             double.TryParse(tbClip.Text.Replace(",", "."), System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out var clip);
 
             var fish = DataStore.Fishes.Where(f => f.IsSelected).Select(f => f.ID).ToArray();
-            var lures = DataStore.Lures.Where(l => l.IsSelected).Select(l => l.ID).ToArray();
-            var bestLures = DataStore.Lures.Where(l => l.IsBestSelected).Select(l => l.ID).ToArray();
+            
+            // Берём наживки из CatchPoint, а не из IsSelected моделей
+            var lures = _point?.LureIDs ?? Array.Empty<int>();
+            var bestLures = _point?.BestLureIDs ?? Array.Empty<int>();
+            
             var feeds = DataStore.Feeds.Where(f => f.IsSelected).Select(f => f.ID).ToArray();
             var dips = DataStore.Dips.Where(d => d.IsSelected).Select(d => d.ID).ToArray();
 

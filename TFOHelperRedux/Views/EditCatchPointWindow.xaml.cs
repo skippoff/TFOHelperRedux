@@ -55,17 +55,6 @@ namespace TFOHelperRedux.Views
                 }
             }
 
-            // Восстанавливаем чекбоксы прикормок из первой выбранной рыбы
-            var selectedFish = DataStore.Fishes.FirstOrDefault(f => f.IsSelected);
-            if (selectedFish != null && RightPanel.DataContext is TFOHelperRedux.ViewModels.FishFeedsViewModel feedsVM)
-            {
-                // Синхронизируем чекбоксы с данными рыбы
-                feedsVM.SyncWithFish(selectedFish);
-            }
-
-            // Синхронизируем чекбоксы наживок с данными ТОЧКИ ЛОВА, а не рыбы
-            SyncLuresWithCatchPoint(_point);
-
             // Инициализация левой панели (она сама заполнит cmbMap)
             LeftPanel.PointSaved += (s, savedPoint) =>
             {
@@ -102,19 +91,10 @@ namespace TFOHelperRedux.Views
                 // Сначала получаем RecipeIDs и FeedIDs из FishFeedsPanel
                 var recipeIds = RightPanel.SelectedRecipeIds;
                 var feedIds = RightPanel.SelectedFeedIds;
-                
+
                 var point = LeftPanel.SavePoint();
 
-                // Сохраняем прикормки в первую выбранную рыбу (глобальные связи по рыбе)
-                var selectedFish = DataStore.Fishes.FirstOrDefault(f => f.IsSelected);
-                if (selectedFish != null)
-                {
-                    selectedFish.FeedIDs = feedIds;
-                    selectedFish.RecipeIDs = recipeIds;
-                    DataService.SaveFishes(DataStore.Fishes);
-                }
-                
-                // Для точки лова сохраняем только те прикормки, которые выбраны для рыбы
+                // Для точки лова сохраняем прикормки
                 point.FeedIDs = feedIds;
                 point.RecipeIDs = recipeIds;
 
@@ -161,68 +141,6 @@ namespace TFOHelperRedux.Views
             catch (Exception ex)
             {
                 MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        /// <summary>
-        /// Синхронизирует чекбоксы наживок с LureIDs и BestLureIDs выбранной рыбы
-        /// </summary>
-        private void SyncLuresWithFish(FishModel fish)
-        {
-            if (DataStore.Lures == null)
-                return;
-
-            var lureIdsSet = fish.LureIDs != null && fish.LureIDs.Length > 0
-                ? new HashSet<int>(fish.LureIDs)
-                : null;
-
-            var bestLureIdsSet = fish.BestLureIDs != null && fish.BestLureIDs.Length > 0
-                ? new HashSet<int>(fish.BestLureIDs)
-                : null;
-
-            foreach (var lure in DataStore.Lures)
-            {
-                var shouldBeSelected = lureIdsSet?.Contains(lure.ID) ?? false;
-                var shouldBeBestSelected = bestLureIdsSet?.Contains(lure.ID) ?? false;
-
-                if (lure.IsSelected != shouldBeSelected)
-                    lure.IsSelected = shouldBeSelected;
-
-                if (lure.IsBestSelected != shouldBeBestSelected)
-                    lure.IsBestSelected = shouldBeBestSelected;
-            }
-        }
-
-        /// <summary>
-        /// Синхронизирует чекбоксы наживок с LureIDs и BestLureIDs точки лова
-        /// Оптимизированная версия — использует HashSet для быстрого поиска
-        /// </summary>
-        private void SyncLuresWithCatchPoint(CatchPointModel point)
-        {
-            if (DataStore.Lures == null || DataStore.Lures.Count == 0)
-                return;
-
-            // Создаём HashSet для быстрого поиска O(1) вместо O(n)
-            var lureIdsSet = point.LureIDs != null && point.LureIDs.Length > 0
-                ? new HashSet<int>(point.LureIDs)
-                : null;
-
-            var bestLureIdsSet = point.BestLureIDs != null && point.BestLureIDs.Length > 0
-                ? new HashSet<int>(point.BestLureIDs)
-                : null;
-
-            // Обновляем только те наживки, у которых изменилось состояние
-            foreach (var lure in DataStore.Lures)
-            {
-                var shouldBeSelected = lureIdsSet?.Contains(lure.ID) ?? false;
-                var shouldBeBestSelected = bestLureIdsSet?.Contains(lure.ID) ?? false;
-
-                // Обновляем только если значение отличается (избегаем лишних уведомлений)
-                if (lure.IsSelected != shouldBeSelected)
-                    lure.IsSelected = shouldBeSelected;
-
-                if (lure.IsBestSelected != shouldBeBestSelected)
-                    lure.IsBestSelected = shouldBeBestSelected;
             }
         }
     }

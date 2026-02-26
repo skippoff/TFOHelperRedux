@@ -95,62 +95,50 @@ namespace TFOHelperRedux.Views
 
         private void Lure_Checked(object sender, RoutedEventArgs e)
         {
-            // Если установлена точка лова — сохраняем в неё
-            if (CatchPoint != null)
-            {
-                var lureIds = CatchPoint.LureIDs?.ToList() ?? new List<int>();
-                if (sender is CheckBox cb && cb.Tag is int lureId && !lureIds.Contains(lureId))
-                    lureIds.Add(lureId);
-                CatchPoint.LureIDs = lureIds.Distinct().ToArray();
-                // Сохранение через SaveDebouncer
-                DataStore.SaveAll();
-            }
-            // Для рыбы сохранение работает автоматически через SaveDebouncer (PropertyChange)
+            UpdateLureIds(sender, true, false);
         }
 
         private void Lure_Unchecked(object sender, RoutedEventArgs e)
         {
-            // Если установлена точка лова — сохраняем в неё
-            if (CatchPoint != null)
-            {
-                var lureIds = CatchPoint.LureIDs?.ToList() ?? new List<int>();
-                if (sender is CheckBox cb && cb.Tag is int lureId && lureIds.Contains(lureId))
-                    lureIds.Remove(lureId);
-                CatchPoint.LureIDs = lureIds.Distinct().ToArray();
-                // Сохранение через SaveDebouncer
-                DataStore.SaveAll();
-            }
-            // Для рыбы сохранение работает автоматически через SaveDebouncer (PropertyChange)
+            UpdateLureIds(sender, false, false);
         }
 
         private void BestLure_Checked(object sender, RoutedEventArgs e)
         {
-            // Если установлена точка лова — сохраняем в неё
-            if (CatchPoint != null)
-            {
-                var bestLureIds = CatchPoint.BestLureIDs?.ToList() ?? new List<int>();
-                if (sender is CheckBox cb && cb.Tag is int lureId && !bestLureIds.Contains(lureId))
-                    bestLureIds.Add(lureId);
-                CatchPoint.BestLureIDs = bestLureIds.Distinct().ToArray();
-                // Сохранение через SaveDebouncer
-                DataStore.SaveAll();
-            }
-            // Для рыбы сохранение работает автоматически через SaveDebouncer (PropertyChange)
+            UpdateLureIds(sender, true, true);
         }
 
         private void BestLure_Unchecked(object sender, RoutedEventArgs e)
         {
-            // Если установлена точка лова — сохраняем в неё
-            if (CatchPoint != null)
+            UpdateLureIds(sender, false, true);
+        }
+
+        /// <summary>
+        /// Универсальный метод обновления массивов ID наживок
+        /// </summary>
+        private void UpdateLureIds(object sender, bool isChecked, bool isBestLure)
+        {
+            if (CatchPoint == null || sender is not CheckBox cb || cb.Tag is not int lureId)
+                return;
+
+            var currentIds = isBestLure ? CatchPoint.BestLureIDs : CatchPoint.LureIDs;
+            var list = currentIds?.ToList() ?? new List<int>();
+
+            if (isChecked && !list.Contains(lureId))
+                list.Add(lureId);
+            else if (!isChecked && list.Contains(lureId))
+                list.Remove(lureId);
+
+            if (isBestLure)
             {
-                var bestLureIds = CatchPoint.BestLureIDs?.ToList() ?? new List<int>();
-                if (sender is CheckBox cb && cb.Tag is int lureId && bestLureIds.Contains(lureId))
-                    bestLureIds.Remove(lureId);
-                CatchPoint.BestLureIDs = bestLureIds.Distinct().ToArray();
-                // Сохранение через SaveDebouncer
-                DataStore.SaveAll();
+                CatchPoint.BestLureIDs = list.ToArray();
+                CatchPoint.OnPropertyChanged(nameof(CatchPoint.BestLureIDs));
             }
-            // Для рыбы сохранение работает автоматически через SaveDebouncer (PropertyChange)
+            else
+            {
+                CatchPoint.LureIDs = list.ToArray();
+                CatchPoint.OnPropertyChanged(nameof(CatchPoint.LureIDs));
+            }
         }
     }
 }

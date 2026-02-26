@@ -24,10 +24,10 @@ namespace TFOHelperRedux.Views
         {
             get
             {
-                if (DataContext is FishFeedsViewModel vm)
-                {
-                    return vm.Recipes.Where(r => r.IsSelected).Select(r => r.ID).ToArray();
-                }
+                // В режиме точки лова возвращаем RecipeIDs из точки
+                if (CatchPoint != null)
+                    return CatchPoint.RecipeIDs ?? Array.Empty<int>();
+
                 return Array.Empty<int>();
             }
         }
@@ -39,10 +39,10 @@ namespace TFOHelperRedux.Views
         {
             get
             {
-                if (DataContext is FishFeedsViewModel vm)
-                {
-                    return vm.Feeds.Where(f => f.IsSelected).Select(f => f.ID).ToArray();
-                }
+                // В режиме точки лова возвращаем FeedIDs из точки
+                if (CatchPoint != null)
+                    return CatchPoint.FeedIDs ?? Array.Empty<int>();
+
                 return Array.Empty<int>();
             }
         }
@@ -65,6 +65,54 @@ namespace TFOHelperRedux.Views
             if (DataContext is FishFeedsViewModel vm)
             {
                 vm.SearchText = tbSearch.Text;
+            }
+        }
+
+        private void Feed_Checked(object sender, RoutedEventArgs e)
+        {
+            if (CatchPoint != null && sender is CheckBox cb && cb.Tag is int feedId)
+            {
+                var list = CatchPoint.FeedIDs?.ToList() ?? new List<int>();
+                if (!list.Contains(feedId))
+                    list.Add(feedId);
+                CatchPoint.FeedIDs = list.ToArray();
+                CatchPoint.OnPropertyChanged(nameof(CatchPoint.FeedIDs));
+            }
+        }
+
+        private void Feed_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (CatchPoint != null && sender is CheckBox cb && cb.Tag is int feedId)
+            {
+                var list = CatchPoint.FeedIDs?.ToList() ?? new List<int>();
+                if (list.Contains(feedId))
+                    list.Remove(feedId);
+                CatchPoint.FeedIDs = list.ToArray();
+                CatchPoint.OnPropertyChanged(nameof(CatchPoint.FeedIDs));
+            }
+        }
+
+        private void Recipe_Checked(object sender, RoutedEventArgs e)
+        {
+            if (CatchPoint != null && sender is CheckBox cb && cb.Tag is int recipeId)
+            {
+                var list = CatchPoint.RecipeIDs?.ToList() ?? new List<int>();
+                if (!list.Contains(recipeId))
+                    list.Add(recipeId);
+                CatchPoint.RecipeIDs = list.ToArray();
+                CatchPoint.OnPropertyChanged(nameof(CatchPoint.RecipeIDs));
+            }
+        }
+
+        private void Recipe_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (CatchPoint != null && sender is CheckBox cb && cb.Tag is int recipeId)
+            {
+                var list = CatchPoint.RecipeIDs?.ToList() ?? new List<int>();
+                if (list.Contains(recipeId))
+                    list.Remove(recipeId);
+                CatchPoint.RecipeIDs = list.ToArray();
+                CatchPoint.OnPropertyChanged(nameof(CatchPoint.RecipeIDs));
             }
         }
     }
