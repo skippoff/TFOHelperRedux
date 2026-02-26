@@ -20,7 +20,7 @@
         <Grid Grid.Column="0" Margin="2">
             <ListBox ItemsSource="{Binding BaitsVM.CurrentItems}"
                      SelectedItem="{Binding BaitsVM.SelectedItem, Mode=TwoWay}"
-                     Background="Transparent"
+                     Background="{DynamicResource PanelBackground}"
                      BorderThickness="0"
                      ItemContainerStyle="{StaticResource RoundedCardStyle}"
                      ScrollViewer.VerticalScrollBarVisibility="Auto"

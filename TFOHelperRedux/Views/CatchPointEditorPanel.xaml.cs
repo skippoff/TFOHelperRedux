@@ -96,6 +96,9 @@ namespace TFOHelperRedux.Views
 
         private void Fish_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
+            if (_isLoading)
+                return;
+
             if (e.PropertyName == nameof(FishModel.IsSelected))
             {
                 // обновляем поля веса при смене выбора рыбы
@@ -185,58 +188,68 @@ namespace TFOHelperRedux.Views
             }
         }
 
+        private bool _isLoading = false;
+
         public void LoadPoint(CatchPointModel? point)
         {
-            _point = point ?? new CatchPointModel();
-
-            // Сброс состояний
-            foreach (var f in DataStore.Fishes) f.IsSelected = _point.FishIDs?.Contains(f.ID) == true;
-            foreach (var l in DataStore.Lures)
+            _isLoading = true;
+            try
             {
-                l.IsSelected = _point.LureIDs?.Contains(l.ID) == true;
-                l.IsBestSelected = _point.BestLureIDs?.Contains(l.ID) == true;
+                _point = point ?? new CatchPointModel();
+
+                // Сброс состояний (без уведомлений, т.к. _isLoading = true)
+                foreach (var f in DataStore.Fishes) f.IsSelected = _point.FishIDs?.Contains(f.ID) == true;
+                foreach (var l in DataStore.Lures)
+                {
+                    l.IsSelected = _point.LureIDs?.Contains(l.ID) == true;
+                    l.IsBestSelected = _point.BestLureIDs?.Contains(l.ID) == true;
+                }
+                foreach (var b in DataStore.Feeds) b.IsSelected = _point.FeedIDs?.Contains(b.ID) == true;
+                foreach (var d in DataStore.Dips) d.IsSelected = _point.DipsIDs?.Contains(d.ID) == true;
+
+                // Выбранная карта
+                cmbMap.SelectedItem = DataStore.Maps.FirstOrDefault(m => m.ID == _point.MapID);
+
+                // Координаты
+                tbX.Text = _point.Coords?.X.ToString() ?? string.Empty;
+                tbY.Text = _point.Coords?.Y.ToString() ?? string.Empty;
+
+                // глубина
+                tbDepth.Text = _point.DepthValue > 0 ? _point.DepthValue.ToString("0.0") : string.Empty;
+                // клипса
+                tbClip.Text = _point.ClipValue > 0 ? _point.ClipValue.ToString("0.0") : string.Empty;
+
+                tbComment.Text = _point.Comment ?? string.Empty;
+
+                cbTrophy.IsChecked = _point.Trophy;
+                cbTournament.IsChecked = _point.Tournament;
+                cbCautious.IsChecked = _point.Cautious;
+
+                cbMorning.IsChecked = _point.Times?.Contains(1) == true;
+                cbDay.IsChecked = _point.Times?.Contains(2) == true;
+                cbEvening.IsChecked = _point.Times?.Contains(3) == true;
+                cbNight.IsChecked = _point.Times?.Contains(4) == true;
+
+                cbRodSpinning.IsChecked = _point.Rods?.Contains(1) == true;
+                cbRodFeeder.IsChecked = _point.Rods?.Contains(2) == true;
+                cbRodFloat.IsChecked = _point.Rods?.Contains(3) == true;
+                cbRodFly.IsChecked = _point.Rods?.Contains(4) == true;
+                cbRodSea.IsChecked = _point.Rods?.Contains(5) == true;
+
+                // Обновляем поля веса в зависимости от выбранных рыб
+                UpdateWeightFieldsFromSelection();
+
+                // Если в точке не выбрана ни одна рыба, заполнить поля значениями из глобально выбранной рыбы (DataStore.Selection.SelectedFish)
+                var anySelected = DataStore.Fishes.Any(f => f.IsSelected);
+                if (!anySelected && DataStore.Selection.SelectedFish != null)
+                {
+                    SelectedLargeText = DataStore.Selection.SelectedFish.WeightLarge.ToString();
+                    SelectedTrophyText = DataStore.Selection.SelectedFish.WeightTrophy.ToString();
+                }
             }
-            foreach (var b in DataStore.Feeds) b.IsSelected = _point.FeedIDs?.Contains(b.ID) == true;
-            foreach (var d in DataStore.Dips) d.IsSelected = _point.DipsIDs?.Contains(d.ID) == true;
-
-            // Выбранная карта
-            cmbMap.SelectedItem = DataStore.Maps.FirstOrDefault(m => m.ID == _point.MapID);
-
-            // Координаты
-            tbX.Text = _point.Coords?.X.ToString() ?? string.Empty;
-            tbY.Text = _point.Coords?.Y.ToString() ?? string.Empty;
-
-            // глубина
-            tbDepth.Text = _point.DepthValue > 0 ? _point.DepthValue.ToString("0.0") : string.Empty;
-            // клипса
-            tbClip.Text = _point.ClipValue > 0 ? _point.ClipValue.ToString("0.0") : string.Empty;
-
-            tbComment.Text = _point.Comment ?? string.Empty;
-
-            cbTrophy.IsChecked = _point.Trophy;
-            cbTournament.IsChecked = _point.Tournament;
-            cbCautious.IsChecked = _point.Cautious;
-
-            cbMorning.IsChecked = _point.Times?.Contains(1) == true;
-            cbDay.IsChecked = _point.Times?.Contains(2) == true;
-            cbEvening.IsChecked = _point.Times?.Contains(3) == true;
-            cbNight.IsChecked = _point.Times?.Contains(4) == true;
-
-            cbRodSpinning.IsChecked = _point.Rods?.Contains(1) == true;
-            cbRodFeeder.IsChecked = _point.Rods?.Contains(2) == true;
-            cbRodFloat.IsChecked = _point.Rods?.Contains(3) == true;
-            cbRodFly.IsChecked = _point.Rods?.Contains(4) == true;
-            cbRodSea.IsChecked = _point.Rods?.Contains(5) == true;
-
-            // Обновляем поля веса в зависимости от выбранных рыб
-            UpdateWeightFieldsFromSelection();
-
-            // Если в точке не выбрана ни одна рыба, заполнить поля значениями из глобально выбранной рыбы (DataStore.Selection.SelectedFish)
-            var anySelected = DataStore.Fishes.Any(f => f.IsSelected);
-            if (!anySelected && DataStore.Selection.SelectedFish != null)
+            finally
             {
-                SelectedLargeText = DataStore.Selection.SelectedFish.WeightLarge.ToString();
-                SelectedTrophyText = DataStore.Selection.SelectedFish.WeightTrophy.ToString();
+                _isLoading = false;
             }
         }
 
