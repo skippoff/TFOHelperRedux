@@ -13,8 +13,7 @@
         Background="{DynamicResource AppBackground}"
         FontFamily="Segoe UI" FontSize="14">
 
-    <Border BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1" CornerRadius="6" Padding="10" Background="{DynamicResource PanelBackground}">
-        <Grid Margin="10">
+    <Grid Margin="10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
@@ -81,5 +80,4 @@
                         Click="Save_Click"/>
             </StackPanel>
         </Grid>
-    </Border>
 </Window>
