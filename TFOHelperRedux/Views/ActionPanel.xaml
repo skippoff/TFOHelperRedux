@@ -35,5 +35,11 @@
                 Style="{StaticResource EditButton}"
                 Tag="{StaticResource IconEdit}"
                 ToolTip="Добавить точку лова"/>
+        <Button Content="Настройки"
+                Command="{Binding NavigationVM.SettingsCmd}"
+                Style="{StaticResource ImportButton}"
+                Tag="{StaticResource IconSettings}"
+                Margin="12,0,0,0"
+                ToolTip="Настройки пользователя"/>
     </StackPanel>
 </UserControl>

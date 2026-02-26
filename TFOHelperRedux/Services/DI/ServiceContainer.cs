@@ -72,6 +72,10 @@ public static class ServiceContainer
         services.AddSingleton<ThemeService>();
         _log.Verbose("Зарегистрирован IUIService и ThemeService");
 
+        // Сервис настроек пользователя
+        services.AddSingleton<SettingsService>();
+        _log.Verbose("Зарегистрирован SettingsService");
+
         // Сервис загрузки/сохранения данных
         services.AddSingleton<IDataLoadSaveService, DataLoadSaveService>();
         _log.Verbose("Зарегистрирован IDataLoadSaveService");

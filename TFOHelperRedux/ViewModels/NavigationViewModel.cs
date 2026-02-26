@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 using TFOHelperRedux.Helpers;
+using TFOHelperRedux.Services;
 using TFOHelperRedux.Services.Business;
 using TFOHelperRedux.Services.Data;
 using TFOHelperRedux.Services.DI;
@@ -117,6 +118,7 @@ namespace TFOHelperRedux.ViewModels
         public ICommand ShowDipsCmd { get; }
         public ICommand ShowLuresCmd { get; }
         public ICommand ToggleThemeCmd { get; }
+        public ICommand SettingsCmd { get; }
 
         #endregion
 
@@ -162,6 +164,7 @@ namespace TFOHelperRedux.ViewModels
             ShowDipsCmd = new RelayCommand(() => BaitsSubMode = BaitsSubModes.Dips);
             ShowLuresCmd = new RelayCommand(() => BaitsSubMode = BaitsSubModes.Lures);
             ToggleThemeCmd = new RelayCommand(ToggleTheme);
+            SettingsCmd = new RelayCommand(OpenSettings);
         }
 
         #endregion
@@ -174,6 +177,19 @@ namespace TFOHelperRedux.ViewModels
         private void ToggleTheme()
         {
             IsDarkTheme = !IsDarkTheme;
+        }
+
+        /// <summary>
+        /// Открывает окно настроек
+        /// </summary>
+        private void OpenSettings()
+        {
+            var settingsService = ServiceContainer.GetService<SettingsService>();
+            var window = new Views.SettingsWindow(settingsService)
+            {
+                Owner = App.Current.MainWindow
+            };
+            window.ShowDialog();
         }
 
         #endregion

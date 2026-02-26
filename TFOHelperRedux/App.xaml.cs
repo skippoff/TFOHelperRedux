@@ -53,6 +53,10 @@ namespace TFOHelperRedux
                 // Инициализация контейнера сервисов
                 ServiceContainer.Initialize();
 
+                Log.Information("Инициализация UserContext...");
+                // Инициализация контекста пользователя
+                UserContext.Initialize();
+
                 Log.Information("Загрузка данных через DataStore...");
                 // Загрузка данных через DataStore (статический класс)
                 DataStore.LoadAll();

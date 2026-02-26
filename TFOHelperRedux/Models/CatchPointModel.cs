@@ -151,7 +151,7 @@ public class CatchPointModel : INotifyPropertyChanged
         set { _comment = value ?? string.Empty; OnPropertyChanged(); }
     }
 
-    public string MadeBy { get; set; } = Environment.UserName;
+    public string MadeBy { get; set; } = UserContext.GetMadeBy();
     public DateTime DateEdited { get; set; } = DateTime.Now;
 
     [JsonIgnore]
