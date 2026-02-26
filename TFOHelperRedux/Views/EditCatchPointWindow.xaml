@@ -9,7 +9,8 @@
         Background="{DynamicResource AppBackground}"
         FontFamily="Segoe UI" FontSize="14">
 
-    <Grid Margin="10">
+    <Border BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1" CornerRadius="6" Padding="10" Background="{DynamicResource PanelBackground}">
+        <Grid Margin="10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="4*"/>
                 <ColumnDefinition Width="5*"/>
@@ -40,4 +41,5 @@
                 </StackPanel>
             </DockPanel>
         </Grid>
+    </Border>
 </Window>
