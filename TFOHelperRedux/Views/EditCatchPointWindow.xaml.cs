@@ -97,6 +97,10 @@ namespace TFOHelperRedux.Views
                 // Для точки лова сохраняем прикормки
                 point.FeedIDs = feedIds;
                 point.RecipeIDs = recipeIds;
+                
+                // Берём наживки из CenterPanel (FishLuresPanel), так как он содержит актуальные данные
+                point.LureIDs = CenterPanel.CatchPoint?.LureIDs ?? Array.Empty<int>();
+                point.BestLureIDs = CenterPanel.CatchPoint?.BestLureIDs ?? Array.Empty<int>();
 
                 // Находим точку в коллекции и обновляем её (если это редактирование)
                 var existingPoint = DataStore.CatchPoints.FirstOrDefault(p => ReferenceEquals(p, _point) || 
