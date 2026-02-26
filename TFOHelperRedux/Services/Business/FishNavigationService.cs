@@ -56,14 +56,6 @@ public class FishNavigationService
     /// </summary>
     public string BaitsSubMode => _navigationVM.BaitsSubMode;
 
-    /// <summary>
-    /// Установить под-режим Baits
-    /// </summary>
-    public void SetBaitsSubMode(string value)
-    {
-        _navigationVM.BaitsSubMode = value;
-    }
-
     private void OnModeChanged()
     {
         ModeChanged?.Invoke();

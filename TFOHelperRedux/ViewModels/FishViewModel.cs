@@ -24,7 +24,6 @@ namespace TFOHelperRedux.ViewModels
     /// Бизнес-логика делегирована сервисам:
     /// - FishSelectionService: выбор рыбы/карты
     /// - FishDetailsService: данные о рыбе (наживки, прикормки, рецепты)
-    /// - FishLuresService: привязка наживок
     /// - FishNavigationService: навигация между режимами
     /// - MapsService: управление картами
     /// - BiteIntensityService: расчёт интенсивности клёва
@@ -35,9 +34,7 @@ namespace TFOHelperRedux.ViewModels
 
         private readonly FishSelectionService _selectionService;
         private readonly FishDetailsService _detailsService;
-        private readonly FishLuresService _luresService;
         private readonly FishNavigationService _navigationService;
-        private readonly FishLuresCommandsService _commandsService;
         private readonly MapsService _mapsService;
         private readonly MapListViewService _mapListViewService;
         private readonly FishFilterService _filterService;
@@ -56,8 +53,6 @@ namespace TFOHelperRedux.ViewModels
 
         #region Команды
 
-        public ICommand AttachLureToFishCmd => _commandsService.AttachLureToFishCmd;
-        public ICommand DetachLureFromFishCmd => _commandsService.DetachLureFromFishCmd;
         public ICommand EditMapFishesCmd { get; }
 
         #endregion
@@ -204,7 +199,6 @@ namespace TFOHelperRedux.ViewModels
 
         public FishViewModel(
             FishFilterService filterService,
-            LureBindingService lureBindingService,
             FishDataService fishDataService,
             MapsService mapsService,
             MapListViewService mapListViewService,
@@ -228,9 +222,7 @@ namespace TFOHelperRedux.ViewModels
             // Создание сервисов
             _selectionService = new FishSelectionService();
             _detailsService = new FishDetailsService(_selectionService, mapsService, fishFeedsVM);
-            _luresService = new FishLuresService(lureBindingService);
             _navigationService = new FishNavigationService(navigationVM, _selectionService, mapsService, catchPointsVM, filterService, baitsVM);
-            _commandsService = new FishLuresCommandsService(_selectionService, lureBindingService);
 
             // Подписка на уведомления от сервисов
             SubscribeToServices();
@@ -270,13 +262,6 @@ namespace TFOHelperRedux.ViewModels
             _detailsService.PropertyChanged += (s, e) =>
             {
                 OnPropertyChanged(e.PropertyName);
-            };
-
-            // От FishLuresService
-            _luresService.LuresChanged += () =>
-            {
-                OnPropertyChanged(nameof(MaybeCatchLures));
-                OnPropertyChanged(nameof(BestLures));
             };
 
             // От FishNavigationService

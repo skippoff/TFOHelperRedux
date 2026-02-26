@@ -93,14 +93,7 @@ public static class ServiceContainer
             return new BaitCrudService(fishDataService);
         });
         _log.Verbose("Зарегистрирован BaitCrudService");
-        
-        services.AddSingleton<LureBindingService>(provider =>
-        {
-            var loadSaveService = provider.GetRequiredService<IDataLoadSaveService>();
-            return new LureBindingService(loadSaveService);
-        });
-        _log.Verbose("Зарегистрирован LureBindingService");
-        
+
         services.AddSingleton<FishFilterService>();
         _log.Verbose("Зарегистрирован FishFilterService");
         
@@ -162,7 +155,6 @@ public static class ServiceContainer
         services.AddTransient<FishViewModel>(provider =>
         {
             var filterService = provider.GetRequiredService<FishFilterService>();
-            var lureBindingService = provider.GetRequiredService<LureBindingService>();
             var fishDataService = provider.GetRequiredService<FishDataService>();
             var mapsService = provider.GetRequiredService<MapsService>();
             var mapListViewService = provider.GetRequiredService<MapListViewService>();
@@ -174,7 +166,6 @@ public static class ServiceContainer
 
             return new FishViewModel(
                 filterService,
-                lureBindingService,
                 fishDataService,
                 mapsService,
                 mapListViewService,

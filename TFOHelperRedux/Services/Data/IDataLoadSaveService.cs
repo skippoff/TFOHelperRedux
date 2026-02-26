@@ -12,8 +12,6 @@ public interface IDataLoadSaveService
 {
     void LoadAll();
     void SaveAll();
-    Task LoadAllAsync();
-    Task SaveAllAsync();
 
     // Конкретные методы загрузки
     ObservableCollection<FishModel> LoadFishes();

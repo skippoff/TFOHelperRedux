@@ -166,22 +166,7 @@ namespace TFOHelperRedux.ViewModels
 
         #endregion
 
-        #region Публичные методы
-
-        /// <summary>
-        /// Переключает режим на Fish
-        /// </summary>
-        public void NavigateToFish() => CurrentMode = Modes.Fish;
-
-        /// <summary>
-        /// Переключает режим на Maps
-        /// </summary>
-        public void NavigateToMaps() => CurrentMode = Modes.Maps;
-
-        /// <summary>
-        /// Переключает режим на Baits
-        /// </summary>
-        public void NavigateToBaits() => CurrentMode = Modes.Baits;
+        #region Приватные методы
 
         /// <summary>
         /// Переключает тему (тёмная/светлая)

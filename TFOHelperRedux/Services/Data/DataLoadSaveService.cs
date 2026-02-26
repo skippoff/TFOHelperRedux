@@ -180,47 +180,6 @@ public class DataLoadSaveService : IDataLoadSaveService
         // Используется при выходе из приложения
     }
 
-    /// <summary>
-    /// Асинхронная загрузка всех данных
-    /// </summary>
-    public async Task LoadAllAsync()
-    {
-        _log.Information("Асинхронная загрузка всех данных...");
-        
-        // Загружаем все данные параллельно
-        await Task.WhenAll(
-            LoadFishesAsync(),
-            LoadMapsAsync(),
-            LoadFeedsAsync(),
-            LoadFeedComponentsAsync(),
-            LoadBaitRecipesAsync(),
-            LoadDipsAsync(),
-            LoadLuresAsync()
-        );
-        
-        _log.Information("Все данные загружены");
-    }
-
-    /// <summary>
-    /// Асинхронное сохранение всех данных
-    /// </summary>
-    public async Task SaveAllAsync()
-    {
-        _log.Information("Асинхронное сохранение всех данных...");
-        
-        // Сохраняем все данные параллельно
-        var localDataDir = Path.Combine(BaseDir, "Maps");
-        var localCatchFile = Path.Combine(localDataDir, "CatchPoints_Local.json");
-        
-        await Task.WhenAll(
-            SaveFeedComponentsAsync(FeedComponentsJson, DataStore.FeedComponents, "компонентов"),
-            SaveBaitRecipesAsync(BaitRecipesJson, DataStore.BaitRecipes, "рецептов"),
-            SaveCatchPointsAsync(localCatchFile, DataStore.CatchPoints, "точек лова")
-        );
-        
-        _log.Information("Все данные сохранены");
-    }
-
     public ObservableCollection<FishModel> LoadFishes()
     {
         return LoadData<FishModel>(FishesJson, "рыб", list =>
@@ -455,27 +414,6 @@ public class DataLoadSaveService : IDataLoadSaveService
     public void SaveCatchPoints(string path, ObservableCollection<CatchPointModel> catchPoints)
     {
         SaveData(path, catchPoints, "точек лова");
-    }
-
-    // Async версии методов сохранения
-    public async Task SaveFeedComponentsAsync(string path, ObservableCollection<FeedComponentModel> components, string entityName)
-    {
-        await SaveDataAsync(path, components, entityName);
-    }
-
-    public async Task SaveBaitRecipesAsync(string path, ObservableCollection<BaitRecipeModel> recipes, string entityName)
-    {
-        if (!Directory.Exists(RecipesDir))
-        {
-            _log.Debug("Создание папки рецептов: {Path}", RecipesDir);
-            Directory.CreateDirectory(RecipesDir);
-        }
-        await SaveDataAsync(path, recipes, entityName);
-    }
-
-    public async Task SaveCatchPointsAsync(string path, ObservableCollection<CatchPointModel> catchPoints, string entityName)
-    {
-        await SaveDataAsync(path, catchPoints, entityName);
     }
 
     // Пути к изображениям

@@ -21,15 +21,6 @@ public class FishFilterService
         _allFishes = DataStore.Fishes;
         _filteredFishes = new ObservableCollection<FishModel>(_allFishes);
         _searchText = string.Empty;
-        // Не применяем фильтр в конструкторе — данные ещё не загружены
-    }
-
-    /// <summary>
-    /// Инициализация после загрузки данных
-    /// </summary>
-    public void InitializeAfterLoad()
-    {
-        ApplyFilter();
     }
 
     /// <summary>
@@ -62,24 +53,6 @@ public class FishFilterService
     }
 
     /// <summary>
-    /// Фильтрует по карте
-    /// </summary>
-    public void FilterByMap(MapModel? selectedMap)
-    {
-        _selectedMap = selectedMap;
-        UpdateFilteredCollection();
-    }
-
-    /// <summary>
-    /// Сбрасывает текст поиска
-    /// </summary>
-    public void ResetSearch()
-    {
-        _searchText = string.Empty;
-        UpdateFilteredCollection();
-    }
-
-    /// <summary>
     /// Обновляет отфильтрованную коллекцию
     /// </summary>
     private void UpdateFilteredCollection()
@@ -108,5 +81,4 @@ public class FishFilterService
     }
 
     public ObservableCollection<FishModel> GetFilteredFishes() => _filteredFishes;
-    public ObservableCollection<FishModel> GetAllFishes() => _allFishes;
 }

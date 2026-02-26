@@ -5,7 +5,7 @@ using TFOHelperRedux.Services.Data;
 
 namespace TFOHelperRedux.Models
 {
-    public class FishModel : ValidatableModel
+    public class FishModel : ValidatableModel, IItemModel
     {
         private bool _isSelected;
         private int _id;

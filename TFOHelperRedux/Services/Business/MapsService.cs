@@ -186,14 +186,6 @@ namespace TFOHelperRedux.Services.Business
 
         #region Вспомогательные методы
 
-        public void SelectFirstMapIfNull()
-        {
-            if (SelectedMap == null && Maps != null && Maps.Any())
-            {
-                SelectedMap = Maps.First();
-            }
-        }
-
         public void SelectFirstDlcMapIfNull()
         {
             if (SelectedMap == null && NonDlcMaps.Any())

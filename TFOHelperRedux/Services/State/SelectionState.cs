@@ -13,7 +13,6 @@ namespace TFOHelperRedux.Services.State;
 /// </summary>
 public class SelectionState
 {
-    private bool _isSyncingLures;
     private FishModel? _selectedFish;
     private MapModel? _selectedMap;
     private CatchPointModel? _selectedCatchPoint;
@@ -72,11 +71,6 @@ public class SelectionState
     public Action? SelectionChanged { get; set; }
 
     /// <summary>
-    /// Делегат обратного вызова при синхронизации наживок
-    /// </summary>
-    public Action? LuresSynced { get; set; }
-
-    /// <summary>
     /// Устанавливает выбранную рыбу и синхронизирует чекбоксы наживок
     /// </summary>
     public void SetSelectedFish(FishModel? fish, ObservableCollection<LureModel> lures)
@@ -85,7 +79,6 @@ public class SelectionState
             return;
 
         SelectedFish = fish;
-        SyncLuresWithFish(fish, lures);
     }
 
     /// <summary>
@@ -111,7 +104,6 @@ public class SelectionState
         if (SelectedFish != firstFish)
         {
             _selectedFish = firstFish;
-            SyncLuresWithFish(firstFish, lures);
         }
 
         // Одно уведомление об изменении выбора
@@ -154,37 +146,5 @@ public class SelectionState
             if (!existingSet.Contains(fish))
                 filteredFishes.Add(fish);
         }
-    }
-
-    /// <summary>
-    /// Синхронизирует чекбоксы наживок с LureIDs и BestLureIDs выбранной точки лова
-    /// </summary>
-    private void SyncLuresWithFish(FishModel? fish, ObservableCollection<LureModel> lures)
-    {
-        // Синхронизация наживок теперь осуществляется через CatchPointModel, а не FishModel
-        // Этот метод оставлен для обратной совместимости, но не выполняет никаких действий
-    }
-
-    /// <summary>
-    /// Проверяет, идёт ли синхронизация наживок
-    /// </summary>
-    public bool IsSyncingLures => _isSyncingLures;
-
-    /// <summary>
-    /// Обрабатывает изменение чекбокса наживки
-    /// </summary>
-    public void HandleLureSelectionChanged(LureModel lure, bool saveChanges = true)
-    {
-        // Обработка изменения наживок теперь осуществляется через CatchPointModel, а не FishModel
-        // Этот метод оставлен для обратной совместимости, но не выполняет никаких действий
-    }
-
-    /// <summary>
-    /// Обрабатывает изменение чекбокса лучшей наживки
-    /// </summary>
-    public void HandleBestLureSelectionChanged(LureModel lure, bool saveChanges = true)
-    {
-        // Обработка изменения лучших наживок теперь осуществляется через CatchPointModel, а не FishModel
-        // Этот метод оставлен для обратной совместимости, но не выполняет никаких действий
     }
 }

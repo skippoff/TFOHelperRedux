@@ -20,16 +20,6 @@ public class FishDataService
     }
 
     /// <summary>
-    /// Получает следующий доступный ID для коллекции рыб
-    /// </summary>
-    public int GetNextFishId(ObservableCollection<FishModel> fishes)
-    {
-        if (!fishes.Any())
-            return 1;
-        return fishes.Max(x => x.ID) + 1;
-    }
-
-    /// <summary>
     /// Получает следующий доступный ID для коллекции
     /// </summary>
     public int GetNextId<T>(IEnumerable<T> collection) where T : IItemModel
@@ -46,7 +36,7 @@ public class FishDataService
     {
         var newFish = new FishModel
         {
-            ID = GetNextFishId(fishes),
+            ID = GetNextId(fishes),
             Name = "Новая рыба",
             BiteIntensity = Enumerable.Repeat(0, 24).ToArray()
         };
@@ -98,46 +88,6 @@ public class FishDataService
         DataStore.SaveAll();
 
         return ServiceResult.Success($"Рыба '{fish.Name}' удалена.");
-    }
-
-    /// <summary>
-    /// Обновляет данные рыбы после редактирования
-    /// </summary>
-    public void UpdateFish(FishModel fish)
-    {
-        _loadSaveService.SaveFishes(DataStore.Fishes);
-    }
-
-    /// <summary>
-    /// Получает рыбу по ID
-    /// </summary>
-    public FishModel? GetFishById(int id)
-    {
-        return DataStore.Fishes.FirstOrDefault(f => f.ID == id);
-    }
-
-    /// <summary>
-    /// Создаёт или получает рыбу для редактирования
-    /// </summary>
-    public FishModel GetOrCreateFishForEdit(FishModel? selectedFish, ObservableCollection<FishModel> fishes)
-    {
-        return selectedFish ?? new FishModel
-        {
-            ID = GetNextFishId(fishes),
-            Name = "Новая рыба",
-            BiteIntensity = Enumerable.Repeat(0, 24).ToArray()
-        };
-    }
-
-    /// <summary>
-    /// Добавляет рыбу в коллекцию, если она ещё не добавлена
-    /// </summary>
-    public void AddFishIfNew(FishModel fish, ObservableCollection<FishModel> fishes)
-    {
-        if (!fishes.Contains(fish))
-        {
-            fishes.Add(fish);
-        }
     }
 
     /// <summary>

@@ -224,12 +224,6 @@ public class LureModel : ValidatableModel, IItemModel
         set => SetProperty(ref _baitType, value ?? "live");
     }
 
-    public string BaitsType
-    {
-        get => _baitType;
-        set => SetProperty(ref _baitType, value ?? "live");
-    }
-
     public string ImagePath
     {
         get

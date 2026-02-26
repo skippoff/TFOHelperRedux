@@ -279,19 +279,5 @@ namespace TFOHelperRedux.ViewModels
         }
 
         #endregion
-
-        #region Публичные методы для обновления UI
-
-        public void RefreshCollections()
-        {
-            OnPropertyChanged(nameof(Feeds));
-            OnPropertyChanged(nameof(Components));
-            OnPropertyChanged(nameof(Dips));
-            OnPropertyChanged(nameof(Lures));
-            LoadCurrentCategory();
-            ApplyFilter();
-        }
-
-        #endregion
     }
 }
