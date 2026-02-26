@@ -34,8 +34,6 @@
                                 <CheckBox Content="{Binding Name}"
                                           IsChecked="{Binding IsSelected, Mode=TwoWay}"
                                           Tag="{Binding ID}"
-                                          Checked="Lure_Checked"
-                                          Unchecked="Lure_Unchecked"
                                           Margin="2"/>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
