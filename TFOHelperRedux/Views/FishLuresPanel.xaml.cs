@@ -16,7 +16,19 @@ namespace TFOHelperRedux.Views
             nameof(LuresView), typeof(System.ComponentModel.ICollectionView), typeof(FishLuresPanel), new PropertyMetadata(null));
 
         public static readonly DependencyProperty CatchPointProperty = DependencyProperty.Register(
-            nameof(CatchPoint), typeof(CatchPointModel), typeof(FishLuresPanel), new PropertyMetadata(null));
+            nameof(CatchPoint), typeof(CatchPointModel), typeof(FishLuresPanel), 
+            new PropertyMetadata(null, OnCatchPointChanged));
+
+        private static void OnCatchPointChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            // Принудительно обновляем биндинги при изменении CatchPoint
+            if (d is FishLuresPanel panel && e.NewValue is CatchPointModel newPoint)
+            {
+                // Уведомляем об изменении свойства для обновления MultiBinding
+                newPoint.OnPropertyChanged(nameof(CatchPointModel.LureIDs));
+                newPoint.OnPropertyChanged(nameof(CatchPointModel.BestLureIDs));
+            }
+        }
 
         public System.ComponentModel.ICollectionView? FishView
         {
