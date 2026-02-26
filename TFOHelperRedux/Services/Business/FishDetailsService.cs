@@ -44,12 +44,8 @@ public class FishDetailsService : INotifyPropertyChanged
             UpdateSelectedFeedsEfficient();
             UpdateSelectedRecipesEfficient();
             UpdateRecipesForSelectedFish();
-            UpdateMaybeCatchLures();
-            UpdateBestLures();
             UpdateFishImage();
             // Одно уведомление для всех свойств
-            OnPropertyChanged(nameof(MaybeCatchLures));
-            OnPropertyChanged(nameof(BestLures));
             OnPropertyChanged(nameof(BiteDescription));
             OnPropertyChanged(nameof(RecipeCountForSelectedFish));
             OnPropertyChanged(nameof(SelectedFeeds));
