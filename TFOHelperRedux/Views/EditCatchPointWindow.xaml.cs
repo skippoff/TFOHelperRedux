@@ -31,7 +31,7 @@ namespace TFOHelperRedux.Views
             _luresView = new ListCollectionView(DataStore.Lures);
             // 📌 чтобы биндинги FishView / LuresView работали
             DataContext = this;
-            
+
             // Устанавливаем выбранную точку лова
             DataStore.Selection.SelectedCatchPoint = _point;
 
@@ -54,7 +54,7 @@ namespace TFOHelperRedux.Views
                     CenterPanel.CatchPoint = _point;
                 }
             }
-            
+
             // Восстанавливаем чекбоксы прикормок из первой выбранной рыбы
             var selectedFish = DataStore.Fishes.FirstOrDefault(f => f.IsSelected);
             if (selectedFish != null && RightPanel.DataContext is TFOHelperRedux.ViewModels.FishFeedsViewModel feedsVM)
@@ -195,12 +195,14 @@ namespace TFOHelperRedux.Views
 
         /// <summary>
         /// Синхронизирует чекбоксы наживок с LureIDs и BestLureIDs точки лова
+        /// Оптимизированная версия — использует HashSet для быстрого поиска
         /// </summary>
         private void SyncLuresWithCatchPoint(CatchPointModel point)
         {
-            if (DataStore.Lures == null)
+            if (DataStore.Lures == null || DataStore.Lures.Count == 0)
                 return;
 
+            // Создаём HashSet для быстрого поиска O(1) вместо O(n)
             var lureIdsSet = point.LureIDs != null && point.LureIDs.Length > 0
                 ? new HashSet<int>(point.LureIDs)
                 : null;
@@ -209,11 +211,13 @@ namespace TFOHelperRedux.Views
                 ? new HashSet<int>(point.BestLureIDs)
                 : null;
 
+            // Обновляем только те наживки, у которых изменилось состояние
             foreach (var lure in DataStore.Lures)
             {
                 var shouldBeSelected = lureIdsSet?.Contains(lure.ID) ?? false;
                 var shouldBeBestSelected = bestLureIdsSet?.Contains(lure.ID) ?? false;
 
+                // Обновляем только если значение отличается (избегаем лишних уведомлений)
                 if (lure.IsSelected != shouldBeSelected)
                     lure.IsSelected = shouldBeSelected;
 

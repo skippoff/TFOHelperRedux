@@ -13,7 +13,7 @@ namespace TFOHelperRedux.Converters
         public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is not BaitRecipeModel recipe)
-                return null;
+                return Array.Empty<string>();
 
             var items = new List<string>();
 
@@ -48,7 +48,7 @@ namespace TFOHelperRedux.Converters
                 }
             }
 
-            return items;
+            return items.ToArray();
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

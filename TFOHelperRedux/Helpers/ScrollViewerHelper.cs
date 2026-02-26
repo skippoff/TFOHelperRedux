@@ -9,6 +9,8 @@ namespace TFOHelperRedux.Helpers
     /// </summary>
     public static class ScrollViewerHelper
     {
+        private static readonly MouseWheelEventHandler _mouseWheelHandler = new MouseWheelEventHandler(Element_PreviewMouseWheel);
+        
         public static readonly DependencyProperty EnableMouseWheelScrollProperty =
             DependencyProperty.RegisterAttached(
                 "EnableMouseWheelScroll",
@@ -24,12 +26,12 @@ namespace TFOHelperRedux.Helpers
 
         private static void OnEnableMouseWheelScrollChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (d is UIElement element)
+            if (d is ScrollViewer sv)
             {
                 if ((bool)e.NewValue)
-                    element.PreviewMouseWheel += Element_PreviewMouseWheel;
+                    sv.AddHandler(UIElement.PreviewMouseWheelEvent, _mouseWheelHandler, true);
                 else
-                    element.PreviewMouseWheel -= Element_PreviewMouseWheel;
+                    sv.RemoveHandler(UIElement.PreviewMouseWheelEvent, _mouseWheelHandler);
             }
         }
 

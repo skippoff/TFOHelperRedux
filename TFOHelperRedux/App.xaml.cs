@@ -112,14 +112,5 @@ namespace TFOHelperRedux
                 Serilog.Log.CloseAndFlush();
             }
         }
-
-        private void ScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
-        {
-            if (sender is ScrollViewer scroll)
-            {
-                scroll.ScrollToVerticalOffset(scroll.VerticalOffset - e.Delta / 3.0);
-                e.Handled = true;
-            }
-        }
     }
 }

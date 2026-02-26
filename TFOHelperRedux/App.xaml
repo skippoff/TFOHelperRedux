@@ -41,10 +41,6 @@
             <conv:RecipeRankToStyleConverter x:Key="RecipeRankToStyleConverter"/>
             <conv:RecipeCompositionConverter x:Key="RecipeCompositionConverter"/>
             <conv:MapGroupConverter x:Key="MapGroupConverter"/>
-
-            <Style TargetType="{x:Type ScrollViewer}">
-                <EventSetter Event="PreviewMouseWheel" Handler="ScrollViewer_PreviewMouseWheel"/>
-            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
