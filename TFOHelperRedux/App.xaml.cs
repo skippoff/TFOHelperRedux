@@ -45,6 +45,33 @@ namespace TFOHelperRedux
             Log.Information("Версия .NET: {RuntimeVersion}", Environment.Version);
             Log.Information("Путь к приложению: {AppPath}", AppDomain.CurrentDomain.BaseDirectory);
 
+            // Показываем простое окно загрузки
+            var splash = new System.Windows.Window
+            {
+                Width = 400,
+                Height = 200,
+                WindowStyle = System.Windows.WindowStyle.None,
+                WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen,
+                ResizeMode = System.Windows.ResizeMode.NoResize,
+                Topmost = true,
+                Content = new System.Windows.Controls.Grid
+                {
+                    Background = System.Windows.Media.Brushes.White,
+                    Children =
+                    {
+                        new System.Windows.Controls.TextBlock
+                        {
+                            Text = "TFO Helper Redux\nЗагрузка...",
+                            FontSize = 24,
+                            HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
+                            VerticalAlignment = System.Windows.VerticalAlignment.Center,
+                            TextAlignment = System.Windows.TextAlignment.Center
+                        }
+                    }
+                }
+            };
+            splash.Show();
+
             base.OnStartup(e);
 
             try
@@ -77,10 +104,13 @@ namespace TFOHelperRedux
                 };
                 window.Show();
 
+                splash.Close();
+
                 Log.Information("Приложение успешно запущено");
             }
             catch (Exception ex)
             {
+                splash.Close();
                 Log.Fatal(ex, "Критическая ошибка при запуске приложения");
 
                 string message =
