@@ -53,6 +53,10 @@ namespace TFOHelperRedux
                 // Инициализация контейнера сервисов
                 ServiceContainer.Initialize();
 
+                // Инициализация темы (Material Design + кастомные цвета)
+                var themeService = ServiceContainer.GetService<Services.UI.ThemeService>();
+                themeService?.InitializeTheme();
+
                 Log.Information("Инициализация UserContext...");
                 // Инициализация контекста пользователя
                 UserContext.Initialize();

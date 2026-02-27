@@ -5,6 +5,13 @@
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006">
 
+    <!-- 🎨 Базовые цвета для совместимости -->
+    <SolidColorBrush x:Key="AppBackground" Color="{DynamicResource AppBackgroundColor}"/>
+    <SolidColorBrush x:Key="PanelBackground" Color="{DynamicResource PanelBackgroundColor}"/>
+    <SolidColorBrush x:Key="TextPrimary" Color="{DynamicResource TextPrimaryColor}"/>
+    <SolidColorBrush x:Key="TextSecondary" Color="{DynamicResource TextSecondaryColor}"/>
+    <SolidColorBrush x:Key="BorderBrushLight" Color="{DynamicResource BorderBrushLightColor}"/>
+
     <!-- 🎨 Цвета для кнопок (адаптивные через DynamicResource) -->
     <!-- Основные акцентные цвета -->
     <SolidColorBrush x:Key="PrimaryColor" Color="{DynamicResource PrimaryColorValue}"/>
@@ -565,7 +572,7 @@
     <!-- Кнопка "Редактировать" (оранжевая) -->
     <Style x:Key="EditButton" TargetType="Button" BasedOn="{StaticResource ModernIconButton}">
         <Setter Property="Tag" Value="{StaticResource IconEdit}"/>
-        <Setter Property="Background" Value="#FF9800"/>
+        <Setter Property="Background" Value="#C47A3A"/>
     </Style>
 
     <!-- Кнопка "Сохранить" (синяя) -->
@@ -577,13 +584,13 @@
     <!-- Кнопка "Экспорт" (голубая) -->
     <Style x:Key="ExportButton" TargetType="Button" BasedOn="{StaticResource ModernIconButton}">
         <Setter Property="Tag" Value="{StaticResource IconExport}"/>
-        <Setter Property="Background" Value="#03A9F4"/>
+        <Setter Property="Background" Value="#7B5E3A"/>
     </Style>
 
     <!-- Кнопка "Импорт" (фиолетовая) -->
     <Style x:Key="ImportButton" TargetType="Button" BasedOn="{StaticResource ModernIconButton}">
         <Setter Property="Tag" Value="{StaticResource IconImport}"/>
-        <Setter Property="Background" Value="#9C27B0"/>
+        <Setter Property="Background" Value="#4A7C59"/>
     </Style>
 
     <!-- Кнопка "Поиск" (серая) -->
@@ -595,19 +602,19 @@
     <!-- Кнопка "Настройки" (тёмно-синяя) -->
     <Style x:Key="SettingsButton" TargetType="Button" BasedOn="{StaticResource ModernIconButton}">
         <Setter Property="Tag" Value="{StaticResource IconSettings}"/>
-        <Setter Property="Background" Value="#3F51B5"/>
+        <Setter Property="Background" Value="#3A7A7A"/>
     </Style>
 
     <!-- Кнопка "Инфо" (бирюзовая) -->
     <Style x:Key="InfoButton" TargetType="Button" BasedOn="{StaticResource ModernIconButton}">
         <Setter Property="Tag" Value="{StaticResource IconInfo}"/>
-        <Setter Property="Background" Value="#00BCD4"/>
+        <Setter Property="Background" Value="#3A7A7A"/>
     </Style>
 
     <!-- Кнопка "О программе" (фиолетовая) -->
     <Style x:Key="AboutButton" TargetType="Button" BasedOn="{StaticResource ModernIconButton}">
         <Setter Property="Tag" Value="{StaticResource IconInfo}"/>
-        <Setter Property="Background" Value="#9C27B0"/>
+        <Setter Property="Background" Value="#7B5E3A"/>
         <Setter Property="Width" Value="48"/>
         <Setter Property="Height" Value="48"/>
     </Style>
@@ -627,7 +634,7 @@
     <!-- Кнопка "Обновить" (зелёная) -->
     <Style x:Key="RefreshButton" TargetType="Button" BasedOn="{StaticResource ModernIconButton}">
         <Setter Property="Tag" Value="{StaticResource IconRefresh}"/>
-        <Setter Property="Background" Value="#4CAF50"/>
+        <Setter Property="Background" Value="#4A7C59"/>
     </Style>
 
     <!-- Кнопка "Закрыть" (серая) -->
@@ -639,13 +646,13 @@
     <!-- Кнопка "OK" (зелёная) -->
     <Style x:Key="OkButton" TargetType="Button" BasedOn="{StaticResource ModernIconButton}">
         <Setter Property="Tag" Value="{StaticResource IconCheck}"/>
-        <Setter Property="Background" Value="#4CAF50"/>
+        <Setter Property="Background" Value="#4A7C59"/>
     </Style>
 
     <!-- Кнопка "Отмена" (серая) -->
     <Style x:Key="CancelButton" TargetType="Button" BasedOn="{StaticResource ModernIconButton}">
         <Setter Property="Tag" Value="{StaticResource IconClose}"/>
-        <Setter Property="Background" Value="#9E9E9E"/>
+        <Setter Property="Background" Value="#6B5C44"/>
     </Style>
 
     <!-- Маленькая кнопка с иконкой (для тулбаров) -->
