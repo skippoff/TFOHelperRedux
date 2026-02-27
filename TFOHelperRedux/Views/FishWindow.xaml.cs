@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using AutoUpdaterDotNET;
 
 namespace TFOHelperRedux.Views
 {
@@ -6,6 +7,7 @@ namespace TFOHelperRedux.Views
     {
         public FishWindow()
         {
+            AutoUpdater.Start("https://raw.githubusercontent.com/skippoff/TFOHelperRedux/main/update.xml");
             InitializeComponent();
         }
     }
