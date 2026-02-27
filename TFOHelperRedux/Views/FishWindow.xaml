@@ -5,10 +5,9 @@
         Title="TFO Helper Redux"
         MinHeight="950"
         MinWidth="1480"
-        WindowStartupLocation="CenterScreen">
-        <!--WindowState="Maximized"
+        WindowState="Maximized"
         WindowStartupLocation="CenterScreen"
-        ResizeMode="CanResize"
-        WindowStyle="SingleBorderWindow"-->
+        WindowStyle="SingleBorderWindow"
+        ResizeMode="CanResize">
     <local:FishView />
 </Window>
