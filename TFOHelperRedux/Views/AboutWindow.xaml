@@ -207,6 +207,7 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
 
                             <TextBlock Grid.Row="0" Grid.Column="0"
@@ -219,13 +220,24 @@
                                        FontSize="13"
                                        Foreground="{DynamicResource TextPrimary}"
                                        Margin="0,0,0,8"/>
-
+                            
                             <TextBlock Grid.Row="1" Grid.Column="0"
-                                       Text="Год:"
+                                       Text="Отдельно спасибо:"
                                        FontSize="13"
                                        Foreground="{DynamicResource TextSecondary}"
                                        Margin="0,0,0,8"/>
                             <TextBlock Grid.Row="1" Grid.Column="1"
+                                       Text="MaxBet1k"
+                                       FontSize="13"
+                                       Foreground="{DynamicResource TextPrimary}"
+                                       Margin="5,0,0,8"/>
+
+                            <TextBlock Grid.Row="2" Grid.Column="0"
+                                       Text="Год:"
+                                       FontSize="13"
+                                       Foreground="{DynamicResource TextSecondary}"
+                                       Margin="0,0,0,8"/>
+                            <TextBlock Grid.Row="2" Grid.Column="1"
                                        Text="2026"
                                        FontSize="13"
                                        Foreground="{DynamicResource TextPrimary}"
