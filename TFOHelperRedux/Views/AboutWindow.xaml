@@ -57,7 +57,7 @@
                                    FontSize="24"
                                    FontWeight="Bold"
                                    Foreground="White"/>
-                        <TextBlock Text="Версия 1.0.0"
+                        <TextBlock Text="Версия 1.0.1"
                                    FontSize="12"
                                    Foreground="#E0E0E0"
                                    Margin="0,2,0,0"/>

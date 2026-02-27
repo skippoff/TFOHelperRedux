@@ -7,7 +7,7 @@ namespace TFOHelperRedux.Views
     {
         public FishWindow()
         {
-            AutoUpdater.Start("https://raw.githubusercontent.com/skippoff/TFOHelperRedux/main/update.xml");
+            AutoUpdater.Start("https://raw.githubusercontent.com/skippoff/TFOHelperRedux/master/update.xml");
             InitializeComponent();
         }
     }
