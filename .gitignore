@@ -374,6 +374,7 @@ FodyWeavers.xsd
 .continue/agents/new-config-1.yaml
 .ai/mcp/mcp.json
 .continueignore
+.cursorrules
 
 # Локальные файлы данных (не коммитить)
 TFOHelperRedux/Maps/CatchPoints_Local.json
