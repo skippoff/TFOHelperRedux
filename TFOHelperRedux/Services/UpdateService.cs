@@ -1,0 +1,297 @@
+﻿using System;
+using System.Diagnostics;
+using System.IO;
+using System.IO.Compression;
+using System.Net.Http;
+using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Xml;
+
+namespace TFOHelperRedux.Services
+{
+    /// <summary>
+    /// Сервис автообновления приложения без сторонних библиотек
+    /// </summary>
+    public class UpdateService
+    {
+        private readonly string _updateXmlUrl;
+        private readonly string _appDirectory;
+        private readonly string _currentVersion;
+        private readonly string _batFilePath;
+        private readonly string _tempZipPath;
+        private readonly string _tempExtractPath;
+
+        public UpdateService(string updateXmlUrl)
+        {
+            _updateXmlUrl = updateXmlUrl;
+            _appDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            _currentVersion = Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "0.0.0.0";
+            _batFilePath = Path.Combine(_appDirectory, "update.bat");
+            _tempZipPath = Path.Combine(Path.GetTempPath(), "TFOHelperRedux_update.zip");
+            _tempExtractPath = Path.Combine(Path.GetTempPath(), "TFOHelperRedux_update_extracted");
+        }
+
+        /// <summary>
+        /// Проверяет наличие обновлений и загружает их при наличии
+        /// </summary>
+        public async Task<bool> CheckAndUpdateAsync()
+        {
+            try
+            {
+                var latestVersionInfo = await DownloadUpdateInfoAsync();
+                if (latestVersionInfo == null)
+                {
+                    Log("Не удалось получить информацию об обновлениях");
+                    return false;
+                }
+
+                if (!IsUpdateAvailable(latestVersionInfo.Version))
+                {
+                    Log($"Текущая версия актуальна: {_currentVersion}");
+                    return false;
+                }
+
+                Log($"Доступна новая версия: {latestVersionInfo.Version} (текущая: {_currentVersion})");
+
+                var zipDownloaded = await DownloadUpdateAsync(latestVersionInfo.ZipUrl);
+                if (!zipDownloaded)
+                {
+                    Log("Ошибка загрузки обновления");
+                    return false;
+                }
+
+                ExtractUpdate();
+
+                CreateUpdateBatch(latestVersionInfo.ZipUrl);
+
+                RestartWithUpdate();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Log($"Ошибка обновления: {ex.Message}");
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Загружает XML файл с информацией об обновлении
+        /// </summary>
+        private async Task<UpdateInfo?> DownloadUpdateInfoAsync()
+        {
+            try
+            {
+                using var httpClient = new HttpClient();
+                httpClient.Timeout = TimeSpan.FromSeconds(30);
+
+                var xmlContent = await httpClient.GetStringAsync(_updateXmlUrl);
+
+                var doc = new XmlDocument();
+                doc.LoadXml(xmlContent);
+
+                var versionNode = doc.SelectSingleNode("//update/version");
+                var urlNode = doc.SelectSingleNode("//update/url");
+
+                if (versionNode == null || urlNode == null)
+                {
+                    Log("Неверный формат update.xml");
+                    return null;
+                }
+
+                return new UpdateInfo
+                {
+                    Version = versionNode.InnerText,
+                    ZipUrl = urlNode.InnerText
+                };
+            }
+            catch (Exception ex)
+            {
+                Log($"Ошибка загрузки update.xml: {ex.Message}");
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Сравнивает версии и определяет необходимость обновления
+        /// </summary>
+        private bool IsUpdateAvailable(string latestVersion)
+        {
+            try
+            {
+                var current = new Version(_currentVersion);
+                var latest = new Version(latestVersion);
+                return latest > current;
+            }
+            catch
+            {
+                // Если версии не удалось распарсить, сравниваем как строки
+                return latestVersion != _currentVersion;
+            }
+        }
+
+        /// <summary>
+        /// Загружает ZIP архив с обновлением
+        /// </summary>
+        private async Task<bool> DownloadUpdateAsync(string zipUrl)
+        {
+            try
+            {
+                using var httpClient = new HttpClient();
+                httpClient.Timeout = TimeSpan.FromMinutes(5);
+
+                var zipData = await httpClient.GetByteArrayAsync(zipUrl);
+
+                // Удаляем старый файл если существует
+                if (File.Exists(_tempZipPath))
+                    File.Delete(_tempZipPath);
+
+                await File.WriteAllBytesAsync(_tempZipPath, zipData);
+
+                Log($"ZIP загружен: {_tempZipPath} ({zipData.Length} байт)");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Log($"Ошибка загрузки ZIP: {ex.Message}");
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Распаковывает ZIP архив во временную папку
+        /// </summary>
+        private void ExtractUpdate()
+        {
+            try
+            {
+                // Очищаем временную папку
+                if (Directory.Exists(_tempExtractPath))
+                    Directory.Delete(_tempExtractPath, true);
+
+                Directory.CreateDirectory(_tempExtractPath);
+
+                ZipFile.ExtractToDirectory(_tempZipPath, _tempExtractPath);
+
+                Log($"Распаковано в: {_tempExtractPath}");
+            }
+            catch (Exception ex)
+            {
+                Log($"Ошибка распаковки: {ex.Message}");
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Создаёт BAT-файл для замены файлов и перезапуска
+        /// </summary>
+        private void CreateUpdateBatch(string zipUrl)
+        {
+            var batContent = new StringBuilder();
+            batContent.AppendLine("@echo off");
+            batContent.AppendLine("chcp 65001 >nul");
+            batContent.AppendLine();
+            batContent.AppendLine("REM Скрипт обновления TFOHelperRedux");
+            batContent.AppendLine("REM Ждёт закрытия приложения и заменяет файлы");
+            batContent.AppendLine();
+            batContent.AppendLine($"set APP_DIR={_appDirectory}");
+            batContent.AppendLine($"set TEMP_ZIP={_tempZipPath}");
+            batContent.AppendLine($"set TEMP_EXTRACT={_tempExtractPath}");
+            batContent.AppendLine($"set EXE_NAME={Process.GetCurrentProcess().ProcessName}.exe");
+            batContent.AppendLine();
+            batContent.AppendLine("echo Ожидание закрытия приложения...");
+            batContent.AppendLine();
+            batContent.AppendLine(":wait_loop");
+            batContent.AppendLine("tasklist /FI \"IMAGENAME eq %EXE_NAME%\" /NH | find /I \"%EXE_NAME%\" >nul");
+            batContent.AppendLine("if not errorlevel 1 (");
+            batContent.AppendLine("    timeout /t 1 /nobreak >nul");
+            batContent.AppendLine("    goto wait_loop");
+            batContent.AppendLine(")");
+            batContent.AppendLine();
+            batContent.AppendLine("echo Приложение закрыто. Начинаю обновление...");
+            batContent.AppendLine();
+            batContent.AppendLine("REM Копируем новые файлы поверх старых");
+            batContent.AppendLine("xcopy /E /Y /I \"%TEMP_EXTRACT%\\*\" \"%APP_DIR%\"");
+            batContent.AppendLine();
+            batContent.AppendLine("REM Очищаем временные файлы");
+            batContent.AppendLine("del \"%TEMP_ZIP%\" 2>nul");
+            batContent.AppendLine("rmdir /S /Q \"%TEMP_EXTRACT%\" 2>nul");
+            batContent.AppendLine();
+            batContent.AppendLine("REM Запускаем обновлённое приложение");
+            batContent.AppendLine("start \"\" \"%APP_DIR%%EXE_NAME%\"");
+            batContent.AppendLine();
+            batContent.AppendLine("REM Удаляем этот bat-файл");
+            batContent.AppendLine("del \"%~f0\"");
+            batContent.AppendLine();
+            batContent.AppendLine("echo Обновление завершено!");
+            batContent.AppendLine("pause");
+
+            File.WriteAllText(_batFilePath, batContent.ToString(), Encoding.UTF8);
+            Log($"BAT-файл создан: {_batFilePath}");
+        }
+
+        /// <summary>
+        /// Запускает BAT-файл и закрывает текущее приложение
+        /// </summary>
+        private void RestartWithUpdate()
+        {
+            try
+            {
+                var startInfo = new ProcessStartInfo
+                {
+                    FileName = _batFilePath,
+                    WorkingDirectory = _appDirectory,
+                    CreateNoWindow = false,
+                    UseShellExecute = true
+                };
+
+                Process.Start(startInfo);
+
+                Log("BAT-файл запущен, закрытие приложения...");
+
+                // Закрываем приложение
+                Application.Current.Shutdown();
+            }
+            catch (Exception ex)
+            {
+                Log($"Ошибка запуска BAT: {ex.Message}");
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Логирование в debug output и файл
+        /// </summary>
+        private void Log(string message)
+        {
+            var logMessage = $"[UpdateService] {DateTime.Now:HH:mm:ss.fff} {message}";
+            Debug.WriteLine(logMessage);
+
+            // Пытаемся записать в лог-файл если существует
+            try
+            {
+                var logPath = Path.Combine(_appDirectory, "logs", $"app-{DateTime.Now:yyyy-MM-dd}.log");
+                var logDir = Path.GetDirectoryName(logPath);
+                if (!string.IsNullOrEmpty(logDir) && !Directory.Exists(logDir))
+                    Directory.CreateDirectory(logDir);
+                
+                File.AppendAllText(logPath, logMessage + Environment.NewLine);
+            }
+            catch
+            {
+                // Игнорируем ошибки логирования
+            }
+        }
+
+        /// <summary>
+        /// Информация об обновлении из XML
+        /// </summary>
+        private class UpdateInfo
+        {
+            public string Version { get; set; } = string.Empty;
+            public string ZipUrl { get; set; } = string.Empty;
+        }
+    }
+}
