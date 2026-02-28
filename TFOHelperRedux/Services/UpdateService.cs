@@ -27,7 +27,7 @@ namespace TFOHelperRedux.Services
         {
             _updateXmlUrl = updateXmlUrl;
             _appDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            _currentVersion = Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "0.0.0.0";
+            _currentVersion = Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "0.0.0";
             _batFilePath = Path.Combine(_appDirectory, "update.bat");
             _tempZipPath = Path.Combine(Path.GetTempPath(), "TFOHelperRedux_update.zip");
             _tempExtractPath = Path.Combine(Path.GetTempPath(), "TFOHelperRedux_update_extracted");
