@@ -120,8 +120,8 @@ namespace TFOHelperRedux.Services
                 var doc = new XmlDocument();
                 doc.LoadXml(xmlContent);
 
-                var versionNode = doc.SelectSingleNode("//update/version");
-                var urlNode = doc.SelectSingleNode("//update/url");
+                var versionNode = doc.SelectSingleNode("//item/version");
+                var urlNode = doc.SelectSingleNode("//item/url");
 
                 if (versionNode == null || urlNode == null)
                 {
