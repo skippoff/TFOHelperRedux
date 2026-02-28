@@ -139,6 +139,21 @@ public class ThemeService
                 var color = (System.Windows.Media.Color)resources["BorderBrushLightColor"];
                 resources["BorderBrushLight"] = new System.Windows.Media.SolidColorBrush(color);
             }
+            if (resources.Contains("ToolTipBackgroundColor"))
+            {
+                var color = (System.Windows.Media.Color)resources["ToolTipBackgroundColor"];
+                resources["ToolTipBackgroundBrush"] = new System.Windows.Media.SolidColorBrush(color);
+            }
+            if (resources.Contains("ToolTipTextColor"))
+            {
+                var color = (System.Windows.Media.Color)resources["ToolTipTextColor"];
+                resources["ToolTipForegroundBrush"] = new System.Windows.Media.SolidColorBrush(color);
+            }
+            if (resources.Contains("ToolTipBorderColor"))
+            {
+                var color = (System.Windows.Media.Color)resources["ToolTipBorderColor"];
+                resources["ToolTipBorderBrush"] = new System.Windows.Media.SolidColorBrush(color);
+            }
 
             // Проверяем наши кисти после обновления
             if (resources.Contains("AppBackground"))

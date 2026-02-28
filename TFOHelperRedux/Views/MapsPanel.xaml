@@ -43,19 +43,6 @@
                                   Focusable="False"
                                   helpers:ScrollViewerHelper.EnableMouseWheelScroll="True">
                         <StackPanel>
-                            <!-- Фильтр по уровню водоёма -->
-                            <StackPanel Orientation="Horizontal"
-                                        Margin="4,0,4,6">
-                                <TextBlock Text="Уровень водоёма ≤"
-                                           VerticalAlignment="Center"
-                                           FontSize="13"
-                                           Foreground="{DynamicResource TextSecondary}"/>
-                                <ComboBox ItemsSource="{Binding MapLevels}"
-                                          SelectedItem="{Binding SelectedLevelFilter, Mode=TwoWay}"
-                                          Width="80"
-                                          Margin="6,0,0,0"
-                                          Foreground="{DynamicResource TextPrimary}"/>
-                            </StackPanel>
                             <!-- Единый список локаций с группировкой -->
                             <ListBox x:Name="MapsListBox"
                                      ItemsSource="{Binding AllMaps}"

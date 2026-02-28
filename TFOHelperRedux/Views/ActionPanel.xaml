@@ -23,18 +23,12 @@
                 Command="{Binding CatchPointsVM.ClearPointsCmd}"
                 Style="{StaticResource DeleteButton}"
                 Tag="{StaticResource IconDelete}"
+                Margin="0, 0, 6, 0"
                 ToolTip="Очистить точки"/>
-        <TextBlock Text="Операции с точками"
-                   FontWeight="Heavy"
-                   Margin="12,6"
-                   VerticalAlignment="Center"
-                   FontSize="14"
-                   Foreground="{DynamicResource TextPrimary}"/>
-        <Button Content="Добавить точку"
-                Command="{Binding CatchPointsVM.EditCatchPointWindowCommand}"
-                Style="{StaticResource EditButton}"
-                Tag="{StaticResource IconEdit}"
-                ToolTip="Добавить точку лова"/>
+        <ToggleButton Style="{StaticResource ThemeToggleButton}"
+                      ToolTip="Переключить тему"
+                      IsChecked="{Binding NavigationVM.IsDarkTheme, Mode=TwoWay}"
+                      VerticalAlignment="Center"/>
         <Button Content="Настройки"
                 Command="{Binding NavigationVM.SettingsCmd}"
                 Style="{StaticResource ImportButton}"

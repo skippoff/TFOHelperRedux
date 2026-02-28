@@ -15,13 +15,14 @@
                 Command="{Binding NavigationVM.ShowBaitsCmd}"
                 Style="{StaticResource FishButton}"
                 Tag="{StaticResource IconFish}"
-                Margin="0,0,6,0"/>
+                Margin="0,0,0,0"/>
 
-        <!-- 🌓 Переключатель темы -->
-        <ToggleButton Style="{StaticResource ThemeToggleButton}"
-                      ToolTip="Переключить тему"
-                      IsChecked="{Binding NavigationVM.IsDarkTheme, Mode=TwoWay}"
-                      Margin="12,0,0,0"
-                      VerticalAlignment="Center"/>
+        <!-- ✏️ Добавить точку -->
+        <Button Content="Добавить точку"
+                Command="{Binding CatchPointsVM.EditCatchPointWindowCommand}"
+                Style="{StaticResource EditButton}"
+                Tag="{StaticResource IconEdit}"
+                Margin="6,0,0,0"
+                ToolTip="Добавить точку лова"/>
     </StackPanel>
 </UserControl>

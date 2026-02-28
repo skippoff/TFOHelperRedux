@@ -18,20 +18,17 @@ namespace TFOHelperRedux.Services.Business
         private readonly IDataLoadSaveService _loadSaveService;
         private readonly Action? _onMapsChanged;
         private readonly Action? _onSelectedMapChanged;
-        private readonly Action? _onSelectedLevelFilterChanged;
 
         public MapsService(
             IDataLoadSaveService loadSaveService,
             ObservableCollection<MapModel> maps,
             Action? onMapsChanged = null,
-            Action? onSelectedMapChanged = null,
-            Action? onSelectedLevelFilterChanged = null)
+            Action? onSelectedMapChanged = null)
         {
             _loadSaveService = loadSaveService;
             Maps = maps;
             _onMapsChanged = onMapsChanged;
             _onSelectedMapChanged = onSelectedMapChanged;
-            _onSelectedLevelFilterChanged = onSelectedLevelFilterChanged;
         }
 
         #region Коллекции карт
@@ -39,26 +36,10 @@ namespace TFOHelperRedux.Services.Business
         public ObservableCollection<MapModel> MapsForFish { get; } = new();
         public ObservableCollection<MapModel> NonDlcMaps { get; } = new();
         public ObservableCollection<MapModel> DlcMaps { get; } = new();
-        public ObservableCollection<int> MapLevels { get; } = new();
 
         #endregion
 
         #region Свойства
-
-        private int _selectedLevelFilter;
-        public int SelectedLevelFilter
-        {
-            get => _selectedLevelFilter;
-            set
-            {
-                if (_selectedLevelFilter != value)
-                {
-                    _selectedLevelFilter = value;
-                    _onSelectedLevelFilterChanged?.Invoke();
-                    UpdateMapFilters();
-                }
-            }
-        }
 
         private MapModel? _selectedMap;
         public MapModel? SelectedMap
@@ -125,20 +106,6 @@ namespace TFOHelperRedux.Services.Business
 
         #region Методы фильтрации карт
 
-        public void InitializeMapFilters()
-        {
-            MapLevels.Clear();
-
-            if (Maps != null)
-            {
-                foreach (var lvl in Maps.Select(m => m.Level).Distinct().OrderBy(l => l))
-                    MapLevels.Add(lvl);
-
-                if (MapLevels.Any())
-                    SelectedLevelFilter = MapLevels.Max();
-            }
-        }
-
         public void UpdateMapFilters()
         {
             NonDlcMaps.Clear();
@@ -149,9 +116,6 @@ namespace TFOHelperRedux.Services.Business
 
             var nonDlc = Maps.Where(m => !m.DLC);
             var dlc = Maps.Where(m => m.DLC);
-
-            if (SelectedLevelFilter > 0)
-                nonDlc = nonDlc.Where(m => m.Level <= SelectedLevelFilter);
 
             foreach (var map in nonDlc.OrderBy(m => m.Level).ThenBy(m => m.Name))
                 NonDlcMaps.Add(map);

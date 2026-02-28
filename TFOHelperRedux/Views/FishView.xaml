@@ -45,9 +45,9 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <!-- 📁 Импорт / Экспорт / Очистить -->
-                    <views:ActionPanel Grid.Column="0" Grid.Row="0"/>
+                    <views:ActionPanel Grid.Column="3" Grid.Row="0" HorizontalAlignment="Right"/>
                     <!-- 🧭 Навигация -->
-                    <views:NavigationPanel Grid.Column="0" Grid.Row="1" />
+                    <views:NavigationPanel Grid.Column="0" Grid.Row="0" />
                 </Grid>
             </Border>
         </Border>

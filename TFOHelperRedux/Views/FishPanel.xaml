@@ -27,7 +27,10 @@
              BorderThickness="0"
              ScrollViewer.VerticalScrollBarVisibility="Auto"
              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-             HorizontalContentAlignment="Stretch">
+             HorizontalContentAlignment="Stretch"
+             VirtualizingPanel.IsVirtualizing="True"
+             VirtualizingPanel.VirtualizationMode="Recycling"
+             ScrollViewer.IsDeferredScrollingEnabled="True">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel IsItemsHost="True" Orientation="Horizontal"/>
@@ -47,7 +50,7 @@
                             </Grid.RowDefinitions>
 
                             <Viewbox Grid.Row="0" MaxHeight="56" MaxWidth="112" Margin="0,4">
-                                <Image Source="{Binding ImagePath, Converter={StaticResource ImgConverter}}"
+                                <Image Source="{Binding ImagePath, Converter={StaticResource ImgConverter}, IsAsync=True}"
                                Stretch="Uniform"/>
                             </Viewbox>
                             <TextBlock Grid.Row="1"

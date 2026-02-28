@@ -67,7 +67,6 @@ namespace TFOHelperRedux.ViewModels
         public ObservableCollection<MapModel> Maps => DataStore.Maps;
         public ObservableCollection<MapModel> NonDlcMaps => _mapsService.NonDlcMaps;
         public ObservableCollection<MapModel> DlcMaps => _mapsService.DlcMaps;
-        public ObservableCollection<int> MapLevels => _mapsService.MapLevels;
 
         // Единый список карт с группировкой для ListBox (ленивая инициализация)
         private System.ComponentModel.ICollectionView? _allMapsView;
@@ -77,7 +76,7 @@ namespace TFOHelperRedux.ViewModels
             {
                 if (_allMapsView == null)
                 {
-                    _allMapsView = _mapListViewService.GetAllMapsView(Maps, SelectedLevelFilter);
+                    _allMapsView = _mapListViewService.GetAllMapsView(Maps);
                 }
                 return _allMapsView;
             }
@@ -90,21 +89,6 @@ namespace TFOHelperRedux.ViewModels
         public string CurrentMode => _navigationService.CurrentMode;
 
         public string BaitsSubMode => _navigationService.BaitsSubMode;
-
-        public int SelectedLevelFilter
-        {
-            get => _mapsService.SelectedLevelFilter;
-            set
-            {
-                if (_mapsService.SelectedLevelFilter != value)
-                {
-                    _mapsService.SelectedLevelFilter = value;
-                    OnPropertyChanged(nameof(SelectedLevelFilter));
-                    // RefreshFilter уже вызывает _allMapsView.Refresh() внутри
-                    _mapListViewService.RefreshFilter(value);
-                }
-            }
-        }
 
         #endregion
 
@@ -230,8 +214,8 @@ namespace TFOHelperRedux.ViewModels
             // Инициализация команд
             EditMapFishesCmd = new RelayCommand(EditMapFishes);
 
-            // Инициализация фильтров карт
-            _mapsService.InitializeMapFilters();
+            // Инициализация фильтров карт (без фильтрации по уровню)
+            _mapsService.UpdateMapFilters();
 
             // Выбор первой локации при старте
             if (_mapsService.SelectedMap == null)

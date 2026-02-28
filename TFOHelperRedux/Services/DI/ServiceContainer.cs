@@ -123,8 +123,7 @@ public static class ServiceContainer
                 loadSaveService,
                 DataStore.Maps,
                 onMapsChanged: null,
-                onSelectedMapChanged: null,
-                onSelectedLevelFilterChanged: null
+                onSelectedMapChanged: null
             );
         });
         _log.Verbose("Зарегистрирован MapsService");

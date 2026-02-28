@@ -9,18 +9,39 @@
              mc:Ignorable="d"
              d:DesignHeight="600" d:DesignWidth="600">
 
+    <UserControl.Resources>
+        <Style x:Key="SearchTextBoxStyle" TargetType="TextBox">
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Margin" Value="0,0,0,4"/>
+            <Setter Property="Padding" Value="4"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimary}"/>
+            <Setter Property="CaretBrush" Value="{DynamicResource TextPrimary}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border x:Name="border"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{DynamicResource PrimaryColor}"
+                                BorderThickness="2"
+                                CornerRadius="3">
+                            <ScrollViewer x:Name="PART_ContentHost"
+                                          Margin="4,0"
+                                          VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
     <ScrollViewer VerticalScrollBarVisibility="Auto" helpers:ScrollViewerHelper.EnableMouseWheelScroll="True">
         <StackPanel Margin="6">
             <!-- Рыбы -->
             <TextBlock Text="Рыбы:" FontWeight="Bold" Margin="0,0,0,4" Foreground="{DynamicResource TextPrimary}"/>
             <TextBox x:Name="tbFishSearch"
-                     Height="35"
-                     Margin="0,0,0,4"
-                     Padding="4"
+                     Style="{StaticResource SearchTextBoxStyle}"
                      TextChanged="TbFishSearch_TextChanged"
-                     ToolTip="Поиск по названию рыбы"
-                     Foreground="{DynamicResource TextPrimary}"
-                     CaretBrush="{DynamicResource TextPrimary}"/>
+                     ToolTip="Поиск по названию рыбы"/>
             <Border BorderThickness="1" CornerRadius="3" BorderBrush="{DynamicResource BorderBrushLight}">
                 <ScrollViewer Height="250" VerticalScrollBarVisibility="Auto">
                     <ItemsControl ItemsSource="{Binding FishView, RelativeSource={RelativeSource AncestorType=UserControl}}">
@@ -52,13 +73,9 @@
                 <StackPanel Grid.Column="0" Margin="0,0,6,0">
                     <TextBlock Text="Может клевать:" FontWeight="Bold" Margin="0,0,0,4" Foreground="{DynamicResource TextPrimary}"/>
                     <TextBox x:Name="tbLureSearch"
-                             Height="35"
-                             Margin="0,0,0,4"
-                             Padding="4"
+                             Style="{StaticResource SearchTextBoxStyle}"
                              TextChanged="TbLureSearch_TextChanged"
-                             ToolTip="Поиск по названию наживки"
-                             Foreground="{DynamicResource TextPrimary}"
-                             CaretBrush="{DynamicResource TextPrimary}"/>
+                             ToolTip="Поиск по названию наживки"/>
                     <Border BorderThickness="1" CornerRadius="3" BorderBrush="{DynamicResource BorderBrushLight}">
                         <ScrollViewer Height="220" VerticalScrollBarVisibility="Auto">
                             <ItemsControl ItemsSource="{Binding LuresView, RelativeSource={RelativeSource AncestorType=UserControl}}">
@@ -92,13 +109,9 @@
                 <StackPanel Grid.Column="1" Margin="6,0,0,0">
                     <TextBlock Text="Лучшие наживки:" FontWeight="Bold" Margin="0,0,0,4" Foreground="{DynamicResource TextPrimary}"/>
                     <TextBox x:Name="tbBestLureSearch"
-                             Height="35"
-                             Margin="0,0,0,4"
-                             Padding="4"
+                             Style="{StaticResource SearchTextBoxStyle}"
                              TextChanged="TbBestLureSearch_TextChanged"
-                             ToolTip="Поиск по названию лучшей наживки"
-                             Foreground="{DynamicResource TextPrimary}"
-                             CaretBrush="{DynamicResource TextPrimary}"/>
+                             ToolTip="Поиск по названию лучшей наживки"/>
                     <Border BorderThickness="1" CornerRadius="3" BorderBrush="{DynamicResource BorderBrushLight}">
                         <ScrollViewer Height="220" VerticalScrollBarVisibility="Auto">
                             <ItemsControl ItemsSource="{Binding LuresView, RelativeSource={RelativeSource AncestorType=UserControl}}">

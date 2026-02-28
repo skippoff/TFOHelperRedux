@@ -9,18 +9,39 @@
              mc:Ignorable="d"
              d:DesignHeight="600" d:DesignWidth="600">
 
+    <UserControl.Resources>
+        <Style x:Key="SearchTextBoxStyle" TargetType="TextBox">
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Margin" Value="0,0,0,8"/>
+            <Setter Property="Padding" Value="4"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimary}"/>
+            <Setter Property="CaretBrush" Value="{DynamicResource TextPrimary}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border x:Name="border"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{DynamicResource PrimaryColor}"
+                                BorderThickness="2"
+                                CornerRadius="3">
+                            <ScrollViewer x:Name="PART_ContentHost"
+                                          Margin="4,0"
+                                          VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
     <ScrollViewer VerticalScrollBarVisibility="Auto" helpers:ScrollViewerHelper.EnableMouseWheelScroll="True">
         <StackPanel Margin="6">
             <!-- Поиск -->
             <TextBlock Text="Поиск прикормки:" FontWeight="Bold" Margin="0,0,0,4" Foreground="{DynamicResource TextPrimary}"/>
             <TextBox x:Name="tbSearch"
-                     Height="35"
-                     Margin="0,0,0,8"
-                     Padding="4"
+                     Style="{StaticResource SearchTextBoxStyle}"
                      TextChanged="TbSearch_TextChanged"
-                     ToolTip="Поиск по названию прикормки или рецепта"
-                     Foreground="{DynamicResource TextPrimary}"
-                     CaretBrush="{DynamicResource TextPrimary}"/>
+                     ToolTip="Поиск по названию прикормки или рецепта"/>
 
             <!-- Фильтры -->
             <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
