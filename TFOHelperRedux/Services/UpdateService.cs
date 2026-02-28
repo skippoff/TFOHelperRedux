@@ -55,7 +55,16 @@ namespace TFOHelperRedux.Services
 
                 Log($"Доступна новая версия: {latestVersionInfo.Version} (текущая: {_currentVersion})");
 
-                var zipDownloaded = await DownloadUpdateAsync(latestVersionInfo.ZipUrl);
+                // Показываем диалог пользователю
+                var userConfirmed = ShowUpdateDialog(latestVersionInfo.Version);
+                if (!userConfirmed)
+                {
+                    Log("Пользователь отменил обновление");
+                    return false;
+                }
+
+                // Скачиваем с прогресс-баром
+                var zipDownloaded = await DownloadUpdateWithProgressAsync(latestVersionInfo.ZipUrl);
                 if (!zipDownloaded)
                 {
                     Log("Ошибка загрузки обновления");
@@ -75,6 +84,25 @@ namespace TFOHelperRedux.Services
                 Log($"Ошибка обновления: {ex.Message}");
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Показывает диалоговое окно с предложением обновиться
+        /// </summary>
+        private bool ShowUpdateDialog(string latestVersion)
+        {
+            var message = $"Доступна версия {latestVersion}.\n\n" +
+                          $"Текущая версия: {_currentVersion}\n\n" +
+                          $"Обновить сейчас?";
+
+            var result = MessageBox.Show(
+                message,
+                "Доступно обновление",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question,
+                MessageBoxResult.Yes);
+
+            return result == MessageBoxResult.Yes;
         }
 
         /// <summary>
@@ -133,30 +161,74 @@ namespace TFOHelperRedux.Services
         }
 
         /// <summary>
-        /// Загружает ZIP архив с обновлением
+        /// Загружает ZIP архив с обновлением и показывает прогресс
         /// </summary>
-        private async Task<bool> DownloadUpdateAsync(string zipUrl)
+        private async Task<bool> DownloadUpdateWithProgressAsync(string zipUrl)
         {
+            var progressDialog = new DownloadProgressDialog();
+
             try
             {
                 using var httpClient = new HttpClient();
                 httpClient.Timeout = TimeSpan.FromMinutes(5);
 
-                var zipData = await httpClient.GetByteArrayAsync(zipUrl);
+                // Получаем размер файла
+                var response = await httpClient.GetAsync(zipUrl, HttpCompletionOption.ResponseHeadersRead);
+                response.EnsureSuccessStatusCode();
 
-                // Удаляем старый файл если существует
-                if (File.Exists(_tempZipPath))
-                    File.Delete(_tempZipPath);
+                var totalBytes = response.Content.Headers.ContentLength ?? 0;
 
-                await File.WriteAllBytesAsync(_tempZipPath, zipData);
+                // Запускаем загрузку с прогрессом
+                var downloadTask = DownloadFileAsync(httpClient, zipUrl, totalBytes, progressDialog);
 
-                Log($"ZIP загружен: {_tempZipPath} ({zipData.Length} байт)");
+                // Показываем диалог
+                progressDialog.Show();
+
+                await downloadTask;
+
+                progressDialog.Close();
+
+                Log($"ZIP загружен: {_tempZipPath} ({totalBytes} байт)");
                 return true;
             }
             catch (Exception ex)
             {
+                progressDialog.Close();
                 Log($"Ошибка загрузки ZIP: {ex.Message}");
+                MessageBox.Show(
+                    $"Не удалось загрузить обновление:\n{ex.Message}",
+                    "Ошибка обновления",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
                 return false;
+            }
+        }
+
+        /// <summary>
+        /// Асинхронно загружает файл и обновляет прогресс
+        /// </summary>
+        private async Task DownloadFileAsync(HttpClient httpClient, string url, long totalBytes, DownloadProgressDialog progressDialog)
+        {
+            using var response = await httpClient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead);
+            response.EnsureSuccessStatusCode();
+
+            await using var stream = await response.Content.ReadAsStreamAsync();
+            await using var fileStream = new FileStream(_tempZipPath, FileMode.Create, FileAccess.Write, FileShare.None, 8192, true);
+
+            var buffer = new byte[8192];
+            long totalBytesRead = 0;
+            int bytesRead;
+
+            while ((bytesRead = await stream.ReadAsync(buffer.AsMemory(0, buffer.Length))) > 0)
+            {
+                await fileStream.WriteAsync(buffer.AsMemory(0, bytesRead));
+                totalBytesRead += bytesRead;
+
+                if (totalBytes > 0)
+                {
+                    var progress = (int)(totalBytesRead * 100 / totalBytes);
+                    progressDialog.UpdateProgress(progress, totalBytesRead, totalBytes);
+                }
             }
         }
 
