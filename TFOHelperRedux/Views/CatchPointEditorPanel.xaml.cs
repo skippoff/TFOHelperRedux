@@ -54,8 +54,9 @@ namespace TFOHelperRedux.Views
 
             // Инициализация источников данных
             cmbMap.ItemsSource = DataStore.Maps;
-            if (DataStore.Maps.Any())
-                cmbMap.SelectedIndex = 0;
+            
+            // Выбираем текущий водоём (из глобального выбора или первый в списке)
+            cmbMap.SelectedItem = DataStore.Selection.SelectedMap ?? DataStore.Maps.FirstOrDefault();
 
             // Подписываемся на изменения в коллекции рыб, чтобы обновлять поля веса
             DataStore.Fishes.CollectionChanged += Fishes_CollectionChanged;
@@ -208,7 +209,11 @@ namespace TFOHelperRedux.Views
                 foreach (var d in DataStore.Dips) d.IsSelected = _point.DipsIDs?.Contains(d.ID) == true;
 
                 // Выбранная карта
-                cmbMap.SelectedItem = DataStore.Maps.FirstOrDefault(m => m.ID == _point.MapID);
+                // Для новой точки выбираем текущий водоём, для существующей — из точки
+                if (point == null || point.MapID == 0)
+                    cmbMap.SelectedItem = DataStore.Selection.SelectedMap ?? DataStore.Maps.FirstOrDefault();
+                else
+                    cmbMap.SelectedItem = DataStore.Maps.FirstOrDefault(m => m.ID == point.MapID);
 
                 // Координаты
                 tbX.Text = _point.Coords?.X.ToString() ?? string.Empty;
