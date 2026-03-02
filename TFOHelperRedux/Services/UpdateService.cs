@@ -285,50 +285,73 @@ namespace TFOHelperRedux.Services
             batContent.AppendLine("echo Приложение закрыто. Начинаю обновление...");
             batContent.AppendLine();
 
-            // === ЗАЩИТА CatchPoints_Local.json ===
-            // Правильный путь с \ между APP_DIR и Maps
+            // === ЗАЩИТА пользовательских файлов ===
+            
+            // 1. CatchPoints_Local.json (точки лова)
+            batContent.AppendLine("REM --- Защита CatchPoints_Local.json ---");
             batContent.AppendLine("set CATCHPOINTS_FILE=%APP_DIR%\\Maps\\CatchPoints_Local.json");
-            // Уникальное имя бэкапа (без символов даты, только RANDOM для надёжности)
-            batContent.AppendLine("set BACKUP_FILE=%TEMP%\\CatchPoints_backup_%RANDOM%.json");
-            batContent.AppendLine("set BACKUP_CREATED=0");
-            batContent.AppendLine();
-
-            // Проверка успешности copy перед xcopy
+            batContent.AppendLine("set BACKUP_CATCHPOINTS=%TEMP%\\CatchPoints_backup_%RANDOM%.json");
+            batContent.AppendLine("set CATCHPOINTS_SAVED=0");
             batContent.AppendLine("if exist \"%CATCHPOINTS_FILE%\" (");
-            batContent.AppendLine("    copy /Y \"%CATCHPOINTS_FILE%\" \"%BACKUP_FILE%\" >nul");
+            batContent.AppendLine("    copy /Y \"%CATCHPOINTS_FILE%\" \"%BACKUP_CATCHPOINTS%\" >nul");
             batContent.AppendLine("    if errorlevel 1 (");
-            batContent.AppendLine("        echo ОШИБКА: не удалось создать резервную копию!");
-            batContent.AppendLine("        echo Обновление отменено для защиты ваших данных.");
+            batContent.AppendLine("        echo ОШИБКА: не удалось сохранить точки лова!");
             batContent.AppendLine("        pause");
             batContent.AppendLine("        exit /b 1");
             batContent.AppendLine("    )");
-            batContent.AppendLine("    set BACKUP_CREATED=1");
+            batContent.AppendLine("    set CATCHPOINTS_SAVED=1");
             batContent.AppendLine(")");
             batContent.AppendLine();
 
-            // Проверка успешности xcopy с откатом при ошибке
+            // 2. BaitRecipes.json (рецепты прикормок)
+            batContent.AppendLine("REM --- Защита BaitRecipes.json ---");
+            batContent.AppendLine("set RECIPES_FILE=%APP_DIR%\\Recipes\\BaitRecipes.json");
+            batContent.AppendLine("set BACKUP_RECIPES=%TEMP%\\BaitRecipes_backup_%RANDOM%.json");
+            batContent.AppendLine("set RECIPES_SAVED=0");
+            batContent.AppendLine("if exist \"%RECIPES_FILE%\" (");
+            batContent.AppendLine("    copy /Y \"%RECIPES_FILE%\" \"%BACKUP_RECIPES%\" >nul");
+            batContent.AppendLine("    if errorlevel 1 (");
+            batContent.AppendLine("        echo ОШИБКА: не удалось сохранить рецепты!");
+            batContent.AppendLine("        pause");
+            batContent.AppendLine("        exit /b 1");
+            batContent.AppendLine("    )");
+            batContent.AppendLine("    set RECIPES_SAVED=1");
+            batContent.AppendLine(")");
+            batContent.AppendLine();
+
+            // Копирование файлов обновления с проверкой
             batContent.AppendLine("xcopy /E /Y /I \"%TEMP_EXTRACT%\\*\" \"%APP_DIR%\"");
             batContent.AppendLine("if errorlevel 1 (");
-            batContent.AppendLine("    echo ОШИБКА: не удалось скопировать файлы обновления!");
-            batContent.AppendLine("    if \"%BACKUP_CREATED%\"==\"1\" (");
-            batContent.AppendLine("        echo Восстанавливаю данные из резервной копии...");
-            batContent.AppendLine("        copy /Y \"%BACKUP_FILE%\" \"%CATCHPOINTS_FILE%\" >nul");
-            batContent.AppendLine("    )");
+            batContent.AppendLine("    echo ОШИБКА: не удалось скопировать файлы!");
+            batContent.AppendLine("    if \"%CATCHPOINTS_SAVED%\"==\"1\" copy /Y \"%BACKUP_CATCHPOINTS%\" \"%CATCHPOINTS_FILE%\" >nul");
+            batContent.AppendLine("    if \"%RECIPES_SAVED%\"==\"1\" copy /Y \"%BACKUP_RECIPES%\" \"%RECIPES_FILE%\" >nul");
             batContent.AppendLine("    pause");
             batContent.AppendLine("    exit /b 1");
             batContent.AppendLine(")");
             batContent.AppendLine();
 
-            // Восстанавливаем файл точек лова после успешного xcopy
-            batContent.AppendLine("if \"%BACKUP_CREATED%\"==\"1\" (");
-            batContent.AppendLine("    copy /Y \"%BACKUP_FILE%\" \"%CATCHPOINTS_FILE%\" >nul");
+            // Восстановление файлов после успешного копирования
+            batContent.AppendLine("REM Восстановление пользовательских данных...");
+            batContent.AppendLine("if \"%CATCHPOINTS_SAVED%\"==\"1\" (");
+            batContent.AppendLine("    copy /Y \"%BACKUP_CATCHPOINTS%\" \"%CATCHPOINTS_FILE%\" >nul");
             batContent.AppendLine("    if errorlevel 1 (");
             batContent.AppendLine("        echo ОШИБКА: не удалось восстановить точки лова!");
-            batContent.AppendLine("        echo Резервная копия сохранена: %BACKUP_FILE%");
+            batContent.AppendLine("        echo Бэкап: %BACKUP_CATCHPOINTS%");
             batContent.AppendLine("        pause");
             batContent.AppendLine("        exit /b 1");
             batContent.AppendLine("    )");
-            batContent.AppendLine("    del \"%BACKUP_FILE%\" 2>nul");
+            batContent.AppendLine("    del \"%BACKUP_CATCHPOINTS%\" 2>nul");
+            batContent.AppendLine(")");
+            batContent.AppendLine();
+            batContent.AppendLine("if \"%RECIPES_SAVED%\"==\"1\" (");
+            batContent.AppendLine("    copy /Y \"%BACKUP_RECIPES%\" \"%RECIPES_FILE%\" >nul");
+            batContent.AppendLine("    if errorlevel 1 (");
+            batContent.AppendLine("        echo ОШИБКА: не удалось восстановить рецепты!");
+            batContent.AppendLine("        echo Бэкап: %BACKUP_RECIPES%");
+            batContent.AppendLine("        pause");
+            batContent.AppendLine("        exit /b 1");
+            batContent.AppendLine("    )");
+            batContent.AppendLine("    del \"%BACKUP_RECIPES%\" 2>nul");
             batContent.AppendLine(")");
             batContent.AppendLine();
 

@@ -378,6 +378,7 @@ FodyWeavers.xsd
 
 # Локальные файлы данных (не коммитить)
 TFOHelperRedux/Maps/CatchPoints_Local.json
+TFOHelperRedux/Recipes/BaitRecipes.json
 TFOHelperRedux/Fishes/Fishes_Local.json
 TFOHelperRedux/Feeds/Feeds_Local.json
 TFOHelperRedux/Lures/Lures_Local.json
