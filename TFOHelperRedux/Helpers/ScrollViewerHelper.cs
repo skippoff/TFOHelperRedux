@@ -39,8 +39,21 @@ namespace TFOHelperRedux.Helpers
         {
             if (sender is ScrollViewer sv)
             {
-                sv.ScrollToVerticalOffset(sv.VerticalOffset - e.Delta);
-                e.Handled = true;
+                // Если скролл горизонтальный (Shift зажат) — скроллим горизонтально
+                if (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift))
+                {
+                    sv.ScrollToHorizontalOffset(sv.HorizontalOffset - e.Delta);
+                    e.Handled = true;
+                    return;
+                }
+
+                // Если вертикальный скролл возможен — скроллим вертикально
+                if (sv.ScrollableHeight > 0)
+                {
+                    sv.ScrollToVerticalOffset(sv.VerticalOffset - e.Delta);
+                    e.Handled = true;
+                }
+                // Иначе — НЕ помечаем e.Handled, событие уйдёт дальше к родителю
             }
         }
     }
