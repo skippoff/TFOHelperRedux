@@ -284,21 +284,65 @@ namespace TFOHelperRedux.Services
             batContent.AppendLine();
             batContent.AppendLine("echo Приложение закрыто. Начинаю обновление...");
             batContent.AppendLine();
-            batContent.AppendLine("REM Копируем новые файлы поверх старых");
-            batContent.AppendLine("xcopy /E /Y /I \"%TEMP_EXTRACT%\\*\" \"%APP_DIR%\"");
+
+            // === ЗАЩИТА CatchPoints_Local.json ===
+            // Правильный путь с \ между APP_DIR и Maps
+            batContent.AppendLine("set CATCHPOINTS_FILE=%APP_DIR%\\Maps\\CatchPoints_Local.json");
+            // Уникальное имя бэкапа (без символов даты, только RANDOM для надёжности)
+            batContent.AppendLine("set BACKUP_FILE=%TEMP%\\CatchPoints_backup_%RANDOM%.json");
+            batContent.AppendLine("set BACKUP_CREATED=0");
             batContent.AppendLine();
+
+            // Проверка успешности copy перед xcopy
+            batContent.AppendLine("if exist \"%CATCHPOINTS_FILE%\" (");
+            batContent.AppendLine("    copy /Y \"%CATCHPOINTS_FILE%\" \"%BACKUP_FILE%\" >nul");
+            batContent.AppendLine("    if errorlevel 1 (");
+            batContent.AppendLine("        echo ОШИБКА: не удалось создать резервную копию!");
+            batContent.AppendLine("        echo Обновление отменено для защиты ваших данных.");
+            batContent.AppendLine("        pause");
+            batContent.AppendLine("        exit /b 1");
+            batContent.AppendLine("    )");
+            batContent.AppendLine("    set BACKUP_CREATED=1");
+            batContent.AppendLine(")");
+            batContent.AppendLine();
+
+            // Проверка успешности xcopy с откатом при ошибке
+            batContent.AppendLine("xcopy /E /Y /I \"%TEMP_EXTRACT%\\*\" \"%APP_DIR%\"");
+            batContent.AppendLine("if errorlevel 1 (");
+            batContent.AppendLine("    echo ОШИБКА: не удалось скопировать файлы обновления!");
+            batContent.AppendLine("    if \"%BACKUP_CREATED%\"==\"1\" (");
+            batContent.AppendLine("        echo Восстанавливаю данные из резервной копии...");
+            batContent.AppendLine("        copy /Y \"%BACKUP_FILE%\" \"%CATCHPOINTS_FILE%\" >nul");
+            batContent.AppendLine("    )");
+            batContent.AppendLine("    pause");
+            batContent.AppendLine("    exit /b 1");
+            batContent.AppendLine(")");
+            batContent.AppendLine();
+
+            // Восстанавливаем файл точек лова после успешного xcopy
+            batContent.AppendLine("if \"%BACKUP_CREATED%\"==\"1\" (");
+            batContent.AppendLine("    copy /Y \"%BACKUP_FILE%\" \"%CATCHPOINTS_FILE%\" >nul");
+            batContent.AppendLine("    if errorlevel 1 (");
+            batContent.AppendLine("        echo ОШИБКА: не удалось восстановить точки лова!");
+            batContent.AppendLine("        echo Резервная копия сохранена: %BACKUP_FILE%");
+            batContent.AppendLine("        pause");
+            batContent.AppendLine("        exit /b 1");
+            batContent.AppendLine("    )");
+            batContent.AppendLine("    del \"%BACKUP_FILE%\" 2>nul");
+            batContent.AppendLine(")");
+            batContent.AppendLine();
+
             batContent.AppendLine("REM Очищаем временные файлы");
             batContent.AppendLine("del \"%TEMP_ZIP%\" 2>nul");
             batContent.AppendLine("rmdir /S /Q \"%TEMP_EXTRACT%\" 2>nul");
             batContent.AppendLine();
+            batContent.AppendLine("echo Обновление завершено успешно!");
+            batContent.AppendLine();
             batContent.AppendLine("REM Запускаем обновлённое приложение");
-            batContent.AppendLine("start \"\" \"%APP_DIR%%EXE_NAME%\"");
+            batContent.AppendLine($"start \"\" \"%APP_DIR%\\%EXE_NAME%\"");
             batContent.AppendLine();
             batContent.AppendLine("REM Удаляем этот bat-файл");
             batContent.AppendLine("del \"%~f0\"");
-            batContent.AppendLine();
-            batContent.AppendLine("echo Обновление завершено!");
-            batContent.AppendLine("pause");
 
             File.WriteAllText(_batFilePath, batContent.ToString(), Encoding.UTF8);
             Log($"BAT-файл создан: {_batFilePath}");
