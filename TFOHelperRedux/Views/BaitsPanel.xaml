@@ -18,7 +18,22 @@
 
         <!-- ====================== CONTENT PANEL ====================== -->
         <Grid Grid.Column="0" Margin="2">
-            <ListBox ItemsSource="{Binding BaitsVM.CurrentItems}"
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            <!-- 🔍 Поиск -->
+            <TextBox Grid.Row="0"
+                     Style="{StaticResource SearchTextBoxStyle}"
+                     Tag="Поиск..."
+                     Text="{Binding BaitsVM.SearchText, UpdateSourceTrigger=PropertyChanged}"
+                     Margin="0,0,0,8"
+                     ToolTip="Поиск по названию"/>
+            
+            <!-- Список элементов -->
+            <ListBox Grid.Row="1"
+                     ItemsSource="{Binding BaitsVM.CurrentItems}"
                      SelectedItem="{Binding BaitsVM.SelectedItem, Mode=TwoWay}"
                      Background="{DynamicResource PanelBackground}"
                      BorderThickness="0"

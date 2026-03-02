@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
 using TFOHelperRedux.Helpers;
 using TFOHelperRedux.Models;
 using TFOHelperRedux.Services.Business;
@@ -30,6 +32,12 @@ namespace TFOHelperRedux.ViewModels
         private CategoryType _currentCategory = CategoryType.Feeds;
         private string _searchText = string.Empty;
         private IItemModel? _selectedItem;
+        
+        // Дебаунс для поиска (защита от лагов при быстром вводе)
+        private readonly DispatcherTimer _debounceTimer;
+        
+        // Кэш результатов поиска для мгновенного повторного поиска
+        private readonly Dictionary<string, List<IItemModel>> _searchCache;
 
         #endregion
 
@@ -75,7 +83,11 @@ namespace TFOHelperRedux.ViewModels
                 if (_searchText != value)
                 {
                     _searchText = value;
-                    ApplyFilter();
+                    
+                    // Перезапуск таймера дебаунса
+                    _debounceTimer.Stop();
+                    _debounceTimer.Start();
+                    
                     OnPropertyChanged(nameof(SearchText));
                 }
             }
@@ -105,6 +117,16 @@ namespace TFOHelperRedux.ViewModels
             _baitCrudService = baitCrudService;
             _uiService = uiService;
 
+            // Инициализация таймера дебаунса (400 мс — баланс между отзывчивостью и производительностью)
+            _debounceTimer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromMilliseconds(400)
+            };
+            _debounceTimer.Tick += DebounceTimer_Tick;
+            
+            // Инициализация кэша поиска
+            _searchCache = new Dictionary<string, List<IItemModel>>();
+
             // Инициализация команд навигации
             ShowFeedsCmd = new RelayCommand(() => SwitchCategory(CategoryType.Feeds));
             ShowComponentsCmd = new RelayCommand(() => SwitchCategory(CategoryType.FeedComponents));
@@ -120,13 +142,81 @@ namespace TFOHelperRedux.ViewModels
 
         #endregion
 
+        #region Обработчик таймера дебаунса
+
+        /// <summary>
+        /// Обработчик таймера — вызывается через 400 мс после последнего изменения поиска
+        /// </summary>
+        private void DebounceTimer_Tick(object? sender, EventArgs e)
+        {
+            _debounceTimer.Stop();
+            ApplyFilterWithCache();
+        }
+
+        /// <summary>
+        /// Фильтрация с кэшированием результатов поиска
+        /// </summary>
+        private void ApplyFilterWithCache()
+        {
+            // Если поиск пустой — загружаем все элементы без кэширования
+            if (string.IsNullOrWhiteSpace(SearchText))
+            {
+                LoadCurrentCategory();
+                _searchCache.Clear(); // Очищаем кэш при сбросе поиска
+                return;
+            }
+
+            // Создаём ключ кэша: категория + поисковый запрос (lowercase для регистронезависимости)
+            var cacheKey = $"{_currentCategory}:{SearchText.ToLowerInvariant()}";
+            
+            // Проверяем кэш
+            if (_searchCache.TryGetValue(cacheKey, out var cached))
+            {
+                // Найдено в кэше — используем закэшированный результат
+                UpdateCollectionEfficient(cached, CurrentItems);
+                return;
+            }
+
+            // Нет в кэше — фильтруем
+            var newItems = _currentCategory switch
+            {
+                CategoryType.Feeds => DataStore.Feeds
+                    .Where(i => i.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
+                    .Cast<IItemModel>(),
+
+                CategoryType.FeedComponents => DataStore.FeedComponents
+                    .Where(i => i.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
+                    .Cast<IItemModel>(),
+
+                CategoryType.Dips => DataStore.Dips
+                    .Where(i => i.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
+                    .Cast<IItemModel>(),
+
+                CategoryType.Lures => DataStore.Lures
+                    .Where(i => i.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
+                    .Cast<IItemModel>(),
+
+                _ => Enumerable.Empty<IItemModel>()
+            };
+
+            var newList = newItems.ToList();
+            
+            // Кэшируем результат
+            _searchCache[cacheKey] = newList;
+            
+            // Обновляем коллекцию
+            UpdateCollectionEfficient(newList, CurrentItems);
+        }
+
+        #endregion
+
         #region Методы навигации по категориям
 
         private void SwitchCategory(CategoryType category)
         {
             _currentCategory = category;
             LoadCurrentCategory();
-            ApplyFilter();
+            ApplyFilterWithCache(); // Используем метод с кэшированием
         }
 
         public void LoadCurrentCategory()
@@ -169,8 +259,8 @@ namespace TFOHelperRedux.ViewModels
 
             _currentCategory = newCategory;
 
-            // Эффективное обновление коллекции без двойной загрузки
-            ApplyFilterEfficient();
+            // Эффективное обновление коллекции с кэшированием
+            ApplyFilterWithCache();
         }
 
         private void ApplyFilterEfficient()
