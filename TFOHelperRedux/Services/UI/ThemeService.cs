@@ -66,21 +66,16 @@ public class ThemeService
             ResourceDictionary colorsDict = null;
             int colorsDictIndex = -1;
 
-            System.Diagnostics.Debug.WriteLine($"[ThemeService] Всего словарей ДО: {mergedDicts.Count}");
             for (int i = 0; i < mergedDicts.Count; i++)
             {
                 var dict = mergedDicts[i];
-                var source = dict.Source?.ToString() ?? "inline";
-                System.Diagnostics.Debug.WriteLine($"[ThemeService]   [{i}] {source}");
-                
+
                 if (dict.Contains("AppBackgroundColor"))
                 {
                     colorsDict = dict;
                     colorsDictIndex = i;
                 }
             }
-
-            System.Diagnostics.Debug.WriteLine($"[ThemeService] Найден словарь цветов: {colorsDict != null}, индекс: {colorsDictIndex}");
 
             if (colorsDict != null && colorsDictIndex >= 0)
             {
@@ -92,7 +87,7 @@ public class ThemeService
                 UriKind.Relative);
 
             var newColorsDict = new ResourceDictionary { Source = colorsUri };
-            
+
             // Вставляем на то же место, где был старый словарь
             if (colorsDictIndex >= 0 && colorsDictIndex < mergedDicts.Count)
             {
@@ -103,14 +98,10 @@ public class ThemeService
                 mergedDicts.Add(newColorsDict);
             }
 
-            System.Diagnostics.Debug.WriteLine($"[ThemeService] Добавлен: {colorsUri} на позицию {colorsDictIndex}");
-            System.Diagnostics.Debug.WriteLine($"[ThemeService] Всего словарей ПОСЛЕ: {mergedDicts.Count}");
-
             // Проверяем, что цвета загрузились
             if (resources.Contains("AppBackgroundColor"))
             {
                 var color = (System.Windows.Media.Color)resources["AppBackgroundColor"];
-                System.Diagnostics.Debug.WriteLine($"[ThemeService] AppBackgroundColor = #{color.R:X2}{color.G:X2}{color.B:X2}");
             }
 
             // Обновляем кисти вручную (DynamicResource не всегда обновляется)
@@ -159,7 +150,6 @@ public class ThemeService
             if (resources.Contains("AppBackground"))
             {
                 var brush = (System.Windows.Media.SolidColorBrush)resources["AppBackground"];
-                System.Diagnostics.Debug.WriteLine($"[ThemeService] AppBackground кисть = #{brush.Color.R:X2}{brush.Color.G:X2}{brush.Color.B:X2}");
             }
 
             // Потом Material Design через PaletteHelper
@@ -168,14 +158,10 @@ public class ThemeService
                 var theme = _paletteHelper.GetTheme();
                 theme.SetBaseTheme(isDark ? BaseTheme.Dark : BaseTheme.Light);
                 _paletteHelper.SetTheme(theme);
-                System.Diagnostics.Debug.WriteLine($"[ThemeService] Material Design тема применена: {(isDark ? "Dark" : "Light")}");
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"[ThemeService] Ошибка при смене Material Design темы: {ex.Message}");
             }
-
-            System.Diagnostics.Debug.WriteLine($"[ThemeService] Тема применена: {(isDark ? "Dark" : "Light")}");
         });
     }
 }
