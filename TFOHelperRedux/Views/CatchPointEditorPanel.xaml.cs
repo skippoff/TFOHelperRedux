@@ -54,9 +54,6 @@ namespace TFOHelperRedux.Views
 
             // Инициализация источников данных
             cmbMap.ItemsSource = DataStore.Maps;
-            
-            // Выбираем текущий водоём (из глобального выбора или первый в списке)
-            cmbMap.SelectedItem = DataStore.Selection.SelectedMap ?? DataStore.Maps.FirstOrDefault();
 
             // Подписываемся на изменения в коллекции рыб, чтобы обновлять поля веса
             DataStore.Fishes.CollectionChanged += Fishes_CollectionChanged;
