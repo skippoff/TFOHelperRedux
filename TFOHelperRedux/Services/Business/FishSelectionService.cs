@@ -83,6 +83,9 @@ public class FishSelectionService
         if (_selection.SelectedMap == map)
             return;
 
+        // Обновляем фильтр поиска (для поиска по рыбам на водоёме)
+        _filterService.SetSelectedMap(map);
+
         // SelectionChanged вызовет FishChanged и MapChanged автоматически
         _selection.SetSelectedMap(map, DataStore.Fishes, _filterService.GetFilteredFishes(), DataStore.Lures);
     }

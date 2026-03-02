@@ -59,25 +59,34 @@ public class FishFilterService
     {
         _filteredFishes.Clear();
 
-        var filtered = _allFishes.AsEnumerable();
+        // 1. Сначала фильтр по карте (рыбы на водоёме)
+        IEnumerable<FishModel> filtered = _allFishes.AsEnumerable();
+        
+        if (_selectedMap != null && _selectedMap.FishIDs != null)
+        {
+            filtered = filtered.Where(f => _selectedMap.FishIDs.Contains(f.ID));
+        }
 
-        // Фильтр по поиску
+        // 2. Затем поиск по названию (только среди рыб на водоёме)
         if (!string.IsNullOrWhiteSpace(_searchText))
         {
             filtered = filtered.Where(f =>
                 f.Name.Contains(_searchText, StringComparison.OrdinalIgnoreCase));
         }
 
-        // Фильтр по карте
-        if (_selectedMap != null && _selectedMap.FishIDs != null)
-        {
-            filtered = filtered.Where(f => _selectedMap.FishIDs.Contains(f.ID));
-        }
-
         foreach (var fish in filtered)
         {
             _filteredFishes.Add(fish);
         }
+    }
+
+    /// <summary>
+    /// Устанавливает выбранную карту и обновляет фильтр
+    /// </summary>
+    public void SetSelectedMap(MapModel? map)
+    {
+        _selectedMap = map;
+        ApplyFilter();
     }
 
     public ObservableCollection<FishModel> GetFilteredFishes() => _filteredFishes;

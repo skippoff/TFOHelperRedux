@@ -66,6 +66,5 @@
                 </ListBox.ItemTemplate>
             </ListBox>
         </Border>
-        <!-- RIGHT: панель деталей -->
     </Grid>
 </UserControl>

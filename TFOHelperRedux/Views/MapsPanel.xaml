@@ -105,24 +105,31 @@
                     </Grid.RowDefinitions>
                     <!-- Заголовок + dev-кнопка -->
                     <StackPanel Grid.Row="0"
-                                Orientation="Horizontal"
                                 Margin="0,0,0,6">
-                        <TextBlock Text="Рыбы на выбранной локации"
-                                   FontWeight="Bold"
-                                   FontSize="14"
-                                   VerticalAlignment="Center"
-                                   Foreground="{DynamicResource TextPrimary}"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Рыбы на выбранной локации"
+                                       FontWeight="Bold"
+                                       FontSize="14"
+                                       VerticalAlignment="Center"
+                                       Foreground="{DynamicResource TextPrimary}"/>
 
-                        <!-- 🔧 Кнопка только в Debug -->
-                        <Button Content="DEV: редактировать список"
-                                Margin="12,0,0,0"
-                                Padding="12,6"
-                                FontSize="12"
-                                Style="{StaticResource EditButton}"
-                                Tag="{StaticResource IconEdit}"
-                                Visibility="{Binding Source={x:Static app:DebugFlags.IsDebug},
-                                                 Converter={StaticResource BoolToVisibilityConverter}}"
-                                Click="EditMapFishes_Click"/>
+                            <!-- 🔧 Кнопка только в Debug -->
+                            <Button Content="DEV: редактировать список"
+                                    Margin="12,0,0,0"
+                                    Padding="12,6"
+                                    FontSize="12"
+                                    Style="{StaticResource EditButton}"
+                                    Tag="{StaticResource IconEdit}"
+                                    Visibility="{Binding Source={x:Static app:DebugFlags.IsDebug},
+                                                     Converter={StaticResource BoolToVisibilityConverter}}"
+                                    Click="EditMapFishes_Click"/>
+                        </StackPanel>
+                        <!-- 🔍 Поиск рыб -->
+                        <TextBox x:Name="SearchTextBox"
+                                 Style="{StaticResource SearchTextBoxStyle}"
+                                 Tag="Поиск рыбы..."
+                                 Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                                 ToolTip="Поиск рыб по названию"/>
                     </StackPanel>
                     <!-- отображает рыб, отфильтрованных по выбранной карте -->
                     <ListBox Grid.Row="1" ItemsSource="{Binding FilteredFishes}"
