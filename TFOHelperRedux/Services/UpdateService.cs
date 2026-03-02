@@ -268,7 +268,11 @@ namespace TFOHelperRedux.Services
             batContent.AppendLine("REM Скрипт обновления TFOHelperRedux");
             batContent.AppendLine("REM Ждёт закрытия приложения и заменяет файлы");
             batContent.AppendLine();
-            batContent.AppendLine($"set APP_DIR={_appDirectory}");
+            
+            // Нормализация пути (гарантируем завершающий \)
+            var appDir = _appDirectory.TrimEnd('\\') + "\\";
+            batContent.AppendLine($"set APP_DIR={appDir}");
+            
             batContent.AppendLine($"set TEMP_ZIP={_tempZipPath}");
             batContent.AppendLine($"set TEMP_EXTRACT={_tempExtractPath}");
             batContent.AppendLine($"set EXE_NAME={Process.GetCurrentProcess().ProcessName}.exe");
@@ -289,7 +293,7 @@ namespace TFOHelperRedux.Services
             
             // 1. CatchPoints_Local.json (точки лова)
             batContent.AppendLine("REM --- Защита CatchPoints_Local.json ---");
-            batContent.AppendLine("set CATCHPOINTS_FILE=%APP_DIR%\\Maps\\CatchPoints_Local.json");
+            batContent.AppendLine("set CATCHPOINTS_FILE=%APP_DIR%Maps\\CatchPoints_Local.json");
             batContent.AppendLine("set BACKUP_CATCHPOINTS=%TEMP%\\CatchPoints_backup_%RANDOM%.json");
             batContent.AppendLine("set CATCHPOINTS_SAVED=0");
             batContent.AppendLine("if exist \"%CATCHPOINTS_FILE%\" (");
@@ -305,7 +309,7 @@ namespace TFOHelperRedux.Services
 
             // 2. BaitRecipes.json (рецепты прикормок)
             batContent.AppendLine("REM --- Защита BaitRecipes.json ---");
-            batContent.AppendLine("set RECIPES_FILE=%APP_DIR%\\Recipes\\BaitRecipes.json");
+            batContent.AppendLine("set RECIPES_FILE=%APP_DIR%Recipes\\BaitRecipes.json");
             batContent.AppendLine("set BACKUP_RECIPES=%TEMP%\\BaitRecipes_backup_%RANDOM%.json");
             batContent.AppendLine("set RECIPES_SAVED=0");
             batContent.AppendLine("if exist \"%RECIPES_FILE%\" (");
@@ -362,7 +366,7 @@ namespace TFOHelperRedux.Services
             batContent.AppendLine("echo Обновление завершено успешно!");
             batContent.AppendLine();
             batContent.AppendLine("REM Запускаем обновлённое приложение");
-            batContent.AppendLine($"start \"\" \"%APP_DIR%\\%EXE_NAME%\"");
+            batContent.AppendLine($"start \"\" \"%APP_DIR%%EXE_NAME%\"");
             batContent.AppendLine();
             batContent.AppendLine("REM Удаляем этот bat-файл");
             batContent.AppendLine("del \"%~f0\"");
