@@ -31,6 +31,7 @@
             <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
             <conv:RecipeRankToStyleConverter x:Key="RecipeRankToStyleConverter"/>
             <conv:RecipeCompositionConverter x:Key="RecipeCompositionConverter"/>
+            <conv:StripPrefixConverter x:Key="StripPrefixConverter"/>
             <conv:MapGroupConverter x:Key="MapGroupConverter"/>
             <conv:FishCheckedConverter x:Key="FishCheckedConverter"/>
             <conv:FeedCheckedConverter x:Key="FeedCheckedConverter"/>
