@@ -133,10 +133,14 @@ namespace TFOHelperRedux.ViewModels
 
             // обновляем поля текущего рецепта
             CurrentRecipe.Name = RecipeName;
+            // Rank уже обновляется через ComboBox (TwoWay binding)
 
             _recipeService.SaveRecipe(CurrentRecipe, DataStore.BaitRecipes);
-            // RebuildRecipesList() не нужен — DataStore.BaitRecipes уже обновлён,
-            // и FishFeedsViewModel получит CollectionChanged
+            
+            // Уведомляем UI об изменении свойств рецепта для перерисовки рамки
+            CurrentRecipe.NotifyPropertyChanged(nameof(CurrentRecipe.Name));
+            CurrentRecipe.NotifyPropertyChanged(nameof(CurrentRecipe.Rank));
+            CurrentRecipe.NotifyPropertyChanged(nameof(CurrentRecipe.DateEdited));
 
             _uiService.ShowInfo("Рецепт сохранён.", "Успех");
         }
