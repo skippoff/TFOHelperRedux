@@ -40,6 +40,7 @@ public class CatchPointsViewModel : BaseViewModel
     public ICommand DeletePointCmd { get; }
     public ICommand EditPointCmd { get; }
     public ICommand OpenMapCmd { get; }
+    public ICommand CopyCoordsCmd { get; }
 
     // Используем единую коллекцию из DataStore
     public ObservableCollection<CatchPointModel> CatchPoints => DataStore.CatchPoints;
@@ -61,6 +62,7 @@ public class CatchPointsViewModel : BaseViewModel
         DeletePointCmd = new RelayCommand(p => DeletePoint(p as CatchPointModel));
         EditPointCmd = new RelayCommand(p => EditPoint(p as CatchPointModel));
         OpenMapCmd = new RelayCommand(p => OpenMap(p as CatchPointModel));
+        CopyCoordsCmd = new RelayCommand(p => CopyCoords(p as CatchPointModel));
     }
 
     public void RefreshFilteredPoints(FishModel? selectedFish)
@@ -227,5 +229,15 @@ public class CatchPointsViewModel : BaseViewModel
 
             mapWindow.Activate();
         }
+    }
+
+    private void CopyCoords(CatchPointModel? point)
+    {
+        if (point == null)
+            return;
+
+        // Форматируем координаты как "X Y" без дополнения нулями
+        var coordsString = $"{point.Coords.X} {point.Coords.Y}";
+        Clipboard.SetText(coordsString);
     }
 }

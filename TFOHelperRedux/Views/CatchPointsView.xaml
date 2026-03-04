@@ -55,7 +55,15 @@
                             <!-- 📍 Координаты по центру -->
                             <TextBlock HorizontalAlignment="Center"
                                        VerticalAlignment="Top"
-                                       Margin="0,8,0,0">
+                                       Margin="0,8,0,0"
+                                       Cursor="Hand"
+                                       ToolTip="Нажмите, чтобы скопировать координаты">
+                                <TextBlock.InputBindings>
+                                    <MouseBinding Gesture="LeftClick"
+                                                  Command="{Binding DataContext.CopyCoordsCmd,
+                                                                    RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                  CommandParameter="{Binding}"/>
+                                </TextBlock.InputBindings>
                                 <Run Text="X:" Foreground="{DynamicResource TextSecondary}" FontSize="14"/>
                                 <Run Text="{Binding Coords.X}" Foreground="{DynamicResource TextPrimary}" FontSize="16"/>
                                 <Run Text="   Y:" Foreground="{DynamicResource TextSecondary}" FontSize="14"/>
