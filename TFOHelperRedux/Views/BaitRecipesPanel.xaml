@@ -95,17 +95,18 @@
                 <StackPanel Grid.Column="1" Margin="0, 0, 1, 0">
                     <TextBlock Text="Сохранённые рецепты" FontWeight="Bold" Margin="0,0,0,4" Foreground="{DynamicResource TextPrimary}"/>
                     <Border BorderThickness="1" CornerRadius="6" Padding="1" BorderBrush="{DynamicResource BorderBrushLight}">
-                        <ListBox ItemsSource="{Binding Recipes}"
+                        <ScrollViewer VerticalScrollBarVisibility="Auto"
+                                      HorizontalScrollBarVisibility="Disabled">
+                            <ListBox ItemsSource="{Binding Recipes}"
                  SelectedItem="{Binding CurrentRecipe}"
-                 ScrollViewer.VerticalScrollBarVisibility="Auto"
-                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                  ScrollViewer.CanContentScroll="True"
                  ScrollViewer.IsDeferredScrollingEnabled="True"
                  VirtualizingPanel.IsVirtualizing="True"
                  VirtualizingPanel.VirtualizationMode="Recycling"
                  BorderThickness="0"
                  Background="Transparent"
-                 HorizontalContentAlignment="Stretch">
+                 HorizontalContentAlignment="Stretch"
+                 Height="850">
 
                             <!-- 🔹 2 карточки в ряд -->
                             <ListBox.ItemsPanel>
@@ -124,6 +125,7 @@
                                     <Setter Property="Background" Value="Transparent"/>
                                     <Setter Property="BorderThickness" Value="0"/>
                                     <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                                    <Setter Property="VerticalAlignment" Value="Top"/>
 
                                     <Setter Property="Template">
                                         <Setter.Value>
@@ -149,14 +151,16 @@
                                 <DataTemplate>
                                     <Border
                                         Margin="0"
-                                        Padding="2"
+                                        Padding="0"
                                         CornerRadius="4"
-                                        HorizontalAlignment="Stretch">
+                                        HorizontalAlignment="Stretch"
+                                        Height="80"
+                                        VerticalAlignment="Top">
                                         <Border.Style>
                                             <Style TargetType="Border">
                                                 <Setter Property="BorderBrush" Value="Transparent"/>
                                                 <Setter Property="BorderThickness" Value="2"/>
-
+                                                
                                                 <!-- Когда элемент выбран — делаем цветную рамку -->
                                                 <Style.Triggers>
                                                     <DataTrigger Value="True"
@@ -169,7 +173,7 @@
                                         </Border.Style>
                                         <Border BorderThickness="8"
                                                 CornerRadius="6"
-                                                Margin="4"
+                                                Margin="8"
                                                 Padding="4"
                                                 HorizontalAlignment="Stretch"
                                                 Style="{Binding Rank, Converter={StaticResource RecipeRankToStyleConverter}}">
@@ -184,6 +188,7 @@
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
+                        </ScrollViewer>
                     </Border>
                 </StackPanel>
 
