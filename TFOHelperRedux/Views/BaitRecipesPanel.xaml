@@ -77,20 +77,20 @@
                           BorderThickness="0"
                           Height="250"/>
                     </Border>
-                    <ComboBox Width="180"
-                              SelectedValue="{Binding CurrentRecipe.Rank, Mode=TwoWay}"
-                              SelectedValuePath="Tag"
-                              Foreground="{DynamicResource TextPrimary}">
+                    <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                        <TextBlock Text="Ранг прикорма:" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,8,0" Foreground="{DynamicResource TextPrimary}"/>
+                        <ComboBox Width="180"
+                                  SelectedValue="{Binding CurrentRecipe.Rank, Mode=TwoWay}"
+                                  SelectedValuePath="Tag"
+                                  Foreground="{DynamicResource TextPrimary}">
 
                         <ComboBoxItem Content="Обычный" Tag="Normal" Foreground="{DynamicResource TextPrimary}"/>
                         <ComboBoxItem Content="Топ" Tag="Top" Foreground="{DynamicResource TextPrimary}"/>
                         <ComboBoxItem Content="Устаревший" Tag="Deprecated" Foreground="{DynamicResource TextPrimary}"/>
                         <ComboBoxItem Content="Экспериментальный" Tag="Experimental" Foreground="{DynamicResource TextPrimary}"/>
-
-                    </ComboBox>
-
-
-                </StackPanel>
+                        </ComboBox>
+                    </StackPanel>
+                </StackPanel>    
                 <!-- Правая часть -->
                 <StackPanel Grid.Column="1" Margin="0, 0, 1, 0">
                     <TextBlock Text="Сохранённые рецепты" FontWeight="Bold" Margin="0,0,0,4" Foreground="{DynamicResource TextPrimary}"/>
