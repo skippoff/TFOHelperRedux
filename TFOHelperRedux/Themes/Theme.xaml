@@ -40,24 +40,40 @@
 
     <!-- Цветовое выделение карточек рецептов -->
     <Style x:Key="RecipeBorderNormal" TargetType="Border">
-        <Setter Property="BorderBrush" Value="{DynamicResource PrimaryColor}"/>
         <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush">
+            <Setter.Value>
+                <SolidColorBrush Color="{DynamicResource RecipeNormalBorderColor}"/>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <Style x:Key="RecipeBorderTop" TargetType="Border">
-        <Setter Property="BorderBrush" Value="{DynamicResource SuccessColor}"/>
         <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="BorderBrush">
+            <Setter.Value>
+                <SolidColorBrush Color="{DynamicResource RecipeTopBorderColor}"/>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <Style x:Key="RecipeBorderExperimental" TargetType="Border">
-        <Setter Property="BorderBrush" Value="{DynamicResource AccentExperimental}"/>
         <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="BorderBrush">
+            <Setter.Value>
+                <SolidColorBrush Color="{DynamicResource RecipeExperimentalBorderColor}"/>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <Style x:Key="RecipeBorderDeprecated" TargetType="Border">
-        <Setter Property="BorderBrush" Value="{DynamicResource DangerColor}"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Opacity" Value="0.5"/>
+        <Setter Property="BorderBrush">
+            <Setter.Value>
+                <SolidColorBrush Color="{DynamicResource RecipeDeprecatedBorderColor}"/>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <!-- 🔍 Поиск: стиль для TextBox с плейсхолдером -->

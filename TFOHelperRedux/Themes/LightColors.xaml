@@ -42,7 +42,7 @@
     <Color x:Key="FishCardSelectedBgColor">#E4EFE6</Color>
     <Color x:Key="CatchPointHoverBgColor">#F2EDE4</Color>
 
-    <Color x:Key="RecipeNormalBorderColor">#4A7C59</Color>
+    <Color x:Key="RecipeNormalBorderColor">#FF1E90FF</Color>
     <Color x:Key="RecipeTopBorderColor">#4A7C59</Color>
     <Color x:Key="RecipeExperimentalBorderColor">#C47A3A</Color>
     <Color x:Key="RecipeDeprecatedBorderColor">#A94040</Color>

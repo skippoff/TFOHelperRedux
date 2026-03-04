@@ -169,7 +169,7 @@
                                         </Border.Style>
                                         <Border BorderThickness="8"
                                                 CornerRadius="6"
-                                                Margin="0"
+                                                Margin="4"
                                                 Padding="4"
                                                 HorizontalAlignment="Stretch"
                                                 Style="{Binding Rank, Converter={StaticResource RecipeRankToStyleConverter}}">
