@@ -7,7 +7,7 @@
         Height="790" Width="1200"
         WindowStartupLocation="CenterOwner"
         Background="{DynamicResource AppBackground}"
-        FontFamily="Segoe UI" FontSize="14">
+        FontFamily="Comic Sans MS" FontSize="14">
 
     <Border BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1" CornerRadius="6" Padding="10" Background="{DynamicResource PanelBackground}">
         <Grid Margin="10">
