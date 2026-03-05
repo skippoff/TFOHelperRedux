@@ -58,6 +58,19 @@ namespace TFOHelperRedux.Models
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        /// <summary>
+        /// Нормализует null значения свойств после загрузки из JSON
+        /// </summary>
+        public void Normalize()
+        {
+            Name ??= "";
+            FeedIDs ??= Array.Empty<int>();
+            LureIDs ??= Array.Empty<int>();
+            DipIDs ??= Array.Empty<int>();
+            ComponentIDs ??= Array.Empty<int>();
+            FishIDs ??= Array.Empty<int>();
+        }
     }
     public enum RecipeRank
     {

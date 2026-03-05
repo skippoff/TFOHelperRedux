@@ -337,7 +337,14 @@ public class DataLoadSaveService : IDataLoadSaveService
             Directory.CreateDirectory(RecipesDir);
         }
 
-        return LoadData<BaitRecipeModel>(BaitRecipesJson, "рецептов");
+        return LoadData<BaitRecipeModel>(BaitRecipesJson, "рецептов", recipes =>
+        {
+            // Нормализуем null значения свойств после загрузки из JSON
+            foreach (var recipe in recipes)
+            {
+                recipe.Normalize();
+            }
+        });
     }
 
     public async Task<ObservableCollection<BaitRecipeModel>> LoadBaitRecipesAsync()
@@ -348,7 +355,14 @@ public class DataLoadSaveService : IDataLoadSaveService
             Directory.CreateDirectory(RecipesDir);
         }
 
-        return await LoadDataAsync<BaitRecipeModel>(BaitRecipesJson, "рецептов");
+        return await LoadDataAsync<BaitRecipeModel>(BaitRecipesJson, "рецептов", recipes =>
+        {
+            // Нормализуем null значения свойств после загрузки из JSON
+            foreach (var recipe in recipes)
+            {
+                recipe.Normalize();
+            }
+        });
     }
 
     public ObservableCollection<DipModel> LoadDips()
@@ -388,23 +402,37 @@ public class DataLoadSaveService : IDataLoadSaveService
 
     public void SaveBaitRecipes(ObservableCollection<BaitRecipeModel> recipes)
     {
-        if (!Directory.Exists(RecipesDir))
+        if (recipes == null)
         {
-            _log.Debug("Создание папки рецептов: {Path}", RecipesDir);
-            Directory.CreateDirectory(RecipesDir);
+            _log.Warning("Попытка сохранить null коллекцию рецептов");
+            return;
         }
 
-        SaveData(BaitRecipesJson, recipes, "рецептов");
-        
-        // Создаём автоматический бэкап
         try
         {
-            var backupService = new BaitRecipesBackupService();
-            backupService.CreateBackup(recipes);
+            if (!Directory.Exists(RecipesDir))
+            {
+                _log.Debug("Создание папки рецептов: {Path}", RecipesDir);
+                Directory.CreateDirectory(RecipesDir);
+            }
+
+            SaveData(BaitRecipesJson, recipes, "рецептов");
+
+            // Создаём автоматический бэкап
+            try
+            {
+                var backupService = new BaitRecipesBackupService();
+                backupService.CreateBackup(recipes);
+            }
+            catch (Exception ex)
+            {
+                _log.Warning(ex, "Ошибка создания бэкапа рецептов");
+            }
         }
         catch (Exception ex)
         {
-            _log.Warning(ex, "Ошибка создания бэкапа рецептов");
+            _log.Error(ex, "Критическая ошибка сохранения рецептов");
+            throw;
         }
     }
 

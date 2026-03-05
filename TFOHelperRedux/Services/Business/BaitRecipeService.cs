@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Serilog;
 using TFOHelperRedux.Models;
 using TFOHelperRedux.Services.Data;
 
@@ -11,6 +12,9 @@ namespace TFOHelperRedux.Services.Business;
 /// </summary>
 public class BaitRecipeService
 {
+    private static ILogger? _log;
+    private static ILogger Log => _log ??= Serilog.Log.ForContext<BaitRecipeService>();
+    
     private readonly IDataLoadSaveService _loadSaveService;
 
     public BaitRecipeService(IDataLoadSaveService? loadSaveService = null)
@@ -84,20 +88,47 @@ public class BaitRecipeService
     /// </summary>
     public void SaveRecipe(BaitRecipeModel recipe, ObservableCollection<BaitRecipeModel> allRecipes)
     {
-        if (recipe == null || allRecipes == null)
-            return;
-
-        recipe.DateEdited = DateTime.Now;
-
-        // если рецепт ещё не в коллекции – присваиваем новый ID и добавляем
-        if (!allRecipes.Contains(recipe))
+        if (recipe == null)
         {
-            int newId = allRecipes.Any() ? allRecipes.Max(r => r.ID) + 1 : 0;
-            recipe.ID = newId;
-            allRecipes.Add(recipe);
+            Log.Warning("Попытка сохранить null рецепт");
+            throw new ArgumentNullException(nameof(recipe), "Рецепт не может быть null");
         }
 
-        _loadSaveService.SaveBaitRecipes(allRecipes);
+        if (allRecipes == null)
+        {
+            Log.Warning("Попытка сохранить рецепт в null коллекцию");
+            throw new ArgumentNullException(nameof(allRecipes), "Коллекция рецептов не может быть null");
+        }
+
+        try
+        {
+            recipe.DateEdited = DateTime.Now;
+
+            // если рецепт ещё не в коллекции – присваиваем новый ID и добавляем
+            if (!allRecipes.Contains(recipe))
+            {
+                // Проверяем каждый рецепт в коллекции на null
+                foreach (var r in allRecipes)
+                {
+                    if (r == null)
+                    {
+                        Log.Error("Обнаружен null рецепт в коллекции!");
+                        throw new InvalidOperationException("Коллекция рецептов содержит null элемент");
+                    }
+                }
+
+                int newId = allRecipes.Any() ? allRecipes.Max(r => r.ID) + 1 : 0;
+                recipe.ID = newId;
+                allRecipes.Add(recipe);
+            }
+
+            _loadSaveService?.SaveBaitRecipes(allRecipes);
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Ошибка сохранения рецепта: RecipeName={RecipeName}, ID={RecipeId}", recipe.Name, recipe.ID);
+            throw;
+        }
     }
 
     /// <summary>

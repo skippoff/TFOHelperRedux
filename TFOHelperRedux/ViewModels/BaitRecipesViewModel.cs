@@ -124,33 +124,70 @@ namespace TFOHelperRedux.ViewModels
         // 🔹 список для отображения: только не скрытые рецепты
         private void RebuildRecipesList()
         {
+            // Сохраняем текущий выбранный рецепт (по ID)
+            var currentRecipeId = CurrentRecipe?.ID;
+            
             Recipes.Clear();
 
             // свойство BaitRecipes само создаёт коллекцию при необходимости
             foreach (var r in DataStore.BaitRecipes.Where(r => !r.IsHidden))
                 Recipes.Add(r);
+            
+            // Восстанавливаем CurrentRecipe, если он существует в коллекции
+            if (currentRecipeId.HasValue)
+            {
+                var restoredRecipe = DataStore.BaitRecipes.FirstOrDefault(r => r.ID == currentRecipeId.Value);
+                if (restoredRecipe != null && !restoredRecipe.IsHidden)
+                {
+                    // Не вызываем setter напрямую, чтобы избежать рекурсии
+                    _currentRecipe = restoredRecipe;
+                    RecipeName = restoredRecipe.Name;
+                    UpdatePreviewList();
+                    OnPropertyChanged(nameof(CurrentRecipe));
+                }
+            }
         }
 
         private void SaveRecipe()
         {
-            if (CurrentRecipe == null || string.IsNullOrWhiteSpace(RecipeName))
+            try
             {
-                _uiService.ShowWarning("Введите название рецепта.", "Сохранение");
-                return;
+                if (CurrentRecipe == null)
+                {
+                    _uiService.ShowWarning("Текущий рецепт не выбран.", "Сохранение");
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(RecipeName))
+                {
+                    _uiService.ShowWarning("Введите название рецепта.", "Сохранение");
+                    return;
+                }
+
+                // Нормализуем рецепт перед сохранением (защита от null значений)
+                CurrentRecipe.Normalize();
+
+                // обновляем поля текущего рецепта
+                CurrentRecipe.Name = RecipeName;
+                // Rank уже обновляется через ComboBox (TwoWay binding)
+
+                _recipeService.SaveRecipe(CurrentRecipe, DataStore.BaitRecipes);
+
+                // Уведомляем UI об изменении свойств рецепта для перерисовки рамки
+                if (CurrentRecipe != null)
+                {
+                    CurrentRecipe.NotifyPropertyChanged(nameof(CurrentRecipe.Name));
+                    CurrentRecipe.NotifyPropertyChanged(nameof(CurrentRecipe.Rank));
+                    CurrentRecipe.NotifyPropertyChanged(nameof(CurrentRecipe.DateEdited));
+                }
+
+                _uiService.ShowInfo("Рецепт сохранён.", "Успех");
             }
-
-            // обновляем поля текущего рецепта
-            CurrentRecipe.Name = RecipeName;
-            // Rank уже обновляется через ComboBox (TwoWay binding)
-
-            _recipeService.SaveRecipe(CurrentRecipe, DataStore.BaitRecipes);
-            
-            // Уведомляем UI об изменении свойств рецепта для перерисовки рамки
-            CurrentRecipe.NotifyPropertyChanged(nameof(CurrentRecipe.Name));
-            CurrentRecipe.NotifyPropertyChanged(nameof(CurrentRecipe.Rank));
-            CurrentRecipe.NotifyPropertyChanged(nameof(CurrentRecipe.DateEdited));
-
-            _uiService.ShowInfo("Рецепт сохранён.", "Успех");
+            catch (Exception ex)
+            {
+                _uiService?.ShowError($"Ошибка сохранения рецепта: {ex.Message}\n\n{ex.StackTrace}", "Ошибка");
+                throw;
+            }
         }
 
         private void NewRecipe()
