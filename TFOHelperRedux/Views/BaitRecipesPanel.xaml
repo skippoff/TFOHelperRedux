@@ -122,7 +122,7 @@
                             <!-- 🔹 2 карточки в ряд -->
                             <ListBox.ItemsPanel>
                                 <ItemsPanelTemplate>
-                                    <UniformGrid Columns="2" IsItemsHost="True"/>
+                                    <WrapPanel IsItemsHost="True"/>
                                 </ItemsPanelTemplate>
                             </ListBox.ItemsPanel>
 
@@ -130,7 +130,7 @@
                             <ListBox.ItemContainerStyle>
                                 <Style TargetType="ListBoxItem">
                                     <Setter Property="Padding" Value="0"/>
-                                    <Setter Property="Margin" Value="4"/>
+                                    <Setter Property="Margin" Value="2"/>
                                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                                     <Setter Property="VerticalContentAlignment" Value="Top"/>
                                     <Setter Property="Background" Value="Transparent"/>
@@ -165,6 +165,7 @@
                                         Padding="0"
                                         CornerRadius="4"
                                         HorizontalAlignment="Stretch"
+                                        Width="240"
                                         Height="80"
                                         VerticalAlignment="Top">
                                         <Border.Style>
