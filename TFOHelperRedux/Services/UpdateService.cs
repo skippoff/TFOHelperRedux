@@ -323,12 +323,31 @@ namespace TFOHelperRedux.Services
             batContent.AppendLine(")");
             batContent.AppendLine();
 
+            // 3. Папка backups (автобэкапы рецептов - максимум 5 файлов)
+            batContent.AppendLine("REM --- Защита папки backups (автобэкапы рецептов) ---");
+            batContent.AppendLine("set BACKUPS_DIR=%APP_DIR%backups");
+            batContent.AppendLine("set BACKUP_BACKUPS=%TEMP%\\backups_backup_%RANDOM%");
+            batContent.AppendLine("set BACKUPS_SAVED=0");
+            batContent.AppendLine("if exist \"%BACKUPS_DIR%\" (");
+            batContent.AppendLine("    mkdir \"%BACKUP_BACKUPS%\" >nul 2>&1");
+            batContent.AppendLine("    xcopy /E /Y /I \"%BACKUPS_DIR%\\*\" \"%BACKUP_BACKUPS%\" >nul");
+            batContent.AppendLine("    if errorlevel 1 (");
+            batContent.AppendLine("        echo ОШИБКА: не удалось сохранить папку backups!");
+            batContent.AppendLine("        rmdir /Q \"%BACKUP_BACKUPS%\" 2>nul");
+            batContent.AppendLine("        pause");
+            batContent.AppendLine("        exit /b 1");
+            batContent.AppendLine("    )");
+            batContent.AppendLine("    set BACKUPS_SAVED=1");
+            batContent.AppendLine(")");
+            batContent.AppendLine();
+
             // Копирование файлов обновления с проверкой
             batContent.AppendLine("xcopy /E /Y /I \"%TEMP_EXTRACT%\\*\" \"%APP_DIR%\"");
             batContent.AppendLine("if errorlevel 1 (");
             batContent.AppendLine("    echo ОШИБКА: не удалось скопировать файлы!");
             batContent.AppendLine("    if \"%CATCHPOINTS_SAVED%\"==\"1\" copy /Y \"%BACKUP_CATCHPOINTS%\" \"%CATCHPOINTS_FILE%\" >nul");
             batContent.AppendLine("    if \"%RECIPES_SAVED%\"==\"1\" copy /Y \"%BACKUP_RECIPES%\" \"%RECIPES_FILE%\" >nul");
+            batContent.AppendLine("    if \"%BACKUPS_SAVED%\"==\"1\" xcopy /E /Y /I \"%BACKUP_BACKUPS%\\*\" \"%BACKUPS_DIR%\" >nul");
             batContent.AppendLine("    pause");
             batContent.AppendLine("    exit /b 1");
             batContent.AppendLine(")");
@@ -356,6 +375,17 @@ namespace TFOHelperRedux.Services
             batContent.AppendLine("        exit /b 1");
             batContent.AppendLine("    )");
             batContent.AppendLine("    del \"%BACKUP_RECIPES%\" 2>nul");
+            batContent.AppendLine(")");
+            batContent.AppendLine();
+            batContent.AppendLine("if \"%BACKUPS_SAVED%\"==\"1\" (");
+            batContent.AppendLine("    xcopy /E /Y /I \"%BACKUP_BACKUPS%\\*\" \"%BACKUPS_DIR%\" >nul");
+            batContent.AppendLine("    if errorlevel 1 (");
+            batContent.AppendLine("        echo ОШИБКА: не удалось восстановить папку backups!");
+            batContent.AppendLine("        echo Бэкап: %BACKUP_BACKUPS%");
+            batContent.AppendLine("        pause");
+            batContent.AppendLine("        exit /b 1");
+            batContent.AppendLine("    )");
+            batContent.AppendLine("    rmdir /S /Q \"%BACKUP_BACKUPS%\" 2>nul");
             batContent.AppendLine(")");
             batContent.AppendLine();
 
