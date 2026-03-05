@@ -6,6 +6,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Serilog;
 using TFOHelperRedux.Models;
+using TFOHelperRedux.Services.Business;
 
 namespace TFOHelperRedux.Services.Data;
 
@@ -394,6 +395,17 @@ public class DataLoadSaveService : IDataLoadSaveService
         }
 
         SaveData(BaitRecipesJson, recipes, "рецептов");
+        
+        // Создаём автоматический бэкап
+        try
+        {
+            var backupService = new BaitRecipesBackupService();
+            backupService.CreateBackup(recipes);
+        }
+        catch (Exception ex)
+        {
+            _log.Warning(ex, "Ошибка создания бэкапа рецептов");
+        }
     }
 
     public void SaveDips(ObservableCollection<DipModel> dips)

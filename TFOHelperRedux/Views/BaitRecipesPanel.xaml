@@ -56,6 +56,17 @@
                         Command="{Binding DeleteRecipeCmd}"
                         Background="{DynamicResource DangerColor}"
                         ToolTip="Удалить рецепт"/>
+                <Separator Width="20" Margin="8,0,8,0" Background="{DynamicResource BorderBrushLight}"/>
+                <Button Style="{StaticResource SmallIconButton}"
+                        Tag="{StaticResource IconRestore}"
+                        Command="{Binding RestoreFromBackupCmd}"
+                        Background="{DynamicResource ButtonEditBrush}"
+                        ToolTip="Восстановить из бэкапа"/>
+                <Button Style="{StaticResource SmallIconButton}"
+                        Tag="{StaticResource IconExport}"
+                        Command="{Binding SaveCopyCmd}"
+                        Background="{DynamicResource ButtonExportBrush}"
+                        ToolTip="Сохранить копию рецептов в файл"/>
             </StackPanel>
             <!-- Содержимое -->
             <Grid Grid.Row="1">

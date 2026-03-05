@@ -6,6 +6,7 @@ using TFOHelperRedux.Models;
 using TFOHelperRedux.Services.Business;
 using TFOHelperRedux.Services.Data;
 using TFOHelperRedux.Services.UI;
+using TFOHelperRedux.Views;
 
 namespace TFOHelperRedux.ViewModels
 {
@@ -47,11 +48,16 @@ namespace TFOHelperRedux.ViewModels
         public ICommand NewRecipeCmd { get; }
         public ICommand DeleteRecipeCmd { get; }
         public ICommand ClearRecipeCmd { get; }
+        public ICommand RestoreFromBackupCmd { get; }
+        public ICommand SaveCopyCmd { get; }
+
+        private readonly BaitRecipesBackupService _backupService;
 
         public BaitRecipesViewModel(IUIService uiService)
         {
             _uiService = uiService;
             _recipeService = new BaitRecipeService();
+            _backupService = new BaitRecipesBackupService();
 
             // гарантируем, что главная коллекция существует
             // свойство BaitRecipes само создаёт коллекцию при необходимости
@@ -74,6 +80,8 @@ namespace TFOHelperRedux.ViewModels
             NewRecipeCmd = new RelayCommand(NewRecipe);
             DeleteRecipeCmd = new RelayCommand(DeleteRecipe);
             ClearRecipeCmd = new RelayCommand(ClearRecipe);
+            RestoreFromBackupCmd = new RelayCommand(RestoreFromBackup);
+            SaveCopyCmd = new RelayCommand(SaveCopy);
 
             // Связываем двойной клик из левой панели
             DataStore.AddToRecipe = AddToCurrentRecipe;
@@ -181,6 +189,69 @@ namespace TFOHelperRedux.ViewModels
             // Явно перестраиваем список, т.к. удаление вызывает CollectionChanged
             RebuildRecipesList();
             NewRecipe();
+        }
+
+        private void RestoreFromBackup()
+        {
+            var backups = _backupService.GetAvailableBackups();
+            
+            if (backups.Count == 0)
+            {
+                _uiService.ShowInfo("Бэкапы не найдены.", "Восстановление");
+                return;
+            }
+
+            // Создаём окно выбора бэкапа
+            var window = new BaitRecipesBackupWindow(backups);
+            window.Owner = Application.Current.MainWindow;
+            
+            if (window.ShowDialog() == true && window.SelectedBackup != null)
+            {
+                var result = _uiService.ShowMessageBox(
+                    $"Восстановить рецепты из бэкапа от {window.SelectedBackup.DisplayName}?\n\n" +
+                    "Все текущие рецепты будут заменены.",
+                    "Восстановление из бэкапа",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    var recipes = _backupService.LoadFromBackup(window.SelectedBackup.FilePath);
+                    
+                    // Очищаем текущую коллекцию и добавляем загруженные рецепты
+                    DataStore.BaitRecipes.Clear();
+                    foreach (var recipe in recipes)
+                    {
+                        DataStore.BaitRecipes.Add(recipe);
+                    }
+
+                    RebuildRecipesList();
+                    _uiService.ShowInfo("Рецепты восстановлены из бэкапа.", "Успех");
+                }
+            }
+        }
+
+        private void SaveCopy()
+        {
+            var dialog = new Microsoft.Win32.SaveFileDialog
+            {
+                Filter = "JSON файл|*.json",
+                Title = "Сохранить копию рецептов",
+                FileName = $"baitrecipes_backup_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.json"
+            };
+
+            if (dialog.ShowDialog() == true)
+            {
+                try
+                {
+                    _backupService.SaveCopy(DataStore.BaitRecipes, dialog.FileName);
+                    _uiService.ShowInfo($"Копия рецептов сохранена в файл:\n{dialog.FileName}", "Успех");
+                }
+                catch (Exception ex)
+                {
+                    _uiService.ShowError($"Ошибка сохранения: {ex.Message}", "Ошибка");
+                }
+            }
         }
     }
 }
