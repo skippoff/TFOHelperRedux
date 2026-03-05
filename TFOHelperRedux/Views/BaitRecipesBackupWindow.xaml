@@ -56,18 +56,21 @@
             </ListBox>
 
             <!-- Кнопки -->
-            <StackPanel Grid.Row="2" 
-                        Orientation="Horizontal" 
+            <StackPanel Grid.Row="2"
+                        Orientation="Horizontal"
                         HorizontalAlignment="Right"
                         Margin="0,10,0,0">
-                <Button Content="Отмена" 
-                        Width="80"
-                        Height="30"
+                <Button Content="Отмена"
+                        Height="35"
+                        MinWidth="80"
+                        Padding="16,8"
+                        HorizontalContentAlignment="Center"
                         Margin="0,0,10,0"
                         Click="CancelButton_Click"/>
-                <Button Content="Восстановить" 
-                        Width="100"
-                        Height="30"
+                <Button Content="Восстановить"
+                        Height="35"
+                        Padding="16,8"
+                        HorizontalContentAlignment="Center"
                         Click="RestoreButton_Click"
                         Style="{StaticResource PrimaryButtonStyle}"/>
             </StackPanel>
