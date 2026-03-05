@@ -63,14 +63,10 @@
                 <Button Content="Отмена"
                         Height="35"
                         MinWidth="80"
-                        Padding="16,8"
-                        HorizontalContentAlignment="Center"
                         Margin="0,0,10,0"
                         Click="CancelButton_Click"/>
                 <Button Content="Восстановить"
                         Height="35"
-                        Padding="16,8"
-                        HorizontalContentAlignment="Center"
                         Click="RestoreButton_Click"
                         Style="{StaticResource PrimaryButtonStyle}"/>
             </StackPanel>

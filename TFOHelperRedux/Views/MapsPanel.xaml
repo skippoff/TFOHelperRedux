@@ -59,7 +59,7 @@
                                         <GroupStyle.HeaderTemplate>
                                             <DataTemplate>
                                                 <TextBlock Text="{Binding Name, Converter={StaticResource MapGroupConverter}}"
-                                                           FontSize="14"
+                                                           FontSize="16"
                                                            FontWeight="Bold"
                                                            Margin="4,8,4,2"
                                                            Padding="4,2">
