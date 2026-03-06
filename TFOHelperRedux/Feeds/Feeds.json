@@ -228,5 +228,15 @@
     "Name": "Вареный рис",
     "Comment": "",
     "DateEdited": "2021-01-15T11:58:51.5268472+03:00"
+  },
+  {
+    "IsCraftable": true,
+    "Tags": null,
+    "FishIDs": null,
+    "Group": "",
+    "ID": 16,
+    "Name": "SF Сиг",
+    "Comment": "",
+    "DateEdited": "2021-01-15T11:58:51.5268472+03:00"
   }
 ]
